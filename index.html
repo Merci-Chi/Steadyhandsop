@@ -2046,6 +2046,64 @@ body.modal-open{overflow:hidden;}
   .payment-check-path{stroke-dashoffset:0;}
 }
 
+
+
+/* Compact mobile CTA cards */
+@media (max-width:620px){
+  .site-cta-actions{
+    align-items:center !important;
+    gap:10px !important;
+  }
+
+  .site-cta-choice{
+    flex:0 0 auto !important;
+    width:min(82%, 275px) !important;
+    min-height:0 !important;
+    padding:7px 9px 9px !important;
+    gap:6px !important;
+    border-radius:13px !important;
+  }
+
+  .site-cta-note{
+    flex:0 0 auto !important;
+    gap:6px !important;
+    font-size:8.5px !important;
+    line-height:1 !important;
+    letter-spacing:.12em !important;
+  }
+
+  .site-cta-note::before,
+  .site-cta-note::after{
+    width:13px !important;
+    height:2px !important;
+  }
+
+  .site-cta-btn{
+    flex:0 0 auto !important;
+    width:100% !important;
+    height:40px !important;
+    min-height:40px !important;
+    max-height:40px !important;
+    padding:0 14px !important;
+    border-radius:10px !important;
+    font-size:12px !important;
+    line-height:40px !important;
+  }
+}
+
+@media (max-width:390px){
+  .site-cta-choice{
+    width:min(86%, 255px) !important;
+  }
+
+  .site-cta-btn{
+    height:38px !important;
+    min-height:38px !important;
+    max-height:38px !important;
+    line-height:38px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2070,11 +2128,11 @@ body.modal-open{overflow:hidden;}
 <div class="site-cta-actions">
 <div class="site-cta-choice">
 <span class="site-cta-note">Starting New?</span>
-<button aria-controls="new-site-modal" aria-haspopup="dialog" class="site-cta-btn primary" id="open-new-site" type="button">Build It Right</button>
+<button aria-controls="new-site-modal" aria-haspopup="dialog" class="site-cta-btn primary" id="open-new-site" type="button">Build a Site</button>
 </div>
 <div class="site-cta-choice">
 <span class="site-cta-note">Own a site?</span>
-<button aria-controls="site-audit-modal" aria-haspopup="dialog" class="site-cta-btn secondary" id="open-site-audit" type="button">Make It Better</button>
+<button aria-controls="site-audit-modal" aria-haspopup="dialog" class="site-cta-btn secondary" id="open-site-audit" type="button">Make It Right</button>
 </div>
 </div>
 </section>
