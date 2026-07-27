@@ -1829,27 +1829,132 @@ html, body{
   }
 }
 
+
+/* Simplified brand-only header */
+.nav{justify-content:flex-start !important;}
+.nav-links,.menu-btn{display:none !important;}
+.site-header .brand{margin-right:auto;}
+
+/* Website improvement intake modal */
+body.modal-open{overflow:hidden;}
+.intake-modal{
+  position:fixed;
+  z-index:3000;
+  inset:0;
+  display:none;
+  place-items:center;
+  padding:24px;
+  background:rgba(3,17,43,.72);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+}
+.intake-modal.is-open{display:grid;}
+.intake-dialog{
+  position:relative;
+  width:min(820px,100%);
+  max-height:min(90vh,900px);
+  overflow:auto;
+  color:#173665;
+  background:linear-gradient(155deg,rgba(255,255,255,.99),rgba(230,243,255,.98));
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:28px;
+  box-shadow:0 28px 80px rgba(0,0,0,.38),inset 0 1px 0 #fff;
+}
+.intake-header{padding:30px 64px 20px 30px;border-bottom:1px solid rgba(38,84,157,.13);}
+.intake-header .eyebrow{margin-bottom:7px;color:#3977ba;text-transform:uppercase;letter-spacing:.14em;}
+.intake-header h2{margin:0;font-size:clamp(28px,4vw,42px);line-height:1;letter-spacing:-.045em;}
+.intake-header p{margin:12px 0 0;color:#55718f;line-height:1.55;}
+.intake-close{
+  position:absolute;top:18px;right:18px;display:grid;place-items:center;width:42px;height:42px;padding:0;
+  color:#173665;background:#fff;border:1px solid rgba(38,84,157,.18);border-radius:50%;font-size:25px;line-height:1;
+  box-shadow:0 8px 18px rgba(20,61,115,.12);
+}
+.intake-form{display:grid;gap:24px;padding:26px 30px 30px;}
+.intake-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}
+.intake-field{display:grid;gap:8px;}
+.intake-field.full{grid-column:1/-1;}
+.intake-field label,.intake-legend{font-weight:800;color:#173665;}
+.intake-field input,.intake-field select,.intake-field textarea{
+  width:100%;padding:13px 14px;color:#173665;background:rgba(255,255,255,.88);border:1px solid rgba(66,126,185,.35);border-radius:13px;outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.intake-field input:focus,.intake-field select:focus,.intake-field textarea:focus{border-color:#397fc4;box-shadow:0 0 0 4px rgba(57,127,196,.13);}
+.intake-field textarea{min-height:108px;resize:vertical;}
+.intake-group{display:grid;gap:12px;margin:0;padding:0;border:0;}
+.intake-helper{margin:0;color:#66809b;font-size:13px;line-height:1.45;}
+.color-builder{display:grid;gap:16px;}
+.color-role{display:grid;gap:12px;padding:16px;background:rgba(255,255,255,.58);border:1px solid rgba(66,126,185,.20);border-radius:17px;}
+.color-role-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.color-role-title{display:flex;align-items:center;gap:9px;font-weight:800;color:#173665;}
+.color-role-title small{font-size:11px;font-weight:800;color:#6b829a;text-transform:uppercase;letter-spacing:.08em;}
+.color-selection{display:flex;align-items:center;gap:8px;min-width:0;color:#55718f;font-size:12px;font-weight:800;}
+.color-selection-dot{width:22px;height:22px;flex:0 0 22px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(31,79,128,.22);background:linear-gradient(135deg,#eef4f9,#dce7f1);}
+.color-selection-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.color-families,.color-shades{display:flex;flex-wrap:wrap;gap:9px;}
+.color-circle{position:relative;display:grid;place-items:center;width:40px;height:40px;padding:0;border:2px solid rgba(255,255,255,.95);border-radius:50%;background:var(--circle-color);box-shadow:0 0 0 1px rgba(24,69,130,.20),0 5px 12px rgba(24,69,130,.11);transition:transform .18s ease,box-shadow .18s ease;}
+.color-circle:hover{transform:translateY(-2px) scale(1.05);}
+.color-circle.is-selected{box-shadow:0 0 0 3px #347fc6,0 7px 15px rgba(24,69,130,.18);transform:scale(1.06);}
+.color-circle:focus-visible{outline:3px solid rgba(52,127,198,.30);outline-offset:3px;}
+.color-circle.light-swatch{border-color:rgba(35,74,116,.20);}
+.color-circle::after{content:attr(aria-label);position:absolute;left:50%;bottom:calc(100% + 7px);z-index:4;width:max-content;max-width:150px;padding:5px 7px;color:#fff;font-size:10px;font-weight:800;background:#173665;border-radius:7px;opacity:0;pointer-events:none;transform:translate(-50%,4px);transition:.16s ease;}
+.color-circle:hover::after,.color-circle:focus-visible::after{opacity:1;transform:translate(-50%,0);}
+.color-shade-wrap{display:grid;gap:8px;padding-top:2px;}
+.color-shade-label{margin:0;color:#66809b;font-size:12px;font-weight:800;}
+.color-clear{justify-self:start;padding:7px 10px;color:#31577f;background:#fff;border:1px solid rgba(62,124,184,.28);border-radius:999px;font-size:11px;font-weight:800;}
+.color-clear[hidden]{display:none;}
+@media(max-width:520px){.color-role-head{align-items:flex-start;flex-direction:column;}.color-selection{width:100%;}}
+.page-tags{display:flex;flex-wrap:wrap;gap:9px;}
+.page-tag{position:relative;cursor:pointer;}
+.page-tag input{position:absolute;opacity:0;pointer-events:none;}
+.page-tag span{display:inline-flex;align-items:center;min-height:40px;padding:9px 14px;color:#31577f;background:rgba(255,255,255,.82);border:1px solid rgba(62,124,184,.28);border-radius:999px;font-size:13px;font-weight:800;transition:.2s ease;}
+.page-tag input:checked + span{color:#fff;background:linear-gradient(135deg,#397fc4,#194e92);border-color:transparent;box-shadow:0 8px 16px rgba(25,78,146,.20);}
+.page-tag input:focus-visible + span{outline:3px solid rgba(52,127,198,.28);outline-offset:2px;}
+.other-page-wrap{display:none;margin-top:2px;}
+.other-page-wrap.is-visible{display:block;}
+.intake-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:4px;}
+.intake-submit{min-height:52px;padding:13px 22px;color:#fff;background:linear-gradient(135deg,#397fc4,#194e92);border:0;border-radius:14px;font-weight:800;box-shadow:0 11px 22px rgba(25,78,146,.25);}
+.intake-status{min-height:22px;margin:0;color:#21653e;font-size:13px;font-weight:800;}
+@media(max-width:700px){
+  .intake-modal{padding:10px;align-items:end;}
+  .intake-dialog{max-height:94vh;border-radius:24px 24px 0 0;}
+  .intake-header{padding:24px 58px 17px 20px;}
+  .intake-form{padding:20px;}
+  .intake-grid{grid-template-columns:1fr;}
+  .intake-field.full{grid-column:auto;}
+  .intake-actions{align-items:stretch;flex-direction:column;}
+  .intake-submit{width:100%;}
+}
+
+
+.required-mark{color:#b42318;font-weight:900;margin-left:3px;}
+.contact-toggle{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:5px;background:rgba(213,231,247,.72);border:1px solid rgba(66,126,185,.22);border-radius:14px;}
+.contact-choice{position:relative;cursor:pointer;}
+.contact-choice input{position:absolute;opacity:0;pointer-events:none;}
+.contact-choice span{display:flex;align-items:center;justify-content:center;min-height:43px;padding:9px 12px;color:#31577f;background:transparent;border-radius:10px;font-size:13px;font-weight:800;transition:.2s ease;}
+.contact-choice input:checked + span{color:#fff;background:linear-gradient(135deg,#397fc4,#194e92);box-shadow:0 7px 15px rgba(25,78,146,.19);}
+.contact-choice input:focus-visible + span{outline:3px solid rgba(52,127,198,.28);outline-offset:2px;}
+.contact-panel[hidden]{display:none!important;}
+.intake-required-note{margin:0;color:#6a8098;font-size:12px;font-weight:700;}
+
+
+.other-type-wrap{display:none;margin-top:14px;}
+.other-type-wrap.is-visible{display:block;}
+.project-kind-group{margin:0!important;}
+.project-kind-tags .page-tag input[type="radio"]{position:absolute;opacity:0;pointer-events:none;}
+.project-kind-tags .page-tag:has(input:checked) span{color:#fff;background:linear-gradient(135deg,#3d8fda,#17498f);border-color:rgba(255,255,255,.45);box-shadow:0 8px 16px rgba(18,61,132,.22);}
 </style>
 </head>
 <body>
 <!-- SITE HEADER AND NAVIGATION --><header class="site-header">
 <nav aria-label="Main navigation" class="nav">
-<a aria-label="Steady Hands Operation home" class="brand" href="index.html">
+<a aria-label="Steady Hands Operation home" class="brand" href="#home">
 <img alt="" aria-hidden="true" class="brand-logo" src="images/logo.jpg"/>
 <span aria-label="Steady Hands Operation" class="brand-title">
 <span class="brand-title-top">Steady Hands</span>
 <span class="brand-title-bottom">Operation</span>
 </span>
 </a>
-<button aria-expanded="false" aria-label="Toggle menu" class="menu-btn" type="button">☰</button>
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a aria-current="page" class="active" href="websites.html">Websites</a>
-<a href="services.html">Services</a>
-<a href="reviews.html">Reviews</a>
-<a href="contact.html">Contact</a>
-</div>
+
 </nav>
 </header>
 <!-- HERO, CTA, AND INTERACTIVE PREVIEWS --><main class="hero" id="home">
@@ -1861,11 +1966,11 @@ html, body{
 <div class="site-cta-actions">
 <div class="site-cta-choice">
 <span class="site-cta-note">Starting New?</span>
-<a class="site-cta-btn primary" href="#packages">Build It Right</a>
+<button aria-controls="new-site-modal" aria-haspopup="dialog" class="site-cta-btn primary" id="open-new-site" type="button">Build It Right</button>
 </div>
 <div class="site-cta-choice">
 <span class="site-cta-note">Own a site?</span>
-<a class="site-cta-btn secondary" href="#packages">Make It Better</a>
+<button aria-controls="site-audit-modal" aria-haspopup="dialog" class="site-cta-btn secondary" id="open-site-audit" type="button">Make It Better</button>
 </div>
 </div>
 </section>
@@ -2099,6 +2204,123 @@ html, body{
 </section>
 <section aria-label="Reviews" class="anchor-section" id="reviews"></section>
 <section aria-label="Contact" class="anchor-section" id="contact"></section>
+
+<!-- WEBSITE PROJECT INTAKE MODALS -->
+<div aria-hidden="true" class="intake-modal" id="site-audit-modal" data-project-type="Website Improvement">
+<section aria-describedby="site-audit-description" aria-labelledby="site-audit-title" aria-modal="true" class="intake-dialog" role="dialog">
+<button aria-label="Close website improvement form" class="intake-close" type="button">×</button>
+<header class="intake-header"><p class="eyebrow">Improve your current website</p><h2 id="site-audit-title">Tell us what needs to be better.</h2><p id="site-audit-description">Your selections will be placed into a ready-to-send email draft.</p></header>
+<form class="intake-form project-intake-form">
+<p class="intake-required-note"><span class="required-mark">*</span> Required</p>
+<div class="intake-grid">
+<div class="intake-field"><label>Your name <span class="required-mark">*</span></label><input autocomplete="name" name="name" required type="text"></div>
+<div class="intake-field"><label>Current website domain <span class="required-mark">*</span></label><input autocomplete="url" name="currentDomain" placeholder="example.com" required type="text"></div>
+<div class="intake-field"><label>Current monthly website spend</label><input min="0" name="monthlySpend" placeholder="$150" step="1" type="number"></div>
+<div class="intake-field"><label>Main goal <span class="required-mark">*</span></label><select name="mainGoal" required><option value="">Choose one</option><option>Get more leads</option><option>Sell products or services</option><option>Book appointments</option><option>Look more professional</option><option>Improve speed and usability</option><option>Make updates easier</option><option>Other</option></select></div>
+<div class="intake-field"><label>Preferred timeline <span class="required-mark">*</span></label><select name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>Within 2–4 weeks</option><option>Within 1–2 months</option><option>Just exploring</option></select></div>
+<div class="intake-field full"><label>What is not working well now?</label><textarea name="currentProblems" placeholder="Slow loading, outdated design, difficult editing, poor mobile layout..."></textarea></div>
+</div>
+<fieldset class="intake-group"><legend class="intake-legend">Choose your site colors</legend><p class="intake-helper">Primary is required. Secondary and Accent are optional.</p><div class="color-builder">
+  <div class="color-role" data-color-role="primary">
+    <div class="color-role-head"><div class="color-role-title">Primary color <span class="required-mark">*</span></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Choose a color</span></div></div>
+    <div aria-label="Primary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear primary color</button>
+    <input name="primaryColor" required type="hidden">
+  </div>
+  <div class="color-role" data-color-role="secondary">
+    <div class="color-role-head"><div class="color-role-title">Secondary color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
+    <div aria-label="Secondary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear secondary color</button><input name="secondaryColor" type="hidden">
+  </div>
+  <div class="color-role" data-color-role="accent">
+    <div class="color-role-head"><div class="color-role-title">Accent color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
+    <div aria-label="Accent color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear accent color</button><input name="accentColor" type="hidden">
+  </div>
+</div></fieldset>
+<fieldset class="intake-group pages-group">
+  <legend class="intake-legend">Pages wanted <span class="required-mark">*</span></legend>
+  <p class="intake-helper">Select every page you want included.</p>
+  <div class="page-tags">
+    <label class="page-tag"><input checked name="pages" type="checkbox" value="Home"><span>Home</span></label><label class="page-tag"><input name="pages" type="checkbox" value="About"><span>About</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Services"><span>Services</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Products / Shop"><span>Products / Shop</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Portfolio / Gallery"><span>Portfolio / Gallery</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Booking"><span>Booking</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Blog"><span>Blog</span></label><label class="page-tag"><input name="pages" type="checkbox" value="FAQ"><span>FAQ</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Reviews"><span>Reviews</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Contact"><span>Contact</span></label><label class="page-tag"><input class="other-page-toggle" name="pages" type="checkbox" value="Other"><span>Other</span></label>
+  </div>
+  <div class="intake-field other-page-wrap"><label>Other page(s) <span class="required-mark">*</span></label><input class="other-pages" name="otherPages" placeholder="Membership, resources, locations..." type="text"></div>
+</fieldset>
+<fieldset class="intake-group contact-method-group">
+  <legend class="intake-legend">Preferred contact method <span class="required-mark">*</span></legend>
+  <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
+    <label class="contact-choice"><input checked name="contactMethod" type="radio" value="Email"><span>Email</span></label>
+    <label class="contact-choice"><input name="contactMethod" type="radio" value="Phone"><span>Phone</span></label>
+  </div>
+  <div class="contact-panel" data-contact-panel="Email"><div class="intake-field"><label>Email address <span class="required-mark">*</span></label><input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com"></div></div>
+  <div class="contact-panel" data-contact-panel="Phone" hidden><div class="intake-field"><label>Phone number <span class="required-mark">*</span></label><input autocomplete="tel" class="contact-phone" name="phone" type="tel" placeholder="(555) 555-5555"></div></div>
+</fieldset>
+<div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
+</form></section></div>
+
+<div aria-hidden="true" class="intake-modal" id="new-site-modal" data-project-type="New Website Build">
+<section aria-describedby="new-site-description" aria-labelledby="new-site-title" aria-modal="true" class="intake-dialog" role="dialog">
+<button aria-label="Close new website form" class="intake-close" type="button">×</button>
+<header class="intake-header"><p class="eyebrow">Build a new website</p><h2 id="new-site-title">Let’s build it right.</h2><p id="new-site-description">Choose the site details you want and we’ll prepare a complete email draft.</p></header>
+<form class="intake-form project-intake-form">
+<p class="intake-required-note"><span class="required-mark">*</span> Required</p>
+<div class="intake-grid">
+<div class="intake-field"><label>Your name <span class="required-mark">*</span></label><input autocomplete="name" name="name" required type="text"></div>
+<div class="intake-field"><label>Business or project name <span class="required-mark">*</span></label><input name="businessName" required type="text"></div>
+<div class="intake-field"><label>Industry or specialty <span class="required-mark">*</span></label><input name="businessType" placeholder="Restaurant, contractor, consultant..." required type="text"></div>
+<div class="intake-field full">
+  <fieldset class="intake-group project-kind-group">
+    <legend class="intake-legend">Website type <span class="required-mark">*</span></legend>
+    <p class="intake-helper">Choose the option that best describes the new site.</p>
+    <div class="page-tags project-kind-tags">
+      <label class="page-tag"><input name="websiteType" required type="radio" value="Personal"><span>Personal</span></label>
+      <label class="page-tag"><input name="websiteType" type="radio" value="Business"><span>Business</span></label>
+      <label class="page-tag"><input name="websiteType" type="radio" value="Admin"><span>Admin</span></label>
+      <label class="page-tag"><input name="websiteType" type="radio" value="Nonprofit"><span>Nonprofit</span></label>
+      <label class="page-tag"><input name="websiteType" type="radio" value="Portfolio"><span>Portfolio</span></label>
+      <label class="page-tag"><input name="websiteType" type="radio" value="Online Store"><span>Online Store</span></label>
+      <label class="page-tag"><input class="other-type-toggle" name="websiteType" type="radio" value="Other"><span>Other</span></label>
+    </div>
+    <div class="intake-field other-type-wrap"><label>Other website type <span class="required-mark">*</span></label><input class="other-website-type" name="otherWebsiteType" placeholder="Community portal, directory, event site..." type="text"></div>
+  </fieldset>
+</div>
+<div class="intake-field"><label>Estimated website budget</label><select name="budget"><option>Not sure yet</option><option>Under $1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000+</option></select></div>
+<div class="intake-field"><label>Main goal <span class="required-mark">*</span></label><select name="mainGoal" required><option value="">Choose one</option><option>Get more leads</option><option>Sell products or services</option><option>Book appointments</option><option>Showcase work</option><option>Share information</option><option>Other</option></select></div>
+<div class="intake-field"><label>Preferred timeline <span class="required-mark">*</span></label><select name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>Within 2–4 weeks</option><option>Within 1–2 months</option><option>Just exploring</option></select></div>
+<div class="intake-field full"><label>Tell us about the site</label><textarea name="projectDetails" placeholder="What should visitors know or do? Include any features or inspiration you have in mind."></textarea></div>
+</div>
+<fieldset class="intake-group"><legend class="intake-legend">Choose your site colors</legend><p class="intake-helper">Primary is required. Secondary and Accent are optional.</p><div class="color-builder">
+  <div class="color-role" data-color-role="primary">
+    <div class="color-role-head"><div class="color-role-title">Primary color <span class="required-mark">*</span></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Choose a color</span></div></div>
+    <div aria-label="Primary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear primary color</button>
+    <input name="primaryColor" required type="hidden">
+  </div>
+  <div class="color-role" data-color-role="secondary">
+    <div class="color-role-head"><div class="color-role-title">Secondary color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
+    <div aria-label="Secondary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear secondary color</button><input name="secondaryColor" type="hidden">
+  </div>
+  <div class="color-role" data-color-role="accent">
+    <div class="color-role-head"><div class="color-role-title">Accent color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
+    <div aria-label="Accent color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear accent color</button><input name="accentColor" type="hidden">
+  </div>
+</div></fieldset>
+<fieldset class="intake-group pages-group">
+  <legend class="intake-legend">Pages wanted <span class="required-mark">*</span></legend>
+  <p class="intake-helper">Select every page you want included.</p>
+  <div class="page-tags">
+    <label class="page-tag"><input checked name="pages" type="checkbox" value="Home"><span>Home</span></label><label class="page-tag"><input name="pages" type="checkbox" value="About"><span>About</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Services"><span>Services</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Products / Shop"><span>Products / Shop</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Portfolio / Gallery"><span>Portfolio / Gallery</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Booking"><span>Booking</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Blog"><span>Blog</span></label><label class="page-tag"><input name="pages" type="checkbox" value="FAQ"><span>FAQ</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Reviews"><span>Reviews</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Contact"><span>Contact</span></label><label class="page-tag"><input class="other-page-toggle" name="pages" type="checkbox" value="Other"><span>Other</span></label>
+  </div>
+  <div class="intake-field other-page-wrap"><label>Other page(s) <span class="required-mark">*</span></label><input class="other-pages" name="otherPages" placeholder="Membership, resources, locations..." type="text"></div>
+</fieldset>
+<fieldset class="intake-group contact-method-group">
+  <legend class="intake-legend">Preferred contact method <span class="required-mark">*</span></legend>
+  <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
+    <label class="contact-choice"><input checked name="contactMethod" type="radio" value="Email"><span>Email</span></label>
+    <label class="contact-choice"><input name="contactMethod" type="radio" value="Phone"><span>Phone</span></label>
+  </div>
+  <div class="contact-panel" data-contact-panel="Email"><div class="intake-field"><label>Email address <span class="required-mark">*</span></label><input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com"></div></div>
+  <div class="contact-panel" data-contact-panel="Phone" hidden><div class="intake-field"><label>Phone number <span class="required-mark">*</span></label><input autocomplete="tel" class="contact-phone" name="phone" type="tel" placeholder="(555) 555-5555"></div></div>
+</fieldset>
+<div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
+</form></section></div>
+
 <script>
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -3019,6 +3241,65 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
   artwork.src = 'images/background.jpg';
   window.addEventListener('resize', updateHeroArtworkHeight, { passive:true });
 })();
+
+(() => {
+  const emailRecipient = 'kiara@steadyhandsop.com';
+  const phoneRecipient = '+17023726399';
+  const colorFamilies = {
+    Red:['#7F1D1D','#991B1B','#B91C1C','#DC2626','#EF4444','#F87171','#FCA5A5'],Orange:['#7C2D12','#9A3412','#C2410C','#EA580C','#F97316','#FB923C','#FDBA74'],Yellow:['#713F12','#854D0E','#A16207','#CA8A04','#EAB308','#FACC15','#FDE047'],Green:['#14532D','#166534','#15803D','#16A34A','#22C55E','#4ADE80','#86EFAC'],Blue:['#172554','#1E3A8A','#1D4ED8','#2563EB','#3B82F6','#60A5FA','#93C5FD'],Purple:['#3B0764','#581C87','#6B21A8','#7E22CE','#9333EA','#A855F7','#C084FC'],Pink:['#831843','#9D174D','#BE185D','#DB2777','#EC4899','#F472B6','#F9A8D4'],Brown:['#3F2D20','#5A3A25','#6F4E37','#8B5E3C','#A47148','#C08A5B','#D6B08C'],Black:['#000000','#111111','#1F2937','#27272A','#374151','#4B5563','#6B7280'],White:['#FFFFFF','#FAFAFA','#F8FAFC','#F5F5F4','#F3F4F6','#E5E7EB','#D1D5DB']
+  };
+  const familyPreview={Red:'#DC2626',Orange:'#F97316',Yellow:'#EAB308',Green:'#16A34A',Blue:'#2563EB',Purple:'#9333EA',Pink:'#EC4899',Brown:'#8B5E3C',Black:'#111111',White:'#FFFFFF'};
+  const shadeName=(family,index)=>`${family} ${['900','800','700','600','500','400','300'][index]}`;
+
+  function initializeColorPickers(form){
+    form.querySelectorAll('[data-color-role]').forEach(role=>{
+      const familyWrap=role.querySelector('.color-families'), shadesWrap=role.querySelector('.color-shades'), shadeSection=role.querySelector('.color-shade-wrap'), hidden=role.querySelector('input[type="hidden"]'), dot=role.querySelector('.color-selection-dot'), name=role.querySelector('.color-selection-name'), clear=role.querySelector('.color-clear');
+      Object.entries(familyPreview).forEach(([family,color])=>{const b=document.createElement('button');b.type='button';b.className=`color-circle${family==='White'||family==='Yellow'?' light-swatch':''}`;b.style.setProperty('--circle-color',color);b.setAttribute('aria-label',family);b.dataset.family=family;familyWrap.appendChild(b);});
+      familyWrap.addEventListener('click',e=>{const b=e.target.closest('.color-circle');if(!b)return;const family=b.dataset.family;familyWrap.querySelectorAll('.color-circle').forEach(x=>x.classList.toggle('is-selected',x===b));shadesWrap.innerHTML='';colorFamilies[family].forEach((color,index)=>{const sb=document.createElement('button');sb.type='button';sb.className=`color-circle${family==='White'||(family==='Yellow'&&index>3)?' light-swatch':''}`;sb.style.setProperty('--circle-color',color);sb.setAttribute('aria-label',`${shadeName(family,index)} ${color}`);sb.addEventListener('click',()=>{shadesWrap.querySelectorAll('.color-circle').forEach(x=>x.classList.remove('is-selected'));sb.classList.add('is-selected');hidden.value=`${shadeName(family,index)} (${color})`;dot.style.background=color;name.textContent=`${shadeName(family,index)} · ${color}`;clear?.removeAttribute('hidden');});shadesWrap.appendChild(sb);});shadeSection.hidden=false;});
+      clear?.addEventListener('click',()=>{hidden.value='';dot.style.background='';name.textContent='Not selected';familyWrap.querySelectorAll('.color-circle').forEach(x=>x.classList.remove('is-selected'));shadesWrap.innerHTML='';shadeSection.hidden=true;clear.hidden=true;});
+    });
+  }
+
+  function initializeModal(modal, openButton){
+    const dialog=modal.querySelector('.intake-dialog'), close=modal.querySelector('.intake-close'), form=modal.querySelector('form'), status=modal.querySelector('.intake-status');let lastFocused=null;
+    const focusable=()=>[...dialog.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[href]')].filter(el=>!el.closest('[hidden]'));
+    const open=()=>{lastFocused=document.activeElement;modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');setTimeout(()=>form.querySelector('input:not([type="hidden"])')?.focus(),0);};
+    const shut=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');lastFocused?.focus?.();};
+    openButton?.addEventListener('click',open);close.addEventListener('click',shut);modal.addEventListener('mousedown',e=>{if(e.target===modal)shut();});
+    document.addEventListener('keydown',e=>{if(!modal.classList.contains('is-open'))return;if(e.key==='Escape')shut();if(e.key==='Tab'){const items=focusable();if(!items.length)return;const first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+    form.querySelector('.other-page-toggle')?.addEventListener('change',e=>{const wrap=form.querySelector('.other-page-wrap'),input=form.querySelector('.other-pages');wrap.classList.toggle('is-visible',e.target.checked);input.required=e.target.checked;if(!e.target.checked)input.value='';});
+    form.querySelectorAll('input[name="websiteType"]').forEach(r=>r.addEventListener('change',()=>{const other=form.querySelector('input[name="websiteType"]:checked')?.value==='Other';const wrap=form.querySelector('.other-type-wrap'),input=form.querySelector('.other-website-type');if(wrap)wrap.classList.toggle('is-visible',other);if(input){input.required=other;if(!other)input.value='';}}));
+    const updateContactMethod=()=>{const method=form.querySelector('input[name="contactMethod"]:checked').value;form.querySelectorAll('.contact-panel').forEach(panel=>{const active=panel.dataset.contactPanel===method;panel.hidden=!active;panel.querySelectorAll('input').forEach(input=>input.required=active);});const submit=form.querySelector('.intake-submit');if(submit)submit.textContent=method==='Phone'?'Open Text Draft':'Open Email Draft';};
+    form.querySelectorAll('input[name="contactMethod"]').forEach(r=>r.addEventListener('change',updateContactMethod));
+    updateContactMethod();
+    initializeColorPickers(form);
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const pages=[...form.querySelectorAll('input[name="pages"]:checked')].map(x=>x.value);
+      if(!pages.length){status.textContent='Please select at least one page.';form.querySelector('.pages-group')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+      const primary=form.querySelector('input[name="primaryColor"]');
+      if(primary&&!primary.value){status.textContent='Please choose a primary color.';form.querySelector('[data-color-role="primary"]')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+      if(!form.reportValidity())return;
+      const fd=new FormData(form), data=Object.fromEntries(fd.entries()), project=modal.dataset.projectType, contact=data.contactMethod==='Phone'?data.phone:data.email;
+      const labels={name:'Name',businessName:'Business / project name',websiteType:'Website type',otherWebsiteType:'Other website type',businessType:'Industry / specialty',currentDomain:'Current domain',monthlySpend:'Monthly website spend',budget:'Estimated budget',mainGoal:'Main goal',timeline:'Preferred timeline',currentProblems:'Current problems',projectDetails:'Project details',primaryColor:'Primary color',secondaryColor:'Secondary color',accentColor:'Accent color',otherPages:'Other pages'};
+      const lines=[`Hello Steady Hands Operation,`,``,`I am interested in: ${project}`,``];
+      Object.entries(labels).forEach(([key,label])=>{if(data[key])lines.push(`${label}: ${key==='monthlySpend'?'$':''}${data[key]}`);});
+      lines.push(`Pages wanted: ${pages.join(', ')}`,`Preferred contact method: ${data.contactMethod}`,`${data.contactMethod}: ${contact}`,``,`Please contact me about the next steps.`,``,`Thank you,`,` ${data.name}`);
+      const subject=`${project} Request — ${data.businessName||data.currentDomain||data.name}`;
+      const draftBody=lines.join('\n');
+      if(data.contactMethod==='Phone'){
+        status.textContent='Opening a text message to (702) 372-6399 with the draft ready…';
+        window.location.href=`sms:${phoneRecipient}?body=${encodeURIComponent(`${subject}\n\n${draftBody}`)}`;
+      }else{
+        status.textContent='Opening your email app with the draft addressed to Kiara…';
+        window.location.href=`mailto:${emailRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(draftBody)}`;
+      }
+    });
+  }
+  initializeModal(document.getElementById('site-audit-modal'),document.getElementById('open-site-audit'));
+  initializeModal(document.getElementById('new-site-modal'),document.getElementById('open-new-site'));
+})();
+
 </script>
 
 </body>
