@@ -1942,6 +1942,120 @@ body.modal-open{overflow:hidden;}
 .project-kind-group{margin:0!important;}
 .project-kind-tags .page-tag input[type="radio"]{position:absolute;opacity:0;pointer-events:none;}
 .project-kind-tags .page-tag:has(input:checked) span{color:#fff;background:linear-gradient(135deg,#3d8fda,#17498f);border-color:rgba(255,255,255,.45);box-shadow:0 8px 16px rgba(18,61,132,.22);}
+
+
+/* Payment received confirmation route: #paymentreceived */
+.payment-confirmation{
+  position:fixed;
+  z-index:4200;
+  inset:0;
+  display:none;
+  place-items:center;
+  padding:24px;
+  overflow:auto;
+  color:#173665;
+  background:
+    radial-gradient(circle at 50% 22%,rgba(85,184,255,.30),transparent 34%),
+    linear-gradient(145deg,rgba(7,31,72,.94),rgba(16,42,86,.98));
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.payment-confirmation.is-open{display:grid;animation:paymentFadeIn .42s ease both;}
+.payment-confirmation-card{
+  position:relative;
+  width:min(590px,100%);
+  padding:clamp(34px,7vw,62px) clamp(24px,6vw,54px) clamp(28px,6vw,48px);
+  overflow:hidden;
+  text-align:center;
+  background:linear-gradient(155deg,rgba(255,255,255,.99),rgba(226,242,255,.97));
+  border:1px solid rgba(255,255,255,.96);
+  border-radius:30px;
+  box-shadow:0 30px 90px rgba(0,0,0,.40),inset 0 1px 0 #fff;
+  animation:paymentCardIn .68s cubic-bezier(.16,1,.3,1) both;
+}
+.payment-confirmation-card::before{
+  content:"";
+  position:absolute;
+  top:-110px;
+  left:50%;
+  width:320px;
+  height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(57,184,255,.20),transparent 68%);
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+.payment-check-button{
+  position:relative;
+  display:grid;
+  place-items:center;
+  width:104px;
+  height:104px;
+  margin:0 auto 28px;
+  padding:0;
+  color:#fff;
+  background:linear-gradient(145deg,#51cc80,#1ca85a);
+  border:0;
+  border-radius:50%;
+  box-shadow:0 16px 34px rgba(28,168,90,.30),inset 0 2px 0 rgba(255,255,255,.35);
+  animation:paymentCheckPop .72s .18s cubic-bezier(.16,1.35,.3,1) both;
+}
+.payment-check-button::after{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border:2px solid rgba(47,190,105,.34);
+  border-radius:50%;
+  animation:paymentCheckRing 1.35s .50s ease-out both;
+}
+.payment-check-button svg{width:53px;height:53px;overflow:visible;}
+.payment-check-path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:72;
+  stroke-dashoffset:72;
+  animation:paymentCheckDraw .62s .58s cubic-bezier(.65,0,.35,1) forwards;
+}
+.payment-check-button:hover{transform:translateY(-2px) scale(1.03);}
+.payment-check-button:active{transform:scale(.96);}
+.payment-confirmation-card .eyebrow{margin:0 0 10px;color:#3977ba;text-transform:uppercase;letter-spacing:.16em;}
+.payment-confirmation-card h1{margin:0;color:#153766;font-size:clamp(34px,7vw,55px);line-height:.98;letter-spacing:-.055em;}
+.payment-confirmation-message{max-width:430px;margin:18px auto 0;color:#567491;font-size:clamp(16px,2.4vw,19px);line-height:1.65;}
+.payment-confirmation-home{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  margin-top:30px;
+  padding:12px 22px;
+  color:#fff;
+  font-weight:800;
+  background:linear-gradient(135deg,#397fc4,#194e92);
+  border:0;
+  border-radius:14px;
+  box-shadow:0 11px 22px rgba(25,78,146,.24);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.payment-confirmation-home:hover{transform:translateY(-2px);box-shadow:0 15px 28px rgba(25,78,146,.30);}
+@keyframes paymentFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes paymentCardIn{from{opacity:0;transform:translateY(34px) scale(.94);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes paymentCheckPop{0%{opacity:0;transform:scale(.25) rotate(-14deg)}62%{opacity:1;transform:scale(1.12) rotate(3deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes paymentCheckDraw{to{stroke-dashoffset:0}}
+@keyframes paymentCheckRing{0%{opacity:0;transform:scale(.68)}35%{opacity:1}100%{opacity:0;transform:scale(1.35)}}
+@media(max-width:520px){
+  .payment-confirmation{padding:14px;}
+  .payment-confirmation-card{border-radius:24px;}
+  .payment-check-button{width:90px;height:90px;margin-bottom:24px;}
+  .payment-check-button svg{width:46px;height:46px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .payment-confirmation,.payment-confirmation-card,.payment-check-button,.payment-check-button::after,.payment-check-path{animation:none!important;}
+  .payment-check-path{stroke-dashoffset:0;}
+}
+
 </style>
 </head>
 <body>
@@ -2320,6 +2434,20 @@ body.modal-open{overflow:hidden;}
 </fieldset>
 <div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
 </form></section></div>
+
+
+<!-- PAYMENT RECEIVED CONFIRMATION PAGE -->
+<section aria-hidden="true" aria-labelledby="payment-confirmation-title" class="payment-confirmation" id="paymentreceived">
+  <div class="payment-confirmation-card" role="dialog" aria-modal="true" aria-describedby="payment-confirmation-message">
+    <button aria-label="Replay payment confirmation animation" class="payment-check-button" id="payment-check-button" type="button">
+      <svg aria-hidden="true" viewBox="0 0 64 64"><path class="payment-check-path" d="M15 33.5 27 45l23-27"/></svg>
+    </button>
+    <p class="eyebrow">Payment confirmed</p>
+    <h1 id="payment-confirmation-title">We received your payment!</h1>
+    <p class="payment-confirmation-message" id="payment-confirmation-message">We will reach out to you with the next steps.</p>
+    <a class="payment-confirmation-home" href="#home">Back to home</a>
+  </div>
+</section>
 
 <script>
 
@@ -3298,6 +3426,38 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
   }
   initializeModal(document.getElementById('site-audit-modal'),document.getElementById('open-site-audit'));
   initializeModal(document.getElementById('new-site-modal'),document.getElementById('open-new-site'));
+})();
+
+
+(() => {
+  const paymentPage = document.getElementById('paymentreceived');
+  const checkButton = document.getElementById('payment-check-button');
+  if (!paymentPage || !checkButton) return;
+
+  const restartAnimation = () => {
+    const card = paymentPage.querySelector('.payment-confirmation-card');
+    const path = paymentPage.querySelector('.payment-check-path');
+    [card, checkButton, path].forEach(el => {
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+  };
+
+  const syncPaymentRoute = () => {
+    const isOpen = window.location.hash.toLowerCase() === '#paymentreceived';
+    paymentPage.classList.toggle('is-open', isOpen);
+    paymentPage.setAttribute('aria-hidden', String(!isOpen));
+    document.body.classList.toggle('modal-open', isOpen);
+    if (isOpen) {
+      restartAnimation();
+      window.setTimeout(() => checkButton.focus({preventScroll:true}), 120);
+    }
+  };
+
+  checkButton.addEventListener('click', restartAnimation);
+  window.addEventListener('hashchange', syncPaymentRoute);
+  syncPaymentRoute();
 })();
 
 </script>
