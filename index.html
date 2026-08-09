@@ -442,7 +442,7 @@ cursor:grab;
 .like-btn.liked .heart-shape{fill:currentColor;stroke:currentColor;transform:scale(1.08);}
 .blog-dots{display:flex;justify-content:center;gap:5px;}
 .blog-dot{width:5px;height:5px;border-radius:50%;background:#cbd5e1;transition:width .25s ease,background .25s ease;}
-.blog-dot.active{width:15px;border-radius:999px;background:#334155;}
+.blog-dot.active{width:15px;border-radius:999px;background:#fff;}
 .blog-socials{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 8px 18px rgba(15,23,42,.08);}
 .blog-social-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;}
 .blog-social-icons{display:flex;align-items:center;gap:8px;}
@@ -2104,6 +2104,23 @@ body.modal-open{overflow:hidden;}
   }
 }
 
+
+/* Keep Personal Site, Business Site, and Admin Site hover effects identical */
+.packages-grid > .package-card{
+  transform:translateY(-5px) !important;
+}
+.packages-grid > .package-card:hover{
+  transform:translateY(-7px) scale(1.01) !important;
+}
+
+@media(max-width:900px){
+  .packages-grid > .package-card{
+    transform:none !important;
+  }
+  .packages-grid > .package-card:hover{
+    transform:translateY(-7px) scale(1.01) !important;
+  }
+}
 </style>
 </head>
 <body>
