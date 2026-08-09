@@ -2121,6 +2121,16 @@ body.modal-open{overflow:hidden;}
     transform:translateY(-7px) scale(1.01) !important;
   }
 }
+
+/* Keep Standard Hosting and Backend Hosting on the same resting position
+   so their shared .hosting-card:hover animation feels identical. */
+.standard-hosting{
+  transform:none !important;
+}
+.standard-hosting:hover{
+  transform:translateY(-7px) scale(1.01) !important;
+}
+
 </style>
 </head>
 <body>
