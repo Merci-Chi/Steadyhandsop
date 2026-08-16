@@ -2384,7 +2384,107 @@ body.modal-open{overflow:hidden;}
   }
 }
 
+
+/* Contact trigger — popup styling reuses the existing Build a Site intake modal */
+.header-contact-trigger{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:9px 17px;
+  margin-left:18px;
+  color:#173665;
+  background:linear-gradient(180deg,#fff,#e8f5ff);
+  border:1px solid rgba(255,255,255,.92);
+  border-radius:999px;
+  font-size:13px;
+  font-weight:800;
+  box-shadow:0 8px 18px rgba(3,22,55,.19),inset 0 1px 0 #fff;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.header-contact-trigger:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(3,22,55,.24),inset 0 1px 0 #fff;
+}
+.contact-direct-row{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.contact-direct-option{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  padding:14px;
+  color:#173665;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(66,126,185,.24);
+  border-radius:14px;
+  box-shadow:0 7px 14px rgba(24,69,130,.07);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.contact-direct-option:hover{
+  transform:translateY(-2px);
+  border-color:rgba(47,131,207,.56);
+  box-shadow:0 11px 20px rgba(24,69,130,.11);
+}
+.contact-direct-option small{
+  display:block;
+  margin-bottom:2px;
+  color:#66809b;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+}
+.contact-direct-option strong{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:13px;
+}
+.contact-direct-mark{
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  color:#fff;
+  background:linear-gradient(135deg,#397fc4,#194e92);
+  border-radius:11px;
+  font-size:14px;
+  font-weight:900;
+}
+@media(max-width:700px){
+  .header-contact-trigger{margin-left:10px;padding:8px 13px;}
+  .contact-direct-row{grid-template-columns:1fr;}
+}
+
+
+#contact-modal .contact-choice span{
+  gap:8px;
+}
+#contact-modal .contact-choice span i{
+  font-size:13px;
+}
+#contact-modal .contact-panel{
+  margin-top:14px;
+}
+#contact-modal .contact-direct-option.is-recommended{
+  border-color:rgba(47,131,207,.78);
+  box-shadow:
+    0 0 0 3px rgba(57,184,255,.12),
+    0 11px 20px rgba(24,69,130,.12);
+}
+#contact-modal .contact-direct-option.is-recommended small::after{
+  content:" · Recommended";
+  color:#397fc4;
+}
+
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
 <body>
 <header class="site-header">
@@ -2396,6 +2496,7 @@ body.modal-open{overflow:hidden;}
 <span class="brand-title-bottom">Operation</span>
 </span>
 </a>
+<button aria-controls="contact-modal" aria-haspopup="dialog" class="header-contact-trigger" id="open-contact" type="button">Contact</button>
 
 </nav>
 </header>
@@ -2645,7 +2746,92 @@ body.modal-open{overflow:hidden;}
 </div>
 </section>
 <section aria-label="Reviews" class="anchor-section" id="reviews"></section>
+
 <section aria-label="Contact" class="anchor-section" id="contact"></section>
+
+<div aria-hidden="true" class="intake-modal" id="contact-modal" data-project-type="General Contact">
+<section aria-describedby="contact-description" aria-labelledby="contact-title" aria-modal="true" class="intake-dialog" role="dialog">
+<button aria-label="Close contact form" class="intake-close" type="button">×</button>
+<header class="intake-header">
+  <p class="eyebrow">Contact Steady Hands Operation</p>
+  <h2 id="contact-title">How can we help?</h2>
+  <p id="contact-description">Call, email, or leave a message and we’ll get back to you.</p>
+</header>
+
+<form class="intake-form" id="contact-form">
+  <p class="intake-required-note"><span class="required-mark">*</span> Required</p>
+
+  <div class="contact-direct-row">
+    <a class="contact-direct-option contact-method-shortcut" data-contact-method="Phone" href="tel:+17023726399">
+      <span aria-hidden="true" class="contact-direct-mark"><i class="fa-solid fa-phone"></i></span>
+      <span><small>Phone</small><strong>(702) 372-6399</strong></span>
+    </a>
+    <a class="contact-direct-option contact-method-shortcut" data-contact-method="Email" href="mailto:kiara@steadyhandsop.com">
+      <span aria-hidden="true" class="contact-direct-mark"><i class="fa-solid fa-envelope"></i></span>
+      <span><small>Email</small><strong>kiara@steadyhandsop.com</strong></span>
+    </a>
+  </div>
+
+  <div class="intake-grid">
+    <div class="intake-field">
+      <label>Your name <span class="required-mark">*</span></label>
+      <input autocomplete="name" name="name" required type="text">
+    </div>
+    <div class="intake-field">
+      <label>Business or organization</label>
+      <input autocomplete="organization" name="businessName" type="text">
+    </div>
+    <div class="intake-field full">
+      <label>What can we help you with? <span class="required-mark">*</span></label>
+      <textarea name="message" required placeholder="Tell us a little about what you need..."></textarea>
+    </div>
+  </div>
+
+  <fieldset class="intake-group contact-method-group">
+    <legend class="intake-legend">Preferred contact method <span class="required-mark">*</span></legend>
+    <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
+      <label class="contact-choice">
+        <input checked name="contactMethod" type="radio" value="Email">
+        <span><i aria-hidden="true" class="fa-solid fa-envelope"></i> Email</span>
+      </label>
+      <label class="contact-choice">
+        <input name="contactMethod" type="radio" value="Phone">
+        <span><i aria-hidden="true" class="fa-solid fa-phone"></i> Phone</span>
+      </label>
+    </div>
+
+    <div class="contact-panel" data-contact-panel="Email">
+      <div class="intake-field">
+        <label>Email address <span class="required-mark">*</span></label>
+        <input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com">
+      </div>
+    </div>
+
+    <div class="contact-panel" data-contact-panel="Phone" hidden>
+      <div class="intake-field">
+        <label>Phone number <span class="required-mark">*</span></label>
+        <input
+          autocomplete="tel"
+          class="contact-phone"
+          inputmode="numeric"
+          maxlength="14"
+          name="phone"
+          pattern="\(\d{3}\) \d{3}-\d{4}"
+          type="tel"
+          placeholder="(555) 555-5555"
+        >
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="intake-actions">
+    <p aria-live="polite" class="intake-status"></p>
+    <button class="intake-submit" type="submit">Open Email Draft</button>
+  </div>
+</form>
+</section>
+</div>
+
 
 <div aria-hidden="true" class="intake-modal" id="site-audit-modal" data-project-type="Website Improvement">
 <section aria-describedby="site-audit-description" aria-labelledby="site-audit-title" aria-modal="true" class="intake-dialog" role="dialog">
@@ -3751,6 +3937,188 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
   }
   initializeModal(document.getElementById('site-audit-modal'),document.getElementById('open-site-audit'));
   initializeModal(document.getElementById('new-site-modal'),document.getElementById('open-new-site'));
+
+  function initializeContactModal(){
+    const modal=document.getElementById('contact-modal');
+    const openButton=document.getElementById('open-contact');
+    if(!modal||!openButton)return;
+
+    const dialog=modal.querySelector('.intake-dialog');
+    const close=modal.querySelector('.intake-close');
+    const form=modal.querySelector('#contact-form');
+    const status=form.querySelector('.intake-status');
+    const methodInputs=[...form.querySelectorAll('input[name="contactMethod"]')];
+    const panels=[...form.querySelectorAll('[data-contact-panel]')];
+    const emailInput=form.querySelector('.contact-email');
+    const phoneInput=form.querySelector('.contact-phone');
+    const shortcuts=[...modal.querySelectorAll('.contact-method-shortcut')];
+    let lastFocused=null;
+
+    const focusable=()=>[...dialog.querySelectorAll(
+      'button:not([disabled]),input:not([disabled]),textarea:not([disabled]),[href]'
+    )].filter(el=>!el.closest('[hidden]'));
+
+    const formatPhone=value=>{
+      const digits=String(value||'').replace(/\D/g,'').slice(0,10);
+      if(!digits)return '';
+      if(digits.length<4)return `(${digits}`;
+      if(digits.length<7)return `(${digits.slice(0,3)}) ${digits.slice(3)}`;
+      return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+    };
+
+    const setContactMethod=(method,{focus=false}={})=>{
+      methodInputs.forEach(input=>{
+        input.checked=input.value===method;
+      });
+
+      panels.forEach(panel=>{
+        const active=panel.dataset.contactPanel===method;
+        panel.hidden=!active;
+        const input=panel.querySelector('input');
+        if(input){
+          input.required=active;
+          input.disabled=!active;
+        }
+      });
+
+      shortcuts.forEach(shortcut=>{
+        shortcut.classList.toggle('is-recommended',shortcut.dataset.contactMethod===method);
+      });
+
+      if(focus){
+        const activeInput=form.querySelector(`[data-contact-panel="${method}"] input`);
+        activeInput?.focus();
+      }
+    };
+
+    methodInputs.forEach(input=>{
+      input.addEventListener('change',()=>{
+        if(input.checked)setContactMethod(input.value,{focus:true});
+      });
+    });
+
+    /*
+      Clicking the visible business phone/email options also changes the
+      preferred-contact recommendation first. The normal tel:/mailto:
+      destination still works.
+    */
+    shortcuts.forEach(shortcut=>{
+      shortcut.addEventListener('pointerdown',()=>{
+        setContactMethod(shortcut.dataset.contactMethod);
+      });
+      shortcut.addEventListener('focus',()=>{
+        setContactMethod(shortcut.dataset.contactMethod);
+      });
+    });
+
+    // Numbers only. Pasted text is stripped to digits and reformatted too.
+    phoneInput?.addEventListener('beforeinput',e=>{
+      if(e.inputType==='insertText' && e.data && /\D/.test(e.data)){
+        e.preventDefault();
+      }
+    });
+
+    phoneInput?.addEventListener('keydown',e=>{
+      if(
+        e.key.length===1 &&
+        !/\d/.test(e.key) &&
+        !e.metaKey &&
+        !e.ctrlKey &&
+        !e.altKey
+      ){
+        e.preventDefault();
+      }
+    });
+
+    phoneInput?.addEventListener('input',()=>{
+      const formatted=formatPhone(phoneInput.value);
+      if(phoneInput.value!==formatted)phoneInput.value=formatted;
+    });
+
+    phoneInput?.addEventListener('paste',e=>{
+      e.preventDefault();
+      const pasted=(e.clipboardData||window.clipboardData).getData('text');
+      phoneInput.value=formatPhone(pasted);
+      phoneInput.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+
+    const open=()=>{
+      lastFocused=document.activeElement;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.classList.add('modal-open');
+      if(location.hash!=='#consultation')history.replaceState(null,'','#consultation');
+
+      const selected=form.querySelector('input[name="contactMethod"]:checked')?.value||'Email';
+      setContactMethod(selected);
+
+      setTimeout(()=>form.querySelector('input[name="name"]')?.focus(),0);
+    };
+
+    const shut=(clearHash=true)=>{
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('modal-open');
+      if(clearHash&&location.hash==='#consultation'){
+        history.replaceState(null,'',location.pathname+location.search+'#home');
+      }
+      lastFocused?.focus?.();
+    };
+
+    openButton.addEventListener('click',open);
+    close.addEventListener('click',()=>shut(true));
+    modal.addEventListener('mousedown',e=>{if(e.target===modal)shut(true);});
+
+    document.addEventListener('keydown',e=>{
+      if(!modal.classList.contains('is-open'))return;
+      if(e.key==='Escape'){shut(true);return;}
+      if(e.key==='Tab'){
+        const items=focusable();
+        if(!items.length)return;
+        const first=items[0],last=items.at(-1);
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      }
+    });
+
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      if(!form.reportValidity())return;
+
+      const data=Object.fromEntries(new FormData(form).entries());
+      const method=data.contactMethod||'Email';
+
+      const lines=[
+        'Hello Steady Hands Operation,',
+        '',
+        'I would like to get in touch.',
+        '',
+        `Name: ${data.name}`,
+        data.businessName?`Business / organization: ${data.businessName}`:null,
+        `Preferred contact method: ${method}`,
+        method==='Email'?`Email: ${data.email}`:`Phone: ${data.phone}`,
+        '',
+        'Message:',
+        data.message,
+        '',
+        'Thank you,',
+        data.name
+      ].filter(Boolean);
+
+      const subject=`Contact Request — ${data.businessName||data.name}`;
+      status.textContent='Opening your email app with the message ready…';
+      window.location.href=`mailto:${emailRecipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    });
+
+    const syncHash=()=>{
+      if(location.hash==='#consultation'&&!modal.classList.contains('is-open'))open();
+    };
+    window.addEventListener('hashchange',syncHash);
+
+    setContactMethod('Email');
+    syncHash();
+  }
+  initializeContactModal();
 })();
 
 (() => {
@@ -3783,6 +4151,34 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
   window.addEventListener('hashchange', syncPaymentRoute);
   syncPaymentRoute();
 })();
+
+
+  document.querySelectorAll('.project-intake-form .contact-phone').forEach(input=>{
+    input.setAttribute('inputmode','numeric');
+    input.setAttribute('maxlength','14');
+    input.setAttribute('pattern','\\(\\d{3}\\) \\d{3}-\\d{4}');
+
+    const format=value=>{
+      const d=String(value||'').replace(/\D/g,'').slice(0,10);
+      if(!d)return '';
+      if(d.length<4)return `(${d}`;
+      if(d.length<7)return `(${d.slice(0,3)}) ${d.slice(3)}`;
+      return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+    };
+
+    input.addEventListener('beforeinput',e=>{
+      if(e.inputType==='insertText'&&e.data&&/\D/.test(e.data))e.preventDefault();
+    });
+    input.addEventListener('keydown',e=>{
+      if(e.key.length===1&&!/\d/.test(e.key)&&!e.metaKey&&!e.ctrlKey&&!e.altKey)e.preventDefault();
+    });
+    input.addEventListener('input',()=>{input.value=format(input.value);});
+    input.addEventListener('paste',e=>{
+      e.preventDefault();
+      input.value=format((e.clipboardData||window.clipboardData).getData('text'));
+      input.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+  });
 
 </script>
 
