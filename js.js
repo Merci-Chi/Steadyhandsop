@@ -1270,6 +1270,20 @@ function renderLists() {
   $('#newCountChip').textContent = newCount;
   $('#followCountChip').textContent = followCount;
   $('#soldCountChip').textContent = soldCount;
+
+  // Keep the selected pipeline category separated after every render.
+  const selectedPipeline = document.querySelector('[data-pipeline-view].active')?.dataset.pipelineView || 'leads';
+  const screen = document.getElementById('leadsScreen');
+  if (screen) {
+    screen.classList.remove('desktop-leads-view', 'desktop-followups-view', 'desktop-sold-view');
+    screen.classList.add(
+      selectedPipeline === 'followups'
+        ? 'desktop-followups-view'
+        : selectedPipeline === 'sold'
+          ? 'desktop-sold-view'
+          : 'desktop-leads-view'
+    );
+  }
 }
 
 function openLead(id) {
@@ -3176,10 +3190,23 @@ document.addEventListener('keydown', event => {
   };
 
   // Top New Leads / Follow-ups / Sold Leads tabs.
+  // These are the pipeline navigation on BOTH desktop and mobile.
+  const activatePipelineButton = button => {
+    if (!button?.dataset?.pipelineView) return;
+    showScreen('leads');
+    applyPipelineView(button.dataset.pipelineView, { persist: true, scroll: false });
+
+    // Mobile should always land at the top of the selected category.
+    if (window.matchMedia('(max-width: 959px)').matches) {
+      document.getElementById('leadsScreen')?.scrollIntoView({ block: 'start' });
+    }
+  };
+
   pipelineButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      showScreen('leads');
-      applyPipelineView(button.dataset.pipelineView, { persist: true, scroll: false });
+    button.setAttribute('role', 'tab');
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      activatePipelineButton(button);
     });
   });
 
