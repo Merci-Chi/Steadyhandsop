@@ -20,7 +20,7 @@ function ensureUuidIds() {
       changed = true;
     }
   });
-  if (changed) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
 }
 
 function leadToSupabaseRow(lead) {
@@ -243,8 +243,6 @@ async function syncLeadTagsOnly(lead) {
 
   const savedTags = Array.isArray(data?.tags) ? data.tags : [];
   lead.tags = savedTags;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-
   return savedTags;
 }
 
@@ -267,7 +265,6 @@ function applyRealtimeLeadChange(payload, status) {
     else state.leads.push(incoming);
   }
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   renderLists();
   if (currentLeadId && state.leads.some(lead => lead.id === currentLeadId)) renderCurrentLead();
   else if (currentLeadId) {
@@ -329,13 +326,7 @@ async function hydrateFromSupabase() {
   const systemNoteLeads = remoteLeads.filter(addInitialSystemNoteHistory);
   if (systemNoteLeads.length) await upsertLeadsByTable(systemNoteLeads);
 
-  if (!remoteLeads.length && state.leads.length) {
-    await upsertLeadsByTable(state.leads);
-    return hydrateFromSupabase();
-  }
-
   state.leads = remoteLeads;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   renderLists();
   const savedPage = loadPageState();
   if (savedPage.screen === 'detail' && savedPage.leadId && state.leads.some(lead => lead.id === savedPage.leadId)) {
@@ -592,7 +583,6 @@ async function initializeSupabaseAuth() {
   }
 }
 
-const STORAGE_KEY = 'steadyHandsLeadApp_v5_two_tables';
 const PAGE_STATE_KEY = 'steadyHandsLeadApp_pageState_v1';
 
 const seedLeads = [];
@@ -627,24 +617,11 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 function loadState() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved && Array.isArray(saved.leads)) {
-      // Remove the old addedAt field from previously saved leads.
-      saved.leads = saved.leads.map(lead => {
-        const { addedAt, AddedAt, addedat, ...cleanLead } = lead || {};
-        cleanLead.sourceTags = Array.isArray(cleanLead.sourceTags) ? cleanLead.sourceTags.filter(tag => String(tag || '').trim().toLowerCase() !== 'other') : [];
-        return cleanLead;
-      });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
-      return saved;
-    }
-  } catch (_) {}
+  // Supabase is the only persistent source of truth.
   return { leads: structuredClone(seedLeads) };
 }
 
 function saveState(...leadIds) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   const ids = leadIds.filter(Boolean);
   if (ids.length) queueLeadSync(...ids);
   else if (currentLeadId) queueLeadSync(currentLeadId);
@@ -1688,7 +1665,6 @@ async function deleteLeadPermanently(leadId) {
   state.leads = state.leads.filter(item => item.id !== leadId);
   pendingSyncIds.delete(leadId);
   if (currentLeadId === leadId) currentLeadId = null;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   renderLists();
   showSyncStatus('Lead deleted');
   toast('Lead deleted');
@@ -2437,7 +2413,6 @@ function finalizeSoldAndDraftEmail() {
   syncLeadNow(lead).then(() => {
     if (!currentUserIsKiara()) {
       lead.phone = '';
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       renderLists();
     }
     showSyncStatus('Sold lead synced');
@@ -3123,7 +3098,7 @@ document.addEventListener('keydown', event => {
   const leadsScreen = document.getElementById('leadsScreen');
   const pipelineButtons = [...document.querySelectorAll('[data-pipeline-view]')];
 
-  const PIPELINE_STORAGE_KEY = 'leadBoardPipelineView';
+  let currentPipelineView = 'leads';
 
   const normalizePipeline = (value) =>
     ['leads', 'followups', 'sold'].includes(value) ? value : 'leads';
@@ -3169,11 +3144,7 @@ document.addEventListener('keydown', event => {
 
     setDesktopActive(navForPipeline(view));
 
-    if (persist) {
-      try {
-        localStorage.setItem(PIPELINE_STORAGE_KEY, view);
-      } catch {}
-    }
+    currentPipelineView = view;
 
     if (scroll) {
       const target =
@@ -3237,18 +3208,9 @@ document.addEventListener('keydown', event => {
   });
 
   document.getElementById('backButton')?.addEventListener('click', () => {
-    let savedView = 'leads';
-    try {
-      savedView = normalizePipeline(localStorage.getItem(PIPELINE_STORAGE_KEY));
-    } catch {}
-    applyPipelineView(savedView, { persist: false, scroll: false });
+    applyPipelineView(currentPipelineView, { persist: false, scroll: false });
   });
 
-  // Restore the selected lead category after refresh.
-  let initialView = 'leads';
-  try {
-    initialView = normalizePipeline(localStorage.getItem(PIPELINE_STORAGE_KEY));
-  } catch {}
-
-  applyPipelineView(initialView, { persist: false, scroll: false });
+  // Always start on New Leads after a full reload.
+  applyPipelineView('leads', { persist: false, scroll: false });
 })();
