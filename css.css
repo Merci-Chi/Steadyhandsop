@@ -3796,3 +3796,299 @@ html, body { overscroll-behavior-y: contain; }
     opacity: .72;
   }
 }
+
+
+/* MOBILE HOT LEAD + PRE-CALL DETAILS */
+.mobile-hot-lead-badge,
+.mobile-call-details-button {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  /* Guarantee HOT LEAD is visible on the main mobile lead cards. */
+  .mobile-hot-lead-badge {
+    display: inline-flex !important;
+    align-items: center;
+    flex: none;
+    min-height: 23px;
+    padding: 4px 7px;
+    border: 1px solid #f18a2a;
+    border-radius: 999px;
+    background: #b84f08;
+    color: #fff3df;
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: .045em;
+    white-space: nowrap;
+  }
+
+  /* The corner priority tag stays visible too, but never gets clipped. */
+  .lead-item-wrap,
+  .lead-item {
+    overflow: visible !important;
+  }
+
+  .lead-priority-tags {
+    display: flex !important;
+    z-index: 12 !important;
+  }
+
+  /* Mobile gets an obvious call action that ALWAYS opens the pre-call details first. */
+  .mobile-call-details-button {
+    margin: 10px 0 2px auto;
+    min-height: 38px;
+    padding: 0 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #2e82fb;
+    border-radius: 10px;
+    background: rgba(28, 103, 218, .14);
+    color: #a9d0ff;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 850;
+    cursor: pointer;
+  }
+
+  .mobile-call-details-button[hidden] {
+    display: none !important;
+  }
+
+  /* Make the call-details popup work like a proper mobile bottom sheet. */
+  #preCallModal {
+    align-items: flex-end;
+    padding: 10px;
+  }
+
+  #preCallModal .call-flow-modal {
+    width: 100%;
+    max-height: calc(100dvh - 20px);
+    padding: 15px;
+    border-radius: 20px 20px 14px 14px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  #preCallModal .call-preview-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+  }
+
+  #preCallModal .call-preview-card {
+    padding: 11px 12px;
+  }
+
+  #preCallModal .call-preview-notes {
+    max-height: 105px;
+  }
+
+  #preCallModal .call-prompt-toggle {
+    min-height: 42px;
+  }
+
+  #preCallModal .call-prompt-box {
+    max-height: 34vh;
+    overflow-y: auto;
+  }
+
+  #preCallModal .call-flow-actions {
+    position: sticky;
+    bottom: -15px;
+    margin: 14px -15px -15px;
+    padding: 10px 15px calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(6,16,27,.90), #06101b 28%);
+    border-top: 1px solid rgba(126,155,174,.14);
+  }
+
+  #preCallModal .call-now-button {
+    min-height: 50px;
+  }
+}
+
+
+/* MOBILE QUICK INFO TAG ORGANIZATION */
+@media (max-width: 700px) {
+  #quickTagsList {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  #quickTagsList .lead-tag-group {
+    display: block !important;
+    width: 100% !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(126,155,174,.14) !important;
+    background: rgba(255,255,255,.018) !important;
+  }
+
+  #quickTagsList .lead-tag-group-heading {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  #quickTagsList .lead-tag-group-heading strong {
+    display: block !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    font-weight: 900 !important;
+    letter-spacing: .055em !important;
+    text-transform: uppercase !important;
+  }
+
+  #quickTagsList .lead-tag-group-heading small {
+    display: block !important;
+    margin-top: 2px !important;
+    font-size: 9px !important;
+    line-height: 1.3 !important;
+    color: var(--muted, #8ea0ad) !important;
+  }
+
+  #quickTagsList .lead-tag-group-options {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+    width: 100% !important;
+  }
+
+  #quickTagsList .quick-tag-chip.lead-tag-option {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 38px !important;
+    padding: 0 9px !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    border-radius: 9px !important;
+    font-size: 10px !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+  }
+
+  #quickTagsList .quick-tag-chip .tag-state-check {
+    margin-left: auto !important;
+  }
+
+  /* Website choices stay together and fill the row cleanly. */
+  #quickTagsList .lead-tag-group-site .lead-tag-group-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  #quickTagsList .lead-tag-group-site .quick-tag-chip {
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0 5px !important;
+  }
+
+  /* Sold gets its own full-width conversion action. */
+  #quickTagsList .lead-tag-group-conversion .lead-tag-group-options {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Preserve the same category color system on mobile. */
+  #quickTagsList .lead-tag-group-site {
+    border-color: rgba(73,151,207,.18) !important;
+  }
+
+  #quickTagsList .lead-tag-group-contact {
+    border-color: rgba(151,112,204,.18) !important;
+  }
+
+  #quickTagsList .lead-tag-group-interest {
+    border-color: rgba(223,137,48,.18) !important;
+  }
+
+  #quickTagsList .lead-tag-group-outcome {
+    border-color: rgba(203,76,84,.18) !important;
+  }
+
+  #quickTagsList .lead-tag-group-conversion {
+    border-color: rgba(193,159,58,.20) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  #quickTagsList .lead-tag-group-options {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  #quickTagsList .lead-tag-group-site .lead-tag-group-options {
+    grid-template-columns: 1fr !important;
+  }
+
+  #quickTagsList .lead-tag-group-site .quick-tag-chip {
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding: 0 9px !important;
+  }
+}
+
+
+/* MOBILE — Quick Notes is the only notes editor */
+@media (max-width: 700px) {
+  #quickNotesButton {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    min-width: 0 !important;
+    min-height: 42px !important;
+    padding: 0 12px !important;
+    white-space: nowrap !important;
+  }
+
+  #quickNotesButton i {
+    font-size: 14px !important;
+  }
+
+  #quickNotesModal .modal-card {
+    width: calc(100vw - 20px) !important;
+    max-height: calc(100dvh - 20px) !important;
+    margin: auto 0 0 !important;
+    border-radius: 18px 18px 12px 12px !important;
+  }
+
+  #quickNotesInput {
+    min-height: 180px !important;
+    font-size: 16px !important; /* prevents iOS zoom */
+    line-height: 1.45 !important;
+  }
+
+  #quickNotesModal .modal-actions {
+    position: sticky !important;
+    bottom: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
+
+  /* There is no second editable Notes field on mobile. */
+  #postNotesQuestion,
+  .post-call-notes {
+    display: none !important;
+  }
+}
+
+
+/* KIARA-ONLY main-list delete control — desktop + mobile */
+@media (max-width: 700px) {
+  .lead-item-wrap .lead-card-delete {
+    display: grid !important;
+    width: 34px !important;
+    height: 34px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    z-index: 20 !important;
+    opacity: .88 !important;
+    border-radius: 9px !important;
+  }
+
+  .lead-item-wrap > .lead-item {
+    padding-right: 48px !important;
+  }
+}

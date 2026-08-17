@@ -127,6 +127,10 @@
 <section class="phone-card">
 <div class="phone-card-label"><i aria-hidden="true" class="bi bi-telephone-fill"></i><span>PHONE NUMBER</span></div>
 <div class="phone-number" id="leadPhone">(000)000-0000</div>
+<button class="mobile-call-details-button" id="mobilePreCallButton" type="button">
+<i class="bi bi-telephone-fill"></i>
+<span>Call</span>
+</button>
 <div class="phone-called-by" id="leadCalledBy">Not called yet</div>
 <div class="sold-by-detail" hidden="" id="soldByDetail"></div>
 <div aria-hidden="true" class="sound-line"><span></span></div>
@@ -533,7 +537,7 @@
 <div class="precall-lead-name" id="preCallLeadName"></div>
 <div class="call-preview-grid">
 <div class="call-preview-card">
-<span class="call-preview-label"><i class="bi bi-journal-text"></i> Notes</span>
+<span class="call-preview-label"><i class="bi bi-journal-text"></i> Quick Notes</span>
 <div class="call-preview-value call-preview-notes" id="preCallNotes">No notes yet.</div>
 </div>
 <div class="call-preview-card">
@@ -589,10 +593,6 @@
 <button class="mini-tag" data-post-tag="No Answer" type="button">No Answer</button>
 </div>
 </div>
-<label class="stacked-field post-call-notes" id="postNotesQuestion">
-<span>Notes</span>
-<textarea id="postCallNotes" placeholder="Add anything important from the call..." rows="4"></textarea>
-</label>
 <div class="modal-actions call-flow-actions">
 <button class="modal-secondary" id="skipPostCallButton" type="button">Skip</button>
 <button class="modal-primary" id="savePostCallButton" type="button">Done</button>

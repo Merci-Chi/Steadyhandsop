@@ -368,9 +368,8 @@ function updateSignedInUserUi() {
 }
 
 function currentUserIsKiara() {
-  const displayName = String(currentUserName || '').trim().toLowerCase();
-  const emailName = String(supabaseSession?.user?.email || '').split('@')[0].trim().toLowerCase();
-  return displayName === 'kiara' || emailName === 'kiara';
+  const email = String(supabaseSession?.user?.email || '').trim().toLowerCase();
+  return email === 'kiara@steadyhandsop.com';
 }
 
 function addLeadHistory(lead, type, actor = currentUserName, at = new Date().toISOString(), details = {}) {
@@ -1227,7 +1226,7 @@ function leadCard(lead) {
         ${cornerTags ? `<span class="lead-priority-tags">${cornerTags}</span>` : ''}
         <span class="lead-avatar">${escapeHTML(initial)}</span>
         <span class="lead-copy">
-          <span class="lead-name-line"><strong>${escapeHTML(lead.company || 'No company')}</strong>${badges}</span>
+          <span class="lead-name-line"><strong>${escapeHTML(lead.company || 'No company')}</strong>${badges}${isHot ? '<span class="mobile-hot-lead-badge">🔥 HOT LEAD</span>' : ''}</span>
           <span class="lead-company">${escapeHTML(lead.name || 'No contact name')}</span>
           ${isSold
             ? `<span class="lead-called-by sold-by-card"><i class="bi bi-trophy-fill" aria-hidden="true"></i>Sold by ${escapeHTML(lead.soldBy || latestSoldActor(lead) || 'Unassigned')}</span>`
@@ -1305,12 +1304,20 @@ function renderCurrentLead() {
     soldByEl.textContent = soldLead ? `Sold by ${lead.soldBy || latestSoldActor(lead) || 'Unassigned'}` : '';
   }
   const callButton = $('#topCallButton');
+  const mobileCallButton = $('#mobilePreCallButton');
+  const canCall = Boolean(lead.phone) && (!soldLead || kiaraCanSeeSoldPhone);
+
   if (callButton) {
-    const canCall = Boolean(lead.phone) && (!soldLead || kiaraCanSeeSoldPhone);
     callButton.hidden = !canCall;
     callButton.href = '#';
     callButton.dataset.tel = canCall ? `tel:${String(lead.phone || '').replace(/[^\d+]/g, '')}` : '';
     callButton.setAttribute('aria-disabled', canCall ? 'false' : 'true');
+  }
+
+  if (mobileCallButton) {
+    mobileCallButton.hidden = !canCall;
+    mobileCallButton.disabled = !canCall;
+    mobileCallButton.setAttribute('aria-disabled', canCall ? 'false' : 'true');
   }
   $('#leadName').textContent = lead.name || 'No contact name';
   $('#leadCompany').textContent = lead.company || '—';
@@ -1922,6 +1929,11 @@ $('#topCallButton')?.addEventListener('click', event => {
   openPreCallModal();
 });
 
+$('#mobilePreCallButton')?.addEventListener('click', event => {
+  event.preventDefault();
+  openPreCallModal();
+});
+
 $('#callPromptToggle')?.addEventListener('click', () => {
   const box = $('#callPromptBox');
   if (!box) return;
@@ -1938,19 +1950,15 @@ function resetPostCallForm(lead) {
   postCallMood = '';
   postCallTag = '';
   $$('[data-post-answer], [data-post-mood], [data-post-tag]').forEach(button => button.classList.remove('selected'));
-  $('#postCallNotes').value = '';
-
   const missingAnswer = !String(lead?.answerStatus || '').trim();
   const missingMood = !String(lead?.mood || '').trim();
   const missingStatus = !String(lead?.tag || '').trim();
-  const missingNotes = !String(lead?.notes || '').trim();
 
   $('#postAnswerQuestion').hidden = !missingAnswer;
   $('#postMoodQuestion').hidden = !missingMood;
   $('#postStatusQuestion').hidden = !missingStatus;
-  $('#postNotesQuestion').hidden = !missingNotes;
 
-  return { missingAnswer, missingMood, missingStatus, missingNotes };
+  return { missingAnswer, missingMood, missingStatus };
 }
 
 function openPostCallCheckIn() {
@@ -2024,13 +2032,6 @@ async function saveVisiblePostCallAnswers() {
     if (postCallTag === 'Interested' || postCallTag === 'Hot Lead') lead.outcome = 'Interested';
   }
 
-  if (!$('#postNotesQuestion').hidden) {
-    const note = String($('#postCallNotes')?.value || '').trim();
-    if (note) {
-      lead.notes = lead.notes ? `${lead.notes}\n${note}` : note;
-      addLeadHistory(lead, 'note', activeUserName(), new Date().toISOString(), { note });
-    }
-  }
 
   saveState(lead.id);
   renderCurrentLead();
