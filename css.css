@@ -4210,3 +4210,55 @@ html, body { overscroll-behavior-y: contain; }
     display: none !important;
   }
 }
+
+
+/* FINAL MOBILE DATA/VISIBILITY HARDENING */
+@media (max-width: 959px) {
+  /* The three category buttons are the navigation. */
+  #leadsScreen > .pipeline-switcher {
+    position: relative !important;
+    z-index: 50 !important;
+  }
+
+  #leadsScreen > .pipeline-switcher .pipeline-summary {
+    pointer-events: auto !important;
+    user-select: none !important;
+  }
+
+  /* Exactly one pipeline list may be visible at a time. */
+  #leadsScreen > #newLeadList,
+  #leadsScreen > #followLeadList,
+  #leadsScreen > #soldLeadList,
+  #leadsScreen > .section-heading {
+    display: none !important;
+  }
+
+  #leadsScreen.desktop-leads-view > #newLeadList {
+    display: grid !important;
+  }
+  #leadsScreen.desktop-leads-view > .section-heading:not(.follow-heading):not(.sold-heading) {
+    display: flex !important;
+  }
+
+  #leadsScreen.desktop-followups-view > #followLeadList {
+    display: grid !important;
+  }
+  #leadsScreen.desktop-followups-view > .follow-heading {
+    display: flex !important;
+  }
+
+  #leadsScreen.desktop-sold-view > #soldLeadList {
+    display: grid !important;
+  }
+  #leadsScreen.desktop-sold-view > .sold-heading {
+    display: flex !important;
+  }
+
+  /* Hot Lead is always visible on mobile when SQL tags contains Hot Lead. */
+  .lead-item.hot-lead-card .lead-priority-tags,
+  .lead-item.hot-lead-card .mobile-hot-lead-badge {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}

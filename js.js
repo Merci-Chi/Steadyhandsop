@@ -117,7 +117,7 @@ function soldPublicRow(lead) {
 
 async function storeSoldPhoneSecurely(lead) {
   if (!lead || lead.status !== 'sold') return;
-  const { error } = await supabaseClient.rpc('store_sold_phone', {
+  const { error } = await supabaseClient.rpc('set_sold_phone', {
     p_lead_id: lead.id,
     p_phone: lead.phone || ''
   });
@@ -297,7 +297,9 @@ async function hydrateFromSupabase() {
   const [newResult, followResult, soldResult] = await Promise.all([
     supabaseClient.from('new_leads').select('*').order('created_at', { ascending: true }),
     supabaseClient.from('follow_ups').select('*').order('created_at', { ascending: true }),
-    supabaseClient.from('sold_leads').select('*').order('created_at', { ascending: true })
+    // sold_leads.phone is intentionally private. SELECT * fails for non-phone columns too
+    // because the database only grants authenticated users an explicit safe column list.
+    supabaseClient.from('sold_leads').select('id,name,company,email,site,lead_type,tags,source_tags,spanish_possible,age,issue,concerns,notes,answer_status,mood,outcome,callback_date,callback_time,preferred_contact,preferred_date,preferred_time,preferred_days,time_preference,specific_time,tag,last_called,history,sold_by,created_at,updated_at').order('created_at', { ascending: true })
   ]);
 
   if (newResult.error) throw newResult.error;
@@ -312,13 +314,16 @@ async function hydrateFromSupabase() {
 
   if (currentUserIsKiara()) {
     const { data: privatePhones, error: privateError } = await supabaseClient
-      .from('sold_private_phones')
-      .select('lead_id, phone');
-    if (privateError) console.error('Could not load Kiara-only sold phone numbers:', privateError);
-    else {
+      .rpc('get_sold_phones');
+
+    if (privateError) {
+      console.error('Could not load Kiara-only sold phone numbers:', privateError);
+    } else {
       const phoneById = new Map((privatePhones || []).map(row => [row.lead_id, row.phone || '']));
       remoteLeads.forEach(lead => {
-        if (lead.status === 'sold' && phoneById.has(lead.id)) lead.phone = phoneById.get(lead.id);
+        if (lead.status === 'sold' && phoneById.has(lead.id)) {
+          lead.phone = phoneById.get(lead.id);
+        }
       });
     }
   }
@@ -583,8 +588,6 @@ async function initializeSupabaseAuth() {
   }
 }
 
-const PAGE_STATE_KEY = 'steadyHandsLeadApp_pageState_v1';
-
 const seedLeads = [];
 
 let state = loadState();
@@ -592,21 +595,15 @@ let currentLeadId = null;
 let editingLeadId = null;
 let selectedDoneTag = '';
 let selectedSpanishPossible = false;
+let pageState = { screen: 'leads', leadId: null, tab: 'detailsPanel' };
 
 function loadPageState() {
-  try {
-    const saved = JSON.parse(sessionStorage.getItem(PAGE_STATE_KEY) || '{}');
-    return saved && typeof saved === 'object' ? saved : {};
-  } catch (_) {
-    return {};
-  }
+  return { ...pageState };
 }
 
 function savePageState(patch = {}) {
-  const current = loadPageState();
-  const next = { ...current, ...patch };
-  sessionStorage.setItem(PAGE_STATE_KEY, JSON.stringify(next));
-  return next;
+  pageState = { ...pageState, ...patch };
+  return { ...pageState };
 }
 
 function clearDetailPageState() {
@@ -2942,10 +2939,28 @@ $('#signOutButton').addEventListener('click', async () => {
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
   supabaseSession = session;
+
   if (session) updateSignedInUserUi();
-  if (!session) unsubscribeFromLeadChanges();
-  else if (event === 'SIGNED_IN') subscribeToLeadChanges();
+  if (!session) {
+    unsubscribeFromLeadChanges();
+    state.leads = [];
+    renderLists();
+  }
+
   setAuthenticatedUi(Boolean(session));
+
+  if (session && ['SIGNED_IN', 'INITIAL_SESSION', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
+    // Important on mobile/PWA: an existing Supabase session may finish restoring
+    // AFTER initializeSupabaseAuth() has already checked getSession().
+    // Always hydrate from Supabase when a real session becomes available.
+    hydrateFromSupabase()
+      .then(() => subscribeToLeadChanges())
+      .catch(error => {
+        console.error('Could not hydrate leads after auth state change:', error);
+        showSyncStatus('Sync failed');
+      });
+  }
+
   if (event === 'PASSWORD_RECOVERY') {
     $('#recoveryNewPassword').value = '';
     $('#recoveryConfirmPassword').value = '';
@@ -2956,6 +2971,20 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 
 initializeSupabaseAuth().then(async () => {
   if (supabaseSession) await loadLeadsJson();
+});
+
+
+// Mobile/PWA freshness: rehydrate when returning to the app.
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && supabaseSession) {
+    hydrateFromSupabase().catch(error => console.error('Visibility refresh failed:', error));
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  if (supabaseSession) {
+    hydrateFromSupabase().catch(error => console.error('Page-show refresh failed:', error));
+  }
 });
 
 /* PULL TO REFRESH --------------------------------------------------------- */
@@ -3167,7 +3196,14 @@ document.addEventListener('keydown', event => {
     showScreen('leads');
     applyPipelineView(button.dataset.pipelineView, { persist: true, scroll: false });
 
-    // Mobile should always land at the top of the selected category.
+    // Refresh directly from Supabase so mobile never relies on an old in-memory list.
+    if (supabaseSession) {
+      hydrateFromSupabase().catch(error => {
+        console.error('Could not refresh selected pipeline:', error);
+        showSyncStatus('Sync failed');
+      });
+    }
+
     if (window.matchMedia('(max-width: 959px)').matches) {
       document.getElementById('leadsScreen')?.scrollIntoView({ block: 'start' });
     }

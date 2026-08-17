@@ -1,4 +1,5 @@
 // Lead Board service worker retired.
+// The app now reads lead data directly from Supabase and app files from the network.
 self.addEventListener('install', () => self.skipWaiting());
 
 self.addEventListener('activate', event => {
@@ -11,5 +12,5 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', () => {
-  // Intentionally no interception. Use the network directly.
+  // No fetch interception.
 });
