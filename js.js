@@ -297,8 +297,6 @@ async function hydrateFromSupabase() {
   const [newResult, followResult, soldResult] = await Promise.all([
     supabaseClient.from('new_leads').select('*').order('created_at', { ascending: true }),
     supabaseClient.from('follow_ups').select('*').order('created_at', { ascending: true }),
-    // sold_leads.phone is intentionally private. SELECT * fails for non-phone columns too
-    // because the database only grants authenticated users an explicit safe column list.
     supabaseClient.from('sold_leads').select('id,name,company,email,site,lead_type,tags,source_tags,spanish_possible,age,issue,concerns,notes,answer_status,mood,outcome,callback_date,callback_time,preferred_contact,preferred_date,preferred_time,preferred_days,time_preference,specific_time,tag,last_called,history,sold_by,created_at,updated_at').order('created_at', { ascending: true })
   ]);
 
@@ -313,17 +311,13 @@ async function hydrateFromSupabase() {
   ];
 
   if (currentUserIsKiara()) {
-    const { data: privatePhones, error: privateError } = await supabaseClient
-      .rpc('get_sold_phones');
-
+    const { data: privatePhones, error: privateError } = await supabaseClient.rpc('get_sold_phones');
     if (privateError) {
       console.error('Could not load Kiara-only sold phone numbers:', privateError);
     } else {
       const phoneById = new Map((privatePhones || []).map(row => [row.lead_id, row.phone || '']));
       remoteLeads.forEach(lead => {
-        if (lead.status === 'sold' && phoneById.has(lead.id)) {
-          lead.phone = phoneById.get(lead.id);
-        }
+        if (lead.status === 'sold' && phoneById.has(lead.id)) lead.phone = phoneById.get(lead.id);
       });
     }
   }
@@ -595,6 +589,7 @@ let currentLeadId = null;
 let editingLeadId = null;
 let selectedDoneTag = '';
 let selectedSpanishPossible = false;
+let currentPipelineView = 'leads';
 let pageState = { screen: 'leads', leadId: null, tab: 'detailsPanel' };
 
 function loadPageState() {
@@ -1213,6 +1208,60 @@ function leadCard(lead) {
     </div>`;
 }
 
+
+function enforcePipelineView(requestedView = 'leads') {
+  const view = ['leads', 'followups', 'sold'].includes(requestedView) ? requestedView : 'leads';
+  currentPipelineView = view;
+
+  const screen = document.getElementById('leadsScreen');
+  if (!screen) return;
+
+  screen.classList.remove('desktop-leads-view', 'desktop-followups-view', 'desktop-sold-view');
+  screen.classList.add(
+    view === 'followups' ? 'desktop-followups-view' :
+    view === 'sold' ? 'desktop-sold-view' :
+    'desktop-leads-view'
+  );
+  screen.dataset.pipelineView = view;
+
+  const selectors = {
+    leads: {
+      heading: '#leadsScreen > .section-heading:not(.follow-heading):not(.sold-heading)',
+      list: '#newLeadList'
+    },
+    followups: {
+      heading: '#leadsScreen > .follow-heading',
+      list: '#followLeadList'
+    },
+    sold: {
+      heading: '#leadsScreen > .sold-heading',
+      list: '#soldLeadList'
+    }
+  };
+
+  Object.entries(selectors).forEach(([key, refs]) => {
+    const visible = key === view;
+    const heading = document.querySelector(refs.heading);
+    const list = document.querySelector(refs.list);
+
+    if (heading) {
+      heading.hidden = !visible;
+      heading.style.setProperty('display', visible ? 'flex' : 'none', 'important');
+    }
+
+    if (list) {
+      list.hidden = !visible;
+      list.style.setProperty('display', visible ? 'grid' : 'none', 'important');
+    }
+  });
+
+  document.querySelectorAll('[data-pipeline-view]').forEach(button => {
+    const active = button.dataset.pipelineView === view;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+}
+
 function renderLists() {
   const query = ($('#leadSearch').value || '').trim().toLowerCase();
   const matches = lead => !query || [lead.name, lead.company, lead.phone, lead.email, lead.tag, getLeadType(lead), hasPossibleSpanishTag(lead) ? 'Spanish?' : '', ...(Array.isArray(lead.sourceTags) ? lead.sourceTags : [])].some(v => String(v || '').toLowerCase().includes(query));
@@ -1245,19 +1294,8 @@ function renderLists() {
   $('#followCountChip').textContent = followCount;
   $('#soldCountChip').textContent = soldCount;
 
-  // Keep the selected pipeline category separated after every render.
-  const selectedPipeline = document.querySelector('[data-pipeline-view].active')?.dataset.pipelineView || 'leads';
-  const screen = document.getElementById('leadsScreen');
-  if (screen) {
-    screen.classList.remove('desktop-leads-view', 'desktop-followups-view', 'desktop-sold-view');
-    screen.classList.add(
-      selectedPipeline === 'followups'
-        ? 'desktop-followups-view'
-        : selectedPipeline === 'sold'
-          ? 'desktop-sold-view'
-          : 'desktop-leads-view'
-    );
-  }
+  // Re-apply the selected category after every render.
+  enforcePipelineView(currentPipelineView);
 }
 
 function openLead(id) {
@@ -2938,9 +2976,11 @@ $('#signOutButton').addEventListener('click', async () => {
 });
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
+  const hadSession = Boolean(supabaseSession);
   supabaseSession = session;
 
   if (session) updateSignedInUserUi();
+
   if (!session) {
     unsubscribeFromLeadChanges();
     state.leads = [];
@@ -2949,14 +2989,11 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 
   setAuthenticatedUi(Boolean(session));
 
-  if (session && ['SIGNED_IN', 'INITIAL_SESSION', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
-    // Important on mobile/PWA: an existing Supabase session may finish restoring
-    // AFTER initializeSupabaseAuth() has already checked getSession().
-    // Always hydrate from Supabase when a real session becomes available.
+  if (session && (!hadSession || ['SIGNED_IN', 'INITIAL_SESSION', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event))) {
     hydrateFromSupabase()
       .then(() => subscribeToLeadChanges())
       .catch(error => {
-        console.error('Could not hydrate leads after auth state change:', error);
+        console.error('Could not hydrate leads after auth restore:', error);
         showSyncStatus('Sync failed');
       });
   }
@@ -2971,20 +3008,6 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 
 initializeSupabaseAuth().then(async () => {
   if (supabaseSession) await loadLeadsJson();
-});
-
-
-// Mobile/PWA freshness: rehydrate when returning to the app.
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && supabaseSession) {
-    hydrateFromSupabase().catch(error => console.error('Visibility refresh failed:', error));
-  }
-});
-
-window.addEventListener('pageshow', () => {
-  if (supabaseSession) {
-    hydrateFromSupabase().catch(error => console.error('Page-show refresh failed:', error));
-  }
 });
 
 /* PULL TO REFRESH --------------------------------------------------------- */
@@ -3124,84 +3147,28 @@ document.addEventListener('keydown', event => {
   const soldNav = document.getElementById('desktopSoldNav');
   const addNav = document.getElementById('desktopAddLeadNav');
   const accountNav = document.getElementById('desktopAccountNav');
-  const leadsScreen = document.getElementById('leadsScreen');
   const pipelineButtons = [...document.querySelectorAll('[data-pipeline-view]')];
 
-  let currentPipelineView = 'leads';
-
-  const normalizePipeline = (value) =>
-    ['leads', 'followups', 'sold'].includes(value) ? value : 'leads';
-
-  const setDesktopActive = (which) => {
-    [leadsNav, followNav, soldNav, addNav, accountNav].forEach(btn => {
-      btn?.classList.remove('active');
-    });
-    which?.classList.add('active');
+  const setDesktopActive = view => {
+    [leadsNav, followNav, soldNav, addNav, accountNav].forEach(btn => btn?.classList.remove('active'));
+    const target = view === 'followups' ? followNav : view === 'sold' ? soldNav : leadsNav;
+    target?.classList.add('active');
   };
 
-  const navForPipeline = (view) => {
-    if (view === 'followups') return followNav;
-    if (view === 'sold') return soldNav;
-    return leadsNav;
-  };
-
-  const applyPipelineView = (requestedView, options = {}) => {
-    if (!leadsScreen) return;
-
-    const view = normalizePipeline(requestedView);
-    const { persist = true, scroll = false } = options;
-
-    leadsScreen.classList.remove(
-      'desktop-leads-view',
-      'desktop-followups-view',
-      'desktop-sold-view'
-    );
-
-    leadsScreen.classList.add(
-      view === 'followups'
-        ? 'desktop-followups-view'
-        : view === 'sold'
-          ? 'desktop-sold-view'
-          : 'desktop-leads-view'
-    );
-
-    pipelineButtons.forEach(button => {
-      const active = button.dataset.pipelineView === view;
-      button.classList.toggle('active', active);
-      button.setAttribute('aria-pressed', active ? 'true' : 'false');
-    });
-
-    setDesktopActive(navForPipeline(view));
-
-    currentPipelineView = view;
-
-    if (scroll) {
-      const target =
-        view === 'followups'
-          ? document.querySelector('#leadsScreen .follow-heading')
-          : view === 'sold'
-            ? document.querySelector('#leadsScreen .sold-heading')
-            : document.querySelector(
-                '#leadsScreen .section-heading:not(.follow-heading):not(.sold-heading)'
-              );
-
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  // Top New Leads / Follow-ups / Sold Leads tabs.
-  // These are the pipeline navigation on BOTH desktop and mobile.
-  const activatePipelineButton = button => {
-    if (!button?.dataset?.pipelineView) return;
+  const switchPipeline = async view => {
     showScreen('leads');
-    applyPipelineView(button.dataset.pipelineView, { persist: true, scroll: false });
+    enforcePipelineView(view);
+    setDesktopActive(view);
 
-    // Refresh directly from Supabase so mobile never relies on an old in-memory list.
+    // Pull the current database state every time a category is selected.
     if (supabaseSession) {
-      hydrateFromSupabase().catch(error => {
-        console.error('Could not refresh selected pipeline:', error);
+      try {
+        await hydrateFromSupabase();
+        enforcePipelineView(view);
+      } catch (error) {
+        console.error('Could not refresh pipeline from Supabase:', error);
         showSyncStatus('Sync failed');
-      });
+      }
     }
 
     if (window.matchMedia('(max-width: 959px)').matches) {
@@ -3211,42 +3178,50 @@ document.addEventListener('keydown', event => {
 
   pipelineButtons.forEach(button => {
     button.setAttribute('role', 'tab');
+    button.style.setProperty('pointer-events', 'auto', 'important');
     button.addEventListener('click', event => {
       event.preventDefault();
-      activatePipelineButton(button);
+      event.stopPropagation();
+      switchPipeline(button.dataset.pipelineView);
     });
   });
 
-  // Desktop sidebar buttons use the exact same pipeline state.
-  leadsNav?.addEventListener('click', () => {
-    showScreen('leads');
-    applyPipelineView('leads', { persist: true, scroll: false });
-  });
-
-  followNav?.addEventListener('click', () => {
-    showScreen('leads');
-    applyPipelineView('followups', { persist: true, scroll: false });
-  });
-
-  soldNav?.addEventListener('click', () => {
-    showScreen('leads');
-    applyPipelineView('sold', { persist: true, scroll: false });
-  });
+  leadsNav?.addEventListener('click', () => switchPipeline('leads'));
+  followNav?.addEventListener('click', () => switchPipeline('followups'));
+  soldNav?.addEventListener('click', () => switchPipeline('sold'));
 
   addNav?.addEventListener('click', () => {
-    setDesktopActive(addNav);
     document.getElementById('addLeadBottomButton')?.click();
   });
 
   accountNav?.addEventListener('click', () => {
-    setDesktopActive(accountNav);
     document.getElementById('accountButton')?.click();
   });
 
   document.getElementById('backButton')?.addEventListener('click', () => {
-    applyPipelineView(currentPipelineView, { persist: false, scroll: false });
+    enforcePipelineView(currentPipelineView);
+    setDesktopActive(currentPipelineView);
   });
 
-  // Always start on New Leads after a full reload.
-  applyPipelineView('leads', { persist: false, scroll: false });
+  enforcePipelineView('leads');
+  setDesktopActive('leads');
 })();
+
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && supabaseSession) {
+    const view = currentPipelineView;
+    hydrateFromSupabase()
+      .then(() => enforcePipelineView(view))
+      .catch(error => console.error('Mobile visibility refresh failed:', error));
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  if (supabaseSession) {
+    const view = currentPipelineView;
+    hydrateFromSupabase()
+      .then(() => enforcePipelineView(view))
+      .catch(error => console.error('Mobile page refresh failed:', error));
+  }
+});

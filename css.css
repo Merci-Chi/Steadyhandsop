@@ -4212,53 +4212,246 @@ html, body { overscroll-behavior-y: contain; }
 }
 
 
-/* FINAL MOBILE DATA/VISIBILITY HARDENING */
+/* =====================================================================
+   FINAL MOBILE OVERRIDE — THIS BLOCK MUST STAY LAST
+   One pipeline at a time + desktop-identical grouped/color-coded tags.
+   ===================================================================== */
 @media (max-width: 959px) {
-  /* The three category buttons are the navigation. */
-  #leadsScreen > .pipeline-switcher {
+  /* CATEGORY SWITCHER */
+  #leadsScreen > .summary-row.pipeline-switcher {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin: 10px 0 10px !important;
     position: relative !important;
-    z-index: 50 !important;
+    z-index: 100 !important;
+    overflow: visible !important;
   }
 
-  #leadsScreen > .pipeline-switcher .pipeline-summary {
+  #leadsScreen > .summary-row.pipeline-switcher > .pipeline-summary {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    min-height: 58px !important;
+    padding: 7px 4px !important;
+    position: relative !important;
+    z-index: 101 !important;
     pointer-events: auto !important;
-    user-select: none !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+    border: 1px solid #27445d !important;
+    border-radius: 12px !important;
+    background: linear-gradient(145deg, #091724, #06101a) !important;
   }
 
-  /* Exactly one pipeline list may be visible at a time. */
+  #leadsScreen > .summary-row.pipeline-switcher > .pipeline-summary span {
+    pointer-events: none !important;
+    color: #91a6ba !important;
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: .04em !important;
+    white-space: nowrap !important;
+  }
+
+  #leadsScreen > .summary-row.pipeline-switcher > .pipeline-summary strong {
+    pointer-events: none !important;
+    margin-top: 2px !important;
+    color: #f5f8fc !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+
+  #leadsScreen > .summary-row.pipeline-switcher > .pipeline-summary.active {
+    border-color: #2e86ff !important;
+    background: linear-gradient(180deg, rgba(24,101,212,.28), rgba(9,40,76,.55)) !important;
+    box-shadow: inset 0 0 0 1px rgba(75,151,238,.12), 0 0 16px rgba(46,134,255,.10) !important;
+  }
+
+  /* Add Lead stays separate instead of stealing a category column. */
+  #leadsScreen > .summary-row.pipeline-switcher > .pipeline-add-lead {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-height: 43px !important;
+    margin-top: 0 !important;
+  }
+
+  /* Pipeline visibility is also enforced inline by JS; these are the CSS fallback. */
+  #leadsScreen > .section-heading,
   #leadsScreen > #newLeadList,
   #leadsScreen > #followLeadList,
-  #leadsScreen > #soldLeadList,
-  #leadsScreen > .section-heading {
+  #leadsScreen > #soldLeadList {
     display: none !important;
   }
 
-  #leadsScreen.desktop-leads-view > #newLeadList {
-    display: grid !important;
-  }
+  #leadsScreen[data-pipeline-view="leads"] > .section-heading:not(.follow-heading):not(.sold-heading),
   #leadsScreen.desktop-leads-view > .section-heading:not(.follow-heading):not(.sold-heading) {
     display: flex !important;
   }
 
-  #leadsScreen.desktop-followups-view > #followLeadList {
+  #leadsScreen[data-pipeline-view="leads"] > #newLeadList,
+  #leadsScreen.desktop-leads-view > #newLeadList {
     display: grid !important;
   }
+
+  #leadsScreen[data-pipeline-view="followups"] > .follow-heading,
   #leadsScreen.desktop-followups-view > .follow-heading {
     display: flex !important;
   }
 
-  #leadsScreen.desktop-sold-view > #soldLeadList {
+  #leadsScreen[data-pipeline-view="followups"] > #followLeadList,
+  #leadsScreen.desktop-followups-view > #followLeadList {
     display: grid !important;
   }
+
+  #leadsScreen[data-pipeline-view="sold"] > .sold-heading,
   #leadsScreen.desktop-sold-view > .sold-heading {
     display: flex !important;
   }
 
-  /* Hot Lead is always visible on mobile when SQL tags contains Hot Lead. */
+  #leadsScreen[data-pipeline-view="sold"] > #soldLeadList,
+  #leadsScreen.desktop-sold-view > #soldLeadList {
+    display: grid !important;
+  }
+
+  /* HOT LEAD ON MAIN MOBILE LIST */
+  .lead-item.hot-lead-card {
+    border-color: rgba(240,126,30,.8) !important;
+    box-shadow: inset 4px 0 0 #e86f10, 0 8px 24px rgba(0,0,0,.12) !important;
+  }
+
   .lead-item.hot-lead-card .lead-priority-tags,
-  .lead-item.hot-lead-card .mobile-hot-lead-badge {
-    display: flex !important;
+  .lead-item.hot-lead-card .mobile-hot-lead-badge,
+  .lead-item.hot-lead-card .hot-lead-tag {
+    display: inline-flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+  }
+
+  /* TAGS — SAME GROUPS AND SAME COLORS AS COMPUTER */
+  #quickTagsList {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  #quickTagsList .lead-tag-group {
+    display: block !important;
+    width: 100% !important;
+    padding: 11px !important;
+    border: 1px solid rgba(126,155,174,.14) !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,.018) !important;
+  }
+
+  #quickTagsList .lead-tag-group-heading {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 9px !important;
+  }
+
+  #quickTagsList .lead-tag-group-heading strong {
+    display: block !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    font-weight: 900 !important;
+    letter-spacing: .055em !important;
+    text-transform: uppercase !important;
+  }
+
+  #quickTagsList .lead-tag-group-heading small {
+    display: block !important;
+    margin-top: 3px !important;
+    color: var(--muted, #8ea0ad) !important;
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  #quickTagsList .lead-tag-group-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    grid-template-columns: none !important;
+    gap: 7px !important;
+    width: 100% !important;
+  }
+
+  #quickTagsList .quick-tag-chip.lead-tag-option {
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    border-radius: 999px !important;
+    font-size: 10.5px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+
+  /* Website */
+  #quickTagsList .quick-tag-chip.tag-group-site {
+    border-color: rgba(73,151,207,.3) !important;
+    background: rgba(73,151,207,.07) !important;
+    color: #a8d9f5 !important;
+  }
+  #quickTagsList .quick-tag-chip.tag-group-site.selected {
+    border-color: #4d9ed5 !important;
+    background: rgba(77,158,213,.22) !important;
+    color: #e7f7ff !important;
+  }
+
+  /* Contact */
+  #quickTagsList .quick-tag-chip.tag-group-contact {
+    border-color: rgba(151,112,204,.3) !important;
+    background: rgba(151,112,204,.07) !important;
+    color: #d8c0f4 !important;
+  }
+  #quickTagsList .quick-tag-chip.tag-group-contact.selected {
+    border-color: #9b72cf !important;
+    background: rgba(155,114,207,.2) !important;
+    color: #f1e7ff !important;
+  }
+
+  /* Lead Status — includes HOT LEAD */
+  #quickTagsList .quick-tag-chip.tag-group-interest {
+    border-color: rgba(223,137,48,.3) !important;
+    background: rgba(223,137,48,.07) !important;
+    color: #f1c28d !important;
+  }
+  #quickTagsList .quick-tag-chip.tag-group-interest.selected {
+    border-color: #dc8733 !important;
+    background: rgba(220,135,51,.2) !important;
+    color: #fff0db !important;
+  }
+
+  /* Call Outcome */
+  #quickTagsList .quick-tag-chip.tag-group-outcome {
+    border-color: rgba(203,76,84,.3) !important;
+    background: rgba(203,76,84,.07) !important;
+    color: #efb1b6 !important;
+  }
+  #quickTagsList .quick-tag-chip.tag-group-outcome.selected {
+    border-color: #cb4c54 !important;
+    background: rgba(203,76,84,.2) !important;
+    color: #ffe8ea !important;
+  }
+
+  /* Sold */
+  #quickTagsList .quick-tag-chip.tag-group-conversion {
+    border-color: rgba(193,159,58,.34) !important;
+    background: rgba(193,159,58,.08) !important;
+    color: #efd98c !important;
+  }
+  #quickTagsList .quick-tag-chip.tag-group-conversion.selected {
+    border-color: #c7a642 !important;
+    background: rgba(199,166,66,.2) !important;
+    color: #fff5c9 !important;
   }
 }
