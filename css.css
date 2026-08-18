@@ -4695,3 +4695,120 @@ body.purchase-intake-open{
     transform:translateY(0) scale(1);
   }
 }
+
+
+/* =========================================================
+   MOBILE HERO CTA — STACKED OPTIONS
+   Build Your Site first, Refresh Your Site second.
+   ========================================================= */
+@media (max-width:780px){
+  .site-cta{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+  }
+
+  .site-cta-copy{
+    width:100% !important;
+    text-align:center !important;
+  }
+
+  .site-cta-actions{
+    display:flex !important;
+    width:100% !important;
+    flex-direction:column !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    gap:10px !important;
+  }
+
+  .site-cta-choice{
+    display:flex !important;
+    width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:13px 14px !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:12px !important;
+    background:rgba(255,255,255,.10) !important;
+    border:1px solid rgba(255,255,255,.20) !important;
+    border-radius:16px !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.10),
+      0 8px 20px rgba(2,18,48,.12) !important;
+    backdrop-filter:blur(8px) !important;
+    -webkit-backdrop-filter:blur(8px) !important;
+  }
+
+  .site-cta-choice:hover{
+    transform:none !important;
+    background:rgba(255,255,255,.13) !important;
+    border-color:rgba(255,255,255,.26) !important;
+  }
+
+  .site-cta-note{
+    display:block !important;
+    flex:1 1 auto !important;
+    margin:0 !important;
+    color:#ffffff !important;
+    font-size:10px !important;
+    font-weight:800 !important;
+    line-height:1.2 !important;
+    letter-spacing:.10em !important;
+    text-transform:uppercase !important;
+    text-align:left !important;
+  }
+
+  .site-cta-note::before{
+    display:none !important;
+  }
+
+  .site-cta-btn{
+    flex:0 0 auto !important;
+    min-width:145px !important;
+    margin:0 !important;
+    padding:11px 14px !important;
+    border-radius:12px !important;
+    font-size:13px !important;
+    font-weight:800 !important;
+    line-height:1.15 !important;
+    white-space:nowrap !important;
+  }
+
+  .site-cta-btn.primary{
+    color:#123b70 !important;
+    background:#ffffff !important;
+    border:1px solid #ffffff !important;
+    box-shadow:0 7px 16px rgba(1,20,52,.15) !important;
+  }
+
+  .site-cta-btn.secondary{
+    color:#ffffff !important;
+    background:rgba(255,255,255,.08) !important;
+    border:1px solid rgba(255,255,255,.42) !important;
+    box-shadow:none !important;
+  }
+
+  .site-cta-btn.primary:hover,
+  .site-cta-btn.secondary:hover{
+    transform:none !important;
+  }
+}
+
+@media (max-width:430px){
+  .site-cta-choice{
+    padding:12px !important;
+    gap:9px !important;
+  }
+
+  .site-cta-btn{
+    min-width:136px !important;
+    padding:10px 12px !important;
+    font-size:12px !important;
+  }
+
+  .site-cta-note{
+    font-size:9px !important;
+  }
+}
