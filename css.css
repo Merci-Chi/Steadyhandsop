@@ -4694,3 +4694,51 @@ body.purchase-intake-open{
     transform:translateY(0) scale(1);
   }
 }
+
+/* === Mobile CTA layout fix: centered title + equal stacked action cards === */
+@media (max-width:620px){
+  .site-cta-copy{
+    text-align:center !important;
+  }
+
+  .site-cta-copy h1,
+  .site-cta-copy h2{
+    width:100% !important;
+    max-width:none !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    text-align:center !important;
+  }
+
+  .site-cta-copy .show-line{
+    display:inline-block !important;
+    text-align:center !important;
+  }
+
+  .site-cta-actions{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    grid-auto-rows:1fr !important;
+    align-items:stretch !important;
+    gap:12px !important;
+  }
+
+  .site-cta-choice{
+    width:100% !important;
+    min-height:116px !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:space-between !important;
+    align-items:stretch !important;
+  }
+
+  .site-cta-choice:nth-child(1){order:1 !important;}
+  .site-cta-choice:nth-child(2){order:2 !important;}
+
+  .site-cta-btn{
+    width:100% !important;
+    min-height:48px !important;
+    flex:0 0 48px !important;
+  }
+}
