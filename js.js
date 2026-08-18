@@ -2602,6 +2602,9 @@ if (blogTrack) {
         'modal-open'
       );
 
+      modal.scrollTop = 0;
+      dialog.scrollTop = 0;
+
       setTimeout(
         () =>
           form
@@ -2834,60 +2837,10 @@ if (blogTrack) {
       'submit',
       e => {
         e.preventDefault();
-
-        const pages = [
-          ...form.querySelectorAll(
-            'input[name="pages"]:checked'
-          )
-        ].map(x => x.value);
-
-        if (!pages.length) {
-          status.textContent =
-            'Please select at least one page.';
-
-          form
-            .querySelector(
-              '.pages-group'
-            )
-            ?.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center'
-            });
-
+        if (!form.reportValidity()) {
           return;
         }
-
-        const primary =
-          form.querySelector(
-            'input[name="primaryColor"]'
-          );
-
-        if (
-          primary &&
-          !primary.value
-        ) {
-          status.textContent =
-            'Please choose a primary color.';
-
-          form
-            .querySelector(
-              '[data-color-role="primary"]'
-            )
-            ?.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center'
-            });
-
-          return;
-        }
-
-        if (
-          !form.reportValidity()
-        ) {
-          return;
-        }
-
-        const fd =
+const fd =
           new FormData(form);
 
         const data =
@@ -2963,7 +2916,6 @@ if (blogTrack) {
         );
 
         lines.push(
-          `Pages wanted: ${pages.join(', ')}`,
           `Preferred contact method: ${data.contactMethod}`,
           `${data.contactMethod}: ${contact}`,
           '',
@@ -3823,13 +3775,18 @@ document
     // MANUAL SECTION SCROLL ADJUSTMENTS
     // Positive = farther DOWN the page.
     // Negative = stops HIGHER on the page.
-    // These values are used ONLY when a navigation link is clicked.
+    // These values are used for navigation clicks AND refresh restoration.
     // ==========================================================
     const sectionAdjustments = {
+
       'web-design': 10,
-      'website-redesign':-100,
-      'hosting': 15,
+
+      'website-redesign': -150,
+
+      'hosting': 64,
+
       'business-support': 0
+
     };
 
     const adjustment = sectionAdjustments[id] || 0;
@@ -3840,6 +3797,88 @@ document
       behavior
     });
   };
+
+  // ==========================================================
+  // REFRESH: RESTORE TO THE NEAREST SERVICE SECTION
+  // Saves whichever section below is closest to the center of
+  // the viewport, then restores directly to that section on reload.
+  // No native browser scroll restoration is used.
+  // ==========================================================
+  const refreshSectionIds = Object.keys(sectionAdjustments);
+  const refreshSectionStorageKey = 'steadyHandsNearestSection';
+
+  const getNearestRefreshSection = () => {
+    const viewportCenter = window.scrollY + (window.innerHeight / 2);
+
+    let nearestId = null;
+    let nearestDistance = Infinity;
+
+    refreshSectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const sectionCenter =
+        window.scrollY + rect.top + (rect.height / 2);
+
+      const distance = Math.abs(sectionCenter - viewportCenter);
+
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestId = id;
+      }
+    });
+
+    return nearestId;
+  };
+
+  const saveNearestRefreshSection = () => {
+    const nearestId = getNearestRefreshSection();
+    if (!nearestId) return;
+
+    try {
+      sessionStorage.setItem(
+        refreshSectionStorageKey,
+        nearestId
+      );
+    } catch (_) {}
+  };
+
+  // Save right before the current page is discarded/reloaded.
+  window.addEventListener('pagehide', saveNearestRefreshSection);
+  window.addEventListener('beforeunload', saveNearestRefreshSection);
+
+  // Restore ONLY on an actual browser reload.
+  const navigationEntry =
+    performance.getEntriesByType?.('navigation')?.[0];
+
+  const isReload =
+    navigationEntry?.type === 'reload' ||
+    performance.navigation?.type === 1;
+
+  if (isReload) {
+    let savedSectionId = null;
+
+    try {
+      savedSectionId =
+        sessionStorage.getItem(refreshSectionStorageKey);
+    } catch (_) {}
+
+    if (
+      savedSectionId &&
+      refreshSectionIds.includes(savedSectionId) &&
+      document.getElementById(savedSectionId)
+    ) {
+      // Wait only for the current layout pass, then make ONE direct
+      // non-animated landing using the same sectionAdjustments above.
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          scrollToSection(savedSectionId, 'auto');
+          setActive(savedSectionId);
+        });
+      });
+    }
+  }
 
   navigationLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
@@ -3943,50 +3982,26 @@ updateActiveFromScroll();
   const selectedService = document.getElementById('purchase-selected-service');
   const selectedPrice = document.getElementById('purchase-selected-price');
   const eyebrow = document.getElementById('purchase-intake-eyebrow');
-  const goalsLegend = document.getElementById('website-goals-legend');
-  const pagesLegend = document.getElementById('website-pages-legend');
-  const goalsOptions = document.getElementById('website-goals-options');
-  const pagesOptions = document.getElementById('website-pages-options');
-  const hostingNeeds = document.getElementById('hosting-needs-options');
-  const existingUrlWrap = document.getElementById('existing-website-url');
-  const hostingUrl = form.elements.hostingWebsiteUrl;
-  const notLiveYet = form.elements.notLiveYet;
   let state = null;
   let lastTrigger = null;
 
-  const normalGoals = ['Get customers to contact me','Show my services','Show my work','Accept bookings','Accept payments','Sell products','Manage business information','Other'];
-  const adminGoals = ['Manage customers','Manage leads','Manage employees/users','View statistics','Store business information','Create reports','Other'];
-  const normalPages = ['Home','About','Services','Gallery','Booking','Reviews','Contact','Shop','Other'];
-  const adminPages = ['Dashboard','Customers','Leads','Users','Reports','Analytics','Other'];
-  const standardNeeds = ['Hosting my website','Moving my existing website','Website updates','Website maintenance','Small site edits','Technical support'];
-  const backendNeeds = ['Backend hosting','Database hosting','User accounts / login','API connections','Backups','Backend maintenance','Technical support'];
-
   const escapeHtml = (value='') => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
-  const choiceMarkup = (name, values) => values.map(value => `<label><input type="checkbox" name="${name}" value="${escapeHtml(value)}"><span>${escapeHtml(value)}</span></label>`).join('');
-  const checkedValues = (name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(el => el.value);
 
   const setView = (view) => {
     const reviewing = view === 'review';
     formView.hidden = reviewing;
     reviewView.hidden = !reviewing;
+    modal.scrollTop = 0;
     dialog.scrollTop = 0;
   };
 
   const syncContact = () => {
     const method = form.elements.preferredContact.value;
-    modal.querySelectorAll('[data-purchase-contact]').forEach(panel => { panel.hidden = panel.dataset.purchaseContact !== method; });
+    modal.querySelectorAll('[data-purchase-contact]').forEach(panel => {
+      panel.hidden = panel.dataset.purchaseContact !== method;
+    });
     form.elements.customerEmail.required = method === 'Email';
     form.elements.customerPhone.required = method === 'Phone';
-  };
-
-  const syncExistingWebsite = () => {
-    existingUrlWrap.hidden = form.elements.hasWebsite.value !== 'Yes';
-  };
-
-  const syncHostingUrl = () => {
-    hostingUrl.disabled = !!notLiveYet.checked;
-    hostingUrl.required = !notLiveYet.checked && state?.type === 'hosting';
-    if (notLiveYet.checked) hostingUrl.value = '';
   };
 
   const formatPhone = (input) => {
@@ -4001,35 +4016,19 @@ updateActiveFromScroll();
     form.reset();
     error.textContent = '';
     setView('form');
-
     const isWebsite = state.type === 'website';
-    modal.querySelectorAll('.website-only').forEach(el => { el.hidden = !isWebsite; });
     modal.querySelectorAll('.hosting-only').forEach(el => { el.hidden = isWebsite; });
     selectedService.textContent = state.serviceName || '';
     selectedPrice.textContent = state.billingLabel || state.price || '';
     eyebrow.textContent = isWebsite ? 'Website Quick Start' : 'Hosting Quick Start';
-    document.getElementById('purchase-business-label').innerHTML = isWebsite ? 'Business or project name <b>*</b>' : 'Business name <b>*</b>';
-
-    if (isWebsite) {
-      const admin = state.package === 'admin';
-      goalsLegend.textContent = admin ? 'What should the admin site help you manage?' : 'What do you want the website to do?';
-      pagesLegend.textContent = admin ? 'What areas do you need?' : 'What pages/features do you need?';
-      goalsOptions.innerHTML = choiceMarkup('websiteGoals', admin ? adminGoals : normalGoals);
-      pagesOptions.innerHTML = choiceMarkup('websitePages', admin ? adminPages : normalPages);
-    } else {
-      hostingNeeds.innerHTML = choiceMarkup('hostingNeeds', state.package === 'backend' ? backendNeeds : standardNeeds);
-    }
-
     form.elements.preferredContact.value = 'Email';
-    form.elements.hasWebsite.value = 'No';
     syncContact();
-    syncExistingWebsite();
-    syncHostingUrl();
-
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden','false');
     document.body.classList.add('purchase-intake-open');
-    requestAnimationFrame(() => form.elements.customerName.focus());
+    modal.scrollTop = 0;
+    dialog.scrollTop = 0;
+    requestAnimationFrame(() => form.elements.customerName.focus({preventScroll:true}));
   };
 
   const close = () => {
@@ -4037,7 +4036,7 @@ updateActiveFromScroll();
     modal.setAttribute('aria-hidden','true');
     document.body.classList.remove('purchase-intake-open');
     state = null;
-    if (lastTrigger) lastTrigger.focus();
+    if (lastTrigger) lastTrigger.focus({preventScroll:true});
   };
 
   document.querySelectorAll('.start-intake').forEach(btn => {
@@ -4058,8 +4057,6 @@ updateActiveFromScroll();
 
   form.addEventListener('change', event => {
     if (event.target.name === 'preferredContact') syncContact();
-    if (event.target.name === 'hasWebsite') syncExistingWebsite();
-    if (event.target.name === 'notLiveYet') syncHostingUrl();
   });
   form.elements.customerPhone.addEventListener('input', event => formatPhone(event.target));
 
@@ -4068,18 +4065,12 @@ updateActiveFromScroll();
     const rows = [];
     const add = (label, value) => { if (value && String(value).trim()) rows.push([label, value]); };
     add(state.type === 'hosting' ? 'Plan' : 'Service', state.serviceName);
-    if (state.type === 'hosting') add('Billing', state.billingLabel);
+    if (state.type === 'hosting') add('Billing', state.billingLabel || state.price);
+    add('Name', fd.get('customerName'));
     add('Business', fd.get('businessName'));
-
-    if (state.type === 'website') {
-      add(state.package === 'admin' ? 'Main Need' : 'Main Need', checkedValues('websiteGoals').join(', '));
-      add(state.package === 'admin' ? 'Areas' : 'Pages', checkedValues('websitePages').join(', '));
-      if (fd.get('hasWebsite') === 'Yes') add('Website', fd.get('existingWebsiteUrl'));
-    } else {
-      add('Website', fd.get('notLiveYet') ? 'Not live yet' : fd.get('hostingWebsiteUrl'));
-      add('Needs', checkedValues('hostingNeeds').join(', '));
-    }
-    add('Contact', fd.get('preferredContact'));
+    if (state.type === 'hosting') add('Website', fd.get('hostingWebsiteUrl'));
+    add('Contact', `${fd.get('preferredContact')}: ${fd.get('preferredContact') === 'Phone' ? fd.get('customerPhone') : fd.get('customerEmail')}`);
+    add('Note', fd.get('anythingElse'));
     reviewList.innerHTML = rows.map(([label,value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('');
   };
 
@@ -4087,25 +4078,17 @@ updateActiveFromScroll();
     event.preventDefault();
     error.textContent = '';
     syncContact();
-    syncHostingUrl();
-
     if (!form.reportValidity()) return;
-    if (state.type === 'website' && form.elements.hasWebsite.value === 'Yes' && !form.elements.existingWebsiteUrl.value.trim()) {
-      error.textContent = 'Please enter your current website URL.';
-      form.elements.existingWebsiteUrl.focus();
-      return;
-    }
     buildReview();
     setView('review');
   });
 
-  reviewBack.addEventListener('click', () => setView('form'));
-  checkoutBtn.addEventListener('click', () => {
-    if (!state?.checkoutUrl) return;
-    window.location.href = state.checkoutUrl;
+  reviewBack?.addEventListener('click', () => setView('form'));
+  checkoutBtn?.addEventListener('click', () => {
+    if (state?.checkoutUrl) window.location.href = state.checkoutUrl;
   });
-  closeBtn.addEventListener('click', close);
-  modal.addEventListener('mousedown', event => { if (event.target === modal) close(); });
+  closeBtn?.addEventListener('click', close);
+  modal.addEventListener('click', event => { if (event.target === modal) close(); });
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && modal.classList.contains('is-open')) close();
   });

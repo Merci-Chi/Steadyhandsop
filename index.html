@@ -122,7 +122,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Cormorant+Garamond:wght@600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="css.css">
+<link rel="stylesheet" href="css-POPUPS-FIXED.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
@@ -571,230 +571,93 @@
 <div aria-hidden="true" class="intake-modal" id="site-audit-modal" data-project-type="Website Improvement">
 <section aria-describedby="site-audit-description" aria-labelledby="site-audit-title" aria-modal="true" class="intake-dialog" role="dialog">
 <button aria-label="Close website improvement form" class="intake-close" type="button">×</button>
-<header class="intake-header"><p class="eyebrow">Improve your current website</p><h2 id="site-audit-title">Tell us what needs to be better.</h2><p id="site-audit-description">Your selections will be placed into a ready-to-send email draft.</p></header>
+<header class="intake-header">
+  <p class="eyebrow">Upgrade your website</p>
+  <h2 id="site-audit-title">What needs to change?</h2>
+  <p id="site-audit-description">Just the important details. We can work out everything else together.</p>
+</header>
 <form class="intake-form project-intake-form">
-<p class="intake-required-note"><span class="required-mark">*</span> Required</p>
-<div class="intake-grid">
-<div class="intake-field"><label>Your name <span class="required-mark">*</span></label><input autocomplete="name" name="name" required type="text"></div>
-<div class="intake-field"><label>Current website domain <span class="required-mark">*</span></label><input autocomplete="url" name="currentDomain" placeholder="example.com" required type="text"></div>
-<div class="intake-field"><label>Current monthly website spend</label><input min="0" name="monthlySpend" placeholder="$150" step="1" type="number"></div>
-<div class="intake-field"><label>Main goal <span class="required-mark">*</span></label><select name="mainGoal" required><option value="">Choose one</option><option>Get more leads</option><option>Sell products or services</option><option>Book appointments</option><option>Look more professional</option><option>Improve speed and usability</option><option>Make updates easier</option><option>Other</option></select></div>
-<div class="intake-field"><label>Preferred timeline <span class="required-mark">*</span></label><select name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>Within 2–4 weeks</option><option>Within 1–2 months</option><option>Just exploring</option></select></div>
-<div class="intake-field full"><label>What is not working well now?</label><textarea name="currentProblems" placeholder="Slow loading, outdated design, difficult editing, poor mobile layout..."></textarea></div>
+  <div class="intake-grid">
+    <div class="intake-field"><label>Your name <span class="required-mark">*</span></label><input autocomplete="name" name="name" required type="text"></div>
+    <div class="intake-field"><label>Current website <span class="required-mark">*</span></label><input autocomplete="url" name="currentDomain" placeholder="example.com" required type="text"></div>
+    <div class="intake-field full"><label>What do you want improved? <span class="required-mark">*</span></label><textarea name="currentProblems" required placeholder="Design, mobile layout, speed, broken features, easier navigation..."></textarea></div>
+  </div>
+  <fieldset class="intake-group contact-method-group">
+    <legend class="intake-legend">How should we contact you? <span class="required-mark">*</span></legend>
+    <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
+      <label class="contact-choice"><input checked name="contactMethod" type="radio" value="Email"><span><i aria-hidden="true" class="fa-solid fa-envelope"></i> Email</span></label>
+      <label class="contact-choice"><input name="contactMethod" type="radio" value="Phone"><span><i aria-hidden="true" class="fa-solid fa-phone"></i> Phone</span></label>
+    </div>
+    <div class="contact-panel" data-contact-panel="Email"><div class="intake-field"><label>Email address <span class="required-mark">*</span></label><input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com"></div></div>
+    <div class="contact-panel" data-contact-panel="Phone" hidden><div class="intake-field"><label>Phone number <span class="required-mark">*</span></label><input autocomplete="tel" class="contact-phone" inputmode="numeric" maxlength="14" name="phone" type="tel" placeholder="(555) 555-5555"></div></div>
+  </fieldset>
+  <div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
+</form>
+</section>
 </div>
-<fieldset class="intake-group"><legend class="intake-legend">Choose your site colors</legend><p class="intake-helper">Primary is required. Secondary and Accent are optional.</p><div class="color-builder">
-  <div class="color-role" data-color-role="primary">
-    <div class="color-role-head"><div class="color-role-title">Primary color <span class="required-mark">*</span></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Choose a color</span></div></div>
-    <div aria-label="Primary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear primary color</button>
-    <input name="primaryColor" required type="hidden">
-  </div>
-  <div class="color-role" data-color-role="secondary">
-    <div class="color-role-head"><div class="color-role-title">Secondary color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
-    <div aria-label="Secondary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear secondary color</button><input name="secondaryColor" type="hidden">
-  </div>
-  <div class="color-role" data-color-role="accent">
-    <div class="color-role-head"><div class="color-role-title">Accent color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
-    <div aria-label="Accent color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear accent color</button><input name="accentColor" type="hidden">
-  </div>
-</div></fieldset>
-<fieldset class="intake-group pages-group">
-  <legend class="intake-legend">Pages wanted <span class="required-mark">*</span></legend>
-  <p class="intake-helper">Select every page you want included.</p>
-  <div class="page-tags">
-    <label class="page-tag"><input checked name="pages" type="checkbox" value="Home"><span>Home</span></label><label class="page-tag"><input name="pages" type="checkbox" value="About"><span>About</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Services"><span>Services</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Products / Shop"><span>Products / Shop</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Portfolio / Gallery"><span>Portfolio / Gallery</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Booking"><span>Booking</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Blog"><span>Blog</span></label><label class="page-tag"><input name="pages" type="checkbox" value="FAQ"><span>FAQ</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Reviews"><span>Reviews</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Contact"><span>Contact</span></label><label class="page-tag"><input class="other-page-toggle" name="pages" type="checkbox" value="Other"><span>Other</span></label>
-  </div>
-  <div class="intake-field other-page-wrap"><label>Other page(s) <span class="required-mark">*</span></label><input class="other-pages" name="otherPages" placeholder="Membership, resources, locations..." type="text"></div>
-</fieldset>
-<fieldset class="intake-group contact-method-group">
-  <legend class="intake-legend">Preferred contact method <span class="required-mark">*</span></legend>
-  <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
-    <label class="contact-choice"><input checked name="contactMethod" type="radio" value="Email"><span>Email</span></label>
-    <label class="contact-choice"><input name="contactMethod" type="radio" value="Phone"><span>Phone</span></label>
-  </div>
-  <div class="contact-panel" data-contact-panel="Email"><div class="intake-field"><label>Email address <span class="required-mark">*</span></label><input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com"></div></div>
-  <div class="contact-panel" data-contact-panel="Phone" hidden><div class="intake-field"><label>Phone number <span class="required-mark">*</span></label><input autocomplete="tel" class="contact-phone" name="phone" type="tel" placeholder="(555) 555-5555"></div></div>
-</fieldset>
-<div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
-</form></section></div>
 
 <div aria-hidden="true" class="intake-modal" id="new-site-modal" data-project-type="New Website Build">
 <section aria-describedby="new-site-description" aria-labelledby="new-site-title" aria-modal="true" class="intake-dialog" role="dialog">
 <button aria-label="Close new website form" class="intake-close" type="button">×</button>
-<header class="intake-header"><p class="eyebrow">Build a new website</p><h2 id="new-site-title">Let’s build it right.</h2><p id="new-site-description">Choose the site details you want and we’ll prepare a complete email draft.</p></header>
+<header class="intake-header">
+  <p class="eyebrow">Build your site</p>
+  <h2 id="new-site-title">Tell us the basics.</h2>
+  <p id="new-site-description">A few details are enough to get the conversation started.</p>
+</header>
 <form class="intake-form project-intake-form">
-<p class="intake-required-note"><span class="required-mark">*</span> Required</p>
-<div class="intake-grid">
-<div class="intake-field"><label>Your name <span class="required-mark">*</span></label><input autocomplete="name" name="name" required type="text"></div>
-<div class="intake-field"><label>Business or project name <span class="required-mark">*</span></label><input name="businessName" required type="text"></div>
-<div class="intake-field"><label>Industry or specialty <span class="required-mark">*</span></label><input name="businessType" placeholder="Restaurant, contractor, consultant..." required type="text"></div>
-<div class="intake-field full">
-  <fieldset class="intake-group project-kind-group">
-    <legend class="intake-legend">Website type <span class="required-mark">*</span></legend>
-    <p class="intake-helper">Choose the option that best describes the new site.</p>
-    <div class="page-tags project-kind-tags">
-      <label class="page-tag"><input name="websiteType" required type="radio" value="Personal"><span>Personal</span></label>
-      <label class="page-tag"><input name="websiteType" type="radio" value="Business"><span>Business</span></label>
-      <label class="page-tag"><input name="websiteType" type="radio" value="Admin"><span>Admin</span></label>
-      <label class="page-tag"><input name="websiteType" type="radio" value="Nonprofit"><span>Nonprofit</span></label>
-      <label class="page-tag"><input name="websiteType" type="radio" value="Portfolio"><span>Portfolio</span></label>
-      <label class="page-tag"><input name="websiteType" type="radio" value="Online Store"><span>Online Store</span></label>
-      <label class="page-tag"><input class="other-type-toggle" name="websiteType" type="radio" value="Other"><span>Other</span></label>
+  <div class="intake-grid">
+    <div class="intake-field"><label>Your name <span class="required-mark">*</span></label><input autocomplete="name" name="name" required type="text"></div>
+    <div class="intake-field"><label>Business or project <span class="required-mark">*</span></label><input autocomplete="organization" name="businessName" required type="text"></div>
+    <div class="intake-field full"><label>What do you need the website to do? <span class="required-mark">*</span></label><textarea name="projectDetails" required placeholder="Tell us what you offer and what you want visitors to be able to do."></textarea></div>
+  </div>
+  <fieldset class="intake-group contact-method-group">
+    <legend class="intake-legend">How should we contact you? <span class="required-mark">*</span></legend>
+    <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
+      <label class="contact-choice"><input checked name="contactMethod" type="radio" value="Email"><span><i aria-hidden="true" class="fa-solid fa-envelope"></i> Email</span></label>
+      <label class="contact-choice"><input name="contactMethod" type="radio" value="Phone"><span><i aria-hidden="true" class="fa-solid fa-phone"></i> Phone</span></label>
     </div>
-    <div class="intake-field other-type-wrap"><label>Other website type <span class="required-mark">*</span></label><input class="other-website-type" name="otherWebsiteType" placeholder="Community portal, directory, event site..." type="text"></div>
+    <div class="contact-panel" data-contact-panel="Email"><div class="intake-field"><label>Email address <span class="required-mark">*</span></label><input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com"></div></div>
+    <div class="contact-panel" data-contact-panel="Phone" hidden><div class="intake-field"><label>Phone number <span class="required-mark">*</span></label><input autocomplete="tel" class="contact-phone" inputmode="numeric" maxlength="14" name="phone" type="tel" placeholder="(555) 555-5555"></div></div>
   </fieldset>
+  <div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
+</form>
+</section>
 </div>
-<div class="intake-field"><label>Estimated website budget</label><select name="budget"><option>Not sure yet</option><option>Under $1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000+</option></select></div>
-<div class="intake-field"><label>Main goal <span class="required-mark">*</span></label><select name="mainGoal" required><option value="">Choose one</option><option>Get more leads</option><option>Sell products or services</option><option>Book appointments</option><option>Showcase work</option><option>Share information</option><option>Other</option></select></div>
-<div class="intake-field"><label>Preferred timeline <span class="required-mark">*</span></label><select name="timeline" required><option value="">Choose one</option><option>As soon as possible</option><option>Within 2–4 weeks</option><option>Within 1–2 months</option><option>Just exploring</option></select></div>
-<div class="intake-field full"><label>Tell us about the site</label><textarea name="projectDetails" placeholder="What should visitors know or do? Include any features or inspiration you have in mind."></textarea></div>
-</div>
-<fieldset class="intake-group"><legend class="intake-legend">Choose your site colors</legend><p class="intake-helper">Primary is required. Secondary and Accent are optional.</p><div class="color-builder">
-  <div class="color-role" data-color-role="primary">
-    <div class="color-role-head"><div class="color-role-title">Primary color <span class="required-mark">*</span></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Choose a color</span></div></div>
-    <div aria-label="Primary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear primary color</button>
-    <input name="primaryColor" required type="hidden">
-  </div>
-  <div class="color-role" data-color-role="secondary">
-    <div class="color-role-head"><div class="color-role-title">Secondary color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
-    <div aria-label="Secondary color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear secondary color</button><input name="secondaryColor" type="hidden">
-  </div>
-  <div class="color-role" data-color-role="accent">
-    <div class="color-role-head"><div class="color-role-title">Accent color <small>Optional</small></div><div class="color-selection"><span class="color-selection-dot"></span><span class="color-selection-name">Not selected</span></div></div>
-    <div aria-label="Accent color families" class="color-families"></div><div class="color-shade-wrap" hidden><p class="color-shade-label">Choose a shade</p><div class="color-shades"></div></div><button class="color-clear" hidden type="button">Clear accent color</button><input name="accentColor" type="hidden">
-  </div>
-</div></fieldset>
-<fieldset class="intake-group pages-group">
-  <legend class="intake-legend">Pages wanted <span class="required-mark">*</span></legend>
-  <p class="intake-helper">Select every page you want included.</p>
-  <div class="page-tags">
-    <label class="page-tag"><input checked name="pages" type="checkbox" value="Home"><span>Home</span></label><label class="page-tag"><input name="pages" type="checkbox" value="About"><span>About</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Services"><span>Services</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Products / Shop"><span>Products / Shop</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Portfolio / Gallery"><span>Portfolio / Gallery</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Booking"><span>Booking</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Blog"><span>Blog</span></label><label class="page-tag"><input name="pages" type="checkbox" value="FAQ"><span>FAQ</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Reviews"><span>Reviews</span></label><label class="page-tag"><input name="pages" type="checkbox" value="Contact"><span>Contact</span></label><label class="page-tag"><input class="other-page-toggle" name="pages" type="checkbox" value="Other"><span>Other</span></label>
-  </div>
-  <div class="intake-field other-page-wrap"><label>Other page(s) <span class="required-mark">*</span></label><input class="other-pages" name="otherPages" placeholder="Membership, resources, locations..." type="text"></div>
-</fieldset>
-<fieldset class="intake-group contact-method-group">
-  <legend class="intake-legend">Preferred contact method <span class="required-mark">*</span></legend>
-  <div class="contact-toggle" role="radiogroup" aria-label="Preferred contact method">
-    <label class="contact-choice"><input checked name="contactMethod" type="radio" value="Email"><span>Email</span></label>
-    <label class="contact-choice"><input name="contactMethod" type="radio" value="Phone"><span>Phone</span></label>
-  </div>
-  <div class="contact-panel" data-contact-panel="Email"><div class="intake-field"><label>Email address <span class="required-mark">*</span></label><input autocomplete="email" class="contact-email" name="email" required type="email" placeholder="you@example.com"></div></div>
-  <div class="contact-panel" data-contact-panel="Phone" hidden><div class="intake-field"><label>Phone number <span class="required-mark">*</span></label><input autocomplete="tel" class="contact-phone" name="phone" type="tel" placeholder="(555) 555-5555"></div></div>
-</fieldset>
-<div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
-</form></section></div>
-
 
 <div aria-hidden="true" class="purchase-intake-modal" id="purchase-intake-modal">
   <section class="purchase-intake-dialog" role="dialog" aria-modal="true" aria-labelledby="purchase-intake-title" aria-describedby="purchase-intake-description">
     <button class="purchase-intake-close" type="button" aria-label="Close service intake">×</button>
-
     <div class="purchase-intake-view" data-intake-view="form">
       <header class="purchase-intake-header">
         <p class="purchase-intake-eyebrow" id="purchase-intake-eyebrow">Quick Start</p>
         <h2 id="purchase-intake-title">A few quick details.</h2>
-        <p id="purchase-intake-description">This should take less than a minute.</p>
-        <div class="purchase-intake-selected" aria-live="polite">
-          <strong id="purchase-selected-service"></strong>
-          <span id="purchase-selected-price"></span>
-        </div>
+        <p id="purchase-intake-description">Only what we need to get started.</p>
+        <div class="purchase-intake-selected" aria-live="polite"><strong id="purchase-selected-service"></strong><span id="purchase-selected-price"></span></div>
       </header>
-
       <form id="purchase-intake-form" class="purchase-intake-form" novalidate>
         <div class="purchase-intake-grid">
-          <label class="purchase-field">
-            <span>Your name <b>*</b></span>
-            <input name="customerName" autocomplete="name" required type="text">
-          </label>
-          <label class="purchase-field">
-            <span id="purchase-business-label">Business or project name <b>*</b></span>
-            <input name="businessName" autocomplete="organization" required type="text">
-          </label>
+          <label class="purchase-field"><span>Your name <b>*</b></span><input name="customerName" autocomplete="name" required type="text"></label>
+          <label class="purchase-field"><span>Business or project <b>*</b></span><input name="businessName" autocomplete="organization" required type="text"></label>
         </div>
-
-        <div class="website-only purchase-field full">
-          <label><span>What does your business/project do?</span>
-            <textarea name="businessDescription" rows="2" placeholder="Landscaping company, photographer, personal portfolio, consulting business, etc."></textarea>
-          </label>
-        </div>
-
-        <fieldset class="website-only purchase-choice-group" id="website-goals-group">
-          <legend id="website-goals-legend">What do you want the website to do?</legend>
-          <div class="purchase-choice-grid" id="website-goals-options"></div>
-        </fieldset>
-
-        <fieldset class="website-only purchase-choice-group" id="website-pages-group">
-          <legend id="website-pages-legend">What pages/features do you need?</legend>
-          <div class="purchase-choice-grid" id="website-pages-options"></div>
-        </fieldset>
-
-        <fieldset class="website-only purchase-choice-group compact">
-          <legend>Do you already have a website?</legend>
-          <div class="purchase-segmented">
-            <label><input type="radio" name="hasWebsite" value="Yes"><span>Yes</span></label>
-            <label><input type="radio" name="hasWebsite" value="No" checked><span>No</span></label>
-          </div>
-          <label class="purchase-field purchase-conditional" id="existing-website-url" hidden>
-            <span>Website URL</span>
-            <input type="url" name="existingWebsiteUrl" placeholder="https://example.com">
-          </label>
-        </fieldset>
-
-        <div class="hosting-only purchase-field full">
-          <label><span>Website URL <b id="hosting-url-required">*</b></span>
-            <input type="url" name="hostingWebsiteUrl" placeholder="https://example.com">
-          </label>
-          <label class="purchase-inline-check"><input type="checkbox" name="notLiveYet"><span>I don't have the website live yet</span></label>
-        </div>
-
-        <label class="hosting-only purchase-field full">
-          <span>Who currently hosts your website? <small>Optional</small></span>
-          <select name="currentHost">
-            <option value="">Choose one</option><option>Not sure</option><option>Nobody / Not hosted yet</option><option>GoDaddy</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Hostinger</option><option>Other</option>
-          </select>
-        </label>
-
-        <fieldset class="hosting-only purchase-choice-group">
-          <legend>What do you need help with?</legend>
-          <div class="purchase-choice-grid" id="hosting-needs-options"></div>
-        </fieldset>
-
+        <label class="hosting-only purchase-field full" id="simple-hosting-url"><span>Website URL <small>Optional</small></span><input type="url" name="hostingWebsiteUrl" placeholder="https://example.com"></label>
         <fieldset class="purchase-choice-group compact">
           <legend>How should we contact you? <b>*</b></legend>
           <div class="purchase-segmented">
             <label><input type="radio" name="preferredContact" value="Email" checked><span>Email</span></label>
             <label><input type="radio" name="preferredContact" value="Phone"><span>Phone</span></label>
           </div>
-          <label class="purchase-field purchase-contact-field" data-purchase-contact="Email">
-            <span>Email address <b>*</b></span><input type="email" autocomplete="email" name="customerEmail" placeholder="you@example.com">
-          </label>
-          <label class="purchase-field purchase-contact-field" data-purchase-contact="Phone" hidden>
-            <span>Phone number <b>*</b></span><input type="tel" autocomplete="tel" name="customerPhone" placeholder="(555) 555-5555" inputmode="tel">
-          </label>
+          <label class="purchase-field purchase-contact-field" data-purchase-contact="Email"><span>Email address <b>*</b></span><input type="email" autocomplete="email" name="customerEmail" placeholder="you@example.com"></label>
+          <label class="purchase-field purchase-contact-field" data-purchase-contact="Phone" hidden><span>Phone number <b>*</b></span><input type="tel" autocomplete="tel" name="customerPhone" placeholder="(555) 555-5555" inputmode="numeric" maxlength="14"></label>
         </fieldset>
-
-        <label class="purchase-field full">
-          <span>Anything else? <small>Optional</small></span>
-          <textarea name="anythingElse" rows="2" placeholder="Anything important we should know before we get started?"></textarea>
-        </label>
-
+        <label class="purchase-field full"><span>Anything important we should know? <small>Optional</small></span><textarea name="anythingElse" rows="3" placeholder="A short note is enough."></textarea></label>
         <p class="purchase-intake-error" id="purchase-intake-error" aria-live="polite"></p>
-        <div class="purchase-intake-actions">
-          <button type="submit" class="purchase-primary">Review</button>
-        </div>
+        <div class="purchase-intake-actions"><button type="submit" class="purchase-primary">Review</button></div>
       </form>
     </div>
-
     <div class="purchase-intake-view" data-intake-view="review" hidden>
-      <header class="purchase-intake-header review-header">
-        <p class="purchase-intake-eyebrow">Review</p>
-        <h2>Ready to continue?</h2>
-        <p>Make sure these quick details look right, then continue to checkout.</p>
-      </header>
+      <header class="purchase-intake-header review-header"><p class="purchase-intake-eyebrow">Review</p><h2>Ready to continue?</h2><p>Check the basics, then continue.</p></header>
       <dl class="purchase-review-list" id="purchase-review-list"></dl>
-      <div class="purchase-intake-actions split">
-        <button type="button" class="purchase-secondary" id="purchase-review-back">Back</button>
-        <button type="button" class="purchase-primary" id="purchase-checkout-button">Continue to Checkout</button>
-      </div>
+      <div class="purchase-intake-actions split"><button type="button" class="purchase-secondary" id="purchase-review-back">Back</button><button type="button" class="purchase-primary" id="purchase-checkout-button">Continue to Checkout</button></div>
     </div>
   </section>
 </div>
@@ -811,6 +674,6 @@
   </div>
 </section>
 
-<script src="js.js" defer></script>
+<script src="js-POPUPS-FIXED.js" defer></script>
 </body>
 </html>
