@@ -164,7 +164,7 @@ left:0;
 height:2px;
 background:linear-gradient(90deg,var(--white),var(--blue-400));
 transform:scaleX(0);
-transform-origin:left;
+transform-origin:center;
 transition:transform .25s ease;
 }
 
@@ -431,7 +431,7 @@ cursor:grab;
 .like-btn.liked .heart-shape{fill:currentColor;stroke:currentColor;transform:scale(1.08);}
 .blog-dots{display:flex;justify-content:center;gap:5px;}
 .blog-dot{width:5px;height:5px;border-radius:50%;background:#cbd5e1;transition:width .25s ease,background .25s ease;}
-.blog-dot.active{width:15px;border-radius:999px;background:#334155;}
+.blog-dot.active{width:15px;border-radius:999px;background:#ffffff;}
 .blog-socials{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 8px 18px rgba(15,23,42,.08);}
 .blog-social-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;}
 .blog-social-icons{display:flex;align-items:center;gap:8px;}
@@ -3562,4 +3562,386 @@ main{
 .executive-section::before,
 .executive-section::after{
   background-image:none !important;
+}
+
+/* BACKTRACKED GLASS EFFECT
+   Only Website Redesign + Business Support use the glass treatment. */
+
+/* Website Redesign glass panel */
+#website-redesign .renewal-copy{
+  box-sizing:border-box !important;
+  padding:22px 26px !important;
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:22px !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+
+#website-redesign .renewal-kicker{
+  color:#e8f6ff !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.65) !important;
+}
+
+#website-redesign .renewal-copy h2{
+  color:#fff !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.55) !important;
+}
+
+#website-redesign .renewal-copy > p:not(.renewal-kicker){
+  color:rgba(255,255,255,.96) !important;
+  font-weight:600 !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.62) !important;
+}
+
+/* Business Support glass heading — keep this exact treatment */
+#business-support .executive-heading{
+  box-sizing:border-box !important;
+  width:min(760px,100%) !important;
+  max-width:760px !important;
+  padding:22px 26px !important;
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:22px !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+
+#business-support .executive-heading .packages-kicker{
+  color:#e8f6ff !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.65) !important;
+}
+
+#business-support .executive-heading h2{
+  color:#fff !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.55) !important;
+}
+
+#business-support .executive-heading > p:last-child{
+  color:rgba(255,255,255,.96) !important;
+  font-weight:600 !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.62) !important;
+}
+
+/* Explicitly keep Web Design + Hosting without glass panels */
+#web-design .packages-heading,
+#hosting .packages-heading{
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+@media(max-width:620px){
+  #website-redesign .renewal-copy,
+  #business-support .executive-heading{
+    padding:18px 16px !important;
+    border-radius:18px !important;
+  }
+}
+
+/* Web Design glass effect — visual only; does not move or resize the heading */
+#web-design .packages-heading{
+  position:relative !important;
+  isolation:isolate !important;
+}
+
+#web-design .packages-heading::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  z-index:-1 !important;
+  top:-22px !important;
+  right:-26px !important;
+  bottom:-22px !important;
+  left:-26px !important;
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:22px !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+  pointer-events:none !important;
+}
+
+#web-design .packages-kicker{
+  color:#e8f6ff !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.65) !important;
+}
+
+#web-design .packages-heading h2{
+  color:#fff !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.55) !important;
+}
+
+#web-design .packages-heading .section-intro{
+  color:rgba(255,255,255,.96) !important;
+  font-weight:600 !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.62) !important;
+}
+
+@media(max-width:620px){
+  #web-design .packages-heading::before{
+    top:-18px !important;
+    right:-16px !important;
+    bottom:-18px !important;
+    left:-16px !important;
+    border-radius:18px !important;
+  }
+}
+
+/* Web Design: one glass panel around BOTH the heading and package cards.
+   Uses a pseudo-element so the existing heading/card positions do not move. */
+#web-design .packages-wrap{
+  position:relative !important;
+  isolation:isolate !important;
+}
+
+/* Remove the smaller heading-only glass panel. */
+#web-design .packages-heading::before{
+  content:none !important;
+  display:none !important;
+}
+
+/* One large glass panel surrounding the full Web Design block. */
+#web-design .packages-wrap::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  z-index:-1 !important;
+  top:-26px !important;
+  right:-28px !important;
+  bottom:-26px !important;
+  left:-28px !important;
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:26px !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+  pointer-events:none !important;
+}
+
+@media(max-width:620px){
+  #web-design .packages-wrap::before{
+    top:-18px !important;
+    right:-12px !important;
+    bottom:-18px !important;
+    left:-12px !important;
+    border-radius:20px !important;
+  }
+}
+
+/* Hosting & Support: one glass panel around BOTH the heading and hosting cards.
+   Mirrors the Web Design treatment without changing the existing internal layout. */
+#hosting .packages-wrap{
+  position:relative !important;
+  isolation:isolate !important;
+}
+
+/* One large glass panel surrounding the full Hosting & Support block. */
+#hosting .packages-wrap::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  z-index:-1 !important;
+  top:-26px !important;
+  right:-28px !important;
+  bottom:-26px !important;
+  left:-28px !important;
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:26px !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+  pointer-events:none !important;
+}
+
+@media(max-width:620px){
+  #hosting .packages-wrap::before{
+    top:-18px !important;
+    right:-12px !important;
+    bottom:-18px !important;
+    left:-12px !important;
+    border-radius:20px !important;
+  }
+}
+
+/* Selected nav item hover: subtle center-out expansion + brighter emphasis */
+.nav-links a.active::after{
+  transform:scaleX(1);
+  transform-origin:center;
+  transition:transform .22s ease, filter .22s ease, box-shadow .22s ease;
+}
+
+@media (hover:hover) and (pointer:fine){
+  .nav-links a.active:hover{
+    color:#fff;
+    text-shadow:0 1px 3px rgba(0,0,0,.30),0 0 8px rgba(255,255,255,.18);
+    transform:translateY(-1px);
+  }
+
+  .nav-links a.active:hover::after{
+    transform:scaleX(1.12);
+    filter:brightness(1.18);
+    box-shadow:0 0 8px rgba(57,184,255,.28);
+  }
+}
+
+
+/* Hero CTA cards: dark glass ONLY. Button styling intentionally left unchanged. */
+.site-cta-choice{
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+
+.site-cta-choice:hover{
+  background:linear-gradient(135deg,rgba(10,38,80,.72),rgba(18,63,120,.52)) !important;
+  border-color:rgba(255,255,255,.30) !important;
+  box-shadow:0 17px 38px rgba(4,20,45,.25),inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+
+.site-cta-note{
+  color:#e8f6ff !important;
+  text-shadow:0 2px 8px rgba(0,0,0,.55) !important;
+}
+
+.site-cta-note::before,
+.site-cta-note::after,
+.site-cta-choice:nth-child(2) .site-cta-note::before,
+.site-cta-choice:nth-child(2) .site-cta-note::after{
+  background:#9fdcff !important;
+}
+
+/* FINAL HERO CTA FIX: one dark-glass card around the WHOLE CTA block.
+   Individual option cards/buttons are restored to their original styling. */
+.site-cta{
+  background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  box-shadow:0 14px 34px rgba(4,20,45,.20),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+
+/* Keep the hero title readable on the dark glass card. */
+.site-cta-copy h2{
+  color:#fff !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.55) !important;
+  filter:none !important;
+}
+.site-cta-copy .show-line{
+  color:#e8f6ff !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.55) !important;
+  filter:none !important;
+}
+
+/* Restore the two inner option cards to their original light treatment. */
+.site-cta-choice{
+  background:linear-gradient(180deg,rgba(240,244,250,.95),rgba(223,233,246,.88)) !important;
+  border:2px solid rgba(162,193,230,.96) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.92),
+    inset 0 0 0 1px rgba(255,255,255,.44),
+    0 12px 24px rgba(41,82,152,.12) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.site-cta-choice:hover{
+  background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(229,244,255,.90)) !important;
+  border-color:rgba(57,143,219,.88) !important;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 0 0 1px rgba(255,255,255,.40),
+    0 0 0 1px rgba(38,111,183,.12),
+    0 15px 30px rgba(18,61,132,.19) !important;
+}
+.site-cta-note{
+  color:#4b6693 !important;
+  text-shadow:none !important;
+}
+.site-cta-note::before,
+.site-cta-note::after{
+  background:#63aef1 !important;
+}
+.site-cta-choice:nth-child(2) .site-cta-note::before,
+.site-cta-choice:nth-child(2) .site-cta-note::after{
+  background:#365da6 !important;
+}
+
+/* Hero title: keep "We Run the Site." white */
+.site-cta-copy h1{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  text-shadow:0 3px 12px rgba(0,0,0,.42) !important;
+}
+
+/* Hosting cards: equal dimensions with matching two-line descriptions */
+.hosting-section .hosting-grid{
+  align-items:stretch !important;
+  grid-auto-rows:1fr !important;
+}
+
+.hosting-section .hosting-card{
+  height:100% !important;
+  min-height:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+
+.hosting-section .hosting-card h3{
+  min-height:2.15em !important;
+  display:flex !important;
+  align-items:flex-start !important;
+}
+
+.hosting-section .hosting-card > p{
+  display:-webkit-box !important;
+  -webkit-box-orient:vertical !important;
+  -webkit-line-clamp:2 !important;
+  overflow:hidden !important;
+  min-height:3.10em !important;
+  max-height:3.10em !important;
+  margin-bottom:22px !important;
+}
+
+.hosting-section .hosting-feature-list{
+  flex:1 1 auto !important;
+}
+
+.hosting-section .hosting-prices{
+  margin-top:auto !important;
+}
+
+@media(max-width:620px){
+  .hosting-section .hosting-card h3{
+    min-height:0 !important;
+  }
+  .hosting-section .hosting-card > p{
+    min-height:3.10em !important;
+    max-height:3.10em !important;
+  }
+}
+
+/* Final hero polish: phone-style white outline + matching title shadow */
+.site-cta{
+  border:1px solid rgba(255,255,255,.90) !important;
+  box-shadow:
+    0 0 0 5px rgba(255,255,255,.08),
+    0 20px 38px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    inset 0 14px 26px rgba(255,255,255,.10) !important;
+}
+
+.site-cta-copy h1{
+  text-shadow:
+    0 3px 12px rgba(0,0,0,.72),
+    0 1px 2px rgba(0,0,0,.55) !important;
 }
