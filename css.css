@@ -4057,7 +4057,7 @@ main{
     margin:0 auto !important;
     max-width:none !important;
     text-align:center !important;
-    font-size:clamp(35px,10vw,48px) !important;
+    font-size:clamp(34px,9vw,44px)!important;
     line-height:.95 !important;
     color:#fff !important;
     -webkit-text-fill-color:#fff !important;
@@ -4068,7 +4068,7 @@ main{
     width:100% !important;
     margin:5px auto 0 !important;
     text-align:center !important;
-    font-size:clamp(31px,9vw,42px) !important;
+    font-size:clamp(32px,8.5vw,42px)!important;
     line-height:1 !important;
   }
 
@@ -4108,7 +4108,7 @@ main{
   .site-cta-choice:nth-child(2){ order:2 !important; }
 
   .site-cta-note{
-    font-size:11.5px !important;
+    font-size:11px!important;
     letter-spacing:.10em !important;
     white-space:normal !important;
   }
@@ -4127,9 +4127,13 @@ main{
     min-height:42px !important;
     max-height:42px !important;
     padding:0 10px !important;
-    font-size:14px !important;
+    font-size:15px!important;
     white-space:nowrap !important;
-  }
+  
+    text-align:center !important;
+    justify-content:center !important;
+    align-items:center !important;
+}
 
   /* Phone previews: substantially taller and more desktop-like */
   .hero-card{
