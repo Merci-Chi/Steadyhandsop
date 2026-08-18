@@ -4812,3 +4812,114 @@ body.purchase-intake-open{
     font-size:9px !important;
   }
 }
+
+
+/* =========================================================
+   FINAL MOBILE HERO CTA MATCH
+   Same visual structure as desktop, stacked vertically.
+   ========================================================= */
+@media (max-width:780px){
+  .site-cta{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+  }
+
+  .site-cta-copy{
+    width:100% !important;
+    text-align:center !important;
+  }
+
+  .site-cta-actions{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    gap:12px !important;
+    margin:0 !important;
+  }
+
+  .site-cta-choice{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:center !important;
+    width:100% !important;
+    min-width:0 !important;
+    height:104px !important;
+    min-height:104px !important;
+    max-height:104px !important;
+    margin:0 !important;
+    padding:14px !important;
+    gap:9px !important;
+    border-radius:16px !important;
+  }
+
+  .site-cta-choice:nth-child(1),
+  .site-cta-choice:nth-child(2){
+    width:100% !important;
+    height:104px !important;
+    min-height:104px !important;
+    max-height:104px !important;
+  }
+
+  .site-cta-note{
+    display:block !important;
+    width:100% !important;
+    margin:0 !important;
+    text-align:center !important;
+    line-height:1.15 !important;
+  }
+
+  .site-cta-note::before{
+    display:none !important;
+  }
+
+  .site-cta-btn{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:100% !important;
+    min-width:0 !important;
+    height:43px !important;
+    min-height:43px !important;
+    margin:0 !important;
+    padding:10px 14px !important;
+    white-space:nowrap !important;
+  }
+}
+
+@media (max-width:430px){
+  .site-cta-choice,
+  .site-cta-choice:nth-child(1),
+  .site-cta-choice:nth-child(2){
+    height:100px !important;
+    min-height:100px !important;
+    max-height:100px !important;
+  }
+
+  .site-cta-btn{
+    height:41px !important;
+    min-height:41px !important;
+  }
+}
+
+
+/* =========================================================
+   BLOG DOTS — ALWAYS WHITE
+   Desktop + mobile, inactive + active/extended.
+   ========================================================= */
+.blog-dot,
+.blog-dot.active{
+  background:#ffffff !important;
+}
+
+.blog-dot{
+  opacity:1 !important;
+}
+
+.blog-dot.active{
+  width:15px !important;
+  border-radius:999px !important;
+  background:#ffffff !important;
+  opacity:1 !important;
+}
