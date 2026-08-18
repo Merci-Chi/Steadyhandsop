@@ -2025,64 +2025,6 @@ body.modal-open{overflow:hidden;}
 
 
 
-/* Compact mobile CTA cards */
-@media (max-width:620px){
-  .site-cta-actions{
-    align-items:center !important;
-    gap:10px !important;
-  }
-
-  .site-cta-choice{
-    flex:0 0 auto !important;
-    width:min(82%, 275px) !important;
-    min-height:0 !important;
-    padding:7px 9px 9px !important;
-    gap:6px !important;
-    border-radius:13px !important;
-  }
-
-  .site-cta-note{
-    flex:0 0 auto !important;
-    gap:6px !important;
-    font-size:8.5px !important;
-    line-height:1 !important;
-    letter-spacing:.12em !important;
-  }
-
-  .site-cta-note::before,
-  .site-cta-note::after{
-    width:13px !important;
-    height:2px !important;
-  }
-
-  .site-cta-btn{
-    flex:0 0 auto !important;
-    width:100% !important;
-    height:40px !important;
-    min-height:40px !important;
-    max-height:40px !important;
-    padding:0 14px !important;
-    border-radius:10px !important;
-    font-size:12px !important;
-    line-height:40px !important;
-  }
-}
-
-@media (max-width:390px){
-  .site-cta-choice{
-    width:min(86%, 255px) !important;
-  }
-
-  .site-cta-btn{
-    height:38px !important;
-    min-height:38px !important;
-    max-height:38px !important;
-    line-height:38px !important;
-  }
-}
-
-
-
 /* ===== FINAL MOBILE FIT OVERRIDES ===== */
 @media (max-width: 900px){
   html,body{
@@ -4107,12 +4049,14 @@ main{
 
   .site-cta-copy{
     width:100% !important;
-    text-align:left !important;
+    text-align:center !important;
   }
 
   .site-cta-copy h1{
-    margin:0 !important;
+    width:100% !important;
+    margin:0 auto !important;
     max-width:none !important;
+    text-align:center !important;
     font-size:clamp(31px,9vw,44px) !important;
     line-height:.95 !important;
     color:#fff !important;
@@ -4121,31 +4065,47 @@ main{
   }
 
   .site-cta-copy h2{
-    margin-top:5px !important;
+    width:100% !important;
+    margin:5px auto 0 !important;
+    text-align:center !important;
     font-size:clamp(27px,8vw,38px) !important;
     line-height:1 !important;
   }
 
   .site-cta-copy .show-line{
-    white-space:nowrap !important;
+    display:block !important;
+    width:100% !important;
+    white-space:normal !important;
+    text-align:center !important;
   }
 
   .site-cta-actions{
-    display:grid !important;
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    display:flex !important;
+    flex-direction:column !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
     width:100% !important;
     gap:12px !important;
   }
 
   .site-cta-choice{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:space-between !important;
     width:100% !important;
     max-width:none !important;
     min-width:0 !important;
+    height:96px !important;
+    min-height:96px !important;
+    max-height:96px !important;
     margin:0 !important;
-    padding:12px !important;
-    gap:9px !important;
+    padding:10px 12px 11px !important;
+    gap:8px !important;
     border-radius:17px !important;
   }
+
+  .site-cta-choice:nth-child(1){ order:1 !important; }
+  .site-cta-choice:nth-child(2){ order:2 !important; }
 
   .site-cta-note{
     font-size:9px !important;
@@ -4154,12 +4114,15 @@ main{
   }
 
   .site-cta-btn{
+    flex:0 0 42px !important;
     width:100% !important;
     min-width:0 !important;
-    min-height:48px !important;
-    padding:10px 8px !important;
+    height:42px !important;
+    min-height:42px !important;
+    max-height:42px !important;
+    padding:0 10px !important;
     font-size:12px !important;
-    white-space:normal !important;
+    white-space:nowrap !important;
   }
 
   /* Phone previews: substantially taller and more desktop-like */
@@ -4692,91 +4655,5 @@ body.purchase-intake-open{
   to{
     opacity:1;
     transform:translateY(0) scale(1);
-  }
-}
-
-/* =========================================================
-   FINAL MOBILE CTA LAYOUT — definitive override
-   ========================================================= */
-@media (max-width: 620px){
-  .site-cta{
-    align-items:stretch !important;
-  }
-
-  .site-cta-copy{
-    width:100% !important;
-    text-align:center !important;
-  }
-
-  .site-cta-copy h1,
-  .site-cta-copy h2,
-  .site-cta-copy .show-line{
-    width:100% !important;
-    max-width:none !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-    text-align:center !important;
-  }
-
-  .site-cta-actions{
-    display:flex !important;
-    flex-direction:column !important;
-    flex-wrap:nowrap !important;
-    align-items:stretch !important;
-    justify-content:flex-start !important;
-    width:100% !important;
-    gap:10px !important;
-  }
-
-  .site-cta-choice{
-    display:flex !important;
-    flex:0 0 auto !important;
-    flex-direction:column !important;
-    align-items:stretch !important;
-    justify-content:space-between !important;
-    width:100% !important;
-    max-width:none !important;
-    min-width:0 !important;
-    height:94px !important;
-    min-height:94px !important;
-    max-height:94px !important;
-    margin:0 !important;
-    padding:9px 10px 10px !important;
-    gap:7px !important;
-  }
-
-  .site-cta-choice:nth-child(1){
-    order:1 !important;
-  }
-
-  .site-cta-choice:nth-child(2){
-    order:2 !important;
-  }
-
-  .site-cta-note{
-    flex:0 0 auto !important;
-    width:100% !important;
-    min-height:18px !important;
-    margin:0 !important;
-    text-align:center !important;
-  }
-
-  .site-cta-btn{
-    flex:0 0 40px !important;
-    width:100% !important;
-    height:40px !important;
-    min-height:40px !important;
-    max-height:40px !important;
-    margin:0 !important;
-  }
-}
-
-@media (max-width: 390px){
-  .site-cta-choice{
-    width:100% !important;
-    max-width:none !important;
-    height:92px !important;
-    min-height:92px !important;
-    max-height:92px !important;
   }
 }
