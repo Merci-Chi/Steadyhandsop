@@ -4089,9 +4089,8 @@ main{
   }
 
   .site-cta-choice{
-    display:flex !important;
-    flex-direction:column !important;
-    justify-content:center !important;
+    display:grid !important;
+    grid-template-rows:1fr 46px !important;
     align-items:stretch !important;
     width:100% !important;
     max-width:none !important;
@@ -4100,8 +4099,8 @@ main{
     min-height:96px !important;
     max-height:96px !important;
     margin:0 !important;
-    padding:10px 12px 11px !important;
-    gap:8px !important;
+    padding:8px 12px 10px !important;
+    gap:5px !important;
     border-radius:17px !important;
   }
 
@@ -4112,11 +4111,16 @@ main{
     display:flex !important;
     align-items:center !important;
     justify-content:center !important;
+    align-self:stretch !important;
     width:100% !important;
-    font-size:12px !important;
+    height:100% !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    font-size:14px !important;
     line-height:1 !important;
-    letter-spacing:.10em !important;
-    white-space:normal !important;
+    letter-spacing:.08em !important;
+    white-space:nowrap !important;
     text-align:center !important;
   }
 
@@ -4127,20 +4131,22 @@ main{
   }
 
   .site-cta-btn{
-    flex:0 0 42px !important;
+    display:flex !important;
+    flex:0 0 46px !important;
     width:100% !important;
     min-width:0 !important;
-    height:42px !important;
-    min-height:42px !important;
-    max-height:42px !important;
-    padding:0 10px !important;
-    font-size:15px!important;
+    height:46px !important;
+    min-height:46px !important;
+    max-height:46px !important;
+    padding:0 12px !important;
+    font-size:18px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
     white-space:nowrap !important;
-  
     text-align:center !important;
     justify-content:center !important;
     align-items:center !important;
-}
+  }
 
   /* Phone previews: substantially taller and more desktop-like */
   .hero-card{
@@ -4353,21 +4359,6 @@ main{
     gap:9px !important;
   }
 
-  .site-cta-choice{
-    padding:10px 10px !important;
-    justify-content:center !important;
-    align-items:stretch !important;
-    gap:9px !important;
-  }
-
-  .site-cta-btn{
-    font-size:16px !important;
-    font-weight:800 !important;
-    text-align:center !important;
-    align-items:center !important;
-    justify-content:center !important;
-    line-height:1 !important;
-  }
 
   .phone{
     min-height:480px !important;
