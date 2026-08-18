@@ -4675,3 +4675,176 @@ body.purchase-intake-open{
     transform:translateY(0) scale(1);
   }
 }
+
+/* Desktop card spacing refinement — keep existing card sizes, reduce internal empty space */
+@media (min-width:901px){
+  /* Website Design package cards */
+  .package-description{
+    min-height:44px !important;
+    margin:9px 0 14px !important;
+    line-height:1.42 !important;
+  }
+
+  .package-price{
+    padding:11px 0 10px !important;
+    margin-bottom:0 !important;
+  }
+
+  .package-list{
+    gap:8px !important;
+    margin-top:14px !important;
+    margin-bottom:18px !important;
+  }
+
+  .package-list li{
+    line-height:1.35 !important;
+  }
+
+  /* Hosting cards */
+  .hosting-card h3{
+    margin-bottom:5px !important;
+  }
+
+  .hosting-card p{
+    min-height:36px !important;
+    margin-bottom:12px !important;
+    line-height:1.42 !important;
+  }
+
+  .hosting-feature-list{
+    gap:6px !important;
+    margin-bottom:14px !important;
+  }
+
+  .hosting-feature-list li{
+    padding:8px 10px 8px 29px !important;
+    line-height:1.18 !important;
+  }
+
+  .hosting-prices{
+    gap:9px !important;
+  }
+
+  .hosting-option{
+    min-height:104px !important;
+    padding:13px 9px 11px !important;
+  }
+
+  .hosting-option.best-value{
+    padding-top:22px !important;
+  }
+
+  .hosting-option .billing-term{
+    margin-top:5px !important;
+    line-height:1.18 !important;
+  }
+}
+
+
+/* Final desktop hosting alignment — tighter content, equal top/bottom balance */
+@media (min-width:901px){
+  .hosting-section .hosting-card{
+    padding-top:24px !important;
+    padding-bottom:24px !important;
+  }
+
+  .hosting-section .hosting-card h3{
+    min-height:0 !important;
+    margin:0 0 4px !important;
+    line-height:1.04 !important;
+  }
+
+  .hosting-section .hosting-card > p{
+    min-height:2.84em !important;
+    max-height:2.84em !important;
+    margin:0 0 9px !important;
+    line-height:1.42 !important;
+  }
+
+  .hosting-section .standard-hosting > p{
+    max-width:390px !important;
+  }
+
+  .hosting-section .hosting-feature-list{
+    flex:0 0 auto !important;
+    gap:5px 8px !important;
+    margin:0 0 10px !important;
+  }
+
+  .hosting-section .hosting-feature-list li{
+    padding-top:7px !important;
+    padding-bottom:7px !important;
+    line-height:1.16 !important;
+  }
+
+  .hosting-section .hosting-prices{
+    margin-top:0 !important;
+    gap:8px !important;
+  }
+
+  .hosting-section .hosting-option{
+    min-height:98px !important;
+    padding:11px 8px 10px !important;
+  }
+
+  .hosting-section .hosting-option.best-value{
+    padding-top:20px !important;
+  }
+
+  .hosting-section .hosting-option .billing-term{
+    margin-top:4px !important;
+  }
+
+  .hosting-section .hosting-option-action{
+    margin-top:6px !important;
+  }
+}
+
+
+/* Final desktop hosting balance: one-line titles, equal cards, compact spacing */
+@media (min-width:901px){
+  .hosting-section .hosting-grid{
+    align-items:stretch !important;
+  }
+
+  .hosting-section .hosting-card,
+  .hosting-section .hosting-card:nth-child(odd),
+  .hosting-section .hosting-card:nth-child(even){
+    height:100% !important;
+    min-height:0 !important;
+    transform:none !important;
+    padding:24px !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  .hosting-section .hosting-card h3{
+    min-height:0 !important;
+    margin:0 0 5px !important;
+    line-height:1.08 !important;
+    white-space:nowrap !important;
+  }
+
+  .hosting-section .hosting-card > p{
+    min-height:4.26em !important;
+    max-height:4.26em !important;
+    margin:0 0 8px !important;
+    line-height:1.42 !important;
+    overflow:hidden !important;
+  }
+
+  .hosting-section .standard-hosting > p{
+    max-width:none !important;
+  }
+
+  .hosting-section .hosting-feature-list{
+    flex:0 0 auto !important;
+    gap:5px 8px !important;
+    margin:0 0 10px !important;
+  }
+
+  .hosting-section .hosting-prices{
+    margin-top:auto !important;
+    gap:8px !important;
+  }
+}
