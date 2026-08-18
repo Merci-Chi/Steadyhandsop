@@ -2076,71 +2076,6 @@ if (blogTrack) {
   );
 }
 
-(() => {
-  const button =
-    document.querySelector(
-      '.menu-btn'
-    );
-
-  const links =
-    document.querySelector(
-      '.nav-links'
-    );
-
-  if (!button || !links) return;
-
-  button.addEventListener(
-    'click',
-    () => {
-      const open =
-        links.classList.toggle(
-          'open'
-        );
-
-      button.setAttribute(
-        'aria-expanded',
-        String(open)
-      );
-    }
-  );
-
-  links.addEventListener(
-    'click',
-    event => {
-      if (
-        event.target.closest('a, button')
-      ) {
-        links.classList.remove(
-          'open'
-        );
-
-        button.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-      }
-    }
-  );
-
-  window.addEventListener(
-    'resize',
-    () => {
-      if (
-        window.innerWidth > 780
-      ) {
-        links.classList.remove(
-          'open'
-        );
-
-        button.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-      }
-    },
-    { passive: true }
-  );
-})();
 
 (() => {
   const hero =
@@ -3713,12 +3648,40 @@ document
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 
+  const sectionAdjustments = {
+    'web-design': 10,
+    'website-redesign': -150,
+    'hosting': 64,
+    'business-support': 0
+  };
+
   const closeMobileMenu = () => {
     if (!menu || !menuButton) return;
     menu.classList.remove('open');
     menuButton.setAttribute('aria-expanded', 'false');
     menuButton.setAttribute('aria-label', 'Open navigation menu');
   };
+
+  const openMobileMenu = () => {
+    if (!menu || !menuButton) return;
+    menu.classList.add('open');
+    menuButton.setAttribute('aria-expanded', 'true');
+    menuButton.setAttribute('aria-label', 'Close navigation menu');
+  };
+
+  if (menuButton && menu) {
+    menuButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const shouldOpen = !menu.classList.contains('open');
+      shouldOpen ? openMobileMenu() : closeMobileMenu();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!menu.classList.contains('open')) return;
+      if (menu.contains(event.target) || menuButton.contains(event.target)) return;
+      closeMobileMenu();
+    });
+  }
 
   const setActive = (id) => {
     desktopNavLinks.forEach((link) => {
@@ -3777,18 +3740,6 @@ document
     // Negative = stops HIGHER on the page.
     // These values are used for navigation clicks AND refresh restoration.
     // ==========================================================
-    const sectionAdjustments = {
-
-      'web-design': 10,
-
-      'website-redesign': -150,
-
-      'hosting': 64,
-
-      'business-support': 0
-
-    };
-
     const adjustment = sectionAdjustments[id] || 0;
     calculatedPosition += adjustment;
 
