@@ -1,66 +1,61 @@
-/* MOBILE REFRESH RETURNS HOME — SAFARI SAFE */
-
+/* MOBILE LOAD ALWAYS STARTS AT HOME — SAFARI SAFE */
 (() => {
-  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
 
-  const navigationEntry = performance.getEntriesByType?.('navigation')?.[0];
-  const isReload =
-    navigationEntry?.type === 'reload' ||
-    performance.navigation?.type === 1;
+  // Desktop keeps its existing refresh/section restoration behavior.
+  if (!isMobile) return;
 
-  // Disable native browser scroll restoration. Desktop section restoration
-  // is handled explicitly later in the navigation controller.
+  // Mobile should always start at the main page after a full page load.
+  // This deliberately does not depend on PerformanceNavigationTiming because
+  // Safari can classify refreshes inconsistently and restore an old viewport.
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
 
-  const serviceHashes = new Set([
-    'home',
-    'web-design',
-    'website-redesign',
-    'hosting',
-    'business-support'
-  ]);
-
-  const clearSectionHash = () => {
-    const currentHash = window.location.hash.replace(/^#/, '');
-    if (!serviceHashes.has(currentHash)) return;
-    history.replaceState(
-      null,
-      '',
-      window.location.pathname + window.location.search
-    );
-  };
-
-  if (!isReload || !isMobile()) {
-    clearSectionHash();
-    return;
-  }
+  const specialRoutes = new Set(['consultation', 'paymentreceived']);
+  const currentHash = window.location.hash.replace(/^#/, '').toLowerCase();
+  const preserveSpecialRoute = specialRoutes.has(currentHash);
 
   const forceMobileHome = () => {
     try {
       sessionStorage.removeItem('steadyHandsNearestSection');
     } catch (_) {}
 
-    clearSectionHash();
+    if (!preserveSpecialRoute) {
+      history.replaceState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      );
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
-  // Run at every stage Safari may try to restore the prior viewport.
+  // Do it immediately, then again at every stage where Safari may re-apply
+  // its remembered scroll position or layout shifts may occur.
   forceMobileHome();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', forceMobileHome, { once: true });
   }
 
-  window.addEventListener('load', forceMobileHome, { once: true });
+  window.addEventListener('load', () => {
+    forceMobileHome();
+    [0, 50, 150, 350, 700].forEach((delay) => {
+      window.setTimeout(forceMobileHome, delay);
+    });
+  }, { once: true });
+
   window.addEventListener('pageshow', () => {
     forceMobileHome();
     requestAnimationFrame(() => {
       forceMobileHome();
       requestAnimationFrame(forceMobileHome);
     });
-  }, { once: true });
+  });
 })();
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -3879,22 +3874,10 @@ document
     }
   }
 
-  if (isReload && isMobileNavigation) {
+  if (isMobileNavigation) {
     try {
       sessionStorage.removeItem(refreshSectionStorageKey);
     } catch (_) {}
-
-    history.replaceState(null, '', window.location.pathname + window.location.search);
-    setActive('home');
-
-    // Run after the rest of the navigation setup so no older restore
-    // behavior can pull the viewport back down to a service section.
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-        setActive('home');
-      });
-    });
   }
 
   navigationLinks.forEach((link) => {

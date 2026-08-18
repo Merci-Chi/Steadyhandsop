@@ -4697,104 +4697,6 @@ body.purchase-intake-open{
 }
 
 
-/* =========================================================
-   MOBILE HERO CTA — STACKED OPTIONS
-   Build Your Site first, Refresh Your Site second.
-   ========================================================= */
-@media (max-width:780px){
-  .site-cta{
-    display:flex !important;
-    flex-direction:column !important;
-    align-items:stretch !important;
-  }
-
-  .site-cta-copy{
-    width:100% !important;
-    text-align:center !important;
-  }
-
-  .site-cta-actions{
-    display:flex !important;
-    width:100% !important;
-    flex-direction:column !important;
-    flex-wrap:nowrap !important;
-    align-items:stretch !important;
-    gap:10px !important;
-  }
-
-  .site-cta-choice{
-    display:flex !important;
-    width:100% !important;
-    min-width:0 !important;
-    margin:0 !important;
-    padding:13px 14px !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    gap:12px !important;
-    background:rgba(255,255,255,.10) !important;
-    border:1px solid rgba(255,255,255,.20) !important;
-    border-radius:16px !important;
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.10),
-      0 8px 20px rgba(2,18,48,.12) !important;
-    backdrop-filter:blur(8px) !important;
-    -webkit-backdrop-filter:blur(8px) !important;
-  }
-
-  .site-cta-choice:hover{
-    transform:none !important;
-    background:rgba(255,255,255,.13) !important;
-    border-color:rgba(255,255,255,.26) !important;
-  }
-
-  .site-cta-note{
-    display:block !important;
-    flex:1 1 auto !important;
-    margin:0 !important;
-    color:#ffffff !important;
-    font-size:10px !important;
-    font-weight:800 !important;
-    line-height:1.2 !important;
-    letter-spacing:.10em !important;
-    text-transform:uppercase !important;
-    text-align:left !important;
-  }
-
-  .site-cta-note::before{
-    display:none !important;
-  }
-
-  .site-cta-btn{
-    flex:0 0 auto !important;
-    min-width:145px !important;
-    margin:0 !important;
-    padding:11px 14px !important;
-    border-radius:12px !important;
-    font-size:13px !important;
-    font-weight:800 !important;
-    line-height:1.15 !important;
-    white-space:nowrap !important;
-  }
-
-  .site-cta-btn.primary{
-    color:#123b70 !important;
-    background:#ffffff !important;
-    border:1px solid #ffffff !important;
-    box-shadow:0 7px 16px rgba(1,20,52,.15) !important;
-  }
-
-  .site-cta-btn.secondary{
-    color:#ffffff !important;
-    background:rgba(255,255,255,.08) !important;
-    border:1px solid rgba(255,255,255,.42) !important;
-    box-shadow:none !important;
-  }
-
-  .site-cta-btn.primary:hover,
-  .site-cta-btn.secondary:hover{
-    transform:none !important;
-  }
-}
 
 @media (max-width:430px){
   .site-cta-choice{
@@ -4814,79 +4716,6 @@ body.purchase-intake-open{
 }
 
 
-/* =========================================================
-   FINAL MOBILE HERO CTA MATCH
-   Same visual structure as desktop, stacked vertically.
-   ========================================================= */
-@media (max-width:780px){
-  .site-cta{
-    display:flex !important;
-    flex-direction:column !important;
-    align-items:stretch !important;
-  }
-
-  .site-cta-copy{
-    width:100% !important;
-    text-align:center !important;
-  }
-
-  .site-cta-actions{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    width:100% !important;
-    gap:12px !important;
-    margin:0 !important;
-  }
-
-  .site-cta-choice{
-    display:flex !important;
-    flex-direction:column !important;
-    align-items:stretch !important;
-    justify-content:center !important;
-    width:100% !important;
-    min-width:0 !important;
-    height:104px !important;
-    min-height:104px !important;
-    max-height:104px !important;
-    margin:0 !important;
-    padding:14px !important;
-    gap:9px !important;
-    border-radius:16px !important;
-  }
-
-  .site-cta-choice:nth-child(1),
-  .site-cta-choice:nth-child(2){
-    width:100% !important;
-    height:104px !important;
-    min-height:104px !important;
-    max-height:104px !important;
-  }
-
-  .site-cta-note{
-    display:block !important;
-    width:100% !important;
-    margin:0 !important;
-    text-align:center !important;
-    line-height:1.15 !important;
-  }
-
-  .site-cta-note::before{
-    display:none !important;
-  }
-
-  .site-cta-btn{
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    width:100% !important;
-    min-width:0 !important;
-    height:43px !important;
-    min-height:43px !important;
-    margin:0 !important;
-    padding:10px 14px !important;
-    white-space:nowrap !important;
-  }
-}
 
 @media (max-width:430px){
   .site-cta-choice,
@@ -4922,4 +4751,33 @@ body.purchase-intake-open{
   border-radius:999px !important;
   background:#ffffff !important;
   opacity:1 !important;
+}
+
+
+/* MOBILE CTA — EXACT DESKTOP RULES */
+@media (max-width:780px){
+  .site-cta{position:absolute;
+z-index:4;
+transform:translate3d(var(--entry-x,0px),calc(var(--cards-scroll-shift,0px) + var(--entry-y,0px)),0);
+will-change:transform,opacity,filter;}
+  .site-cta-copy h2{font-family:"Bricolage Grotesque","Manrope",Arial,sans-serif;}
+  .site-cta-copy .show-line{white-space:nowrap;}
+  .site-cta-actions{flex-wrap:wrap;}
+  .site-cta-choice{transition:transform .34s cubic-bezier(.22,.8,.28,1),box-shadow .34s ease,background .34s ease,border-color .34s ease;}
+  .site-cta-choice::before{position:absolute;
+pointer-events:none;}
+  .site-cta-btn{white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;}
+  .site-cta-note::before{content:"";width:16px;height:2px;border-radius:99px;background:#39b8ff;}
+  .site-cta-choice:nth-child(2) .site-cta-note::before{background:#245b9f;}
+  .site-cta-btn.primary:hover{background:linear-gradient(135deg,#2774d3,#174b9a);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 10px 20px rgba(18,61,132,.30);}
+  .site-cta-btn.secondary:hover{background:#fff;box-shadow:inset 0 0 0 1px rgba(52,127,199,.72),inset 0 1px 0 #fff,0 9px 18px rgba(18,61,132,.14);}
+  .site-cta-choice:hover{transform:translateY(-3px);
+background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(229,244,255,.90));
+border-color:rgba(57,143,219,.88);
+box-shadow:
+inset 0 1px 0 #fff,
+inset 0 0 0 1px rgba(255,255,255,.40),
+0 0 0 1px rgba(38,111,183,.12),
+0 15px 30px rgba(18,61,132,.19);}
+  .site-cta-btn:hover{transform:translateY(-1px);}
 }
