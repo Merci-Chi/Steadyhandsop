@@ -3831,11 +3831,20 @@ document
     } catch (_) {}
   };
 
-  // Save right before the current page is discarded/reloaded.
-  window.addEventListener('pagehide', saveNearestRefreshSection);
-  window.addEventListener('beforeunload', saveNearestRefreshSection);
+  // Desktop may remember its nearest service section.
+  // Mobile ALWAYS reloads at Home instead.
+  const isMobileNavigation = window.matchMedia('(max-width: 780px)').matches;
 
-  // Restore ONLY on an actual browser reload.
+  if (!isMobileNavigation) {
+    window.addEventListener('pagehide', saveNearestRefreshSection);
+    window.addEventListener('beforeunload', saveNearestRefreshSection);
+  } else {
+    try {
+      sessionStorage.removeItem(refreshSectionStorageKey);
+    } catch (_) {}
+  }
+
+  // Restore a saved section on DESKTOP only.
   const navigationEntry =
     performance.getEntriesByType?.('navigation')?.[0];
 
@@ -3843,7 +3852,7 @@ document
     navigationEntry?.type === 'reload' ||
     performance.navigation?.type === 1;
 
-  if (isReload) {
+  if (isReload && !isMobileNavigation) {
     let savedSectionId = null;
 
     try {
@@ -3856,8 +3865,6 @@ document
       refreshSectionIds.includes(savedSectionId) &&
       document.getElementById(savedSectionId)
     ) {
-      // Wait only for the current layout pass, then make ONE direct
-      // non-animated landing using the same sectionAdjustments above.
       window.requestAnimationFrame(() => {
         window.requestAnimationFrame(() => {
           scrollToSection(savedSectionId, 'auto');
@@ -3865,6 +3872,24 @@ document
         });
       });
     }
+  }
+
+  if (isReload && isMobileNavigation) {
+    try {
+      sessionStorage.removeItem(refreshSectionStorageKey);
+    } catch (_) {}
+
+    history.replaceState(null, '', '#home');
+    setActive('home');
+
+    // Run after the rest of the navigation setup so no older restore
+    // behavior can pull the viewport back down to a service section.
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        setActive('home');
+      });
+    });
   }
 
   navigationLinks.forEach((link) => {
