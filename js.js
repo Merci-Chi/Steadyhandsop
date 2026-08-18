@@ -1,62 +1,67 @@
-/* MOBILE REFRESH RETURNS HOME */
+/* MOBILE REFRESH RETURNS HOME — SAFARI SAFE */
 
 (() => {
-  const isMobile = window.matchMedia('(max-width: 780px)').matches;
-  if (!isMobile) return;
+  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
-  const navigationEntry = performance.getEntriesByType('navigation')[0];
-  const isReload = navigationEntry
-    ? navigationEntry.type === 'reload'
-    : performance.navigation && performance.navigation.type === 1;
+  const navigationEntry = performance.getEntriesByType?.('navigation')?.[0];
+  const isReload =
+    navigationEntry?.type === 'reload' ||
+    performance.navigation?.type === 1;
 
-  if (!isReload) return;
-
-  const goHome = () => {
-    history.replaceState(null, '', '#home');
-    const home = document.getElementById('home');
-    if (home) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-      home.scrollIntoView({ block: 'start', behavior: 'auto' });
-    } else {
-      window.scrollTo(0, 0);
-    }
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', goHome, { once: true });
-  } else {
-    goHome();
+  // Disable native browser scroll restoration. Desktop section restoration
+  // is handled explicitly later in the navigation controller.
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
   }
 
-  window.addEventListener('load', () => {
-    requestAnimationFrame(() => window.scrollTo(0, 0));
+  const serviceHashes = new Set([
+    'home',
+    'web-design',
+    'website-redesign',
+    'hosting',
+    'business-support'
+  ]);
+
+  const clearSectionHash = () => {
+    const currentHash = window.location.hash.replace(/^#/, '');
+    if (!serviceHashes.has(currentHash)) return;
+    history.replaceState(
+      null,
+      '',
+      window.location.pathname + window.location.search
+    );
+  };
+
+  if (!isReload || !isMobile()) {
+    clearSectionHash();
+    return;
+  }
+
+  const forceMobileHome = () => {
+    try {
+      sessionStorage.removeItem('steadyHandsNearestSection');
+    } catch (_) {}
+
+    clearSectionHash();
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  };
+
+  // Run at every stage Safari may try to restore the prior viewport.
+  forceMobileHome();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceMobileHome, { once: true });
+  }
+
+  window.addEventListener('load', forceMobileHome, { once: true });
+  window.addEventListener('pageshow', () => {
+    forceMobileHome();
+    requestAnimationFrame(() => {
+      forceMobileHome();
+      requestAnimationFrame(forceMobileHome);
+    });
   }, { once: true });
 })();
-
-
-// Prevent Safari/browser refresh restoration from moving the page on startup.
-// This does NOT call scrollTo(). It only disables automatic restoration and
-// removes old service-section hashes before the document finishes loading.
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
-
-const startupSectionHashes = new Set([
-  'home',
-  'web-design',
-  'website-redesign',
-  'hosting',
-  'business-support'
-]);
-
-const startupHash = window.location.hash.replace(/^#/, '');
-if (startupSectionHashes.has(startupHash) && history.replaceState) {
-  history.replaceState(
-    null,
-    '',
-    window.location.pathname + window.location.search
-  );
-}
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -3833,7 +3838,7 @@ document
 
   // Desktop may remember its nearest service section.
   // Mobile ALWAYS reloads at Home instead.
-  const isMobileNavigation = window.matchMedia('(max-width: 780px)').matches;
+  const isMobileNavigation = window.matchMedia('(max-width: 900px)').matches;
 
   if (!isMobileNavigation) {
     window.addEventListener('pagehide', saveNearestRefreshSection);
@@ -3879,7 +3884,7 @@ document
       sessionStorage.removeItem(refreshSectionStorageKey);
     } catch (_) {}
 
-    history.replaceState(null, '', '#home');
+    history.replaceState(null, '', window.location.pathname + window.location.search);
     setActive('home');
 
     // Run after the rest of the navigation setup so no older restore
