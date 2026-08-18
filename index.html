@@ -44,7 +44,7 @@
       "logo": "https://steadyhandsop.com/images/logo.jpg",
       "email": "kiara@steadyhandsop.com",
       "telephone": "+1-702-372-6399",
-      "description": "Las Vegas website design, website development, website redesign, hosting, maintenance, and technical support for businesses and service providers.",
+      "description": "Las Vegas web design, website redesign, hosting, maintenance, business support, and administrative support for businesses and service providers.",
       "areaServed": {
         "@type": "City",
         "name": "Las Vegas",
@@ -64,6 +64,8 @@
         "Website Hosting",
         "Website Maintenance",
         "Website Support",
+        "Business Support",
+        "Administrative Support",
         "Admin Dashboards",
         "Database Integration",
         "API Integration"
@@ -97,7 +99,9 @@
         "Website Creation",
         "Website Redesign",
         "Website Hosting",
-        "Website Maintenance"
+        "Website Maintenance",
+        "Business Support",
+        "Administrative Support"
       ],
       "provider": {"@id": "https://steadyhandsop.com/#organization"},
       "url": "https://steadyhandsop.com/",
@@ -125,18 +129,33 @@
 <body>
 <header class="site-header">
 <nav aria-label="Main navigation" class="nav">
-<a aria-label="Steady Hands Operation home" class="brand" href="#home">
+<a aria-label="Steady Hands Operation home" class="brand" href="#home" data-nav-target="home">
 <img alt="" aria-hidden="true" class="brand-logo" src="images/logo.jpg"/>
 <span aria-label="Steady Hands Operation" class="brand-title">
 <span class="brand-title-top">Steady Hands</span>
 <span class="brand-title-bottom">Operation</span>
 </span>
 </a>
-<button aria-controls="contact-modal" aria-haspopup="dialog" class="header-contact-trigger" id="open-contact" type="button">Contact</button>
 
+<div class="nav-links" id="primary-navigation" aria-label="Page sections">
+  <a class="active" href="#home" data-nav-target="home">Home</a>
+  <a href="#web-design" data-nav-target="web-design">Web Design</a>
+  <a href="#website-redesign" data-nav-target="website-redesign">Website Redesign</a>
+  <a href="#hosting" data-nav-target="hosting">Hosting &amp; Support</a>
+  <a href="#business-support" data-nav-target="business-support">Business Support</a>
+  <button aria-controls="contact-modal" aria-haspopup="dialog" class="mobile-contact-trigger" type="button">Contact</button>
+</div>
+
+<button aria-controls="contact-modal" aria-haspopup="dialog" class="header-contact-trigger" id="open-contact" type="button">Contact</button>
+<button class="menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+  <span aria-hidden="true"></span>
+  <span aria-hidden="true"></span>
+  <span aria-hidden="true"></span>
+</button>
 </nav>
 </header>
-<main class="hero" id="home">
+<main>
+<section class="hero" id="home">
 <section aria-label="Website project options" class="site-cta">
 <div class="site-cta-copy">
 <h1>We Run the Site.</h1>
@@ -278,14 +297,16 @@
 </article>
 </div>
 </section>
-</main>
-<section aria-labelledby="packages-title" class="packages-section" id="packages">
-<div class="packages-wrap">
-<header class="packages-heading">
-<p class="packages-kicker">Simple Website Packages</p>
-<h2 id="packages-title">Choose what fits you best.</h2>
-</header>
-<div class="packages-grid">
+</section>
+
+<section aria-labelledby="packages-title" class="packages-section service-section" id="web-design">
+  <div class="packages-wrap">
+    <header class="packages-heading">
+      <p class="packages-kicker">Web Design</p>
+      <h2 id="packages-title">Website Design Packages</h2>
+      <p class="section-intro">Professional websites built around your business, brand, and goals.</p>
+    </header>
+    <div class="packages-grid">
 <article class="package-card">
 <h3>Personal Site</h3>
 <p class="package-description">Perfect for portfolios, resumes, creators, freelancers, and personal brands.</p>
@@ -296,7 +317,7 @@
 <li>Contact form</li>
 <li>Portfolio and social links</li>
 </ul>
-<a class="package-button" href="https://square.link/u/7X6YeiQa">Choose Personal</a>
+<button class="package-button start-intake" type="button" data-service="website" data-package="personal" data-service-name="Personal Site" data-price="$349 starting at" data-checkout-url="https://square.link/u/7X6YeiQa">Start Personal Site</button>
 </article>
 <article class="package-card featured">
 <h3>Business Site</h3>
@@ -308,7 +329,7 @@
 <li>Contact or booking form</li>
 <li>Secure online payment setup</li>
 </ul>
-<a class="package-button" href="https://square.link/u/dq4eE1bp">Choose Business</a>
+<button class="package-button start-intake" type="button" data-service="website" data-package="business" data-service-name="Business Site" data-price="$549 starting at" data-checkout-url="https://square.link/u/dq4eE1bp">Start Business Site</button>
 </article>
 <article class="package-card">
 <h3>Admin Site</h3>
@@ -320,10 +341,39 @@
 <li>User and activity overview</li>
 <li>Reports and quick controls</li>
 </ul>
-<a class="package-button" href="https://square.link/u/RZBIjS5O">Choose Admin Site</a>
+<button class="package-button start-intake" type="button" data-service="website" data-package="admin" data-service-name="Admin Site" data-price="$749 starting at" data-checkout-url="https://square.link/u/RZBIjS5O">Start Admin Site</button>
 </article>
-</div>
-<div aria-label="Hosting options" class="hosting-grid">
+    </div>
+  </div>
+</section>
+
+<section class="renewal-section service-section" id="website-redesign" aria-labelledby="redesign-title">
+  <div class="renewal-wrap">
+    <div class="renewal-copy">
+      <p class="renewal-kicker">Already Have a Website?</p>
+      <h2 id="redesign-title">Let’s Make It Better.</h2>
+      <p>If your website feels outdated, broken, difficult to use, slow, or no longer represents your business, we can redesign and improve it without making you start from scratch.</p>
+      <button aria-controls="site-audit-modal" aria-haspopup="dialog" class="renewal-button" id="open-renewal-audit" type="button">Improve My Website</button>
+    </div>
+    <div class="renewal-grid" aria-label="Website redesign services">
+      <article><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><h3>Website Redesign</h3><p>Modernize the look, layout, and overall presentation of your existing website.</p></article>
+      <article><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i><h3>Mobile Optimization</h3><p>Improve how your site fits, reads, and works across phones and tablets.</p></article>
+      <article><i class="fa-solid fa-object-group" aria-hidden="true"></i><h3>Layout &amp; UI Improvements</h3><p>Clean up confusing layouts, navigation, calls to action, and customer paths.</p></article>
+      <article><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><h3>Broken Page / Feature Repair</h3><p>Repair broken sections, links, forms, interactions, and other website features.</p></article>
+      <article><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><h3>Performance Improvements</h3><p>Improve usability, load behavior, and technical issues that slow the experience down.</p></article>
+      <article><i class="fa-solid fa-list-check" aria-hidden="true"></i><h3>Content &amp; Navigation Cleanup</h3><p>Make information easier to scan, understand, and find without unnecessary clutter.</p></article>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="hosting-title" class="hosting-section service-section" id="hosting">
+  <div class="packages-wrap">
+    <header class="packages-heading hosting-heading">
+      <p class="packages-kicker">Hosting &amp; Support</p>
+      <h2 id="hosting-title">Keep Your Website Running.</h2>
+      <p class="section-intro">Reliable hosting, maintenance, updates, and technical support after your website is live.</p>
+    </header>
+    <div aria-label="Hosting options" class="hosting-grid">
 <article class="hosting-card standard-hosting">
 <h3>Standard Hosting</h3>
 <p>For personal sites, landing pages, and regular business websites.</p>
@@ -336,19 +386,22 @@
 <li>Site Edits When Needed</li>
 </ul>
 <div class="hosting-prices">
-<a class="hosting-option" href="https://square.link/u/Jrz3iMWO">
+<button class="hosting-option start-intake" type="button" data-service="hosting" data-package="standard" data-service-name="Standard Hosting" data-billing="month-to-month" data-billing-label="Month-to-Month — $20/mo" data-price="$20/mo" data-checkout-url="https://square.link/u/Jrz3iMWO">
 <span class="monthly-rate"><strong>$20</strong><small>/mo</small></span>
 <span class="billing-term">Month-to-month</span>
-</a>
-<a class="hosting-option" href="https://square.link/u/7l0k9aBN">
+<span class="hosting-option-action">Choose This Plan</span>
+</button>
+<button class="hosting-option start-intake" type="button" data-service="hosting" data-package="standard" data-service-name="Standard Hosting" data-billing="6-month" data-billing-label="6-Month Plan — $15/mo" data-price="$15/mo" data-checkout-url="https://square.link/u/7l0k9aBN">
 <span class="monthly-rate"><strong>$15</strong><small>/mo</small></span>
 <span class="billing-term">With a 6-month plan</span>
-</a>
-<a class="hosting-option best-value" href="https://square.link/u/N7KaHDHC">
+<span class="hosting-option-action">Choose This Plan</span>
+</button>
+<button class="hosting-option best-value start-intake" type="button" data-service="hosting" data-package="standard" data-service-name="Standard Hosting" data-billing="annual" data-billing-label="Annual Plan — $10/mo" data-price="$10/mo" data-checkout-url="https://square.link/u/N7KaHDHC">
 <span class="value-badge">Best Value</span>
 <span class="monthly-rate"><strong>$10</strong><small>/mo</small></span>
 <span class="billing-term">With an annual plan</span>
-</a>
+<span class="hosting-option-action">Choose This Plan</span>
+</button>
 </div>
 </article>
 <article class="hosting-card backend-hosting">
@@ -363,27 +416,69 @@
 <li>Backend Maintenance and Support</li>
 </ul>
 <div class="hosting-prices">
-<a class="hosting-option" href="https://square.link/u/7HnAghQj">
+<button class="hosting-option start-intake" type="button" data-service="hosting" data-package="backend" data-service-name="Backend Hosting" data-billing="month-to-month" data-billing-label="Month-to-Month — $50/mo" data-price="$50/mo" data-checkout-url="https://square.link/u/7HnAghQj">
 <span class="monthly-rate"><strong>$50</strong><small>/mo</small></span>
 <span class="billing-term">Month-to-month</span>
-</a>
-<a class="hosting-option" href="https://square.link/u/tUg3MvGo">
+<span class="hosting-option-action">Choose This Plan</span>
+</button>
+<button class="hosting-option start-intake" type="button" data-service="hosting" data-package="backend" data-service-name="Backend Hosting" data-billing="6-month" data-billing-label="6-Month Plan — $30/mo" data-price="$30/mo" data-checkout-url="https://square.link/u/tUg3MvGo">
 <span class="monthly-rate"><strong>$30</strong><small>/mo</small></span>
 <span class="billing-term">With a 6-month plan</span>
-</a>
-<a class="hosting-option best-value" href="https://square.link/u/BeK3qRs3">
+<span class="hosting-option-action">Choose This Plan</span>
+</button>
+<button class="hosting-option best-value start-intake" type="button" data-service="hosting" data-package="backend" data-service-name="Backend Hosting" data-billing="annual" data-billing-label="Annual Plan — $20/mo" data-price="$20/mo" data-checkout-url="https://square.link/u/BeK3qRs3">
 <span class="value-badge">Best Value</span>
 <span class="monthly-rate"><strong>$20</strong><small>/mo</small></span>
 <span class="billing-term">With an annual plan</span>
-</a>
+<span class="hosting-option-action">Choose This Plan</span>
+</button>
 </div>
 </article>
-</div>
-</div>
+    </div>
+  </div>
 </section>
-<section aria-label="Reviews" class="anchor-section" id="reviews"></section>
 
-<section aria-label="Contact" class="anchor-section" id="contact"></section>
+<section class="executive-section service-section" id="business-support" aria-labelledby="business-support-title">
+  <div class="executive-wrap">
+    <header class="executive-heading">
+      <p class="packages-kicker">Business Support</p>
+      <h2 id="business-support-title">Support Behind the Scenes.</h2>
+      <p>Get reliable administrative and operational support so you can spend more time running and growing your business.</p>
+    </header>
+
+    <div class="executive-grid">
+<article class="executive-card">
+        <span class="executive-icon" aria-hidden="true"><i class="fa-solid fa-calendar-check"></i></span>
+        <h3>Calendar & Scheduling</h3>
+        <p>Meeting coordination, calendar organization, reminders, and scheduling support that keeps your day moving.</p>
+      </article>
+      <article class="executive-card">
+        <span class="executive-icon" aria-hidden="true"><i class="fa-solid fa-envelope-open-text"></i></span>
+        <h3>Inbox & Communication</h3>
+        <p>Inbox organization, follow-ups, routine correspondence, and keeping important conversations from getting buried.</p>
+      </article>
+      <article class="executive-card">
+        <span class="executive-icon" aria-hidden="true"><i class="fa-solid fa-list-check"></i></span>
+        <h3>Task & Project Support</h3>
+        <p>Keeping projects organized, tracking next steps, coordinating details, and helping make sure things actually get done.</p>
+      </article>
+      <article class="executive-card">
+        <span class="executive-icon" aria-hidden="true"><i class="fa-solid fa-folder-open"></i></span>
+        <h3>Business Administration</h3>
+        <p>Documents, data entry, research, file organization, recurring admin work, and the small details that take up your time.</p>
+      </article>
+    </div>
+
+    <div class="executive-cta">
+      <div>
+        <strong>Need support tailored to your business?</strong>
+        <span>Tell us what is taking up your time and we’ll talk through where we can help.</span>
+      </div>
+      <button aria-controls="contact-modal" aria-haspopup="dialog" class="executive-contact-btn" type="button">Ask About Business Support</button>
+    </div>
+  </div>
+</section>
+</main>
 
 <div aria-hidden="true" class="intake-modal" id="contact-modal" data-project-type="General Contact">
 <section aria-describedby="contact-description" aria-labelledby="contact-title" aria-modal="true" class="intake-dialog" role="dialog">
@@ -582,6 +677,122 @@
 </fieldset>
 <div class="intake-actions"><p aria-live="polite" class="intake-status"></p><button class="intake-submit" type="submit">Open Email Draft</button></div>
 </form></section></div>
+
+
+<div aria-hidden="true" class="purchase-intake-modal" id="purchase-intake-modal">
+  <section class="purchase-intake-dialog" role="dialog" aria-modal="true" aria-labelledby="purchase-intake-title" aria-describedby="purchase-intake-description">
+    <button class="purchase-intake-close" type="button" aria-label="Close service intake">×</button>
+
+    <div class="purchase-intake-view" data-intake-view="form">
+      <header class="purchase-intake-header">
+        <p class="purchase-intake-eyebrow" id="purchase-intake-eyebrow">Quick Start</p>
+        <h2 id="purchase-intake-title">A few quick details.</h2>
+        <p id="purchase-intake-description">This should take less than a minute.</p>
+        <div class="purchase-intake-selected" aria-live="polite">
+          <strong id="purchase-selected-service"></strong>
+          <span id="purchase-selected-price"></span>
+        </div>
+      </header>
+
+      <form id="purchase-intake-form" class="purchase-intake-form" novalidate>
+        <div class="purchase-intake-grid">
+          <label class="purchase-field">
+            <span>Your name <b>*</b></span>
+            <input name="customerName" autocomplete="name" required type="text">
+          </label>
+          <label class="purchase-field">
+            <span id="purchase-business-label">Business or project name <b>*</b></span>
+            <input name="businessName" autocomplete="organization" required type="text">
+          </label>
+        </div>
+
+        <div class="website-only purchase-field full">
+          <label><span>What does your business/project do?</span>
+            <textarea name="businessDescription" rows="2" placeholder="Landscaping company, photographer, personal portfolio, consulting business, etc."></textarea>
+          </label>
+        </div>
+
+        <fieldset class="website-only purchase-choice-group" id="website-goals-group">
+          <legend id="website-goals-legend">What do you want the website to do?</legend>
+          <div class="purchase-choice-grid" id="website-goals-options"></div>
+        </fieldset>
+
+        <fieldset class="website-only purchase-choice-group" id="website-pages-group">
+          <legend id="website-pages-legend">What pages/features do you need?</legend>
+          <div class="purchase-choice-grid" id="website-pages-options"></div>
+        </fieldset>
+
+        <fieldset class="website-only purchase-choice-group compact">
+          <legend>Do you already have a website?</legend>
+          <div class="purchase-segmented">
+            <label><input type="radio" name="hasWebsite" value="Yes"><span>Yes</span></label>
+            <label><input type="radio" name="hasWebsite" value="No" checked><span>No</span></label>
+          </div>
+          <label class="purchase-field purchase-conditional" id="existing-website-url" hidden>
+            <span>Website URL</span>
+            <input type="url" name="existingWebsiteUrl" placeholder="https://example.com">
+          </label>
+        </fieldset>
+
+        <div class="hosting-only purchase-field full">
+          <label><span>Website URL <b id="hosting-url-required">*</b></span>
+            <input type="url" name="hostingWebsiteUrl" placeholder="https://example.com">
+          </label>
+          <label class="purchase-inline-check"><input type="checkbox" name="notLiveYet"><span>I don't have the website live yet</span></label>
+        </div>
+
+        <label class="hosting-only purchase-field full">
+          <span>Who currently hosts your website? <small>Optional</small></span>
+          <select name="currentHost">
+            <option value="">Choose one</option><option>Not sure</option><option>Nobody / Not hosted yet</option><option>GoDaddy</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Hostinger</option><option>Other</option>
+          </select>
+        </label>
+
+        <fieldset class="hosting-only purchase-choice-group">
+          <legend>What do you need help with?</legend>
+          <div class="purchase-choice-grid" id="hosting-needs-options"></div>
+        </fieldset>
+
+        <fieldset class="purchase-choice-group compact">
+          <legend>How should we contact you? <b>*</b></legend>
+          <div class="purchase-segmented">
+            <label><input type="radio" name="preferredContact" value="Email" checked><span>Email</span></label>
+            <label><input type="radio" name="preferredContact" value="Phone"><span>Phone</span></label>
+          </div>
+          <label class="purchase-field purchase-contact-field" data-purchase-contact="Email">
+            <span>Email address <b>*</b></span><input type="email" autocomplete="email" name="customerEmail" placeholder="you@example.com">
+          </label>
+          <label class="purchase-field purchase-contact-field" data-purchase-contact="Phone" hidden>
+            <span>Phone number <b>*</b></span><input type="tel" autocomplete="tel" name="customerPhone" placeholder="(555) 555-5555" inputmode="tel">
+          </label>
+        </fieldset>
+
+        <label class="purchase-field full">
+          <span>Anything else? <small>Optional</small></span>
+          <textarea name="anythingElse" rows="2" placeholder="Anything important we should know before we get started?"></textarea>
+        </label>
+
+        <p class="purchase-intake-error" id="purchase-intake-error" aria-live="polite"></p>
+        <div class="purchase-intake-actions">
+          <button type="submit" class="purchase-primary">Review</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="purchase-intake-view" data-intake-view="review" hidden>
+      <header class="purchase-intake-header review-header">
+        <p class="purchase-intake-eyebrow">Review</p>
+        <h2>Ready to continue?</h2>
+        <p>Make sure these quick details look right, then continue to checkout.</p>
+      </header>
+      <dl class="purchase-review-list" id="purchase-review-list"></dl>
+      <div class="purchase-intake-actions split">
+        <button type="button" class="purchase-secondary" id="purchase-review-back">Back</button>
+        <button type="button" class="purchase-primary" id="purchase-checkout-button">Continue to Checkout</button>
+      </div>
+    </div>
+  </section>
+</div>
 
 <section aria-hidden="true" aria-labelledby="payment-confirmation-title" class="payment-confirmation" id="paymentreceived">
   <div class="payment-confirmation-card" role="dialog" aria-modal="true" aria-describedby="payment-confirmation-message">

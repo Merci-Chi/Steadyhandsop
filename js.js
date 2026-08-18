@@ -1,3 +1,27 @@
+// Prevent Safari/browser refresh restoration from moving the page on startup.
+// This does NOT call scrollTo(). It only disables automatic restoration and
+// removes old service-section hashes before the document finishes loading.
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+const startupSectionHashes = new Set([
+  'home',
+  'web-design',
+  'website-redesign',
+  'hosting',
+  'business-support'
+]);
+
+const startupHash = window.location.hash.replace(/^#/, '');
+if (startupSectionHashes.has(startupHash) && history.replaceState) {
+  history.replaceState(
+    null,
+    '',
+    window.location.pathname + window.location.search
+  );
+}
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const heroCard = document.querySelector('.hero-card');
@@ -2084,7 +2108,7 @@ if (blogTrack) {
     'click',
     event => {
       if (
-        event.target.closest('a')
+        event.target.closest('a, button')
       ) {
         links.classList.remove(
           'open'
@@ -2102,7 +2126,7 @@ if (blogTrack) {
     'resize',
     () => {
       if (
-        window.innerWidth > 900
+        window.innerWidth > 780
       ) {
         links.classList.remove(
           'open'
@@ -3720,3 +3744,369 @@ document
       }
     );
   });
+
+// Header section navigation
+(() => {
+  // Prevent the browser from restoring its own old scroll position.
+  // All section positioning is handled by the custom navigation below.
+  
+
+  const header = document.querySelector('.site-header');
+  const menuButton = document.querySelector('.menu-btn');
+  const menu = document.getElementById('primary-navigation');
+  const desktopNavLinks = [...document.querySelectorAll('.nav-links a[data-nav-target]')];
+  const navigationLinks = [...document.querySelectorAll('a[data-nav-target]')];
+  const sectionIds = ['home', 'web-design', 'website-redesign', 'hosting', 'business-support'];
+  const sections = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const closeMobileMenu = () => {
+    if (!menu || !menuButton) return;
+    menu.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open navigation menu');
+  };
+
+  const setActive = (id) => {
+    desktopNavLinks.forEach((link) => {
+      link.classList.toggle('active', link.dataset.navTarget === id);
+    });
+  };
+
+  const getSectionLandingTarget = (id) => {
+    const section = document.getElementById(id);
+    if (!section) return null;
+
+    const preferredTargets = {
+      'web-design': '.packages-wrap',
+      'website-redesign': '.renewal-wrap',
+      'hosting': '.packages-wrap',
+      'business-support': '.executive-wrap'
+    };
+
+    const selector = preferredTargets[id];
+    return selector ? section.querySelector(selector) || section : section;
+  };
+
+  const getNavigationGap = () => {
+    if (window.innerWidth <= 620) return 10;
+    if (window.innerWidth <= 900) return 12;
+    return 14;
+  };
+
+  const scrollToSection = (id, behavior = 'smooth') => {
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior });
+      return;
+    }
+
+    const target = getSectionLandingTarget(id);
+    if (!target) return;
+
+    // Measure everything at click time so each section uses the actual
+    // space available beneath the current desktop/mobile header.
+    const currentHeaderHeight = header ? header.offsetHeight : 0;
+    const gap = getNavigationGap();
+    const targetRect = target.getBoundingClientRect();
+    const availableHeight = Math.max(0, window.innerHeight - currentHeaderHeight - gap * 2);
+    const targetDocumentTop = targetRect.top + window.scrollY;
+
+    // If the complete section content fits in the visible area, center it.
+    // Otherwise align its content cleanly near the top so the most useful
+    // portion is visible immediately without hiding the heading.
+    let calculatedPosition = targetRect.height <= availableHeight
+      ? targetDocumentTop - currentHeaderHeight - gap + (availableHeight - targetRect.height) / 2
+      : targetDocumentTop - currentHeaderHeight - gap;
+
+    // ==========================================================
+    // MANUAL SECTION SCROLL ADJUSTMENTS
+    // Positive = farther DOWN the page.
+    // Negative = stops HIGHER on the page.
+    // These values are used ONLY when a navigation link is clicked.
+    // ==========================================================
+    const sectionAdjustments = {
+      'web-design': 10,
+      'website-redesign':-100,
+      'hosting': 15,
+      'business-support': 0
+    };
+
+    const adjustment = sectionAdjustments[id] || 0;
+    calculatedPosition += adjustment;
+
+    window.scrollTo({
+      top: Math.max(0, calculatedPosition),
+      behavior
+    });
+  };
+
+  navigationLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const id = link.dataset.navTarget;
+      if (!id || !document.getElementById(id)) return;
+
+      event.preventDefault();
+      closeMobileMenu();
+      setActive(id);
+      scrollToSection(id);
+    });
+  });
+
+  const updateActiveFromScroll = () => {
+    if (!sections.length) return;
+
+    const headerHeight = header ? header.offsetHeight : 0;
+    const probe = window.scrollY + headerHeight + 40;
+
+    if (window.scrollY <= 8) {
+      setActive('home');
+      return;
+    }
+
+    let active = sections[0].id;
+
+    sections.forEach((section) => {
+      if (section.offsetTop <= probe) {
+        active = section.id;
+      }
+    });
+
+    const nearBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4;
+
+    if (nearBottom) {
+      active = sections[sections.length - 1].id;
+    }
+
+    setActive(active);
+  };
+
+  let ticking = false;
+  const requestActiveUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateActiveFromScroll();
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', requestActiveUpdate, { passive: true });
+  window.addEventListener('resize', () => {
+    closeMobileMenu();
+    requestActiveUpdate();
+  }, { passive: true });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMobileMenu();
+  });
+
+  const mobileContactButton = document.querySelector('.mobile-contact-trigger');
+  const contactButton = document.getElementById('open-contact');
+  if (mobileContactButton && contactButton) {
+    mobileContactButton.addEventListener('click', () => {
+      closeMobileMenu();
+      contactButton.click();
+    });
+  }
+
+  const businessSupportButton = document.querySelector('.executive-contact-btn');
+  if (businessSupportButton && contactButton) {
+    businessSupportButton.addEventListener('click', () => contactButton.click());
+  }
+
+  const redesignButton = document.getElementById('open-renewal-audit');
+  const auditButton = document.getElementById('open-site-audit');
+  if (redesignButton && auditButton) {
+    redesignButton.addEventListener('click', () => auditButton.click());
+  }
+updateActiveFromScroll();
+})();
+
+
+/* Reusable website + hosting checkout intake */
+(() => {
+  const modal = document.getElementById('purchase-intake-modal');
+  const form = document.getElementById('purchase-intake-form');
+  if (!modal || !form) return;
+
+  const dialog = modal.querySelector('.purchase-intake-dialog');
+  const closeBtn = modal.querySelector('.purchase-intake-close');
+  const formView = modal.querySelector('[data-intake-view="form"]');
+  const reviewView = modal.querySelector('[data-intake-view="review"]');
+  const reviewList = document.getElementById('purchase-review-list');
+  const reviewBack = document.getElementById('purchase-review-back');
+  const checkoutBtn = document.getElementById('purchase-checkout-button');
+  const error = document.getElementById('purchase-intake-error');
+  const selectedService = document.getElementById('purchase-selected-service');
+  const selectedPrice = document.getElementById('purchase-selected-price');
+  const eyebrow = document.getElementById('purchase-intake-eyebrow');
+  const goalsLegend = document.getElementById('website-goals-legend');
+  const pagesLegend = document.getElementById('website-pages-legend');
+  const goalsOptions = document.getElementById('website-goals-options');
+  const pagesOptions = document.getElementById('website-pages-options');
+  const hostingNeeds = document.getElementById('hosting-needs-options');
+  const existingUrlWrap = document.getElementById('existing-website-url');
+  const hostingUrl = form.elements.hostingWebsiteUrl;
+  const notLiveYet = form.elements.notLiveYet;
+  let state = null;
+  let lastTrigger = null;
+
+  const normalGoals = ['Get customers to contact me','Show my services','Show my work','Accept bookings','Accept payments','Sell products','Manage business information','Other'];
+  const adminGoals = ['Manage customers','Manage leads','Manage employees/users','View statistics','Store business information','Create reports','Other'];
+  const normalPages = ['Home','About','Services','Gallery','Booking','Reviews','Contact','Shop','Other'];
+  const adminPages = ['Dashboard','Customers','Leads','Users','Reports','Analytics','Other'];
+  const standardNeeds = ['Hosting my website','Moving my existing website','Website updates','Website maintenance','Small site edits','Technical support'];
+  const backendNeeds = ['Backend hosting','Database hosting','User accounts / login','API connections','Backups','Backend maintenance','Technical support'];
+
+  const escapeHtml = (value='') => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const choiceMarkup = (name, values) => values.map(value => `<label><input type="checkbox" name="${name}" value="${escapeHtml(value)}"><span>${escapeHtml(value)}</span></label>`).join('');
+  const checkedValues = (name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(el => el.value);
+
+  const setView = (view) => {
+    const reviewing = view === 'review';
+    formView.hidden = reviewing;
+    reviewView.hidden = !reviewing;
+    dialog.scrollTop = 0;
+  };
+
+  const syncContact = () => {
+    const method = form.elements.preferredContact.value;
+    modal.querySelectorAll('[data-purchase-contact]').forEach(panel => { panel.hidden = panel.dataset.purchaseContact !== method; });
+    form.elements.customerEmail.required = method === 'Email';
+    form.elements.customerPhone.required = method === 'Phone';
+  };
+
+  const syncExistingWebsite = () => {
+    existingUrlWrap.hidden = form.elements.hasWebsite.value !== 'Yes';
+  };
+
+  const syncHostingUrl = () => {
+    hostingUrl.disabled = !!notLiveYet.checked;
+    hostingUrl.required = !notLiveYet.checked && state?.type === 'hosting';
+    if (notLiveYet.checked) hostingUrl.value = '';
+  };
+
+  const formatPhone = (input) => {
+    const digits = input.value.replace(/\D/g, '').slice(0,10);
+    if (digits.length <= 3) input.value = digits;
+    else if (digits.length <= 6) input.value = `(${digits.slice(0,3)}) ${digits.slice(3)}`;
+    else input.value = `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+  };
+
+  window.openIntake = (config) => {
+    state = { ...config };
+    form.reset();
+    error.textContent = '';
+    setView('form');
+
+    const isWebsite = state.type === 'website';
+    modal.querySelectorAll('.website-only').forEach(el => { el.hidden = !isWebsite; });
+    modal.querySelectorAll('.hosting-only').forEach(el => { el.hidden = isWebsite; });
+    selectedService.textContent = state.serviceName || '';
+    selectedPrice.textContent = state.billingLabel || state.price || '';
+    eyebrow.textContent = isWebsite ? 'Website Quick Start' : 'Hosting Quick Start';
+    document.getElementById('purchase-business-label').innerHTML = isWebsite ? 'Business or project name <b>*</b>' : 'Business name <b>*</b>';
+
+    if (isWebsite) {
+      const admin = state.package === 'admin';
+      goalsLegend.textContent = admin ? 'What should the admin site help you manage?' : 'What do you want the website to do?';
+      pagesLegend.textContent = admin ? 'What areas do you need?' : 'What pages/features do you need?';
+      goalsOptions.innerHTML = choiceMarkup('websiteGoals', admin ? adminGoals : normalGoals);
+      pagesOptions.innerHTML = choiceMarkup('websitePages', admin ? adminPages : normalPages);
+    } else {
+      hostingNeeds.innerHTML = choiceMarkup('hostingNeeds', state.package === 'backend' ? backendNeeds : standardNeeds);
+    }
+
+    form.elements.preferredContact.value = 'Email';
+    form.elements.hasWebsite.value = 'No';
+    syncContact();
+    syncExistingWebsite();
+    syncHostingUrl();
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('purchase-intake-open');
+    requestAnimationFrame(() => form.elements.customerName.focus());
+  };
+
+  const close = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('purchase-intake-open');
+    state = null;
+    if (lastTrigger) lastTrigger.focus();
+  };
+
+  document.querySelectorAll('.start-intake').forEach(btn => {
+    btn.addEventListener('click', event => {
+      event.preventDefault();
+      lastTrigger = btn;
+      window.openIntake({
+        type: btn.dataset.service,
+        package: btn.dataset.package,
+        serviceName: btn.dataset.serviceName,
+        billing: btn.dataset.billing || '',
+        billingLabel: btn.dataset.billingLabel || '',
+        price: btn.dataset.price || '',
+        checkoutUrl: btn.dataset.checkoutUrl
+      });
+    });
+  });
+
+  form.addEventListener('change', event => {
+    if (event.target.name === 'preferredContact') syncContact();
+    if (event.target.name === 'hasWebsite') syncExistingWebsite();
+    if (event.target.name === 'notLiveYet') syncHostingUrl();
+  });
+  form.elements.customerPhone.addEventListener('input', event => formatPhone(event.target));
+
+  const buildReview = () => {
+    const fd = new FormData(form);
+    const rows = [];
+    const add = (label, value) => { if (value && String(value).trim()) rows.push([label, value]); };
+    add(state.type === 'hosting' ? 'Plan' : 'Service', state.serviceName);
+    if (state.type === 'hosting') add('Billing', state.billingLabel);
+    add('Business', fd.get('businessName'));
+
+    if (state.type === 'website') {
+      add(state.package === 'admin' ? 'Main Need' : 'Main Need', checkedValues('websiteGoals').join(', '));
+      add(state.package === 'admin' ? 'Areas' : 'Pages', checkedValues('websitePages').join(', '));
+      if (fd.get('hasWebsite') === 'Yes') add('Website', fd.get('existingWebsiteUrl'));
+    } else {
+      add('Website', fd.get('notLiveYet') ? 'Not live yet' : fd.get('hostingWebsiteUrl'));
+      add('Needs', checkedValues('hostingNeeds').join(', '));
+    }
+    add('Contact', fd.get('preferredContact'));
+    reviewList.innerHTML = rows.map(([label,value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('');
+  };
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    error.textContent = '';
+    syncContact();
+    syncHostingUrl();
+
+    if (!form.reportValidity()) return;
+    if (state.type === 'website' && form.elements.hasWebsite.value === 'Yes' && !form.elements.existingWebsiteUrl.value.trim()) {
+      error.textContent = 'Please enter your current website URL.';
+      form.elements.existingWebsiteUrl.focus();
+      return;
+    }
+    buildReview();
+    setView('review');
+  });
+
+  reviewBack.addEventListener('click', () => setView('form'));
+  checkoutBtn.addEventListener('click', () => {
+    if (!state?.checkoutUrl) return;
+    window.location.href = state.checkoutUrl;
+  });
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('mousedown', event => { if (event.target === modal) close(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+})();
