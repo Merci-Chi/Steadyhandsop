@@ -1,3 +1,39 @@
+/* MOBILE REFRESH RETURNS HOME */
+
+(() => {
+  const isMobile = window.matchMedia('(max-width: 780px)').matches;
+  if (!isMobile) return;
+
+  const navigationEntry = performance.getEntriesByType('navigation')[0];
+  const isReload = navigationEntry
+    ? navigationEntry.type === 'reload'
+    : performance.navigation && performance.navigation.type === 1;
+
+  if (!isReload) return;
+
+  const goHome = () => {
+    history.replaceState(null, '', '#home');
+    const home = document.getElementById('home');
+    if (home) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      home.scrollIntoView({ block: 'start', behavior: 'auto' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', goHome, { once: true });
+  } else {
+    goHome();
+  }
+
+  window.addEventListener('load', () => {
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+  }, { once: true });
+})();
+
+
 // Prevent Safari/browser refresh restoration from moving the page on startup.
 // This does NOT call scrollTo(). It only disables automatic restoration and
 // removes old service-section hashes before the document finishes loading.
