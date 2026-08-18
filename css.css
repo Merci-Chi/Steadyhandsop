@@ -643,16 +643,14 @@ body.entrance-complete .hero-card{
 }
 
 @media (max-width:900px){
-.hero{min-height:1950px;}
-.site-cta-actions{width:100%;justify-content:flex-start;}.hero-card{top:285px;width:min(560px,calc(100% - 28px));height:auto;min-height:520px;padding:20px;}.phone-grid{grid-template-columns:1fr;height:auto;}
+.hero{min-height:1950px;}.hero-card{top:285px;width:min(560px,calc(100% - 28px));height:auto;min-height:520px;padding:20px;}.phone-grid{grid-template-columns:1fr;height:auto;}
 .phone{min-height:380px;}
 }
 
 @media (max-width:620px){
 .nav{width:calc(100% - 28px);}
 .brand-title-top{font-size:22px;}.brand-title-bottom{font-size:10px;}.brand-logo{width:52px;height:52px;flex-basis:52px;}
-.nav-links{display:none;}.menu-btn{display:block;}
-.site-cta-copy h2{font-size:22px;}.hero-card{top:300px;border-radius:24px;height:auto;min-height:520px;}.site-cta-btn{flex:1 1 140px;}
+.nav-links{display:none;}.menu-btn{display:block;}.hero-card{top:300px;border-radius:24px;height:auto;min-height:520px;}
 }
 
 @media (min-width: 901px){
@@ -694,10 +692,9 @@ body.entrance-complete .hero-card{
 
 @media (max-width: 1100px) and (min-width: 901px){
   .hero-card{width:62%;}
-  .site-cta{width:32%;min-width:300px;padding:22px;}
-  .site-cta-copy h2{font-size:30px;}
+  
+  
 }
-
 
 
 .menu-btn{display:none !important;}
@@ -818,7 +815,7 @@ body.entrance-complete .hero-card{
 
 }
 .site-cta-copy{text-align:center !important;}
-.site-cta-copy h2 {
+.site-cta-copy h2{
   margin: 0;
   max-width: 18ch;
 
@@ -834,7 +831,7 @@ body.entrance-complete .hero-card{
   -moz-osx-font-smoothing: grayscale;
 }
 
-.site-cta-copy h2:first-child {
+.site-cta-copy h2:first-child{
   color: #162b5c;
 
   text-shadow:
@@ -1370,8 +1367,8 @@ body.entrance-complete .hero-card{
     padding-inline:24px !important;
   }
   .phone-grid{gap:18px !important;}
-  .site-cta{padding:20px !important;}
-  .site-cta-copy h2{font-size:30px !important;}
+  
+  
 }
 @media(max-width:900px){
   .hero{
@@ -1395,7 +1392,6 @@ body.entrance-complete .hero-card{
 }
 @media(max-width:620px){
   .hero{padding:104px 14px 42px !important;}
-.site-cta-copy h2{font-size:28px !important;}
 .packages-section{padding:44px 14px 50px !important;}
   .packages-heading{margin-bottom:24px !important;padding:0 4px !important;}
   .package-card,.hosting-card{padding:21px 18px !important;}
@@ -1451,8 +1447,6 @@ body{min-width:0;background:#102a56;}
   .brand-title-top{font-size:18px;}
   .brand-title-bottom{font-size:8px;letter-spacing:.19em;gap:6px;}
   .hero{padding:84px 12px 36px !important;}
-.site-cta{padding:16px !important;}
-.site-cta-btn{min-height:48px !important;padding:11px 12px !important;font-size:13px !important;}
   .phone{width:100%;min-width:0;min-height:370px !important;}
   .phone-grid{width:100%;}
   .packages-grid,.hosting-grid{width:100%;}
@@ -1525,7 +1519,7 @@ body{min-width:0;background:#102a56;}
     gap:16px !important;
   }
   .hero-card{height:450px !important;}
-  .site-cta{margin-top:22px !important;padding:20px !important;}
+  
 }
 
 @media(max-width:900px){
@@ -1580,7 +1574,6 @@ body{
   display:none !important;
   content:none !important;
 }
-
 
 
 .hero{
@@ -1639,7 +1632,7 @@ body{
   }
 }
 
-.site-cta {
+.site-cta{
   position: relative !important;
   z-index: 4;
   display: flex !important;
@@ -1669,7 +1662,7 @@ body{
   will-change: opacity, filter;
 }
 
-.site-cta::after {
+.site-cta::after{
   content: "";
   position: absolute;
   z-index: -1;
@@ -1682,7 +1675,7 @@ body{
   pointer-events: none;
 }
 
-.site-cta-copy {
+.site-cta-copy{
   flex: none !important;
   min-width: 0 !important;
   margin: 0 !important;
@@ -1690,7 +1683,7 @@ body{
   text-align: center !important;
 }
 
-.site-cta-copy h2 {
+.site-cta-copy h2{
   max-width: none !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -1713,11 +1706,11 @@ body{
   filter: saturate(0.96) contrast(1.05);
 }
 
-.site-cta-copy h2 + h2 {
+.site-cta-copy h2 + h2{
   margin-top: 7px !important;
 }
 
-.site-cta-copy .show-line {
+.site-cta-copy .show-line{
   position: relative !important;
   z-index: 1 !important;
   display: inline-block !important;
@@ -1742,7 +1735,7 @@ body{
   filter: saturate(1.06) contrast(1.08) !important;
 }
 
-.site-cta-copy .show-line::after {
+.site-cta-copy .show-line::after{
   content: "";
   position: absolute;
   right: 7%;
@@ -1755,31 +1748,16 @@ body{
   opacity: 0.72;
 }
 
-.site-cta-actions {
+.site-cta-actions{
   margin: 0 !important;
 }
 
 @media (max-width: 1050px) {
-  .site-cta {
-    margin-top: 0 !important;
-    gap: 18px !important;
-  }
+  
 
-  .site-cta-copy h2 {
-    font-size: 30px !important;
-  }
+  
 }
 
-@media (max-width: 620px) {
-.site-cta-copy {
-    padding-top: 0 !important;
-  }
-
-.site-cta-copy h2 + h2 {
-    margin-top: 5px !important;
-  }
-
-}
 
 .site-header .brand{margin-right:auto;}
 
@@ -2000,41 +1978,7 @@ body.modal-open{overflow:hidden;}
 }
 
 
-
 /* Compact mobile CTA cards */
-@media (max-width:620px){
-.site-cta-choice{
-    flex:0 0 auto !important;
-    width:min(82%, 275px) !important;
-    min-height:0 !important;
-    padding:7px 9px 9px !important;
-    gap:6px !important;
-    border-radius:13px !important;
-  }
-
-.site-cta-note::before,
-.site-cta-btn{
-    flex:0 0 auto !important;
-    width:100% !important;
-    height:40px !important;
-    min-height:40px !important;
-    max-height:40px !important;
-    padding:0 14px !important;
-    border-radius:10px !important;
-    font-size:12px !important;
-    line-height:40px !important;
-  }
-}
-
-@media (max-width:390px){
-.site-cta-btn{
-    height:38px !important;
-    min-height:38px !important;
-    max-height:38px !important;
-    line-height:38px !important;
-  }
-}
-
 
 
 /* ===== FINAL MOBILE FIT OVERRIDES ===== */
@@ -2076,23 +2020,6 @@ body.modal-open{overflow:hidden;}
     gap:18px !important;
     background-size:auto 760px !important;
     background-position:center top !important;
-  }
-
-.site-cta{
-    order:1 !important;
-    padding:16px !important;
-    gap:14px !important;
-    border-radius:20px !important;
-  }
-
-.site-cta-copy .show-line{
-    white-space:normal !important;
-  }
-
-.site-cta-choice{
-    width:100% !important;
-    max-width:330px !important;
-    margin-inline:auto !important;
   }
 
   .hero-card{
@@ -2221,10 +2148,6 @@ body.modal-open{overflow:hidden;}
     background-size:auto 690px !important;
   }
 
-.site-cta-copy h2{
-    font-size:clamp(23px,7.2vw,28px) !important;
-  }
-
 .phone{
     min-height:330px !important;
     padding:14px 10px 10px !important;
@@ -2262,10 +2185,6 @@ body.modal-open{overflow:hidden;}
 @media (max-width: 390px){
   .hero{
     padding-inline:8px !important;
-  }
-
-.site-cta-choice{
-    max-width:265px !important;
   }
 
   .phone{
@@ -2379,7 +2298,6 @@ body.modal-open{overflow:hidden;}
   content:" · Recommended";
   color:#397fc4;
 }
-
 
 
 /* Visible homepage SEO copy */
@@ -3381,7 +3299,6 @@ body.purchase-intake-open{overflow:hidden;}
 }
 
 
-
 /* You Run the Show — white */
 .site-cta-copy .show-line{
   color:#fff !important;
@@ -3400,8 +3317,6 @@ body.purchase-intake-open{overflow:hidden;}
   white-space:nowrap !important;
   text-align:left !important;
 }
-
-
 
 
 /* =========================================================
@@ -3995,31 +3910,6 @@ main{
     gap:20px !important;
   }
 
-  /* Make the whole hero CTA look like the desktop glass card */
-.site-cta-copy{
-    width:100% !important;
-    text-align:left !important;
-  }
-
-.site-cta-copy h2{
-    margin-top:5px !important;
-    font-size:clamp(27px,8vw,38px) !important;
-    line-height:1 !important;
-  }
-
-.site-cta-actions{
-    display:grid !important;
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    width:100% !important;
-    gap:12px !important;
-  }
-
-.site-cta-note{
-    font-size:9px !important;
-    letter-spacing:.08em !important;
-    white-space:normal !important;
-  }
-
 /* Phone previews: substantially taller and more desktop-like */
   .hero-card{
     width:min(100%,620px) !important;
@@ -4210,18 +4100,6 @@ main{
 
   .hero{
     padding:94px 9px 32px !important;
-  }
-
-.site-cta-copy h1{
-    font-size:clamp(29px,9.2vw,39px) !important;
-  }
-
-.site-cta-actions{
-    gap:9px !important;
-  }
-
-.site-cta-btn{
-    font-size:11px !important;
   }
 
   .phone{
@@ -4542,26 +4420,6 @@ body.purchase-intake-open{
 }
 
 
-
-@media (max-width:430px){
-.site-cta-btn{
-    min-width:136px !important;
-    padding:10px 12px !important;
-    font-size:12px !important;
-  }
-
-}
-
-
-
-@media (max-width:430px){
-.site-cta-btn{
-    height:41px !important;
-    min-height:41px !important;
-  }
-}
-
-
 /* =========================================================
    BLOG DOTS — ALWAYS WHITE
    Desktop + mobile, inactive + active/extended.
@@ -4583,3 +4441,19 @@ body.purchase-intake-open{
 }
 
 
+
+
+
+
+/* Mobile placement only — the CTA card itself uses the desktop styles unchanged. */
+@media (max-width:900px){
+  .site-cta{
+    position:relative !important;
+    inset:auto !important;
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    transform:none !important;
+  }
+}
