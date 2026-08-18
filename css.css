@@ -431,7 +431,7 @@ cursor:grab;
 .like-btn.liked .heart-shape{fill:currentColor;stroke:currentColor;transform:scale(1.08);}
 .blog-dots{display:flex;justify-content:center;gap:5px;}
 .blog-dot{width:5px;height:5px;border-radius:50%;background:#cbd5e1;transition:width .25s ease,background .25s ease;}
-.blog-dot.active{width:15px;border-radius:999px;background:#ffffff;}
+.blog-dot.active{width:15px;border-radius:999px;background:#334155;}
 .blog-socials{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 8px 18px rgba(15,23,42,.08);}
 .blog-social-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;}
 .blog-social-icons{display:flex;align-items:center;gap:8px;}
@@ -3944,4 +3944,468 @@ main{
   text-shadow:
     0 3px 12px rgba(0,0,0,.72),
     0 1px 2px rgba(0,0,0,.55) !important;
+}
+
+/* =========================================================
+   FINAL MOBILE REFINEMENT
+   Keep the desktop visual language, but give mobile more room.
+   ========================================================= */
+@media (max-width:780px){
+  /* Header: large centered wordmark, logo left, menu right */
+  .site-header{
+    min-height:82px !important;
+  }
+
+  .nav{
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:calc(100% - 24px) !important;
+    min-height:82px !important;
+    margin:0 auto !important;
+    padding:10px 0 !important;
+    gap:0 !important;
+  }
+
+  .brand{
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:100% !important;
+    min-width:0 !important;
+    padding:0 58px !important;
+    gap:0 !important;
+  }
+
+  .brand-logo{
+    position:absolute !important;
+    left:0 !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    width:58px !important;
+    height:58px !important;
+    flex:0 0 58px !important;
+    object-fit:contain !important;
+  }
+
+  .brand-title{
+    width:auto !important;
+    max-width:none !important;
+    min-width:0 !important;
+    justify-items:center !important;
+    text-align:center !important;
+    overflow:visible !important;
+  }
+
+  .brand-title-top{
+    max-width:none !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+    font-size:clamp(23px,7vw,31px) !important;
+    line-height:.92 !important;
+    letter-spacing:.025em !important;
+    white-space:nowrap !important;
+  }
+
+  .brand-title-bottom{
+    justify-content:center !important;
+    width:100% !important;
+    margin-top:6px !important;
+    gap:7px !important;
+    font-size:9px !important;
+    letter-spacing:.22em !important;
+  }
+
+  /* Reliable hamburger button */
+  .menu-btn{
+    position:absolute !important;
+    z-index:5 !important;
+    top:50% !important;
+    right:0 !important;
+    display:flex !important;
+    flex:0 0 48px !important;
+    width:48px !important;
+    height:48px !important;
+    padding:0 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    flex-direction:column !important;
+    gap:6px !important;
+    color:#fff !important;
+    background:rgba(255,255,255,.08) !important;
+    border:1px solid rgba(255,255,255,.28) !important;
+    border-radius:13px !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.10) !important;
+    transform:translateY(-50%) !important;
+  }
+
+  .menu-btn:hover{
+    transform:translateY(-50%) !important;
+    background:rgba(255,255,255,.12) !important;
+  }
+
+  .menu-btn span{
+    position:relative !important;
+    display:block !important;
+    width:24px !important;
+    height:2px !important;
+    min-height:2px !important;
+    margin:0 !important;
+    background:#fff !important;
+    border:0 !important;
+    border-radius:999px !important;
+    transform:none !important;
+    opacity:1 !important;
+    transition:transform .2s ease,opacity .2s ease !important;
+  }
+
+  .menu-btn[aria-expanded="true"] span:nth-child(1){
+    transform:translateY(8px) rotate(45deg) !important;
+  }
+  .menu-btn[aria-expanded="true"] span:nth-child(2){
+    opacity:0 !important;
+    transform:scaleX(.2) !important;
+  }
+  .menu-btn[aria-expanded="true"] span:nth-child(3){
+    transform:translateY(-8px) rotate(-45deg) !important;
+  }
+
+  .nav-links{
+    top:calc(100% + 4px) !important;
+    right:-12px !important;
+    left:-12px !important;
+    width:auto !important;
+    padding:12px !important;
+    border-radius:0 0 20px 20px !important;
+  }
+
+  /* Hero starts below the larger header */
+  .hero{
+    padding:100px 12px 38px !important;
+    gap:20px !important;
+  }
+
+  /* Make the whole hero CTA look like the desktop glass card */
+  .site-cta{
+    width:min(100%,620px) !important;
+    max-width:620px !important;
+    padding:22px 18px 20px !important;
+    gap:18px !important;
+    border-radius:24px !important;
+    background:linear-gradient(135deg,rgba(8,31,67,.62),rgba(15,53,105,.42)) !important;
+    border:1px solid rgba(255,255,255,.90) !important;
+    box-shadow:
+      0 0 0 5px rgba(255,255,255,.08),
+      0 20px 38px rgba(0,0,0,.28),
+      inset 0 0 0 1px rgba(255,255,255,.22),
+      inset 0 14px 26px rgba(255,255,255,.10) !important;
+    backdrop-filter:blur(18px) !important;
+    -webkit-backdrop-filter:blur(18px) !important;
+  }
+
+  .site-cta-copy{
+    width:100% !important;
+    text-align:left !important;
+  }
+
+  .site-cta-copy h1{
+    margin:0 !important;
+    max-width:none !important;
+    font-size:clamp(31px,9vw,44px) !important;
+    line-height:.95 !important;
+    color:#fff !important;
+    -webkit-text-fill-color:#fff !important;
+    text-shadow:0 3px 12px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.55) !important;
+  }
+
+  .site-cta-copy h2{
+    margin-top:5px !important;
+    font-size:clamp(27px,8vw,38px) !important;
+    line-height:1 !important;
+  }
+
+  .site-cta-copy .show-line{
+    white-space:nowrap !important;
+  }
+
+  .site-cta-actions{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    width:100% !important;
+    gap:12px !important;
+  }
+
+  .site-cta-choice{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:12px !important;
+    gap:9px !important;
+    border-radius:17px !important;
+  }
+
+  .site-cta-note{
+    font-size:9px !important;
+    letter-spacing:.08em !important;
+    white-space:normal !important;
+  }
+
+  .site-cta-btn{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:48px !important;
+    padding:10px 8px !important;
+    font-size:12px !important;
+    white-space:normal !important;
+  }
+
+  /* Phone previews: substantially taller and more desktop-like */
+  .hero-card{
+    width:min(100%,620px) !important;
+    max-width:620px !important;
+    height:auto !important;
+    min-height:0 !important;
+    padding:0 !important;
+  }
+
+  .phone-grid{
+    grid-template-columns:1fr !important;
+    gap:20px !important;
+  }
+
+  .phone{
+    width:100% !important;
+    min-height:500px !important;
+    height:500px !important;
+    padding:18px 14px 14px !important;
+    border-radius:25px !important;
+  }
+
+  .phone-screen{
+    height:100% !important;
+    gap:9px !important;
+  }
+
+  .mini-header{
+    padding:15px 16px !important;
+  }
+
+  .card-title{
+    font-size:20px !important;
+  }
+
+  /* Lunch preview */
+  .photo-frame{
+    flex:0 0 220px !important;
+    min-height:220px !important;
+    padding:12px 12px 4px !important;
+  }
+
+  .photo-card{
+    width:calc(100% + 24px) !important;
+    height:215px !important;
+    margin:-12px -12px 0 !important;
+    transform:rotate(-18deg) scale(1.12) !important;
+  }
+
+  .info-card{
+    padding:15px 16px !important;
+  }
+
+  .info-card h3{
+    font-size:16px !important;
+  }
+
+  .info-card p{
+    font-size:12px !important;
+    line-height:1.45 !important;
+  }
+
+  .metric{
+    min-height:64px !important;
+    padding:12px 6px !important;
+  }
+
+  .metric strong{
+    font-size:18px !important;
+  }
+
+  .metric span{
+    font-size:10px !important;
+  }
+
+  /* Blog preview: larger photos/card content */
+  .phone:nth-child(2){
+    min-height:540px !important;
+    height:540px !important;
+  }
+
+  .blog-shell{
+    gap:10px !important;
+  }
+
+  .blog-top{
+    padding:12px 13px !important;
+  }
+
+  .blog-mark{
+    font-size:15px !important;
+  }
+
+  .blog-viewport{
+    min-height:300px !important;
+    flex:1 1 auto !important;
+  }
+
+  .blog-post{
+    padding:8px !important;
+    gap:10px !important;
+  }
+
+  .blog-image,
+  .blog-post::before{
+    flex-basis:225px !important;
+    height:225px !important;
+  }
+
+  .blog-copy{
+    min-height:70px !important;
+    padding:12px 13px !important;
+  }
+
+  .blog-copy h3{
+    font-size:15px !important;
+  }
+
+  .blog-copy p{
+    font-size:10px !important;
+  }
+
+  .blog-socials{
+    padding:12px 14px !important;
+  }
+
+  /* Budget preview gets the same breathing room */
+  .phone:nth-child(3){
+    min-height:500px !important;
+    height:500px !important;
+  }
+
+  .budget-card{
+    padding:17px !important;
+  }
+
+  .budget-value{
+    font-size:30px !important;
+  }
+
+  .category-list{
+    gap:9px !important;
+  }
+
+  .category{
+    padding:13px 14px !important;
+  }
+
+  .category-line{
+    font-size:12px !important;
+  }
+}
+
+@media (max-width:430px){
+  .site-header,
+  .nav{
+    min-height:78px !important;
+  }
+
+  .nav{
+    width:calc(100% - 18px) !important;
+  }
+
+  .brand{
+    padding:0 50px !important;
+  }
+
+  .brand-logo{
+    width:50px !important;
+    height:50px !important;
+    flex-basis:50px !important;
+  }
+
+  .brand-title-top{
+    font-size:clamp(20px,6.6vw,27px) !important;
+  }
+
+  .brand-title-bottom{
+    font-size:8px !important;
+    letter-spacing:.18em !important;
+  }
+
+  .menu-btn{
+    width:44px !important;
+    height:44px !important;
+    flex-basis:44px !important;
+  }
+
+  .hero{
+    padding:94px 9px 32px !important;
+  }
+
+  .site-cta{
+    padding:18px 14px !important;
+    border-radius:21px !important;
+  }
+
+  .site-cta-copy h1{
+    font-size:clamp(29px,9.2vw,39px) !important;
+  }
+
+  .site-cta-copy h2{
+    font-size:clamp(25px,8vw,34px) !important;
+  }
+
+  .site-cta-actions{
+    gap:9px !important;
+  }
+
+  .site-cta-choice{
+    padding:10px 8px !important;
+  }
+
+  .site-cta-btn{
+    font-size:11px !important;
+  }
+
+  .phone{
+    min-height:480px !important;
+    height:480px !important;
+  }
+
+  .phone:nth-child(2){
+    min-height:520px !important;
+    height:520px !important;
+  }
+
+  .phone:nth-child(3){
+    min-height:480px !important;
+    height:480px !important;
+  }
+
+  .photo-frame{
+    flex-basis:205px !important;
+    min-height:205px !important;
+  }
+
+  .photo-card{
+    height:200px !important;
+  }
+
+  .blog-image,
+  .blog-post::before{
+    flex-basis:210px !important;
+    height:210px !important;
+  }
 }
