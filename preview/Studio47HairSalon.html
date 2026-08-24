@@ -1,0 +1,468 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio 47 Hair Salon | Las Vegas, NV</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#09090b;
+  --bg2:#111113;
+  --bg3:#18181b;
+  --gold:#c9a84c;
+  --gold-dim:rgba(201,168,76,.1);
+  --gold-glow:rgba(201,168,76,.06);
+  --cream:#f5f0e8;
+  --text:#c8c2b8;
+  --muted:#706b63;
+  --muted2:#3d3a35;
+}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:transparent;transition:background .5s,padding .3s;}
+nav.scrolled{background:rgba(9,9,11,.92);backdrop-filter:blur(16px);padding:.9rem 3rem;}
+.nav-left{display:flex;align-items:center;gap:2.5rem;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.35rem;color:var(--cream);cursor:default;letter-spacing:.5px;}
+.nav-logo i{color:var(--gold);font-size:.6rem;margin-left:.3rem;vertical-align:super;}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.75rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:color .3s;}
+.nav-links a:hover{color:var(--cream);}
+.nav-cta{color:var(--bg)!important;background:var(--gold)!important;padding:.55rem 1.5rem;border-radius:0!important;font-weight:500!important;letter-spacing:1.5px!important;transition:background .3s!important;}
+.nav-cta:hover{background:var(--cream)!important;}
+.hamburger{display:none;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;}
+
+/* MOBILE NAV */
+.mob-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s;}
+.mob-bg.open{opacity:1;pointer-events:all;}
+.mob-nav{position:fixed;top:0;right:-300px;width:300px;height:100vh;background:var(--bg2);z-index:9999;padding:5rem 2.5rem 2rem;transition:right .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;gap:.5rem;}
+.mob-nav.open{right:0;}
+.mob-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:color .2s;}
+.mob-close:hover{color:var(--cream);}
+.mob-nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:300;letter-spacing:2px;text-transform:uppercase;padding:.8rem 0;cursor:pointer;transition:color .2s;}
+.mob-nav a:hover{color:var(--cream);}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;overflow:hidden;}
+.hero-left{width:45%;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 4rem 3rem;position:relative;z-index:2;}
+.hero-right{width:55%;position:relative;overflow:hidden;}
+.hero-right img{width:100%;height:100%;object-fit:cover;transition:transform 12s ease;}
+.hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 30%);}
+.hero-left .tag{color:var(--gold);font-size:.65rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:slideRight .8s .2s ease forwards;}
+.hero-left h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;color:var(--cream);line-height:1.1;margin-bottom:1.2rem;opacity:0;animation:slideRight .8s .35s ease forwards;}
+.hero-left h1 em{font-style:italic;color:var(--gold);}
+.hero-left p{color:var(--muted);font-size:.92rem;line-height:1.8;margin-bottom:2rem;max-width:380px;opacity:0;animation:slideRight .8s .5s ease forwards;}
+.hero-stats{display:flex;gap:2rem;margin-bottom:2.5rem;opacity:0;animation:slideRight .8s .65s ease forwards;}
+.hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--cream);}
+.hero-stat-label{font-size:.68rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+.hero-btns{display:flex;gap:1rem;opacity:0;animation:slideRight .8s .8s ease forwards;}
+@keyframes slideRight{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+
+.btn{padding:.85rem 2.2rem;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;border:none;}
+.btn-solid{background:var(--gold);color:var(--bg);}
+.btn-solid:hover{background:var(--cream);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--muted2);}
+.btn-outline:hover{border-color:var(--gold);color:var(--cream);transform:translateY(-2px);}
+
+/* SECTION HEADERS */
+.sh{text-align:center;margin-bottom:4rem;}
+.sh-tag{color:var(--gold);font-size:.62rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;margin-bottom:.8rem;}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--cream);line-height:1.15;}
+.sh-line{width:40px;height:1px;background:var(--gold);margin:1.2rem auto 0;}
+
+/* WORK - HORIZONTAL SCROLL */
+section{padding:6rem 0;background:var(--bg);}
+.work-scroll-wrap{position:relative;}
+.work-scroll{display:flex;gap:1.2rem;padding:0 3rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;}
+.work-scroll::-webkit-scrollbar{display:none;}
+.work-scroll:active{cursor:grabbing;}
+.work-snap{flex:0 0 280px;scroll-snap-align:start;border-radius:4px;overflow:hidden;position:relative;transition:transform .4s;}
+.work-snap:hover{transform:translateY(6px);}
+.work-snap img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;filter:grayscale(20%);transition:filter .4s;}
+.work-snap:hover img{filter:grayscale(0%);}
+.work-snap-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.2rem 1.2rem;background:linear-gradient(transparent,rgba(9,9,11,.85));transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.work-snap:hover .work-snap-info{transform:translateY(0);}
+.work-snap-info h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--cream);margin-bottom:.15rem;}
+.work-snap-info p{font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.work-snap-more{flex:0 0 200px;scroll-snap-align:start;background:var(--bg2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;text-align:center;padding:2rem;min-height:370px;}
+.work-snap-more:hover{background:var(--bg3);}
+.work-snap-more i{font-size:1.8rem;color:var(--gold);margin-bottom:1rem;}
+.work-snap-more h4{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--cream);margin-bottom:.3rem;}
+.work-snap-more p{font-size:.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.scroll-hint{text-align:center;margin-top:1.5rem;color:var(--muted2);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.scroll-hint i{font-size:.5rem;animation:hintPulse 2s infinite;}
+@keyframes hintPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* ABOUT - SPLIT CONTRAST */
+.about-split{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+.about-dark{background:var(--bg2);display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem;}
+.about-light{background:var(--bg3);display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem;}
+.about-dark .sh-tag,.about-dark .sh-title{text-align:left;}
+.about-dark .sh-line{margin:1.2rem 0 0;}
+.about-dark p{color:var(--muted);font-size:.9rem;line-height:1.85;margin-top:1.5rem;max-width:400px;}
+.about-light-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:2rem;}
+.about-light-icon{width:40px;height:40px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:.7rem;}
+.about-light-text h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--cream);margin-bottom:.2rem;}
+.about-light-text p{font-size:.8rem;color:var(--muted);line-height:1.6;}
+
+/* MENU TEASER - CENTERED MINIMAL */
+.menu-section{padding:6rem 3rem;background:var(--bg);}
+.menu-inner{max-width:380px;margin:0 auto;position:relative;}
+.menu-fake{filter:blur(7px);opacity:.2;pointer-events:none;user-select:none;}
+.menu-row{display:flex;justify-content:space-between;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--muted2);}
+.menu-row .n{color:var(--text);font-size:.88rem;font-weight:300;}
+.menu-row .p{color:var(--gold);font-size:.9rem;font-weight:500;}
+.menu-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
+.menu-lock:hover{background:rgba(201,168,76,.03);}
+.menu-lock i{font-size:1.6rem;color:var(--gold);margin-bottom:.8rem;}
+.menu-lock h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--cream);margin-bottom:.2rem;}
+.menu-lock p{font-size:.78rem;color:var(--muted);letter-spacing:1px;}
+
+/* REVIEWS */
+.reviews-placeholder{max-width:480px;margin:0 auto;padding:4rem 2rem;text-align:center;cursor:pointer;position:relative;}
+.reviews-placeholder::before{content:'';position:absolute;inset:0;border:1px solid var(--muted2);border-radius:2px;transition:border-color .3s;}
+.reviews-placeholder:hover::before{border-color:var(--gold);}
+.reviews-placeholder i{font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;opacity:.4;}
+.reviews-placeholder h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--cream);margin-bottom:.5rem;}
+.reviews-placeholder p{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:1.8rem;}
+
+/* CONTACT - TWO ROW STACKED */
+.contact-stack{max-width:600px;margin:0 auto;}
+.contact-row{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;}
+.contact-row:not(:last-child){border-bottom:1px solid var(--muted2);}
+.contact-row-left{display:flex;align-items:center;gap:1rem;}
+.contact-row-left i{color:var(--gold);font-size:.8rem;width:32px;height:32px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;}
+.contact-row-left h4{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--cream);}
+.contact-row-right{text-align:right;font-size:.85rem;color:var(--muted);line-height:1.6;}
+.contact-row-right .hl{color:var(--text);font-weight:500;}
+
+/* CTA - FULL WIDTH IMAGE */
+.cta-img{position:relative;height:50vh;overflow:hidden;cursor:pointer;}
+.cta-img-bg{position:absolute;inset:0;background:url('https://z-cdn-media.chatglm.cn/files/12ac3c6d-d22f-44a9-bcde-e513b8d2064c.png?auth_key=1887611909-4aa5a1dd73e443e98e8f2a0296d60afe-0-d3c6524b18074c8185376ddb50061d73') center/cover no-repeat;filter:grayscale(40%);transition:filter .5s;}
+.cta-img:hover .cta-img-bg{filter:grayscale(0%);}
+.cta-img::after{content:'';position:absolute;inset:0;background:rgba(9,9,11,.7);}
+.cta-img-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;}
+.cta-img-inner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.cta-img-inner p{color:var(--muted);font-size:.9rem;margin-bottom:2rem;max-width:380px;}
+
+/* FOOTER */
+footer{background:var(--bg2);padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+.foot-l{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;color:var(--cream);}
+.foot-l i{color:var(--gold);font-size:.45rem;margin-left:.3rem;vertical-align:super;}
+.foot-c{font-size:.72rem;color:var(--muted2);letter-spacing:1px;}
+.foot-r{display:flex;gap:2rem;}
+.foot-r a{color:var(--muted);text-decoration:none;font-size:.7rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:color .2s;}
+.foot-r a:hover{color:var(--cream);}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(9,9,11,.92);z-index:99999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal-card{background:var(--bg2);padding:3rem 2.5rem;max-width:400px;width:90%;text-align:center;transform:translateY(20px);transition:transform .5s cubic-bezier(.4,0,.2,1);position:relative;}
+.modal-bg.open .modal-card{transform:translateY(0);}
+.modal-x{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;transition:color .2s;}
+.modal-x:hover{color:var(--cream);}
+.modal-icon{width:50px;height:50px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;color:var(--gold);font-size:1.2rem;}
+.modal-card h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.modal-card p{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;letter-spacing:.3px;}
+
+.rv{opacity:0;transform:translateY(25px);transition:opacity .7s ease,transform .7s ease;}
+.rv.show{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  .hero{flex-direction:column-reverse;height:auto;min-height:100vh;}
+  .hero-left{width:100%;padding:3rem 2rem 4rem;}
+  .hero-right{width:100%;height:50vh;}
+  .about-split{grid-template-columns:1fr;}
+  .about-dark,.about-light{padding:3rem 2rem;}
+  nav{padding:1rem 1.5rem;}nav.scrolled{padding:.8rem 1.5rem;}
+  .nav-left{gap:1.5rem;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}.hamburger{display:block;}
+  .work-scroll{padding:0 1.5rem;}
+  .work-snap{flex:0 0 240px;}
+  .contact-row{flex-direction:column;align-items:flex-start;gap:.5rem;}
+  .contact-row-right{text-align:left;}
+  footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  .foot-r{justify-content:center;}
+  section{padding:4rem 0;}
+  .menu-section{padding:4rem 1.5rem;}
+}
+@media(max-width:480px){
+  .hero-stats{gap:1.2rem;}
+  .hero-btns{flex-direction:column;}
+  .btn{width:100%;text-align:center;}
+  .cta-img{height:40vh;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-left">
+    <div class="nav-logo">Studio 47 <i class="fas fa-diamond"></i></div>
+    <div class="nav-links">
+      <a onclick="pop()">Work</a>
+      <a onclick="pop()">About</a>
+      <a onclick="pop()">Pricing</a>
+      <a onclick="pop()">Reviews</a>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-cta" onclick="pop()">Book Now</a>
+  </div>
+  <button class="hamburger" onclick="mobOpen()" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="mob-bg" id="mobBg" onclick="mobClose()"></div>
+<div class="mob-nav" id="mobNav">
+  <button class="mob-close" onclick="mobClose()" aria-label="Close"><i class="fas fa-times"></i></button>
+  <a onclick="mobClose();pop()">Work</a>
+  <a onclick="mobClose();pop()">About</a>
+  <a onclick="mobClose();pop()">Pricing</a>
+  <a onclick="mobClose();pop()">Reviews</a>
+  <a onclick="mobClose();pop()">Book Now</a>
+</div>
+
+<!-- HERO: SPLIT SCREEN -->
+<header class="hero">
+  <div class="hero-left">
+    <div class="tag">Santa Fe Plaza, Las Vegas</div>
+    <h1>Where Your Hair Gets <em>Treated Right</em></h1>
+    <p>Professional cuts, color, and styling in a space built for quality. Walk ins always welcome.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">4.3</div><div class="hero-stat-label">Star Rating</div></div>
+      <div><div class="hero-stat-num">11</div><div class="hero-stat-label">Reviews</div></div>
+      <div><div class="hero-stat-num">8PM</div><div class="hero-stat-label">Close Time</div></div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn btn-solid" onclick="pop()">Book Now</button>
+      <button class="btn btn-outline" onclick="pop()">View Work</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://z-cdn-media.chatglm.cn/files/12ac3c6d-d22f-44a9-bcde-e513b8d2064c.png?auth_key=1887611909-4aa5a1dd73e443e98e8f2a0296d60afe-0-d3c6524b18074c8185376ddb50061d73" alt="Studio 47 Hair Salon interior">
+  </div>
+</header>
+
+<!-- WORK: HORIZONTAL SCROLL -->
+<section id="work">
+  <div class="sh rv" style="padding:0 3rem;">
+    <div class="sh-tag">Portfolio</div>
+    <h2 class="sh-title">Our Work</h2>
+    <div class="sh-line"></div>
+  </div>
+  <div class="work-scroll-wrap rv">
+    <div class="work-scroll" id="workScroll">
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/7aa266e4-06c4-4ded-b015-d345ab717a65.png?auth_key=1887611909-278253f7aa2e455ea1dcb7dc453f290c-0-b119496ec7dfaaefd63901dabeae2374" alt="Blonde long hair">
+        <div class="work-snap-info"><h4>Blonde Long Hair</h4><p>Color & Style</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/c16067af-1e8f-4e66-bb34-6308d4af5235.png?auth_key=1887611909-2ba5c105e3b84759a69252be4ffadc44-0-cf8d76a959dcae4fc2a8474b3b77726c" alt="Kids curly short hair">
+        <div class="work-snap-info"><h4>Kids Curly Cut</h4><p>Cut & Style</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/48026773-d3ac-4960-ba82-d709ba349fc4.png?auth_key=1887611909-bb9c98d251544f24aa1900a86a3d970f-0-cd5e1cf0015cd384d8fb002c63fbe4e1" alt="Long black straight hair">
+        <div class="work-snap-info"><h4>Long Black Straight</h4><p>Cut & Style</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/c2d5d586-4db3-40a3-bbd4-74ecd2714b1c.png?auth_key=1887611909-e49a03a4392340b3928530db7365337f-0-425aee6f45cc3342f5862d397bf8f11f" alt="Blonde ombre long hair">
+        <div class="work-snap-info"><h4>Blonde Ombre</h4><p>Color</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/10eaeef3-2035-4464-b10f-41f8c4efce09.png?auth_key=1887611909-00201646894a48968d3b7d9b56ba3e47-0-45be328e7eb4a3e2b46e18642a28e9c3" alt="Men's side part">
+        <div class="work-snap-info"><h4>Men's Side Part</h4><p>Cut</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/72b4ee4f-93f3-4670-9fc8-6902b3147f09.png?auth_key=1887611909-31d8a9a45cb84d95a2582d81e5c0bbff-0-99fa85d0ff112273764fc0f83e7032fb" alt="Kids fade">
+        <div class="work-snap-info"><h4>Kids Fade</h4><p>Cut</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/f49b8f8a-5736-4ab3-a52c-4949e2fcdbe9.png?auth_key=1887611909-f10049793c7c4079ad953ec919a39ed8-0-e975c283abe3d58af2a337a97fa70252" alt="Brown wavy highlights">
+        <div class="work-snap-info"><h4>Brown Wavy Highlights</h4><p>Color & Style</p></div>
+      </div>
+      <div class="work-snap" onclick="pop()">
+        <img src="https://z-cdn-media.chatglm.cn/files/90156caa-e644-4b45-a1f3-db72557294e0.png?auth_key=1887611909-693683b87e334e719de68a35224d2a2a-0-0f5510c25321f838d10cb40ff479985f" alt="Medium layered ombre">
+        <div class="work-snap-info"><h4>Medium Layered Ombre</h4><p>Color & Cut</p></div>
+      </div>
+      <div class="work-snap-more" onclick="pop()">
+        <i class="fas fa-arrow-right"></i>
+        <h4>See More</h4>
+        <p>Unlock gallery</p>
+      </div>
+    </div>
+    <div class="scroll-hint"><i class="fas fa-circle"></i> Drag to scroll <i class="fas fa-circle"></i></div>
+  </div>
+</section>
+
+<!-- ABOUT: SPLIT CONTRAST PANELS -->
+<div class="about-split rv">
+  <div class="about-dark">
+    <div class="sh-tag">About</div>
+    <h2 class="sh-title">Located in Santa Fe Plaza</h2>
+    <div class="sh-line"></div>
+    <p>Studio 47 Hair Salon serves the Las Vegas community with professional cuts, color, and styling. A clean space where quality matters and walk ins are always welcome.</p>
+  </div>
+  <div class="about-light">
+    <div class="about-light-item">
+      <div class="about-light-icon"><i class="fas fa-star"></i></div>
+      <div class="about-light-text"><h4>4.3 Star Rating</h4><p>11 reviews on Google</p></div>
+    </div>
+    <div class="about-light-item">
+      <div class="about-light-icon"><i class="fas fa-map-pin"></i></div>
+      <div class="about-light-text"><h4>Santa Fe Plaza</h4><p>1449 N Jones Blvd, Las Vegas</p></div>
+    </div>
+    <div class="about-light-item">
+      <div class="about-light-icon"><i class="fas fa-clock"></i></div>
+      <div class="about-light-text"><h4>Open Till 8 PM</h4><p>Ask for specific day hours</p></div>
+    </div>
+    <div class="about-light-item">
+      <div class="about-light-icon"><i class="fas fa-door-open"></i></div>
+      <div class="about-light-text"><h4>Walk Ins Welcome</h4><p>No appointment needed</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU: MINIMAL LINES -->
+<div class="menu-section rv">
+  <div class="sh">
+    <div class="sh-tag">Services</div>
+    <h2 class="sh-title">Menu & Pricing</h2>
+    <div class="sh-line"></div>
+  </div>
+  <div class="menu-inner">
+    <div class="menu-fake">
+      <div class="menu-row"><span class="n">Women's Haircut</span><span class="p">$35+</span></div>
+      <div class="menu-row"><span class="n">Men's Haircut</span><span class="p">$20+</span></div>
+      <div class="menu-row"><span class="n">Hair Color</span><span class="p">$60+</span></div>
+      <div class="menu-row"><span class="n">Highlights</span><span class="p">$85+</span></div>
+      <div class="menu-row"><span class="n">Blowout & Style</span><span class="p">$30+</span></div>
+      <div class="menu-row"><span class="n">Keratin Treatment</span><span class="p">$150+</span></div>
+    </div>
+    <div class="menu-lock" onclick="pop()">
+      <i class="fas fa-lock"></i>
+      <h3>Unlock Full Menu</h3>
+      <p>Purchase the complete site to view pricing</p>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="sh rv">
+    <div class="sh-tag">Reviews</div>
+    <h2 class="sh-title">Client Feedback</h2>
+    <div class="sh-line"></div>
+  </div>
+  <div class="reviews-placeholder rv" onclick="pop()">
+    <i class="far fa-comment-dots"></i>
+    <h3>Reviews Coming Soon</h3>
+    <p>This section will display reviews from real clients once the site is fully built.</p>
+    <button class="btn btn-solid btn-sm" onclick="event.stopPropagation();pop()" style="font-size:.7rem;padding:.5rem 1.5rem;">Unlock Full Site</button>
+  </div>
+</section>
+
+<!-- CONTACT: ROW LAYOUT -->
+<section id="contact">
+  <div class="sh rv">
+    <div class="sh-tag">Contact</div>
+    <h2 class="sh-title">Get In Touch</h2>
+    <div class="sh-line"></div>
+  </div>
+  <div class="contact-stack rv">
+    <div class="contact-row" onclick="pop()" style="cursor:pointer;">
+      <div class="contact-row-left"><i class="fas fa-map-marker-alt"></i><h4>Location</h4></div>
+      <div class="contact-row-right">1449 N Jones Blvd<br>Las Vegas, NV 89108<br><span class="hl">Santa Fe Plaza</span></div>
+    </div>
+    <div class="contact-row" onclick="pop()" style="cursor:pointer;">
+      <div class="contact-row-left"><i class="fas fa-phone"></i><h4>Phone</h4></div>
+      <div class="contact-row-right"><span class="hl">(702) 636-8532</span><br>Call to book</div>
+    </div>
+    <div class="contact-row" onclick="pop()" style="cursor:pointer;">
+      <div class="contact-row-left"><i class="fas fa-clock"></i><h4>Hours</h4></div>
+      <div class="contact-row-right"><span class="hl">Open till 8 PM</span><br>Ask for specific days</div>
+    </div>
+    <div class="contact-row" onclick="pop()" style="cursor:pointer;">
+      <div class="contact-row-left"><i class="fas fa-directions"></i><h4>Directions</h4></div>
+      <div class="contact-row-right"><span class="hl">Google Maps</span><br>Santa Fe Plaza</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA: IMAGE BACKGROUND -->
+<div class="cta-img rv" onclick="pop()">
+  <div class="cta-img-bg"></div>
+  <div class="cta-img-inner">
+    <h2>Ready for a Fresh Look?</h2>
+    <p>Book your next appointment at Studio 47 Hair Salon.</p>
+    <button class="btn btn-solid" onclick="event.stopPropagation();pop()">Book an Appointment</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-l">Studio 47 <i class="fas fa-diamond"></i></div>
+  <div class="foot-c">1449 N Jones Blvd, Las Vegas, NV 89108 &middot; (702) 636-8532</div>
+  <div class="foot-r">
+    <a onclick="pop()">Work</a>
+    <a onclick="pop()">About</a>
+    <a onclick="pop()">Pricing</a>
+    <a onclick="pop()">Reviews</a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal" onclick="popOut(event)">
+  <div class="modal-card">
+    <button class="modal-x" onclick="popClose()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="modal-icon"><i class="fas fa-lock"></i></div>
+    <h3>Full Site Available</h3>
+    <p>Purchase the complete website to unlock all features including online booking, full menu & pricing, client reviews, and everything else.</p>
+    <button class="btn btn-solid" onclick="popClose()" style="width:100%;">Got It</button>
+  </div>
+</div>
+
+<script>
+/* Modal */
+var m=document.getElementById('modal');
+function pop(){m.classList.add('open');document.body.style.overflow='hidden';}
+function popClose(){m.classList.remove('open');document.body.style.overflow='';}
+function popOut(e){if(e.target===m)popClose();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){popClose();mobClose();}});
+
+/* Mobile nav */
+function mobOpen(){document.getElementById('mobNav').classList.add('open');document.getElementById('mobBg').classList.add('open');document.body.style.overflow='hidden';}
+function mobClose(){document.getElementById('mobNav').classList.remove('open');document.getElementById('mobBg').classList.remove('open');document.body.style.overflow='';}
+
+/* Nav scroll */
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);});
+
+/* Scroll reveal */
+var allRv=document.querySelectorAll('.rv');
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('show');});},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+allRv.forEach(function(el){obs.observe(el);});
+
+/* Drag to scroll */
+var ws=document.getElementById('workScroll');
+var isDown=false,startX,scrollL;
+ws.addEventListener('mousedown',function(e){isDown=true;ws.style.cursor='grabbing';startX=e.pageX-ws.offsetLeft;scrollL=ws.scrollLeft;});
+ws.addEventListener('mouseleave',function(){isDown=false;ws.style.cursor='grab';});
+ws.addEventListener('mouseup',function(){isDown=false;ws.style.cursor='grab';});
+ws.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();var x=e.pageX-ws.offsetLeft;ws.scrollLeft=scrollL-(x-startX)*1.5;});
+
+/* Hero parallax */
+var heroImg=document.querySelector('.hero-right img');
+window.addEventListener('scroll',function(){
+  if(window.scrollY<window.innerHeight){
+    heroImg.style.transform='scale('+(1+window.scrollY*.0003)+') translateY('+window.scrollY*.15+'px)';
+  }
+});
+</script>
+</body>
+</html>
