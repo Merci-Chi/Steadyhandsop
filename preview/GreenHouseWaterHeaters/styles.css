@@ -752,3 +752,91 @@ svg.lucide{width:1em;height:1em;stroke-width:2;display:block}
 /* Multi-page navigation */
 .main-nav a[aria-current="page"]{color:var(--green)}
 body:not(.home-page) main{min-height:45vh}
+
+/* ===== LOCKED / BLURRED DEMO PREVIEWS ===== */
+.locked-preview{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  cursor:pointer;
+  isolation:isolate;
+}
+
+.locked-preview-content{
+  filter:blur(7px);
+  transform:scale(1.012);
+  opacity:.78;
+  pointer-events:none;
+  user-select:none;
+}
+
+.locked-preview::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(6,22,13,.16));
+  pointer-events:none;
+}
+
+.locked-preview-overlay{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:22px;
+  text-align:center;
+  color:#fff;
+  background:rgba(6,22,13,.28);
+  text-shadow:0 1px 8px rgba(0,0,0,.35);
+}
+
+.locked-preview-icon{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  margin-bottom:4px;
+  background:rgba(255,255,255,.94);
+  color:var(--green-dark);
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  text-shadow:none;
+}
+
+.locked-preview-icon svg{width:23px;height:23px}
+.locked-preview-overlay strong{font-size:1rem;text-transform:uppercase;letter-spacing:.06em}
+.locked-preview-overlay small{font-size:.76rem;font-weight:700;opacity:.94}
+.locked-preview:focus-visible{outline:3px solid rgba(47,123,21,.45);outline-offset:3px}
+
+/* Keep locked layouts in their original grid slots */
+.about-grid > .locked-preview{align-self:stretch}
+.contact-grid > .locked-preview{align-self:stretch}
+.locked-special-details{display:contents}
+.special-grid > .locked-preview{grid-column:3/5}
+.special-grid > .locked-preview .locked-preview-content{
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  align-items:center;
+  gap:28px;
+}
+.special-grid > .locked-preview .special-list,
+.special-grid > .locked-preview .special-cta{height:100%;display:flex;flex-direction:column;justify-content:center}
+
+@media (max-width:900px){
+  .special-grid > .locked-preview{grid-column:1/-1}
+  .special-grid > .locked-preview .locked-preview-content{grid-template-columns:1fr 1fr}
+}
+
+@media (max-width:620px){
+  .locked-preview-content{filter:blur(6px)}
+  .locked-preview-overlay{padding:16px}
+  .locked-preview-icon{width:44px;height:44px}
+  .special-grid > .locked-preview .locked-preview-content{grid-template-columns:1fr;gap:16px}
+  .special-grid > .locked-preview .special-list,
+  .special-grid > .locked-preview .special-cta{height:auto}
+}

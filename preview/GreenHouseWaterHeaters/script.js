@@ -21,3 +21,11 @@ form?.addEventListener('submit', event => {
   status.textContent = 'Thanks! Your estimate request is ready to be connected to your form backend.';
   form.reset();
 });
+
+// Keyboard access for blurred locked preview areas.
+document.addEventListener('keydown', (event) => {
+  if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('.locked-preview[data-locked="true"]')) {
+    event.preventDefault();
+    event.target.click();
+  }
+});

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -50,21 +51,13 @@ body.modal-open{overflow:hidden}
 <a aria-haspopup="dialog" data-locked="true" href="mailto:greenhouseplumbing@yahoo.com"><span><i data-lucide="mail"></i></span><div><strong>greenhouseplumbing@yahoo.com</strong><small>Email Us</small></div></a>
 <div><span><i data-lucide="map-pin"></i></span><div><strong>Las Vegas, NV &amp; Surrounding Areas</strong><small>Proudly Serving Southern Nevada</small></div></div>
 </div>
-<form class="estimate-form" data-locked-form="true" id="estimateForm">
+<div aria-label="Locked estimate form" class="locked-preview" data-locked="true" role="button" tabindex="0"><div class="locked-preview-content"><form class="estimate-form" data-locked-form="true" id="estimateForm">
 <div class="form-row"><input name="name" placeholder="Full Name" required=""/><input name="phone" placeholder="Phone Number" required=""/></div>
 <div class="form-row"><input name="email" placeholder="Email Address" required="" type="email"/><select name="service" required=""><option value="">Service Needed</option><option>Installation</option><option>Repair</option><option>Maintenance</option><option>Tune-Up &amp; Flush</option></select></div>
 <textarea name="message" placeholder="Tell us about your project..."></textarea>
 <button aria-haspopup="dialog" class="btn btn-solid btn-form" data-locked="true" type="submit">Request a Free Estimate →</button>
 <p class="form-status" role="status"></p>
-</form>
-</div>
-</section>
-<section class="benefits-strip">
-<div class="container benefits-grid">
-<div><span><i data-lucide="badge-dollar-sign"></i></span><p><strong>Upfront Pricing</strong><small>No Surprises</small></p></div>
-<div><span><i data-lucide="award"></i></span><p><strong>Quality Work</strong><small>Done Right the First Time</small></p></div>
-<div><span><i data-lucide="leaf"></i></span><p><strong>Energy Efficient</strong><small>Save Money &amp; Energy</small></p></div>
-<div><span><i data-lucide="clock-3"></i></span><p><strong>Same-Day Service</strong><small>When You Need It Most</small></p></div>
+</form></div><div class="locked-preview-overlay"><span class="locked-preview-icon"><i data-lucide="lock-keyhole"></i></span><strong>Locked Preview</strong><small>Purchase the site to unlock</small></div></div>
 </div>
 </section>
 </main>
