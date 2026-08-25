@@ -322,19 +322,34 @@ svg.lucide{width:1em;height:1em;stroke-width:2;display:block}
 
   .site-header .nav-wrap{
     min-height:78px;
-    padding:7px 0;
-    gap:10px;
+    padding:7px 8px 7px 2px;
+    gap:8px;
+    width:100%;
+    margin:0;
+  }
+
+  .brand{
+    margin-left:0;
   }
 
   .brand img{
-    width:190px !important;
-    max-height:64px !important;
+    width:225px !important;
+    max-height:72px !important;
   }
 
   .menu-toggle{
     width:42px;
     height:42px;
     flex:0 0 42px;
+    color:var(--ink) !important;
+    background:transparent !important;
+    border:none !important;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .menu-toggle svg{
+    color:var(--ink) !important;
+    stroke:currentColor !important;
   }
 
   .hero{
@@ -407,15 +422,31 @@ svg.lucide{width:1em;height:1em;stroke-width:2;display:block}
   }
 
   .project-photo-grid{
-    grid-template-columns:1fr !important;
-    gap:14px;
+    display:flex !important;
+    grid-template-columns:none !important;
+    gap:12px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+  }
+
+  .project-photo-grid::-webkit-scrollbar{
+    display:none;
+  }
+
+  .project-photo{
+    flex:0 0 100%;
+    scroll-snap-align:start;
   }
 
   .project-photo img{
     width:100%;
-    height:auto !important;
-    max-height:none !important;
-    object-fit:contain !important;
+    height:280px !important;
+    max-height:280px !important;
+    object-fit:cover !important;
   }
 
   .special-grid{
@@ -548,7 +579,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;display:block}
 /* Very small phones */
 @media (max-width:390px){
   .brand img{
-    width:168px !important;
+    width:200px !important;
   }
 
   .hero h1{
