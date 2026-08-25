@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorite Place to Shop | Las Vegas, NV</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#0b0b0b;
+  --accent:#c0392b;
+  --accent2:#e74c3c;
+  --accent-dim:rgba(192,57,43,.1);
+  --white:#f0ede8;
+  --text:#a8a49e;
+  --muted:#5e5b56;
+  --muted2:#2c2a27;
+}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* NAV - CENTERED */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:transparent;transition:background .5s;}
+nav.scrolled{background:rgba(11,11,11,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:60px;gap:2.5rem;}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:color .3s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:var(--accent)!important;color:var(--white)!important;padding:.4rem 1.1rem;font-size:.65rem!important;letter-spacing:1.5px!important;transition:opacity .3s!important;}
+.nav-cta:hover{opacity:.8;}
+.hamburger{display:none;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);}
+
+/* MOBILE NAV */
+.mob-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;opacity:0;pointer-events:none;transition:opacity .3s;}
+.mob-bg.open{opacity:1;pointer-events:all;}
+.mob-nav{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);width:280px;background:var(--bg);z-index:9999;padding:3rem 2rem;border-radius:16px;opacity:0;pointer-events:none;transition:opacity .3s,transform .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;}
+.mob-nav.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1);}
+.mob-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;transition:color .2s;}
+.mob-close:hover{color:var(--white);}
+.mob-nav a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.6rem 0;cursor:pointer;transition:color .2s;width:100%;}
+.mob-nav a:hover{color:var(--white);}
+
+/* HERO - IMAGE LEFT STACKED RIGHT */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+.hero-img{position:relative;overflow:hidden;}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 12s ease;}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,var(--bg) 100%);}
+.hero-text{display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem 5rem 1rem;position:relative;}
+.hero-text .tag{color:var(--accent);font-size:.58rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;margin-bottom:1.8rem;opacity:0;animation:fR .7s .2s ease forwards;}
+.hero-text h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:1.2rem;opacity:0;animation:fR .7s .35s ease forwards;}
+.hero-text h1 span{color:var(--accent2);}
+.hero-text p{font-size:.88rem;line-height:1.8;color:var(--muted);margin-bottom:2rem;max-width:360px;opacity:0;animation:fR .7s .5s ease forwards;}
+.hero-info{margin-bottom:2.5rem;opacity:0;animation:fR .7s .65s ease forwards;}
+.hi-row{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted);margin-bottom:.6rem;}
+.hi-row i{color:var(--accent);font-size:.65rem;width:20px;text-align:center;}
+.hero-btns{display:flex;gap:.7rem;flex-wrap:wrap;opacity:0;animation:fR .7s .8s ease forwards;}
+@keyframes fR{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
+
+.btn{padding:.75rem 2rem;font-family:Arial,sans-serif;font-size:.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border:none;}
+.btn-red{background:var(--accent);color:var(--white);}
+.btn-red:hover{background:var(--accent2);transform:translateY(-2px);}
+.btn-out{background:transparent;color:var(--text);border:1px solid var(--muted2);}
+.btn-out:hover{border-color:var(--accent);color:var(--white);transform:translateY(-2px);}
+
+/* SECTION HEAD */
+.sh{text-align:center;margin-bottom:3.5rem;}
+.sh-tag{color:var(--accent);font-size:.58rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:.6rem;}
+.sh-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--white);line-height:1.15;}
+
+section{padding:5rem 2rem;background:var(--bg);}
+
+/* SHOP TEASER - HORIZONTAL LIST BLUR */
+.shop-list-fake{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:.8rem;filter:blur(8px);opacity:.2;pointer-events:none;user-select:none;}
+.shop-fake-row{display:flex;align-items:center;gap:1.2rem;background:var(--muted2);border-radius:8px;padding:1rem;}
+.shop-fake-thumb{width:60px;height:60px;background:var(--muted2);border-radius:6px;flex-shrink:0;}
+.shop-fake-txt h4{color:var(--text);font-size:.85rem;font-weight:700;margin-bottom:.1rem;}
+.shop-fake-txt p{color:var(--accent);font-size:.88rem;font-weight:700;}
+.shop-wrap{position:relative;max-width:600px;margin:0 auto;}
+.shop-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
+.shop-lock:hover{background:rgba(192,57,43,.03);}
+.shop-lock i{font-size:1.6rem;color:var(--accent);margin-bottom:.8rem;}
+.shop-lock h3{font-size:1.15rem;font-weight:900;color:var(--white);margin-bottom:.2rem;}
+.shop-lock p{font-size:.78rem;color:var(--muted);}
+
+/* ABOUT - LEFT ALIGNED WIDE */
+.about-wide{max-width:800px;}
+.about-wide p{font-size:1rem;line-height:1.9;color:var(--muted);margin-bottom:2rem;max-width:550px;}
+.about-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem;}
+.about-chip{background:var(--accent-dim);color:var(--accent2);padding:.4rem 1rem;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+
+/* REVIEWS */
+.rev-empty{max-width:420px;margin:0 auto;text-align:center;padding:3rem 1.5rem;cursor:pointer;transition:opacity .3s;}
+.rev-empty:hover{opacity:.7;}
+.rev-empty i{font-size:1.5rem;color:var(--accent);margin-bottom:1rem;display:block;opacity:.3;}
+.rev-empty h3{font-size:1.05rem;font-weight:900;color:var(--white);margin-bottom:.4rem;}
+.rev-empty p{font-size:.78rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.btn-sm{padding:.5rem 1.4rem;font-size:.65rem;letter-spacing:1.5px;}
+
+/* CONTACT - TWO COL SPLIT */
+.contact-split{max-width:750px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.cs-item{cursor:pointer;transition:transform .2s;}
+.cs-item:hover{transform:translateY(-2px);}
+.cs-icon{color:var(--accent);font-size:.75rem;margin-bottom:.7rem;display:block;}
+.cs-item h4{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.3rem;}
+.cs-item p{font-size:.8rem;color:var(--muted);line-height:1.7;}
+.cs-item .hl{color:var(--text);font-weight:600;}
+
+/* CTA - RIGHT ALIGNED */
+.cta-right{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.cta-right h2{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:900;color:var(--white);line-height:1.15;max-width:450px;}
+.cta-right p{font-size:.85rem;color:var(--muted);margin-top:.4rem;max-width:400px;line-height:1.7;}
+
+/* FOOTER - MINIMAL LEFT */
+footer{background:var(--bg);padding:2.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+.foot-left{max-width:300px;}
+.foot-name{font-size:.85rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:var(--white);margin-bottom:.3rem;}
+.foot-name span{color:var(--accent);}
+.foot-addr{font-size:.7rem;color:var(--muted2);}
+.foot-links{display:flex;gap:2rem;}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:color .2s;}
+.foot-links a:hover{color:var(--white);}
+
+/* MODAL - FADE CENTER */
+.modal-bg{position:fixed;inset:0;background:rgba(11,11,11,0);z-index:99999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s,background .4s;}
+.modal-bg.open{opacity:1;pointer-events:all;background:rgba(11,11,11,.9);}
+.modal-card{background:var(--bg);padding:2.5rem;max-width:380px;width:90%;text-align:center;opacity:0;transform:scale(.96);transition:opacity .4s .1s,transform .4s .1s;position:relative;}
+.modal-bg.open .modal-card{opacity:1;transform:scale(1);}
+.modal-x{position:absolute;top:.8rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;transition:color .2s;}
+.modal-x:hover{color:var(--white);}
+.modal-icon{width:44px;height:44px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:var(--accent);font-size:.95rem;}
+.modal-card h3{font-size:1.1rem;font-weight:900;color:var(--white);margin-bottom:.4rem;}
+.modal-card p{font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;}
+
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.rv.show{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;}.hero-img{height:45vh;}.hero-text{padding:3rem 2rem 4rem;}
+  .contact-split{grid-template-columns:1fr;gap:2rem;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}.hamburger{display:block;}
+  nav-inner{justify-content:center;}
+  section{padding:4rem 1.2rem;}
+  .cta-right{flex-direction:column;text-align:center;}.cta-right h2{max-width:100%;}
+  footer{flex-direction:column;text-align:center;}.foot-left{max-width:100%;}.foot-links{justify-content:center;}
+}
+@media(max-width:480px){
+  .hero-text h1{font-size:1.8rem;}
+  .hero-btns{flex-direction:column;align-items:flex-start;}
+  .btn{width:100%;text-align:center;}
+  .shop-fake-row{padding:.8rem;}
+  .shop-fake-thumb{width:45px;height:45px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-links">
+      <a onclick="pop()">Shop</a>
+      <a onclick="pop()">About</a>
+      <a onclick="pop()">Reviews</a>
+      <a onclick="pop()">Contact</a>
+      <a class="nav-cta" onclick="pop()">Visit Us</a>
+    </div>
+  </div>
+  <button class="hamburger" onclick="mobOpen()" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="mob-bg" id="mobBg" onclick="mobClose()"></div>
+<div class="mob-nav" id="mobNav">
+  <button class="mob-close" onclick="mobClose()" aria-label="Close"><i class="fas fa-times"></i></button>
+  <a onclick="mobClose();pop()">Shop</a>
+  <a onclick="mobClose();pop()">About</a>
+  <a onclick="mobClose();pop()">Reviews</a>
+  <a onclick="mobClose();pop()">Contact</a>
+  <a onclick="mobClose();pop()">Visit Us</a>
+</div>
+
+<header class="hero">
+  <div class="hero-img">
+    <img src="https://z-cdn-media.chatglm.cn/files/a04abb96-7316-4aa8-a6a4-c847f55f758a.png?auth_key=1887616726-c002ab2eda294525b2ad4a65777acb16-0-821f30b190b5283da2a18dbc6afe67b3" alt="Favorite Place to Shop">
+  </div>
+  <div class="hero-text">
+    <div class="tag">Las Vegas, NV</div>
+    <h1>Favorite Place <span>to Shop</span></h1>
+    <p>Your go to shopping destination in Las Vegas. Curated finds and a store you keep coming back to.</p>
+    <div class="hero-info">
+      <div class="hi-row"><i class="fas fa-map-marker-alt"></i><span>1465 Rothwell Ct, Las Vegas, NV 89102</span></div>
+      <div class="hi-row"><i class="fas fa-phone"></i><span>(725) 230-6046</span></div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn btn-red" onclick="pop()">Shop Now</button>
+      <button class="btn btn-out" onclick="pop()">Get Directions</button>
+    </div>
+  </div>
+</header>
+
+<section id="shop">
+  <div class="sh rv">
+    <div class="sh-tag">Products</div>
+    <h2 class="sh-title">What We Carry</h2>
+  </div>
+  <div class="shop-wrap rv">
+    <div class="shop-list-fake">
+      <div class="shop-fake-row"><div class="shop-fake-thumb"></div><div class="shop-fake-txt"><h4>Product Name</h4><p>$XX.XX</p></div></div>
+      <div class="shop-fake-row"><div class="shop-fake-thumb"></div><div class="shop-fake-txt"><h4>Product Name</h4><p>$XX.XX</p></div></div>
+      <div class="shop-fake-row"><div class="shop-fake-thumb"></div><div class="shop-fake-txt"><h4>Product Name</h4><p>$XX.XX</p></div></div>
+      <div class="shop-fake-row"><div class="shop-fake-thumb"></div><div class="shop-fake-txt"><h4>Product Name</h4><p>$XX.XX</p></div></div>
+      <div class="shop-fake-row"><div class="shop-fake-thumb"></div><div class="shop-fake-txt"><h4>Product Name</h4><p>$XX.XX</p></div></div>
+    </div>
+    <div class="shop-lock" onclick="pop()">
+      <i class="fas fa-lock"></i>
+      <h3>Unlock Full Shop</h3>
+      <p>Purchase the complete site to view products</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-wide rv">
+    <div class="sh-tag">About</div>
+    <h2 class="sh-title" style="margin-bottom:1.5rem;">The Store</h2>
+    <p>Favorite Place to Shop is a retail store in Las Vegas offering a curated selection of products. A local spot that keeps people coming back for more.</p>
+    <div class="about-row">
+      <span class="about-chip">Las Vegas, NV</span>
+      <span class="about-chip">Rothwell Ct</span>
+      <span class="about-chip">Retail Store</span>
+      <span class="about-chip">Walk Ins Welcome</span>
+    </div>
+    <button class="btn btn-red" onclick="pop()">Learn More</button>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="sh rv" style="text-align:center;">
+    <div class="sh-tag">Reviews</div>
+    <h2 class="sh-title">Customer Feedback</h2>
+  </div>
+  <div class="rev-empty rv" onclick="pop()">
+    <i class="far fa-comment-dots"></i>
+    <h3>Reviews Coming Soon</h3>
+    <p>This section will display reviews from real customers once the site is fully built.</p>
+    <button class="btn btn-red btn-sm" onclick="event.stopPropagation();pop()">Unlock Full Site</button>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="sh rv" style="text-align:center;">
+    <div class="sh-tag">Contact</div>
+    <h2 class="sh-title">Get In Touch</h2>
+  </div>
+  <div class="contact-split rv">
+    <div class="cs-item" onclick="pop()">
+      <i class="fas fa-map-marker-alt cs-icon"></i>
+      <h4>Location</h4>
+      <p>1465 Rothwell Ct<br>Las Vegas, NV 89102</p>
+    </div>
+    <div class="cs-item" onclick="pop()">
+      <i class="fas fa-phone cs-icon"></i>
+      <h4>Phone</h4>
+      <p><span class="hl">(725) 230-6046</span><br>Call or visit</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-right rv" style="padding:5rem 2rem;">
+  <div>
+    <h2>Find Something You Love</h2>
+    <p>Stop by Favorite Place to Shop and see what's new.</p>
+  </div>
+  <button class="btn btn-red" onclick="pop()">Visit Store</button>
+</div>
+
+<footer>
+  <div class="foot-left">
+    <div class="foot-name">FAVORITE PLACE <span>TO SHOP</span></div>
+    <div class="foot-addr">1465 Rothwell Ct, Las Vegas, NV 89102 &middot; (725) 230-6046</div>
+  </div>
+  <div class="foot-links">
+    <a onclick="pop()">Shop</a>
+    <a onclick="pop()">About</a>
+    <a onclick="pop()">Reviews</a>
+    <a onclick="pop()">Contact</a>
+  </div>
+</footer>
+
+<div class="modal-bg" id="modal" onclick="popOut(event)">
+  <div class="modal-card">
+    <button class="modal-x" onclick="popClose()" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="modal-icon"><i class="fas fa-lock"></i></div>
+    <h3>Full Site Available</h3>
+    <p>Purchase the complete website to unlock all features including online shop, full product catalog, client reviews, and everything else.</p>
+    <button class="btn btn-red" onclick="popClose()" style="width:100%;">Got It</button>
+  </div>
+</div>
+
+<script>
+var m=document.getElementById('modal');
+function pop(){m.classList.add('open');document.body.style.overflow='hidden';}
+function popClose(){m.classList.remove('open');document.body.style.overflow='';}
+function popOut(e){if(e.target===m)popClose();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){popClose();mobClose();}});
+function mobOpen(){document.getElementById('mobNav').classList.add('open');document.getElementById('mobBg').classList.add('open');document.body.style.overflow='hidden';}
+function mobClose(){document.getElementById('mobNav').classList.remove('open');document.getElementById('mobBg').classList.remove('open');document.body.style.overflow='';}
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>50);});
+var allRv=document.querySelectorAll('.rv');
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('show');});},{threshold:.1,rootMargin:'0px 0px -25px 0px'});
+allRv.forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
