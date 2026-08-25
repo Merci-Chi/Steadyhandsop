@@ -1,87 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,follow">
-  <title>404 | Steady Hands Operation</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{--white:#fff;--blue-400:#39b8ff;--ink:#0d2550;--blue:#245b9f;--header-shadow:0 5px 14px rgba(0,0,0,.16)}
-    *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;font-family:"Manrope",Arial,sans-serif}
-    body{min-height:100vh;color:#fff;overflow-x:hidden;background:#102a56}
-    a{text-decoration:none;color:inherit}
-    .background{position:fixed;inset:0;z-index:-3;overflow:hidden;background:linear-gradient(145deg,#071b3e 0%,#123b78 45%,#2878bd 100%)}
-    .background img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.74;filter:saturate(.9) contrast(1.02)}
-    .background:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(3,18,48,.76),rgba(19,73,133,.32) 48%,rgba(7,33,76,.7)),radial-gradient(circle at 72% 28%,rgba(77,181,255,.28),transparent 34%)}
-    .site-header{position:fixed;z-index:1000;top:0;left:0;right:0;background:linear-gradient(108deg,rgba(180,209,240,.426) 5%,rgba(79,145,222,.46) 10%,rgba(38,84,157,.72) 30%,rgba(38,84,157,.72) 34%,rgba(13,37,82,.90) 55%,rgba(24,66,143,.408) 79%,rgba(10,47,110,.247) 100%),rgba(4,20,45,.784);box-shadow:var(--header-shadow);backdrop-filter:blur(10px)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:30px;width:min(1320px,calc(100% - 56px));margin:auto;padding:14px 0}
-    .brand{display:flex;align-items:center;gap:14px;min-width:0}
-    .brand-logo{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.10))}
-    .brand-title{display:grid;width:max-content;line-height:1;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.30)}
-    .brand-title-top{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:700;letter-spacing:.045em;white-space:nowrap}
-    .brand-title-bottom{display:flex;align-items:center;gap:9px;width:100%;margin-top:8px;font-size:11px;font-weight:800;letter-spacing:.32em;white-space:nowrap}
-    .brand-title-bottom:before,.brand-title-bottom:after{content:"";flex:1;height:2px;background:#fff}
-    .nav-home{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 18px;color:#173665;background:linear-gradient(180deg,#fff,#e8f5ff);border:1px solid rgba(255,255,255,.92);border-radius:999px;font-size:13px;font-weight:800;box-shadow:0 8px 18px rgba(3,22,55,.19),inset 0 1px 0 #fff;transition:.2s ease}
-    .nav-home:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(3,22,55,.24),inset 0 1px 0 #fff}
-    main{min-height:100vh;display:grid;place-items:center;padding:142px 28px 44px}
-    .error-shell{position:relative;width:min(960px,100%);padding:clamp(30px,5vw,58px);overflow:hidden;border:1.5px solid rgba(202,232,255,.88);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.20),rgba(255,255,255,.08));box-shadow:0 24px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.38);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
-    .error-shell:before{content:"";position:absolute;width:340px;height:340px;right:-90px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(57,184,255,.35),rgba(57,184,255,0) 68%);pointer-events:none}
-    .kicker{display:inline-flex;align-items:center;gap:10px;margin:0 0 16px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d7eeff}
-    .kicker:before{content:"";width:24px;height:2px;border-radius:99px;background:#39b8ff}
-    .error-number{margin:0;font-family:"Bricolage Grotesque","Manrope",sans-serif;font-size:clamp(110px,24vw,230px);font-weight:800;line-height:.78;letter-spacing:-.08em;color:#fff;text-shadow:0 15px 42px rgba(4,25,61,.28)}
-    h1{margin:30px 0 12px;font-family:"Bricolage Grotesque","Manrope",sans-serif;font-size:clamp(32px,5vw,54px);line-height:1;letter-spacing:-.04em}
-    .copy{max-width:630px;margin:0;color:rgba(255,255,255,.84);font-size:clamp(15px,2vw,18px);line-height:1.7}
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:13px 22px;border-radius:14px;font-size:14px;font-weight:800;transition:.2s ease}
-    .btn-primary{background:linear-gradient(135deg,#2774d3,#174b9a);border:1px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 10px 20px rgba(18,61,132,.30)}
-    .btn-secondary{color:#173665;background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(229,244,255,.90));border:1px solid rgba(255,255,255,.9);box-shadow:0 9px 18px rgba(18,61,132,.14)}
-    .btn:hover{transform:translateY(-2px)}
-    .status{position:absolute;right:28px;bottom:26px;display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.66);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-    .status-dot{width:8px;height:8px;border-radius:50%;background:#39b8ff;box-shadow:0 0 14px rgba(57,184,255,.9)}
-    @media(max-width:620px){
-      .nav{width:calc(100% - 28px)}
-      .brand-logo{width:52px;height:52px}
-      .brand-title-top{font-size:22px}.brand-title-bottom{font-size:9px}
-      .nav-home{padding:8px 13px}
-      main{padding:118px 14px 24px}
-      .error-shell{padding:28px 22px 72px;border-radius:24px}
-      .error-number{font-size:clamp(100px,38vw,165px)}
-      .actions{flex-direction:column}.btn{width:100%}
-      .status{left:22px;right:auto;bottom:24px}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <script>
+        window.location.href = '/';
+    </script>
 </head>
 <body>
-  <div class="background" aria-hidden="true"><img src="images/background.jpg" alt=""></div>
-  <header class="site-header">
-    <nav class="nav" aria-label="404 navigation">
-      <a class="brand" href="/" aria-label="Steady Hands Operation home">
-        <img class="brand-logo" src="images/logo.jpg" alt="">
-        <span class="brand-title">
-          <span class="brand-title-top">Steady Hands</span>
-          <span class="brand-title-bottom">Operation</span>
-        </span>
-      </a>
-      <a class="nav-home" href="/">Back Home</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="error-shell" aria-labelledby="error-title">
-      <p class="kicker">Page not found</p>
-      <p class="error-number" aria-hidden="true">404</p>
-      <h1 id="error-title">Looks like this page slipped away.</h1>
-      <p class="copy">The page you’re looking for may have been moved, renamed, or no longer exists. Head back home and we’ll get you pointed in the right direction.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="/">Return Home</a>
-        <a class="btn btn-secondary" href="/#contact">Contact Us</a>
-      </div>
-      <div class="status" aria-hidden="true"><span class="status-dot"></span> Error 404</div>
-    </section>
-  </main>
+    <p>Redirecting to home page...</p>
 </body>
 </html>
