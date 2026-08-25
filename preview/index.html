@@ -27,39 +27,18 @@
         header {
             text-align: center;
             margin-bottom: 4rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #333;
         }
 
         h1 {
             font-size: 3rem;
             font-weight: 300;
             letter-spacing: -1px;
-            margin-bottom: 1rem;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            color: #999;
-            border: 1px solid #333;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .back-link:hover {
-            color: #fff;
-            border-color: #666;
         }
 
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-bottom: 4rem;
         }
 
         .site-card {
@@ -102,14 +81,6 @@
             font-size: 1.3rem;
         }
 
-        footer {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #333;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -131,7 +102,6 @@
     <div class="container">
         <header>
             <h1>Websites</h1>
-            <a href="/" class="back-link">← Back to Home</a>
         </header>
 
         <div class="gallery" id="gallery">
@@ -139,14 +109,9 @@
                 <h2>Loading websites...</h2>
             </div>
         </div>
-
-        <footer>
-            <p>&copy; 2024 Steady Hands Operation. All rights reserved.</p>
-        </footer>
     </div>
 
     <script>
-        // Get all subdirectories and automatically create links
         const sites = [
             { name: 'Del Carmen Hair Salon', path: 'DelCarmeHairSalon' },
             { name: 'Shop Vezzy', path: 'SHOPVEZZY' },
