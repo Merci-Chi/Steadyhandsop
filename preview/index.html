@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Steady Hands Operation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Websites - Steady Hands Operation</title>
     <style>
         * {
             margin: 0;
@@ -13,311 +11,168 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Manrope', sans-serif;
-            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f0f;
             color: #e0e0e0;
             min-height: 100vh;
-        }
-
-        header {
-            padding: 2rem;
-            text-align: center;
-            background: rgba(15, 20, 25, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(232, 69, 124, 0.2);
-            margin-bottom: 3rem;
-        }
-
-        header h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            color: #999;
-            font-size: 1.05rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 2rem;
-            padding: 0 2rem;
-        }
-
-        .back-link a {
-            color: #e8457c;
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-link a:hover {
-            gap: 1rem;
+            padding: 2rem 1rem;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #333;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #999;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: #fff;
+            border-color: #666;
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 4rem;
         }
 
-        .portfolio-card {
-            background: rgba(20, 28, 40, 0.5);
-            border: 1px solid rgba(232, 69, 124, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
+        .site-card {
+            aspect-ratio: 1;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            group: portfolio;
         }
 
-        .portfolio-card:hover {
-            border-color: rgba(232, 69, 124, 0.6);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(232, 69, 124, 0.15);
-            background: rgba(20, 28, 40, 0.8);
+        .site-card:hover {
+            background: #222;
+            border-color: #555;
+            transform: translateY(-4px);
         }
 
-        .portfolio-thumbnail {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #173f2a 0%, #102a56 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: rgba(232, 69, 124, 0.3);
-            overflow: hidden;
-            position: relative;
+        .site-card h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            word-break: break-word;
         }
 
-        .portfolio-card:hover .portfolio-thumbnail {
-            background: linear-gradient(135deg, #1a4d35 0%, #1a3a6e 100%);
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
         }
 
-        .portfolio-info {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .portfolio-card h3 {
-            font-family: 'Bricolage Grotesque', sans-serif;
+        .empty-state h2 {
+            margin-bottom: 1rem;
             font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .portfolio-card:hover h3 {
-            color: #e8457c;
-        }
-
-        .portfolio-card p {
-            color: #999;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            flex: 1;
-        }
-
-        .portfolio-tag {
-            display: inline-block;
-            background: rgba(232, 69, 124, 0.15);
-            color: #e8457c;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-
-        .portfolio-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #e8457c;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .portfolio-card:hover .portfolio-cta {
-            gap: 0.8rem;
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
             color: #666;
-            border-top: 1px solid rgba(232, 69, 124, 0.1);
-            margin-top: 4rem;
-        }
-
-        footer a {
-            color: #e8457c;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: #f472a8;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
-            }
-
-            header h1 {
-                font-size: 1.8rem;
-            }
-
-            .container {
-                padding: 0 1rem;
+            h1 {
+                font-size: 2rem;
             }
 
             .gallery {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
             }
 
-            .portfolio-thumbnail {
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            header p {
-                font-size: 0.9rem;
+            .site-card {
+                aspect-ratio: auto;
+                min-height: 120px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="back-link">
-        <div class="container">
-            <a href="../">
-                <i class="fas fa-arrow-left"></i>
-                Back to Home
-            </a>
-        </div>
-    </div>
-
-    <header>
-        <h1>Our Portfolio</h1>
-        <p>Explore our recent web design and development projects. Click on any project to see the full website.</p>
-    </header>
-
     <div class="container">
-        <div class="gallery">
-            <!-- Del Carme Hair Salon -->
-            <a href="DelCarmeHairSalon.html" class="portfolio-card">
-                <div class="portfolio-thumbnail">
-                    <i class="fas fa-scissors"></i>
-                </div>
-                <div class="portfolio-info">
-                    <div>
-                        <span class="portfolio-tag">Hair Salon</span>
-                        <h3>Del Carmen Hair Salon</h3>
-                        <p>Professional hair salon website featuring services, portfolio gallery, and online booking capabilities for Las Vegas clients.</p>
-                    </div>
-                    <div class="portfolio-cta">
-                        View Project <i class="fas fa-arrow-right"></i>
-                    </div>
-                </div>
-            </a>
+        <header>
+            <h1>Websites</h1>
+            <a href="/" class="back-link">← Back to Home</a>
+        </header>
 
-            <!-- Shop Vezzy -->
-            <a href="SHOPVEZZY.html" class="portfolio-card">
-                <div class="portfolio-thumbnail">
-                    <i class="fas fa-shopping-bag"></i>
-                </div>
-                <div class="portfolio-info">
-                    <div>
-                        <span class="portfolio-tag">E-Commerce</span>
-                        <h3>Shop Vezzy</h3>
-                        <p>Modern e-commerce platform with product showcase, shopping cart functionality, and seamless checkout experience.</p>
-                    </div>
-                    <div class="portfolio-cta">
-                        View Project <i class="fas fa-arrow-right"></i>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Studio 47 Hair Salon -->
-            <a href="Studio47HairSalon.html" class="portfolio-card">
-                <div class="portfolio-thumbnail">
-                    <i class="fas fa-spa"></i>
-                </div>
-                <div class="portfolio-info">
-                    <div>
-                        <span class="portfolio-tag">Hair Salon</span>
-                        <h3>Studio 47 Hair Salon</h3>
-                        <p>Sleek and modern salon website with service listings, stylist profiles, before & after gallery, and appointment scheduling.</p>
-                    </div>
-                    <div class="portfolio-cta">
-                        View Project <i class="fas fa-arrow-right"></i>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Green House Water Heaters -->
-            <a href="GreenHouseWaterHeaters/" class="portfolio-card">
-                <div class="portfolio-thumbnail">
-                    <i class="fas fa-droplet"></i>
-                </div>
-                <div class="portfolio-info">
-                    <div>
-                        <span class="portfolio-tag">Service Business</span>
-                        <h3>Green House Water Heaters</h3>
-                        <p>Professional service business website showcasing water heater installation, repair, and maintenance services with contact forms.</p>
-                    </div>
-                    <div class="portfolio-cta">
-                        View Project <i class="fas fa-arrow-right"></i>
-                    </div>
-                </div>
-            </a>
+        <div class="gallery" id="gallery">
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <h2>Loading websites...</h2>
+            </div>
         </div>
+
+        <footer>
+            <p>&copy; 2024 Steady Hands Operation. All rights reserved.</p>
+        </footer>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Steady Hands Operation. All rights reserved. | <a href="https://steadyhandsop.com">Back to Main Website</a></p>
-        </div>
-    </footer>
+    <script>
+        // Get all subdirectories and automatically create links
+        const sites = [
+            { name: 'Del Carmen Hair Salon', path: 'DelCarmeHairSalon' },
+            { name: 'Shop Vezzy', path: 'SHOPVEZZY' },
+            { name: 'Studio 47 Hair Salon', path: 'Studio47HairSalon' },
+            { name: 'Green House Water Heaters', path: 'GreenHouseWaterHeaters' }
+        ];
+
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = '';
+
+        if (sites.length === 0) {
+            gallery.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <h2>No websites yet</h2>
+                    <p>Add folders to the preview directory to see them here.</p>
+                </div>
+            `;
+        } else {
+            sites.forEach(site => {
+                const card = document.createElement('a');
+                card.href = `./${site.path}/`;
+                card.className = 'site-card';
+                card.innerHTML = `<h2>${site.name}</h2>`;
+                gallery.appendChild(card);
+            });
+        }
+    </script>
 </body>
 </html>
