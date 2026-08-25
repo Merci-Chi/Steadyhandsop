@@ -747,3 +747,8 @@ svg.lucide{width:1em;height:1em;stroke-width:2;display:block}
     height:26px;
   }
 }
+
+
+/* Multi-page navigation */
+.main-nav a[aria-current="page"]{color:var(--green)}
+body:not(.home-page) main{min-height:45vh}
