@@ -681,3 +681,69 @@ svg.lucide{width:1em;height:1em;stroke-width:2;display:block}
     max-height:270px !important;
   }
 }
+
+
+/* ===== MOBILE GALLERY SCROLL HINT + LOGO NUDGE ===== */
+.gallery-scroll-hint{
+  display:none;
+}
+
+@media (max-width:620px){
+  .site-header .container.nav-wrap{
+    padding:6px 10px 6px 0 !important;
+  }
+
+  .site-header .brand{
+    transform:translateX(-10px);
+  }
+
+  .gallery-scroll-hint{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin:10px 0 0;
+    font-size:.82rem;
+    font-weight:700;
+    color:var(--muted);
+    letter-spacing:.02em;
+    user-select:none;
+  }
+
+  .gallery-scroll-hint .hint-arrow{
+    width:28px;
+    height:28px;
+    border:1px solid #d8ddd8;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    color:var(--green);
+    background:#fff;
+    box-shadow:0 3px 10px rgba(25,60,20,.06);
+    font-size:1rem;
+    line-height:1;
+  }
+
+  .gallery-scroll-hint .hint-text{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+  }
+}
+
+@media (max-width:390px){
+  .site-header .brand{
+    transform:translateX(-12px);
+  }
+
+  .gallery-scroll-hint{
+    font-size:.78rem;
+    gap:8px;
+  }
+
+  .gallery-scroll-hint .hint-arrow{
+    width:26px;
+    height:26px;
+  }
+}
