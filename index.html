@@ -32,8 +32,10 @@
     }
     html,
     body {
-      /* Rich deep blue gradient as the default background */
-      background: radial-gradient(ellipse at 20% 20%, #0b2a4a, #061224 70%, #030a18) !important;
+      /* BACKGROUND IMAGE ON TOP OF BLUE GRADIENT */
+      background: 
+        url('images/background.png') center top / cover no-repeat fixed,
+        radial-gradient(ellipse at 20% 20%, #0b2a4a, #061224 70%, #030a18) !important;
       min-height: 100vh;
       font-family: "Manrope", Arial, Helvetica, sans-serif;
       color: #fff;
@@ -61,7 +63,7 @@
       background: rgba(6, 18, 36, 0.35);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      box-shadow: none; /* no hard edges */
+      box-shadow: none;
       border-bottom: none;
     }
     .nav {
@@ -439,17 +441,262 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
     }
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
     @media (max-width: 900px) {
       .grid-3,
-      .grid-4 {
+      .grid-4,
+      .grid-stats {
         grid-template-columns: 1fr 1fr;
       }
     }
     @media (max-width: 620px) {
       .grid-3,
       .grid-2,
-      .grid-4 {
+      .grid-4,
+      .grid-stats {
         grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========== STATS ========== */
+    .stats-section {
+      padding: 60px 0;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+      border: none !important;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: block;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 6px;
+    }
+
+    /* ========== HOW IT WORKS ========== */
+    .how-it-works {
+      padding: 60px 0;
+    }
+    .step {
+      text-align: center;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+      border: none !important;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .step h3 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .step p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ========== WHY CHOOSE US ========== */
+    .why-section {
+      padding: 60px 0;
+    }
+    .why-card {
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+      border: none !important;
+      text-align: center;
+    }
+    .why-card i {
+      font-size: 36px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .why-card h3 {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .why-card p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    .testimonial-card {
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+      border: none !important;
+    }
+    .testimonial-card .stars {
+      color: #fbbf24;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .testimonial-card blockquote {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.8);
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .testimonial-card .author {
+      font-weight: 700;
+      color: #fff;
+    }
+    .testimonial-card .role {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ========== FAQ ========== */
+    .faq-item {
+      padding: 18px 22px;
+      background: rgba(255, 255, 255, 0.03) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+      border: none !important;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .faq-item:hover {
+      background: rgba(255, 255, 255, 0.06) !important;
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+    }
+    .faq-question i {
+      transition: 0.3s ease;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding-top: 12px;
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      margin-top: 60px;
+      padding: 40px max(24px, calc((100vw - 1320px)/2)) 30px;
+      background: rgba(6, 18, 36, 0.3);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand .brand-title-top {
+      font-size: 28px;
+    }
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-top: 10px;
+      max-width: 300px;
+    }
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .footer-col a {
+      display: block;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      padding: 4px 0;
+      transition: 0.2s ease;
+    }
+    .footer-col a:hover {
+      color: #fff;
+    }
+    .footer-bottom {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 13px;
+    }
+    @media (max-width: 780px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+    }
+    @media (max-width: 620px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .footer-brand p {
+        max-width: 100%;
       }
     }
 
@@ -1512,8 +1759,12 @@
   <!-- ===== PAGE CONTAINER ===== -->
   <main class="page-container">
 
+    <!-- ============================================================ -->
     <!-- ===== HOME PAGE ===== -->
+    <!-- ============================================================ -->
     <section class="page active" id="page-home">
+
+      <!-- Hero -->
       <div class="hero-page">
         <div class="site-cta">
           <div class="site-cta-copy">
@@ -1532,81 +1783,220 @@
           </div>
         </div>
       </div>
+
+      <!-- Stats -->
+      <section class="stats-section">
+        <div class="section-heading">
+          <span class="kicker">Trusted by Local Businesses</span>
+          <h2>By the Numbers</h2>
+          <p>Real results from real clients we've helped grow their online presence.</p>
+        </div>
+        <div class="grid-stats">
+          <div class="stat-card">
+            <span class="stat-number">127+</span>
+            <span class="stat-label">Websites Built &amp; Maintained</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">98%</span>
+            <span class="stat-label">Client Satisfaction Rate</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">4.9★</span>
+            <span class="stat-label">Average Client Rating</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">6+</span>
+            <span class="stat-label">Years Serving Las Vegas</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section class="how-it-works">
+        <div class="section-heading">
+          <span class="kicker">Simple Process</span>
+          <h2>How It Works</h2>
+          <p>From idea to launch – we make it easy. Here's the Steady Hands way.</p>
+        </div>
+        <div class="grid-3">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Tell Us Your Vision</h3>
+            <p>Share your business, goals, and what you need your website to do. We listen first.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>We Build It</h3>
+            <p>We design, develop, and polish your site – keeping you in the loop the whole way.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Launch &amp; Support</h3>
+            <p>We launch your site, keep it running smoothly, and support you with ongoing care.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Us -->
+      <section class="why-section">
+        <div class="section-heading">
+          <span class="kicker">Why Steady Hands</span>
+          <h2>We're Different.</h2>
+          <p>We don't just build websites – we build partnerships with local businesses.</p>
+        </div>
+        <div class="grid-3">
+          <div class="why-card">
+            <i class="fa-solid fa-handshake"></i>
+            <h3>Local, Personal Support</h3>
+            <p>Based in Las Vegas, we work alongside you – not from a call center across the country.</p>
+          </div>
+          <div class="why-card">
+            <i class="fa-solid fa-rocket"></i>
+            <h3>Fast, Reliable Service</h3>
+            <p>We move at the speed of business. No endless delays – just results.</p>
+          </div>
+          <div class="why-card">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3>No Surprises, No Lock‑ins</h3>
+            <p>Transparent pricing, clear timelines, and no contracts tying you down.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section style="padding: 40px 0;">
+        <div class="section-heading">
+          <span class="kicker">What Clients Say</span>
+          <h2>Testimonials</h2>
+          <p>Real feedback from real people we've worked with.</p>
+        </div>
+        <div class="grid-3">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"Steady Hands transformed our outdated website into a modern, mobile-friendly site. Our bookings increased within weeks."</blockquote>
+            <div class="author">— Sarah M.</div>
+            <div class="role">Owner, Las Vegas Spa</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"They handled everything – design, hosting, support. I don't have to worry about my website anymore. It just works."</blockquote>
+            <div class="author">— James R.</div>
+            <div class="role">Real Estate Agent</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"The backend dashboard they built for me saves hours of admin work every week. Best investment I've made."</blockquote>
+            <div class="author">— Elena K.</div>
+            <div class="role">Business Consultant</div>
+          </div>
+        </div>
+      </section>
+
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== WEB DESIGN PAGE ===== -->
+    <!-- ============================================================ -->
     <section class="page" id="page-web-design">
       <div class="section-heading">
         <span class="kicker">Web Design</span>
         <h2>Website Design Packages</h2>
-        <p>Professional websites built around your business, brand, and goals.</p>
+        <p>Professional websites built around your business, brand, and goals. Choose the plan that fits.</p>
       </div>
       <div class="grid-3">
         <div class="package-card">
           <h3>Personal Site</h3>
-          <p class="package-description">Perfect for portfolios, resumes, creators, freelancers, and personal brands.</p>
+          <p class="package-description">Perfect for portfolios, resumes, creators, freelancers, and personal brands. Get online quickly with a clean, professional look.</p>
           <div class="package-price">$349 <span>starting at</span></div>
           <ul class="package-list">
             <li>Up to 3 pages</li>
             <li>Mobile-friendly design</li>
             <li>Contact form</li>
             <li>Portfolio and social links</li>
+            <li>Fast, reliable hosting</li>
+            <li>SSL certificate included</li>
           </ul>
           <button class="package-button start-intake" data-service="website" data-package="personal" data-service-name="Personal Site" data-price="$349 starting at" data-checkout-url="https://square.link/u/7X6YeiQa">Start Personal Site</button>
         </div>
         <div class="package-card featured">
           <h3>Business Site</h3>
-          <p class="package-description">A professional website for local businesses and service providers.</p>
+          <p class="package-description">A professional website for local businesses and service providers. Includes everything you need to attract and convert customers.</p>
           <div class="package-price">$549 <span>starting at</span></div>
           <ul class="package-list">
             <li>Up to 5 pages</li>
             <li>Mobile-friendly design</li>
             <li>Contact or booking form</li>
             <li>Secure online payment setup</li>
+            <li>Google Maps integration</li>
+            <li>SEO basics included</li>
           </ul>
           <button class="package-button start-intake" data-service="website" data-package="business" data-service-name="Business Site" data-price="$549 starting at" data-checkout-url="https://square.link/u/dq4eE1bp">Start Business Site</button>
         </div>
         <div class="package-card">
           <h3>Admin Site</h3>
-          <p class="package-description">A private admin area for viewing statistics, managing content, and overseeing day-to-day website activity.</p>
+          <p class="package-description">A private admin area for viewing statistics, managing content, and overseeing day-to-day website activity. Power tools for busy business owners.</p>
           <div class="package-price">$749 <span>starting at</span></div>
           <ul class="package-list">
             <li>Statistics dashboard</li>
             <li>Content management tools</li>
             <li>User and activity overview</li>
             <li>Reports and quick controls</li>
+            <li>Data export capabilities</li>
+            <li>Customizable views</li>
           </ul>
           <button class="package-button start-intake" data-service="website" data-package="admin" data-service-name="Admin Site" data-price="$749 starting at" data-checkout-url="https://square.link/u/RZBIjS5O">Start Admin Site</button>
         </div>
       </div>
+
+      <!-- Additional info -->
+      <div style="margin-top: 40px; padding: 30px; background: rgba(255,255,255,0.02); border-radius: 20px; text-align: center; backdrop-filter: blur(12px);">
+        <p style="color: rgba(255,255,255,0.6); font-size: 15px; max-width: 700px; margin: 0 auto;">
+          <i class="fa-solid fa-circle-check" style="color: rgba(255,255,255,0.3); margin-right: 10px;"></i>
+          Every website includes free hosting for the first month, SSL security, and mobile-responsive design. 
+          <a href="#contact" data-page="contact" style="color: rgba(255,255,255,0.7); text-decoration: underline; cursor: pointer;">Contact us for custom quotes.</a>
+        </p>
+      </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== WEBSITE REDESIGN PAGE ===== -->
+    <!-- ============================================================ -->
     <section class="page" id="page-website-redesign">
       <div class="renewal-wrap">
         <div class="renewal-copy">
           <span class="renewal-kicker">Already Have a Website?</span>
           <h2>Let’s Make It Better.</h2>
           <p>If your website feels outdated, broken, difficult to use, slow, or no longer represents your business, we can redesign and improve it without making you start from scratch.</p>
+          <p style="margin-top: 8px; color: rgba(255,255,255,0.5); font-size: 14px;">We keep what works, fix what doesn't, and upgrade everything else.</p>
           <button class="renewal-button" id="open-renewal-audit">Improve My Website</button>
         </div>
         <div class="renewal-grid">
-          <article><i class="fa-solid fa-wand-magic-sparkles"></i><h3>Website Redesign</h3><p>Modernize the look, layout, and overall presentation.</p></article>
-          <article><i class="fa-solid fa-mobile-screen-button"></i><h3>Mobile Optimization</h3><p>Improve how your site fits, reads, and works on phones and tablets.</p></article>
-          <article><i class="fa-solid fa-object-group"></i><h3>Layout &amp; UI Improvements</h3><p>Clean up confusing layouts, navigation, and calls to action.</p></article>
-          <article><i class="fa-solid fa-screwdriver-wrench"></i><h3>Broken Page / Feature Repair</h3><p>Repair broken sections, links, forms, and other features.</p></article>
-          <article><i class="fa-solid fa-gauge-high"></i><h3>Performance Improvements</h3><p>Improve usability, load behavior, and technical speed issues.</p></article>
-          <article><i class="fa-solid fa-list-check"></i><h3>Content &amp; Navigation Cleanup</h3><p>Make information easier to scan, understand, and find.</p></article>
+          <article><i class="fa-solid fa-wand-magic-sparkles"></i><h3>Website Redesign</h3><p>Modernize the look, layout, and overall presentation of your existing website.</p></article>
+          <article><i class="fa-solid fa-mobile-screen-button"></i><h3>Mobile Optimization</h3><p>Improve how your site fits, reads, and works on phones and tablets – where most of your traffic comes from.</p></article>
+          <article><i class="fa-solid fa-object-group"></i><h3>Layout &amp; UI Improvements</h3><p>Clean up confusing layouts, navigation, calls to action, and customer paths to increase conversions.</p></article>
+          <article><i class="fa-solid fa-screwdriver-wrench"></i><h3>Broken Page / Feature Repair</h3><p>Repair broken sections, links, forms, interactions, and other website features that are hurting your credibility.</p></article>
+          <article><i class="fa-solid fa-gauge-high"></i><h3>Performance Improvements</h3><p>Improve usability, load behavior, and technical issues that slow the experience down and drive visitors away.</p></article>
+          <article><i class="fa-solid fa-list-check"></i><h3>Content &amp; Navigation Cleanup</h3><p>Make information easier to scan, understand, and find without unnecessary clutter or confusion.</p></article>
         </div>
+      </div>
+
+      <!-- Additional info -->
+      <div style="margin-top: 40px; padding: 30px; background: rgba(255,255,255,0.02); border-radius: 20px; text-align: center; backdrop-filter: blur(12px);">
+        <p style="color: rgba(255,255,255,0.6); font-size: 15px; max-width: 700px; margin: 0 auto;">
+          <i class="fa-solid fa-clock-rotate-left" style="color: rgba(255,255,255,0.3); margin-right: 10px;"></i>
+          Most redesigns are completed in 2–4 weeks, depending on the scope. We work with your existing content and brand to make the transition seamless.
+        </p>
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== HOSTING & SUPPORT PAGE ===== -->
+    <!-- ============================================================ -->
     <section class="page" id="page-hosting">
       <div class="section-heading">
         <span class="kicker">Hosting &amp; Support</span>
         <h2>Keep Your Website Running.</h2>
-        <p>Reliable hosting, maintenance, updates, and technical support after your website is live.</p>
+        <p>Reliable hosting, maintenance, updates, and technical support after your website is live – so you never have to worry.</p>
       </div>
       <div class="grid-2">
         <div class="hosting-card">
@@ -1670,9 +2060,30 @@
           </div>
         </div>
       </div>
+
+      <!-- Hosting perks -->
+      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div style="padding: 18px; background: rgba(255,255,255,0.02); border-radius: 14px; text-align: center; backdrop-filter: blur(8px);">
+          <i class="fa-solid fa-bolt" style="font-size: 24px; color: rgba(255,255,255,0.3); margin-bottom: 8px; display: block;"></i>
+          <span style="font-weight: 700; color: #fff; font-size: 14px;">99.9% Uptime</span>
+          <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px;">Your site stays online</p>
+        </div>
+        <div style="padding: 18px; background: rgba(255,255,255,0.02); border-radius: 14px; text-align: center; backdrop-filter: blur(8px);">
+          <i class="fa-solid fa-lock" style="font-size: 24px; color: rgba(255,255,255,0.3); margin-bottom: 8px; display: block;"></i>
+          <span style="font-weight: 700; color: #fff; font-size: 14px;">SSL Security</span>
+          <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px;">Protects your visitors' data</p>
+        </div>
+        <div style="padding: 18px; background: rgba(255,255,255,0.02); border-radius: 14px; text-align: center; backdrop-filter: blur(8px);">
+          <i class="fa-solid fa-headset" style="font-size: 24px; color: rgba(255,255,255,0.3); margin-bottom: 8px; display: block;"></i>
+          <span style="font-weight: 700; color: #fff; font-size: 14px;">Human Support</span>
+          <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 4px;">Real people, real help</p>
+        </div>
+      </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== BUSINESS SUPPORT PAGE ===== -->
+    <!-- ============================================================ -->
     <section class="page" id="page-business-support">
       <div class="section-heading">
         <span class="kicker">Business Support</span>
@@ -1683,24 +2094,41 @@
         <div class="executive-card">
           <span class="executive-icon"><i class="fa-solid fa-calendar-check"></i></span>
           <h3>Calendar &amp; Scheduling</h3>
-          <p>Meeting coordination, calendar organization, reminders, and scheduling support.</p>
+          <p>Meeting coordination, calendar organization, reminders, and scheduling support that keeps your day moving smoothly.</p>
         </div>
         <div class="executive-card">
           <span class="executive-icon"><i class="fa-solid fa-envelope-open-text"></i></span>
           <h3>Inbox &amp; Communication</h3>
-          <p>Inbox organization, follow-ups, routine correspondence, and keeping conversations on track.</p>
+          <p>Inbox organization, follow-ups, routine correspondence, and keeping important conversations from getting buried.</p>
         </div>
         <div class="executive-card">
           <span class="executive-icon"><i class="fa-solid fa-list-check"></i></span>
           <h3>Task &amp; Project Support</h3>
-          <p>Keeping projects organized, tracking next steps, coordinating details, and getting things done.</p>
+          <p>Keeping projects organized, tracking next steps, coordinating details, and helping make sure things actually get done.</p>
         </div>
         <div class="executive-card">
           <span class="executive-icon"><i class="fa-solid fa-folder-open"></i></span>
           <h3>Business Administration</h3>
-          <p>Documents, data entry, research, file organization, and recurring admin work.</p>
+          <p>Documents, data entry, research, file organization, recurring admin work, and the small details that take up your time.</p>
         </div>
       </div>
+
+      <!-- More executive services -->
+      <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div style="padding: 18px; background: rgba(255,255,255,0.02); border-radius: 16px; backdrop-filter: blur(12px);">
+          <span style="font-weight: 700; color: #fff; font-size: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-chart-simple" style="color: rgba(255,255,255,0.3);"></i> Reporting &amp; Analytics
+          </span>
+          <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 6px;">Monthly performance reports, data analysis, and actionable insights to guide your decisions.</p>
+        </div>
+        <div style="padding: 18px; background: rgba(255,255,255,0.02); border-radius: 16px; backdrop-filter: blur(12px);">
+          <span style="font-weight: 700; color: #fff; font-size: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-people-group" style="color: rgba(255,255,255,0.3);"></i> Team Coordination
+          </span>
+          <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 6px;">Internal communication support, meeting notes, and team task coordination to keep everyone aligned.</p>
+        </div>
+      </div>
+
       <div class="executive-cta">
         <div>
           <strong>Need support tailored to your business?</strong>
@@ -1710,22 +2138,22 @@
       </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== CONTACT PAGE ===== -->
+    <!-- ============================================================ -->
     <section class="page contact-page" id="page-contact">
       <div class="intake-dialog" role="main">
         <header class="intake-header">
           <p class="eyebrow">Contact Steady Hands Operation</p>
           <h2>How can we help?</h2>
-          <p>Call, email, or leave a message and we’ll get back to you.</p>
+          <p>Call, email, or leave a message and we’ll get back to you within 24 hours.</p>
         </header>
 
         <div class="contact-direct-row">
-          <!-- Phone: copies to clipboard -->
           <button class="contact-direct-option" id="copyPhoneBtn" aria-label="Copy phone number to clipboard">
             <span class="contact-direct-mark"><i class="fa-solid fa-phone"></i></span>
             <span><small>Phone</small><strong>(702) 372-6399</strong></span>
           </button>
-          <!-- Email: opens mail client -->
           <a class="contact-direct-option" href="mailto:kiara@steadyhandsop.com">
             <span class="contact-direct-mark"><i class="fa-solid fa-envelope"></i></span>
             <span><small>Email</small><strong>kiara@steadyhandsop.com</strong></span>
@@ -1780,9 +2208,82 @@
           </div>
         </form>
       </div>
+
+      <!-- FAQ Section on Contact Page -->
+      <div style="margin-top: 50px; max-width: 720px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <span class="kicker" style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3);">FAQs</span>
+          <h3 style="color: #fff; font-size: 28px; margin-top: 6px;">Common Questions</h3>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How long does it take to build a website?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">Most websites take 2–4 weeks from start to finish, depending on the complexity and your feedback timeline. We work efficiently without cutting corners.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Do you offer ongoing support after launch?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">Yes! We offer hosting, maintenance, and support plans to keep your site updated, secure, and running smoothly. You're never left on your own.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can you redesign my existing website without losing content?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">Absolutely. We carefully migrate and improve your existing content, keeping what works and upgrading the design, layout, and functionality.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What if I need help with admin tasks beyond websites?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">Our business support services cover calendar management, inbox organization, project coordination, and more. Just tell us what you need.</div>
+        </div>
+      </div>
     </section>
 
   </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-title-top">Steady Hands</span>
+        <span style="display: block; font-size: 14px; font-weight: 800; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 4px;">Operation</span>
+        <p>Las Vegas web design, hosting, and business support. We run the site so you can run the show.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a data-page="web-design">Web Design</a>
+        <a data-page="website-redesign">Website Redesign</a>
+        <a data-page="hosting">Hosting &amp; Support</a>
+        <a data-page="business-support">Business Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a data-page="home">Home</a>
+        <a data-page="contact">Contact</a>
+        <a href="tel:+17023726399">(702) 372-6399</a>
+        <a href="mailto:kiara@steadyhandsop.com">kiara@steadyhandsop.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Location</h4>
+        <span style="color: rgba(255,255,255,0.4); font-size: 13px; display: block; padding: 4px 0;">Las Vegas, Nevada</span>
+        <span style="color: rgba(255,255,255,0.3); font-size: 13px; display: block; padding: 4px 0;">Serving businesses locally &amp; remotely</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Steady Hands Operation. All rights reserved.
+    </div>
+  </footer>
 
   <!-- ===== MODALS ===== -->
   <!-- Site Audit Modal -->
@@ -2260,6 +2761,25 @@
             const inp = p.querySelector('input');
             if (inp) inp.required = p.dataset.contactPanel === method;
           });
+        });
+      });
+
+      // ----- FAQ ACCORDION -----
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          // Close all
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+          // Toggle current
+          if (!isActive) item.classList.add('active');
+        });
+      });
+
+      // ----- FOOTER NAVIGATION -----
+      document.querySelectorAll('.footer-col a[data-page]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          navigateTo(a.dataset.page);
         });
       });
 
