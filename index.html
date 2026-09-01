@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Steady Hands Operation" />
   <meta property="og:description" content="Custom websites, redesign, hosting, and full‑service website management." />
-  <meta property="og:image" content="https://steadyhandsop.com/logo.png" />
+  <meta property="og:image" content="https://steadyhandsop.com/images/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -32,7 +32,6 @@
     }
     html,
     body {
-      /* BACKGROUND IMAGE ON TOP OF BLUE GRADIENT */
       background: 
         url('images/background.png') center top / cover no-repeat fixed,
         radial-gradient(ellipse at 20% 20%, #0b2a4a, #061224 70%, #030a18) !important;
@@ -65,7 +64,6 @@
       -webkit-backdrop-filter: blur(18px);
       box-shadow: none;
       border-bottom: none;
-      /* SOFT FADE AT THE BOTTOM EDGE */
       mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
       -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
     }
@@ -103,7 +101,20 @@
       color: #fff;
     }
     .brand-title-bottom {
-      display: none; /* HIDDEN – per your request, only the business name */
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.32em;
+      color: #fff;
+    }
+    .brand-title-bottom::before,
+    .brand-title-bottom::after {
+      content: "";
+      flex: 1 1 auto;
+      height: 2px;
+      background: rgba(255,255,255,0.3);
     }
     .nav-links {
       display: flex;
@@ -209,6 +220,10 @@
       .brand-title-top {
         font-size: 24px;
       }
+      .brand-title-bottom {
+        font-size: 9px;
+        gap: 6px;
+      }
       .header-contact-trigger {
         display: none;
       }
@@ -257,6 +272,10 @@
       .brand-title-top {
         font-size: 18px;
       }
+      .brand-title-bottom {
+        font-size: 7px;
+        gap: 5px;
+      }
     }
 
     /* ========== PAGE CONTAINER ========== */
@@ -283,7 +302,7 @@
       }
     }
 
-    /* ========== GLASS CARD (BORDERLESS, BLENDED) ========== */
+    /* ========== GLASS CARD ========== */
     .glass-card {
       background: rgba(255, 255, 255, 0.03) !important;
       backdrop-filter: blur(20px) !important;
@@ -296,7 +315,7 @@
       box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.10) !important;
     }
 
-    /* ========== HERO PAGE ========== */
+    /* ========== HERO ========== */
     .hero-page {
       display: flex;
       align-items: center;
@@ -379,7 +398,7 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 20px rgba(0,0,0,0.2);
     }
 
-    /* ========== HOME PAGE – ABOUT SECTION ========== */
+    /* ========== HOME PAGE – ABOUT ========== */
     .about-section {
       padding: 60px 0 40px;
       max-width: 860px;
@@ -1166,7 +1185,7 @@
       }
     }
 
-    /* ========== MODALS (overlay) ========== */
+    /* ========== MODALS ========== */
     .intake-modal,
     .purchase-intake-modal {
       position: fixed;
@@ -1502,7 +1521,7 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 4px 20px rgba(0,0,0,0.2);
     }
 
-    /* ========== FOOTER (minimal, just the name) ========== */
+    /* ========== FOOTER (minimal – just the name) ========== */
     .site-footer {
       margin-top: 40px;
       padding: 30px max(24px, calc((100vw - 1320px)/2)) 24px;
@@ -1511,7 +1530,6 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-top: none;
-      /* FADE IN FROM THE PAGE (optional subtle effect) */
       mask-image: linear-gradient(to top, black 80%, transparent 100%);
       -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
     }
@@ -1595,10 +1613,10 @@
   <header class="site-header">
     <nav class="nav">
       <a class="brand" data-page="home">
-        <img class="brand-logo" src="logo.png" alt="Steady Hands Operation" />
+        <img class="brand-logo" src="images/logo.png" alt="Steady Hands Operation" />
         <span class="brand-title">
-          <span class="brand-title-top">Steady Hands Operation</span>
-          <!-- Hidden subtitle -->
+          <span class="brand-title-top">Steady Hands</span>
+          <span class="brand-title-bottom">Operation</span>
         </span>
       </a>
 
@@ -1626,7 +1644,7 @@
     <!-- ============================================================ -->
     <section class="page active" id="page-home">
 
-      <!-- Hero (unchanged) -->
+      <!-- Hero -->
       <div class="hero-page">
         <div class="site-cta">
           <div class="site-cta-copy">
@@ -1646,7 +1664,7 @@
         </div>
       </div>
 
-      <!-- About Section (detailed, business‑focused) -->
+      <!-- About Section -->
       <section class="about-section">
         <h2>Your website, fully managed.</h2>
         <p>
@@ -1662,7 +1680,7 @@
         </p>
       </section>
 
-      <!-- What We Build (overview) -->
+      <!-- What We Build -->
       <section class="service-overview">
         <div class="grid-3">
           <div class="overview-card">
@@ -1686,7 +1704,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- ===== WEB DESIGN PAGE (UPDATED PRICING) ===== -->
+    <!-- ===== WEB DESIGN PAGE ===== -->
     <!-- ============================================================ -->
     <section class="page" id="page-web-design">
       <div class="section-heading">
@@ -1984,7 +2002,7 @@
 
   </main>
 
-  <!-- ===== FOOTER (minimal – just the name) ===== -->
+  <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-name">Steady Hands Operation</div>
   </footer>
@@ -2110,7 +2128,7 @@
   <!-- ===== SCRIPTS ===== -->
   <script>
     (function() {
-      // ----- ROUTING (using /page paths) -----
+      // ----- ROUTING -----
       const pageMap = {
         '': 'home',
         'home': 'home',
@@ -2310,7 +2328,7 @@
         if (purchaseState?.checkoutUrl) window.location.href = purchaseState.checkoutUrl;
       });
 
-      // ===== CONTACT FORM (sends to Kiara) =====
+      // ===== CONTACT FORM =====
       const contactForm = document.getElementById('contact-form');
       const formStatus = document.getElementById('formStatus');
 
