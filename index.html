@@ -1213,11 +1213,16 @@ body {
   background: rgba(255, 255, 255, 0.18) !important;
 }
 
-/* Remove fixed background attachments */
+/* Single background on body */
+body {
+  background: #0a0a0a url('images/background.jpg') center top / cover no-repeat fixed !important;
+}
+
 .hero,
 .packages-section {
-  background-attachment: scroll !important;
+  background: transparent !important;
   background-image: none !important;
+  background-attachment: scroll !important;
 }
 
 /* Packages section: transparent */
