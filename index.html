@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Steady Hands Operation" />
   <meta property="og:description" content="Las Vegas web design, development, hosting, and business support." />
-  <meta property="og:image" content="https://steadyhandsop.com/images/logo.jpg" />
+  <meta property="og:image" content="https://steadyhandsop.com/images/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -29,13 +29,13 @@
     }
     html {
       scroll-behavior: smooth;
-      background: #0a0a0a;
     }
+    html,
     body {
-      font-family: "Manrope", Arial, Helvetica, sans-serif;
-      color: #fff;
       background: #0a0a0a url('images/background.png') center top / cover no-repeat fixed !important;
       min-height: 100vh;
+      font-family: "Manrope", Arial, Helvetica, sans-serif;
+      color: #fff;
       overflow-x: hidden;
     }
     a {
@@ -1822,23 +1822,17 @@
       const headerContact = document.querySelector('.header-contact-trigger');
 
       function navigateTo(pageId) {
-        // Hide all
         Object.values(pages).forEach(p => p.classList.remove('active'));
-        // Show target
         if (pages[pageId]) pages[pageId].classList.add('active');
-        // Update nav
         navLinks.forEach(a => a.classList.toggle('active', a.dataset.page === pageId));
-        // Update hash
         if (window.location.hash !== '#' + pageId) {
           history.pushState(null, '', '#' + pageId);
         }
-        // Close mobile menu
         document.getElementById('primary-nav').classList.remove('open');
         document.querySelector('.menu-btn').setAttribute('aria-expanded', 'false');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      // Nav clicks
       navLinks.forEach(a => {
         a.addEventListener('click', (e) => {
           e.preventDefault();
@@ -1846,7 +1840,6 @@
         });
       });
 
-      // Header contact button
       if (headerContact) {
         headerContact.addEventListener('click', (e) => {
           e.preventDefault();
@@ -1854,19 +1847,14 @@
         });
       }
 
-      // Hash change (browser back/forward)
       window.addEventListener('hashchange', () => {
         const hash = window.location.hash.replace('#', '') || 'home';
         if (pages[hash]) navigateTo(hash);
       });
 
-      // Initial load
       const initialHash = window.location.hash.replace('#', '') || 'home';
-      if (pages[initialHash]) {
-        navigateTo(initialHash);
-      } else {
-        navigateTo('home');
-      }
+      if (pages[initialHash]) navigateTo(initialHash);
+      else navigateTo('home');
 
       // ----- MOBILE MENU -----
       const menuBtn = document.querySelector('.menu-btn');
@@ -1882,7 +1870,7 @@
         }
       });
 
-      // ----- MODALS (simplified open/close) -----
+      // ----- MODALS -----
       function openModal(id) {
         const modal = document.getElementById(id);
         if (modal) {
@@ -1915,14 +1903,11 @@
         }
       });
 
-      // Open buttons
       document.getElementById('open-new-site')?.addEventListener('click', () => openModal('new-site-modal'));
       document.getElementById('open-site-audit')?.addEventListener('click', () => openModal('site-audit-modal'));
       document.getElementById('open-renewal-audit')?.addEventListener('click', () => openModal('site-audit-modal'));
 
-      // Contact page direct links to modal? No, contact is a page now.
-
-      // ----- PURCHASE INTAKE (simplified) -----
+      // ----- PURCHASE INTAKE -----
       const purchaseModal = document.getElementById('purchase-intake-modal');
       const purchaseForm = document.getElementById('purchase-intake-form');
       const purchaseReviewList = document.getElementById('purchase-review-list');
@@ -1938,7 +1923,6 @@
         document.getElementById('purchase-selected-service').textContent = config.serviceName || '';
         document.getElementById('purchase-selected-price').textContent = config.billingLabel || config.price || '';
         document.querySelector('.hosting-only').hidden = config.type !== 'hosting';
-        // reset contact
         document.querySelector('input[name="preferredContact"][value="Email"]').checked = true;
         syncPurchaseContact();
         purchaseModal.classList.add('is-open');
@@ -1997,33 +1981,46 @@
         if (purchaseState?.checkoutUrl) window.location.href = purchaseState.checkoutUrl;
       });
 
-      // ----- CONTACT FORM (opens email) -----
+      // ===== CONTACT FORM (FIXED) =====
       const contactForm = document.getElementById('contact-form');
       if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', function(e) {
           e.preventDefault();
-          const fd = new FormData(contactForm);
+          const fd = new FormData(this);
           const method = fd.get('contactMethod') || 'Email';
+          const name = fd.get('name') || '';
+          const business = fd.get('businessName') || '';
+          const message = fd.get('message') || '';
+          const email = fd.get('email') || '';
+          const phone = fd.get('phone') || '';
+
           const lines = [
             'Hello Steady Hands Operation,',
             '',
             'I would like to get in touch.',
             '',
-            `Name: ${fd.get('name') || ''}`,
-            fd.get('businessName') ? `Business: ${fd.get('businessName')}` : null,
-            `Preferred contact: ${method}`,
-            method === 'Email' ? `Email: ${fd.get('email')}` : `Phone: ${fd.get('phone')}`,
+            'Name: ' + name,
+            business ? 'Business: ' + business : null,
+            'Preferred contact: ' + method,
+            method === 'Email' ? 'Email: ' + email : 'Phone: ' + phone,
             '',
             'Message:',
-            fd.get('message') || '',
+            message || '(no message)',
             '',
             'Thank you,',
-            fd.get('name') || ''
+            name || 'Anonymous'
           ].filter(Boolean);
-          const subject = `Contact Request — ${fd.get('businessName') || fd.get('name') || 'New Lead'}`;
-          const status = contactForm.querySelector('.intake-status');
+
+          const subject = 'Contact Request — ' + (business || name || 'New Lead');
+          const status = this.querySelector('.intake-status');
           if (status) status.textContent = 'Opening your email app…';
-          window.location.href = `mailto:kiara@steadyhandsop.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+
+          // Build the mailto link
+          const mailto = 'mailto:kiara@steadyhandsop.com' +
+            '?subject=' + encodeURIComponent(subject) +
+            '&body=' + encodeURIComponent(lines.join('\n'));
+
+          window.location.href = mailto;
         });
       }
 
@@ -2044,7 +2041,7 @@
         });
       });
 
-      // ----- PAYMENT CONFIRMATION (hash) -----
+      // ----- PAYMENT CONFIRMATION -----
       const paymentEl = document.getElementById('paymentreceived');
       function syncPayment() {
         const isOpen = window.location.hash.toLowerCase() === '#paymentreceived';
@@ -2052,7 +2049,6 @@
         paymentEl.setAttribute('aria-hidden', String(!isOpen));
         document.body.style.overflow = isOpen ? 'hidden' : '';
         if (isOpen) {
-          // replay animation
           const path = paymentEl.querySelector('.payment-check-path');
           const btn = paymentEl.querySelector('.payment-check-button');
           btn.style.animation = 'none';
@@ -2065,14 +2061,12 @@
       window.addEventListener('hashchange', syncPayment);
       syncPayment();
 
-      // Home link on payment confirmation
       document.querySelector('.payment-confirmation-home')?.addEventListener('click', (e) => {
         e.preventDefault();
         window.location.hash = 'home';
         navigateTo('home');
       });
 
-      // Also handle .executive-contact-btn and other contact triggers
       document.querySelectorAll('[data-page="contact"]').forEach(el => {
         el.addEventListener('click', (e) => {
           e.preventDefault();
@@ -2080,7 +2074,7 @@
         });
       });
 
-      // ----- MODAL CONTACT PANEL SYNC (for project forms) -----
+      // Modal contact panel sync
       document.querySelectorAll('.project-intake-form .contact-toggle input').forEach(r => {
         r.addEventListener('change', () => {
           const form = r.closest('form');
