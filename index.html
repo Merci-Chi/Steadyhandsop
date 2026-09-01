@@ -895,7 +895,345 @@ body.entrance-complete .hero-card{
 @media (max-width:900px){
   .site-cta-choice{flex-direction:column;}
 }
+/* --- REMOVE BLUE, TRANSPARENT + BLUR, NO BORDERS --- */
 
+html {
+  background: #0a0a0a !important;
+}
+
+body {
+  background: transparent !important;
+}
+
+/* Header: transparent with subtle blur, no blue gradient */
+.site-header {
+  background: rgba(0, 0, 0, 0.25) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: none !important;
+}
+
+/* Nav links: white with soft glow instead of blue underline */
+.nav-links a::after {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* CTA choices: transparent glass, no blue borders */
+.site-cta-choice {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 20px !important;
+}
+
+.site-cta-choice::before {
+  display: none !important;
+  content: none !important;
+}
+
+.site-cta-choice:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: none !important;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.04) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* CTA note lines: white instead of blue */
+.site-cta-note::before,
+.site-cta-note::after {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+.site-cta-note {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Primary button: white glass instead of blue gradient */
+.site-cta-btn.primary {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
+}
+
+.site-cta-btn.primary:hover {
+  background: rgba(255, 255, 255, 0.20) !important;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Secondary button: same glass style */
+.site-cta-btn.secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+}
+
+.site-cta-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Headings: white instead of blue */
+.site-cta-copy h2 {
+  color: #fff !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.site-cta-copy .show-line {
+  color: rgba(255, 255, 255, 0.65) !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Package/hosting cards: transparent glass, no borders */
+.package-card,
+.hosting-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-radius: 24px !important;
+}
+
+.package-card::after,
+.hosting-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+.package-card:hover,
+.hosting-card:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+  border: none !important;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.04) !important;
+  filter: none !important;
+}
+
+/* Featured card: slightly more visible glass, no blue */
+.package-card.featured {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.package-card.featured:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Card text: white tones */
+.package-card h3,
+.hosting-card h3 {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+.package-description,
+.package-list li,
+.hosting-card p {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.package-price,
+.package-price strong {
+  color: #fff !important;
+}
+
+.package-price span {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.package-price {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.package-list li::before {
+  color: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Package buttons: glass */
+.package-button {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.package-button:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05) !important;
+}
+
+.featured .package-button {
+  background: rgba(255, 255, 255, 0.90) !important;
+  color: #111 !important;
+  border: none !important;
+}
+
+.featured .package-button:hover {
+  background: #fff !important;
+}
+
+/* Hosting options: glass */
+.hosting-option {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 16px !important;
+}
+
+.hosting-option:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: none !important;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.04) !important;
+}
+
+.hosting-option .monthly-rate,
+.hosting-option .monthly-rate strong {
+  color: #fff !important;
+}
+
+.hosting-option .billing-term {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.hosting-option.best-value {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.best-value .monthly-rate,
+.best-value .monthly-rate strong,
+.best-value .billing-term {
+  color: #fff !important;
+}
+
+/* Value badge: glass */
+.value-badge {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Hosting feature list: glass items */
+.hosting-feature-list li {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.hosting-feature-list li::before {
+  background: rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+}
+
+/* Section headings: white */
+.packages-kicker {
+  color: rgba(255, 255, 255, 0.5) !important;
+  text-shadow: none !important;
+}
+
+.packages-heading h2 {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+.packages-heading p {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Redesign section: white tones */
+.renewal-kicker {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.renewal-copy h2 {
+  color: #fff !important;
+}
+
+.renewal-copy p {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.renewal-button {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.renewal-button:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Executive section: white tones */
+.executive-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-radius: 20px !important;
+}
+
+.executive-card:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+}
+
+.executive-card h3 {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+.executive-card p {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.executive-icon {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.executive-contact-btn {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.executive-contact-btn:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Remove fixed background attachments */
+.hero,
+.packages-section {
+  background-attachment: scroll !important;
+  background-image: none !important;
+}
+
+/* Packages section: transparent */
+.packages-section {
+  background: transparent !important;
+}
+
+.packages-section::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove all the old negative margins from packages */
+.packages-section {
+  margin-top: 0 !important;
+}
 .menu-btn{display:none !important;}
 .nav-links{
   display:flex !important;
@@ -5043,6 +5381,7 @@ body.purchase-intake-open{
     gap:8px !important;
   }
 }
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 </head>
