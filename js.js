@@ -4093,3 +4093,13 @@ updateActiveFromScroll();
     if (event.key === 'Escape' && modal.classList.contains('is-open')) close();
   });
 })();
+
+
+// Unified pricing: reuse the existing "Build Your Site" flow for the $100 development card.
+document.addEventListener('click', function (event) {
+  const trigger = event.target.closest('.pricing-development-button');
+  if (!trigger) return;
+  event.preventDefault();
+  const existingBuildButton = document.getElementById('open-new-site');
+  if (existingBuildButton) existingBuildButton.click();
+});

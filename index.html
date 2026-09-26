@@ -346,20 +346,24 @@
 </section>
 </section>
 
-<section aria-labelledby="packages-title" class="packages-section service-section" id="web-design">
+
+<section aria-labelledby="packages-title" class="packages-section service-section unified-pricing-section" id="web-design">
   <div class="packages-wrap">
     <header class="packages-heading">
-      <p class="packages-kicker">Web Design</p>
+      <p class="packages-kicker">Web Design + Hosting</p>
       <h2 id="packages-title">Simple Website Pricing</h2>
-      <p class="section-intro">One straightforward development price. No confusing website packages.</p>
+      <p class="section-intro">One straightforward development price, plus the hosting option that fits your website.</p>
     </header>
 
-    <div class="packages-grid">
-      <article class="package-card featured">
-        <h3>Site Development</h3>
-        <p class="package-description">A custom, mobile-friendly website built around your business, brand, and services.</p>
-        <div class="package-price"><strong>$100</strong><span>one-time development</span></div>
-        <ul class="package-list">
+    <div class="unified-pricing-grid" aria-label="Website development and hosting options">
+      <article class="package-card unified-price-card development-card">
+        <div class="unified-card-top">
+          <span class="unified-card-label">Website</span>
+          <h3>Site Development</h3>
+          <p class="package-description">A custom, mobile-friendly website built around your business, brand, and services.</p>
+        </div>
+        <div class="unified-price"><strong>$100</strong><span>one-time development</span></div>
+        <ul class="unified-feature-list">
           <li>Custom website design</li>
           <li>Mobile-friendly layout</li>
           <li>Business information and service sections</li>
@@ -367,18 +371,67 @@
           <li>Social links and calls to action</li>
           <li>Basic launch setup</li>
         </ul>
+        <button class="package-button pricing-development-button" type="button">Start My Site <span aria-hidden="true">→</span></button>
+      </article>
+
+      <div class="hosting-pricing-anchor" id="hosting" aria-hidden="true"></div>
+
+      <article class="hosting-card unified-price-card standard-hosting">
+        <div class="unified-card-top">
+          <span class="unified-card-label">Hosting</span>
+          <h3>Standard Hosting</h3>
+          <p>For regular business websites, portfolios, landing pages, and informational sites.</p>
+        </div>
+        <div class="unified-price"><strong>$20</strong><span>/mo with annual plan</span></div>
+        <ul aria-label="Standard hosting features" class="unified-feature-list">
+          <li>Secure Website Hosting</li>
+          <li>SSL / HTTPS Support</li>
+          <li>Reliable Website Uptime</li>
+          <li>Routine Site Maintenance</li>
+          <li>Technical Support</li>
+          <li>Small Content Updates When Needed</li>
+        </ul>
         <button class="package-button start-intake" type="button"
-          data-service="website"
-          data-package="site-development"
-          data-service-name="Site Development"
-          data-price="$100 one-time"
-          data-checkout-url="">
-          Start My Site
-        </button>
+          data-service="hosting"
+          data-package="standard"
+          data-service-name="Standard Hosting"
+          data-billing="annual"
+          data-billing-label="Annual Plan — $20/mo ($240 annually)"
+          data-price="$20/mo"
+          data-checkout-url="https://square.link/u/YpNWBSJZ">Choose Standard Hosting</button>
+      </article>
+
+      <article class="hosting-card unified-price-card backend-hosting">
+        <div class="unified-card-top">
+          <span class="unified-card-label">Hosting</span>
+          <h3>Backend Hosting</h3>
+          <p>For interactive websites that need live data, editable content, customer features, or a private admin area.</p>
+        </div>
+        <div class="unified-price"><strong>$30</strong><span>/mo with annual plan</span></div>
+        <ul aria-label="Backend hosting features" class="unified-feature-list">
+          <li>Everything in Standard Hosting</li>
+          <li>Private Admin Dashboard</li>
+          <li>Live Reviews &amp; Customer Content</li>
+          <li>Editable Products, Services &amp; Pricing</li>
+          <li>Booking, Order or Form Management</li>
+          <li>Live Database Integration</li>
+          <li>Secure User / Staff Logins</li>
+          <li>Content Updates Without Editing Code</li>
+          <li>Backend Maintenance &amp; Technical Support</li>
+        </ul>
+        <button class="package-button start-intake" type="button"
+          data-service="hosting"
+          data-package="backend"
+          data-service-name="Backend Hosting"
+          data-billing="annual"
+          data-billing-label="Annual Plan — $30/mo ($360 annually)"
+          data-price="$30/mo"
+          data-checkout-url="https://square.link/u/H5nLaKC0">Choose Backend Hosting</button>
       </article>
     </div>
   </div>
 </section>
+
 
 <section class="renewal-section service-section" id="website-redesign" aria-labelledby="redesign-title">
   <div class="renewal-wrap">
@@ -395,79 +448,6 @@
       <article><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i><h3>Broken Page / Feature Repair</h3><p>Repair broken sections, links, forms, interactions, and other website features.</p></article>
       <article><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><h3>Performance Improvements</h3><p>Improve usability, load behavior, and technical issues that slow the experience down.</p></article>
       <article><i class="fa-solid fa-list-check" aria-hidden="true"></i><h3>Content &amp; Navigation Cleanup</h3><p>Make information easier to scan, understand, and find without unnecessary clutter.</p></article>
-    </div>
-  </div>
-</section>
-
-<section aria-labelledby="hosting-title" class="hosting-section service-section" id="hosting">
-  <div class="packages-wrap">
-    <header class="packages-heading hosting-heading">
-      <p class="packages-kicker">Hosting &amp; Support</p>
-      <h2 id="hosting-title">Simple Monthly Hosting.</h2>
-      <p class="section-intro">Choose standard hosting for a regular website or backend hosting for websites with live, editable features.</p>
-    </header>
-
-    <div aria-label="Hosting options" class="hosting-grid">
-      <article class="hosting-card standard-hosting">
-        <h3>Standard Hosting</h3>
-        <p>For regular business websites, portfolios, landing pages, and informational sites.</p>
-
-        <ul aria-label="Standard hosting features" class="hosting-feature-list">
-          <li>Secure Website Hosting</li>
-          <li>SSL / HTTPS Support</li>
-          <li>Reliable Website Uptime</li>
-          <li>Routine Site Maintenance</li>
-          <li>Technical Support</li>
-          <li>Small Content Updates When Needed</li>
-        </ul>
-
-        <div class="hosting-prices">
-          <button class="hosting-option best-value start-intake" type="button"
-            data-service="hosting"
-            data-package="standard"
-            data-service-name="Standard Hosting"
-            data-billing="monthly"
-            data-billing-label="Standard Hosting — $20/mo"
-            data-price="$20/mo"
-            data-checkout-url="">
-            <span class="monthly-rate"><strong>$20</strong><small>/mo</small></span>
-            <span class="billing-term">Monthly</span>
-            <span class="hosting-option-action">Choose Standard Hosting</span>
-          </button>
-        </div>
-      </article>
-
-      <article class="hosting-card backend-hosting">
-        <h3>Backend Hosting</h3>
-        <p>For interactive websites that need live data, editable content, customer features, or a private admin area.</p>
-
-        <ul aria-label="Backend hosting features" class="hosting-feature-list">
-          <li>Everything in Standard Hosting</li>
-          <li>Private Admin Dashboard</li>
-          <li>Live Reviews &amp; Customer Content</li>
-          <li>Editable Products, Services &amp; Pricing</li>
-          <li>Booking, Order or Form Management</li>
-          <li>Live Database Integration</li>
-          <li>Secure User / Staff Logins</li>
-          <li>Content Updates Without Editing Code</li>
-          <li>Backend Maintenance &amp; Technical Support</li>
-        </ul>
-
-        <div class="hosting-prices">
-          <button class="hosting-option best-value start-intake" type="button"
-            data-service="hosting"
-            data-package="backend"
-            data-service-name="Backend Hosting"
-            data-billing="monthly"
-            data-billing-label="Backend Hosting — $30/mo"
-            data-price="$30/mo"
-            data-checkout-url="">
-            <span class="monthly-rate"><strong>$30</strong><small>/mo</small></span>
-            <span class="billing-term">Monthly</span>
-            <span class="hosting-option-action">Choose Backend Hosting</span>
-          </button>
-        </div>
-      </article>
     </div>
   </div>
 </section>
