@@ -252,7 +252,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
             <div class="category-picker-popup-head">
               <div>
                 <strong>Choose your business type</strong>
-                <span id="category-picker-subtitle">Search or browse by category</span>
+                <span id="category-picker-subtitle">Search or browse by industry</span>
               </div>
               <button class="category-picker-close" type="button" aria-label="Close category picker">×</button>
             </div>
@@ -295,7 +295,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
     const renderHome=()=>{
       activeGroup=null;
-      subtitle.textContent='Search or browse by category';
+      subtitle.textContent='Search or browse by industry';
       const popular=POPULAR_CATEGORIES.filter(slug=>TEMPLATE_CATEGORIES.includes(slug));
       contentEl.innerHTML=`
         <section class="category-popular">
@@ -305,7 +305,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
           </div>
         </section>
         <section class="category-browse">
-          <div class="category-section-title">Browse by categories</div>
+          <div class="category-section-title">Browse by industry</div>
           <div class="category-group-grid">
             ${groups.map(([name,slugs])=>{
               const meta=CATEGORY_GROUPS.find(group=>group.name===name);
