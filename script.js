@@ -251,7 +251,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
           <div class="category-picker-popup" id="preview-category-popup" role="dialog" aria-modal="true" aria-label="Choose your business type">
             <div class="category-picker-popup-head">
               <div>
-                <strong>Choose a business category</strong>
+                <strong>Choose your business type</strong>
                 <span id="category-picker-subtitle">Search or browse by category</span>
               </div>
               <button class="category-picker-close" type="button" aria-label="Close category picker">×</button>
@@ -329,11 +329,11 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       subtitle.textContent=name;
       contentEl.innerHTML=`
         <button type="button" class="category-back-button" data-category-back>
-          <span aria-hidden="true">←</span> Back to categories
+          <span aria-hidden="true">←</span> Back to industries
         </button>
         <div class="category-group-view-title">
           <strong>${escapeHTML(name)}</strong>
-          <span>${group[1].length} choices</span>
+          <span>${group[1].length} business types</span>
         </div>
         <div class="category-picker-options category-picker-options-drilldown">
           ${group[1].map(optionButton).join('')}
@@ -457,7 +457,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       const category=(form.get('category')||'').toString().trim();
       const message=document.querySelector('#make-preview-message');
       if(!category){
-        message.textContent='Choose a business category from the list.';
+        message.textContent='Choose your business type from the list.';
         return;
       }
       const record={
