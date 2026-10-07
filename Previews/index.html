@@ -34,6 +34,17 @@ function decodeData(value){
   }
 }
 
+function readSessionPreview(siteKey){
+  const key=String(siteKey||'').trim();
+  if(!key.startsWith('SHS-')) return null;
+  try{
+    const raw=sessionStorage.getItem(`steadyhands.preview.${key}`);
+    return raw?JSON.parse(raw):null;
+  }catch{
+    return null;
+  }
+}
+
 function sampleServices(slug){
   const groups=[
     [/clean|janitor/,['Residential Cleaning','Deep Cleaning','Move-Out Cleaning','Recurring Service']],
@@ -133,8 +144,9 @@ try{
   const source=templates[slug]||templates.generic;
   if(!source) throw new Error('Template not found.');
 
-  const record=decodeData(params.get('data'));
-  if(!record.siteKey && params.get('sitekey')) record.siteKey=params.get('sitekey');
+  const siteKey=params.get('sitekey')||'';
+  const record=readSessionPreview(siteKey)||decodeData(params.get('data'));
+  if(!record.siteKey && siteKey) record.siteKey=siteKey;
 
   const site=sampleSite(slug,record);
   site.hero_copy=site.description||site.paragraphs[0]||site.category;
