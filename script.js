@@ -273,8 +273,13 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       menu.hidden=false;
       toggle.setAttribute('aria-expanded','true');
       field.classList.add('is-open');
-      render(search.value);
-      requestAnimationFrame(()=>search.focus());
+      search.value='';
+      render('');
+      groupsEl.scrollTop=0;
+      requestAnimationFrame(()=>{
+        groupsEl.scrollTop=0;
+        search.focus({preventScroll:true});
+      });
     };
     const closePicker=()=>{
       menu.hidden=true;
