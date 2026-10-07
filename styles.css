@@ -1403,3 +1403,118 @@ footer{flex:0 0 auto}
   .category-picker-groups{padding:12px}
   .category-picker-options{grid-template-columns:1fr}
 }
+
+/* Easier category navigation */
+.category-section-title{
+  margin:2px 2px 9px;
+  color:#52657c;
+  font-size:.72rem;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.category-popular{margin-bottom:18px}
+.category-popular-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+}
+.category-browse{margin-top:6px}
+.category-group-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.category-group-card{
+  width:100%;
+  min-height:72px;
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr) auto;
+  align-items:center;
+  gap:11px;
+  padding:12px 13px;
+  border:1px solid #d7e1ee;
+  border-radius:13px;
+  background:#fff;
+  color:#163656;
+  text-align:left;
+  font:inherit;
+}
+.category-group-card:hover,
+.category-group-card:focus{
+  outline:none;
+  border-color:#bcd3f1;
+  background:#f2f7fd;
+}
+.category-group-icon{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#edf4fc;
+  color:#0c5bd8;
+  font-weight:900;
+}
+.category-group-copy{
+  min-width:0;
+  display:grid;
+  gap:2px;
+}
+.category-group-copy strong{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:.93rem;
+}
+.category-group-copy small{
+  color:#7a8da3;
+  font-size:.76rem;
+}
+.category-group-arrow{
+  color:#7d91a8;
+  font-size:1rem;
+}
+.category-back-button{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:14px;
+  padding:8px 10px;
+  border:0;
+  border-radius:9px;
+  background:#edf4fc;
+  color:#0c5bd8;
+  font:inherit;
+  font-size:.86rem;
+  font-weight:800;
+}
+.category-group-view-title{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+.category-group-view-title strong{
+  color:#102b4e;
+  font-family:"Bricolage Grotesque",Manrope,sans-serif;
+  font-size:1.12rem;
+}
+.category-group-view-title span{
+  color:#7a8da3;
+  font-size:.8rem;
+}
+.category-picker-options-drilldown,
+.category-picker-options-search{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.category-search-results{min-height:120px}
+@media(max-width:760px){
+  .category-popular-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .category-group-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .category-picker-options-drilldown,
+  .category-picker-options-search{grid-template-columns:1fr}
+}
