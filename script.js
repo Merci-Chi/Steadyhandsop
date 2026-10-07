@@ -55,7 +55,8 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
 
 (function steadyHandsPreviewFlow(){
-  let templateSlugsCache=null;
+  const TEMPLATE_CATEGORIES = ["acupuncture","agricultural-service","animal-feed-store","antique-store","apartments-housing","appliance-repair","architect","art-gallery","artist-studio","assisted-living","attorney-law","auction-house","auto-body","auto-dealer","auto-detailing","auto-glass","auto-parts-accessories","auto-repair","auto-salvage-junkyard","awning-canopy","bail-bonds","bakery-desserts","bar-pub","barber-salon","beauty","beer-distributor","boat-dealer","boat-marina","boat-repair","butcher-meat-market","cabin-rental","cabinet-countertop","cabinetry","cafe-boba","car-wash","carpentry-woodworking","catering-food-truck","cattle-poultry-farm","chimney-fireplace","chiropractic","cleaning","clothing-boutique","coffee-shop","coin-dealer","community-center","computer-repair","concrete-masonry","construction","consulting","convenience-store","counseling-mental-health","countertop-stone","dance-school","day-spa-med-spa","daycare-childcare","deck-fence-outdoor-structures","deck-patio","deli","demolition","dentist","dog-breeder","driving-school","drywall","electrical","employment-agency","engine-rebuilding","engraving-trophies","equipment-rental","estate-liquidation","event-venue","events","excavation","farm-ranch-agriculture","farm-stand-produce","feed-farm-supply","fence-contractor","financial-advisor","firewood-supplier","fitness","flooring","florist","food-bakery","funeral-home","furniture-store","garage-door","gas-station","general-repair-service","generic","glass-mirror","glass-repair","glass-window-door","golf-cart-dealer","graphic-design","grocery-market","gutter-siding","gymnastics","handyman","hardware-building-supply","hearing-aid-audiology","hearing-health","heavy-equipment-sales-service","home-health-care","home-improvement-center","home-inspection","horse-boarding-stable","hvac","hydraulics","ice-cream-dessert","insulation","insurance","interior-design","irrigation-sprinkler","jewelry","junk-removal-hauling","land-surveyor","landscaping","laundry","liquor-store","locksmith","machine-shop","manufacturing-industrial","marina-marine","marine-hardware","martial-arts","massage-spa","medical-clinic","medical-doctor-specialist","medical-supply-equipment","metal-ironwork","mobile-home-supply","motorcycle-powersports","moving-company","musician-band","notary-document-services","office-space-rental","optometry","painting","park-recreation","parking-lot-truck-parking","parking-storage","party-rentals","paving-asphalt","pawn-shop","pest-control","pet-grooming","pet-store","pharmacy","photo-booth","photography-video","physical-therapy","plant-nursery-garden","plumbing","podiatry","pool-service","preschool-learning-center","pressure-washing","private-investigator","professional","propane-supplier","property-maintenance","property-management","property-services","real-estate","remodeling-renovation","restaurant","retail","roofing","rv-mobile-home-park","rv-repair","security-systems","septic-service","shopping-center","sign-printing","small-engine-repair","smoke-vape-tobacco","sod-lawn-supply","solar","speech-therapy","storage","surf-shop","tailor-alterations","tanning","tattoo-piercing","tax-accounting","taxidermy","thrift-store","tire-shop","title-escrow-company","towing","trailer-repair-dealer","transmission-shop","transportation-limo","tree-service","truck-dealer","truck-parking","truck-repair","trucking-freight","upholstery","utility-gas-company","vacation-rental","vehicle-inspection","veterinary","warehouse-logistics","waste-management","water-damage-restoration","water-well-pump","weight-loss-service","welding-fabrication","wellness-center","wholesale-distributor","window-tinting","yoga"];
+  let templateSlugsCache=TEMPLATE_CATEGORIES;
 
   async function supabaseRequest(path, options={}){
     if(!config?.supabaseUrl || !config?.supabaseAnonKey) throw new Error('Supabase is not configured.');
@@ -188,28 +189,15 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
   }
 
   function categoryField(){
-    return `<label><span>Business category</span><input id="preview-category" name="categoryLabel" list="steady-category-list" placeholder="Start typing your business type" required autocomplete="off"><datalist id="steady-category-list"><option value="Loading categories…"></datalist><input type="hidden" id="preview-category-slug" name="category"></label>`;
+    const options=TEMPLATE_CATEGORIES
+      .filter(slug=>slug!=='generic')
+      .map(slug=>`<option value="${escapeHTML(slug)}">${escapeHTML(labelFromSlug(slug))}</option>`)
+      .join('');
+    return `<label><span>Business category</span><select id="preview-category" name="category" required><option value="" selected disabled>Select your business category</option>${options}</select></label>`;
   }
 
   async function hydrateCategoryList(){
-    const list=document.querySelector('#steady-category-list');
-    const input=document.querySelector('#preview-category');
-    const hidden=document.querySelector('#preview-category-slug');
-    if(!list||!input||!hidden) return;
-    try{
-      const slugs=await loadTemplateSlugs();
-      list.innerHTML=slugs.map(slug=>`<option value="${escapeHTML(labelFromSlug(slug))}" data-slug="${escapeHTML(slug)}"></option>`).join('');
-      const sync=()=>{
-        const typed=input.value.trim().toLowerCase();
-        const exact=slugs.find(slug=>labelFromSlug(slug).toLowerCase()===typed || slug.toLowerCase()===typed);
-        hidden.value=exact||'';
-      };
-      input.addEventListener('input',sync);
-      input.addEventListener('change',sync);
-    }catch(err){
-      console.error(err);
-      list.innerHTML='';
-    }
+    return TEMPLATE_CATEGORIES;
   }
 
   function showPreviewForm(mode){
@@ -255,7 +243,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         mode,
         businessName:(form.get('businessName')||'').toString().trim(),
         category,
-        categoryLabel:(form.get('categoryLabel')||labelFromSlug(category)).toString().trim(),
+        categoryLabel:labelFromSlug(category),
         email:(form.get('email')||'').toString().trim(),
         phone:(form.get('phone')||'').toString().trim(),
         services:(form.get('services')||'').toString().split(/[,\n]/).map(v=>v.trim()).filter(Boolean),
