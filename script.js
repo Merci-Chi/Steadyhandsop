@@ -243,7 +243,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         <input type="hidden" id="preview-category-value" name="category" required>
         <button class="category-picker-toggle" id="preview-category-toggle" type="button"
           aria-haspopup="dialog" aria-expanded="false" aria-controls="preview-category-popup">
-          <span class="category-picker-value">Select your business category</span>
+          <span class="category-picker-value">Select your business type</span>
           <span class="category-picker-chevron" aria-hidden="true">⌄</span>
         </button>
 
