@@ -126,32 +126,6 @@ function loadScript(src){
   });
 }
 
-function renderFallback(site,reason){
-  console.warn('Using preview fallback:',reason);
-  const services=site.services.map(service=>`<li>${escapeHTML(service)}</li>`).join('');
-  const contact=[
-    site.phone?'<a href="tel:'+encodeURIComponent(site.phone)+'">'+escapeHTML(site.phone)+'</a>':'',
-    site.email?'<a href="mailto:'+encodeURIComponent(site.email)+'">'+escapeHTML(site.email)+'</a>':'',
-    site.address?'<span>'+escapeHTML(site.address)+'</span>':''
-  ].filter(Boolean).join('<span aria-hidden="true"> · </span>');
-  document.title=`${site.title} Preview`;
-  document.body.innerHTML=`
-    <main style="min-height:100vh;background:linear-gradient(145deg,#071a38,#103969);color:#fff;padding:64px 22px;box-sizing:border-box">
-      <section style="max-width:1040px;margin:0 auto">
-        <p style="margin:0 0 14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.72">${escapeHTML(site.category)} preview</p>
-        <h1 style="font-size:clamp(42px,8vw,82px);line-height:.96;margin:0;max-width:900px">${escapeHTML(site.title)}</h1>
-        <p style="font-size:clamp(18px,2.2vw,26px);line-height:1.5;max-width:760px;opacity:.88;margin:28px 0">${escapeHTML(site.description)}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px 18px;font-size:16px;margin-bottom:44px">${contact}</div>
-        <div style="background:#fff;color:#10213c;border-radius:28px;padding:clamp(24px,5vw,52px);box-shadow:0 24px 70px rgba(0,0,0,.18)">
-          <h2 style="font-size:32px;margin:0 0 16px">Services</h2>
-          <ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 30px;padding-left:22px;font-size:18px;line-height:1.5">${services}</ul>
-          <h2 style="font-size:32px;margin:38px 0 14px">About</h2>
-          <p style="font-size:18px;line-height:1.7;margin:0">${escapeHTML(site.paragraphs[0])}</p>
-        </div>
-        <p style="margin:24px 2px 0;opacity:.68;font-size:14px">A simplified preview is shown because the full template renderer could not load. Your submitted information is safe.</p>
-      </section>
-    </main>`;
-}
 
 const params=new URLSearchParams(location.search);
 const slug=(params.get('template')||'generic').toLowerCase();
@@ -195,8 +169,8 @@ try{
   document.write(rendered);
   document.close();
 }catch(err){
-  console.error('Full preview renderer failed:',err);
-  renderFallback(site,err?.message||String(err));
+  console.error('Selected preview template failed to render:',err);
+  status.innerHTML='<div><h1>Template could not load</h1><p>The selected '+escapeHTML(site.category)+' template could not be rendered. No substitute template was used.</p><p><a href="../preview.html">Back to Preview</a></p></div>';
 }
 </script>
 </body>
