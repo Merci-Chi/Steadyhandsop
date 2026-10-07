@@ -1111,8 +1111,8 @@ footer{flex:0 0 auto}
 .make-preview-form label{display:grid;gap:6px}
 .make-preview-form label>span{font-weight:750;color:#102b4e}
 .make-preview-form em,.social-details summary span{font-size:.72rem;font-style:normal;font-weight:700;opacity:.58;margin-left:4px}
-.make-preview-form input,.make-preview-form textarea{width:100%;box-sizing:border-box;border:1px solid #cfdaea;background:#fff;color:#102b4e;border-radius:12px;padding:11px 12px;font:inherit}
-.make-preview-form input:focus,.make-preview-form textarea:focus{outline:2px solid rgba(12,91,216,.25);border-color:#0c5bd8}
+.make-preview-form input,.make-preview-form textarea,.make-preview-form select{width:100%;box-sizing:border-box;border:1px solid #cfdaea;background:#fff;color:#102b4e;border-radius:12px;padding:11px 12px;font:inherit}.make-preview-form select{cursor:pointer}
+.make-preview-form input:focus,.make-preview-form textarea:focus,.make-preview-form select:focus{outline:2px solid rgba(12,91,216,.25);border-color:#0c5bd8}
 .make-flow-note{font-size:.9rem;opacity:.72;margin:0}
 .social-details{border:1px solid #d9e2ef;border-radius:14px;padding:12px 14px;background:#f8fbff}
 .social-details summary{cursor:pointer;font-weight:800;color:#102b4e}
