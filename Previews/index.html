@@ -16,6 +16,10 @@ html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,BlinkMacS
 <script type="module">
 const status=document.getElementById('status');
 
+function escapeHTML(value){
+  return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
 function titleCase(value){
   return String(value||'')
     .replace(/[-_]+/g,' ')
@@ -77,7 +81,7 @@ function sampleSite(slug,record){
     name:businessName,
     description:about||`Friendly, reliable ${category.toLowerCase()} service with straightforward communication and quality work.`,
     phone:record.phone||record.public_phone||'(702) 555-0147',
-    email:record.public_email||'hello@example.com',
+    email:record.public_email||record.email||'hello@example.com',
     address:record.address||record.address_or_service_area||'Las Vegas, Nevada',
     category,
     services:services.length?services:sampleServices(slug),
@@ -122,11 +126,50 @@ function loadScript(src){
   });
 }
 
+function renderFallback(site,reason){
+  console.warn('Using preview fallback:',reason);
+  const services=site.services.map(service=>`<li>${escapeHTML(service)}</li>`).join('');
+  const contact=[
+    site.phone?'<a href="tel:'+encodeURIComponent(site.phone)+'">'+escapeHTML(site.phone)+'</a>':'',
+    site.email?'<a href="mailto:'+encodeURIComponent(site.email)+'">'+escapeHTML(site.email)+'</a>':'',
+    site.address?'<span>'+escapeHTML(site.address)+'</span>':''
+  ].filter(Boolean).join('<span aria-hidden="true"> · </span>');
+  document.title=`${site.title} Preview`;
+  document.body.innerHTML=`
+    <main style="min-height:100vh;background:linear-gradient(145deg,#071a38,#103969);color:#fff;padding:64px 22px;box-sizing:border-box">
+      <section style="max-width:1040px;margin:0 auto">
+        <p style="margin:0 0 14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.72">${escapeHTML(site.category)} preview</p>
+        <h1 style="font-size:clamp(42px,8vw,82px);line-height:.96;margin:0;max-width:900px">${escapeHTML(site.title)}</h1>
+        <p style="font-size:clamp(18px,2.2vw,26px);line-height:1.5;max-width:760px;opacity:.88;margin:28px 0">${escapeHTML(site.description)}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 18px;font-size:16px;margin-bottom:44px">${contact}</div>
+        <div style="background:#fff;color:#10213c;border-radius:28px;padding:clamp(24px,5vw,52px);box-shadow:0 24px 70px rgba(0,0,0,.18)">
+          <h2 style="font-size:32px;margin:0 0 16px">Services</h2>
+          <ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 30px;padding-left:22px;font-size:18px;line-height:1.5">${services}</ul>
+          <h2 style="font-size:32px;margin:38px 0 14px">About</h2>
+          <p style="font-size:18px;line-height:1.7;margin:0">${escapeHTML(site.paragraphs[0])}</p>
+        </div>
+        <p style="margin:24px 2px 0;opacity:.68;font-size:14px">A simplified preview is shown because the full template renderer could not load. Your submitted information is safe.</p>
+      </section>
+    </main>`;
+}
+
+const params=new URLSearchParams(location.search);
+const slug=(params.get('template')||'generic').toLowerCase();
+const siteKey=params.get('sitekey')||'';
+const record=readSessionPreview(siteKey)||decodeData(params.get('data'));
+if(!record.siteKey && siteKey) record.siteKey=siteKey;
+
+const site=sampleSite(slug,record);
+site.hero_copy=site.description||site.paragraphs[0]||site.category;
+site.paragraph_one=site.paragraphs[0]||site.description;
+site.paragraph_two=site.paragraphs[1]||site.paragraphs[0]||site.description;
+site.links=site.links.map(link=>({...link,is_tel:String(link.href||'').startsWith('tel:')}));
+
 try{
   const names=['templates.br.00','templates.br.01','templates.br.02','templates.br.03'];
   const parts=await Promise.all(names.map(async n=>{
-    const r=await fetch(n,{cache:'force-cache'});
-    if(!r.ok) throw new Error('Could not load template bundle.');
+    const r=await fetch(n,{cache:'no-cache'});
+    if(!r.ok) throw new Error(`Could not load template bundle (${n}: ${r.status}).`);
     return r.text();
   }));
 
@@ -134,27 +177,16 @@ try{
   const bytes=new Uint8Array(raw.length);
   for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
 
-  const brotliPromise=await import('https://unpkg.com/@kyr0/brotli-wasm@3.1.0/index.web.js?module').then(m=>m.default);
+  const brotliPromise=await import('https://unpkg.com/brotli-wasm@3.0.1/index.web.js?module').then(m=>m.default);
   const brotli=await brotliPromise;
   const json=new TextDecoder().decode(brotli.decompress(bytes));
   const templates=JSON.parse(json);
 
-  const params=new URLSearchParams(location.search);
-  const slug=(params.get('template')||'generic').toLowerCase();
   const source=templates[slug]||templates.generic;
-  if(!source) throw new Error('Template not found.');
-
-  const siteKey=params.get('sitekey')||'';
-  const record=readSessionPreview(siteKey)||decodeData(params.get('data'));
-  if(!record.siteKey && siteKey) record.siteKey=siteKey;
-
-  const site=sampleSite(slug,record);
-  site.hero_copy=site.description||site.paragraphs[0]||site.category;
-  site.paragraph_one=site.paragraphs[0]||site.description;
-  site.paragraph_two=site.paragraphs[1]||site.paragraphs[0]||site.description;
-  site.links=site.links.map(link=>({...link,is_tel:String(link.href||'').startsWith('tel:')}));
+  if(!source) throw new Error(`Template not found: ${slug}`);
 
   await loadScript('https://cdn.jsdelivr.net/npm/nunjucks@3.2.4/browser/nunjucks.min.js');
+  if(!window.nunjucks) throw new Error('Nunjucks did not initialize.');
 
   const prepared=prepareTemplate(source);
   const rendered=window.nunjucks.renderString(prepared,{site,niche:site.category});
@@ -163,8 +195,8 @@ try{
   document.write(rendered);
   document.close();
 }catch(err){
-  console.error(err);
-  status.innerHTML='<div><h1>Preview unavailable</h1><p>We could not load this preview. Please try again or check the site key.</p><p><a href="../preview.html">Back to Preview</a></p></div>';
+  console.error('Full preview renderer failed:',err);
+  renderFallback(site,err?.message||String(err));
 }
 </script>
 </body>
