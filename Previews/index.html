@@ -147,14 +147,89 @@ try{
     return r.text();
   }));
 
-  const raw=atob(parts.join('').replace(/\s+/g,''));
-  const bytes=new Uint8Array(raw.length);
-  for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
-
   const brotliPromise=await import('https://unpkg.com/brotli-wasm@3.0.1/index.web.js?module').then(m=>m.default);
   const brotli=await brotliPromise;
-  const json=new TextDecoder().decode(brotli.decompress(bytes));
-  const templates=JSON.parse(json);
+
+  function base64Bytes(value){
+    const raw=atob(value);
+    const bytes=new Uint8Array(raw.length);
+    for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+    return bytes;
+  }
+
+  function parseBundle(encoded){
+    const json=new TextDecoder().decode(brotli.decompress(base64Bytes(encoded)));
+    const parsed=JSON.parse(json);
+    if(!parsed || typeof parsed!=='object') throw new Error('Template bundle did not contain templates.');
+    return parsed;
+  }
+
+  const cleanParts=parts.map(part=>part.replace(/\s+/g,''));
+  let templates=null;
+  const joined=cleanParts.join('');
+
+  try{
+    templates=parseBundle(joined);
+  }catch(originalError){
+    // The current repository bundle has one extra Base64 character in part 02
+    // (total length 30645, which is impossible for valid Base64). Preserve the
+    // real templates by locating and ignoring that one damaged character.
+    const damagedIndex=2;
+    const damaged=cleanParts[damagedIndex];
+
+    if(joined.length%4!==1 || !damaged){
+      throw originalError;
+    }
+
+    const prefix=cleanParts.slice(0,damagedIndex).join('');
+    const suffix=cleanParts.slice(damagedIndex+1).join('');
+    const cached=localStorage.getItem('steadyhands.preview.bundle-repair-v1');
+
+    const tryPosition=(position)=>{
+      if(!Number.isInteger(position) || position<0 || position>=damaged.length) return null;
+      const candidate=prefix+damaged.slice(0,position)+damaged.slice(position+1)+suffix;
+      try{
+        return {templates:parseBundle(candidate),position};
+      }catch{
+        return null;
+      }
+    };
+
+    let repaired=null;
+    if(cached!==null) repaired=tryPosition(Number(cached));
+
+    if(!repaired){
+      // Check chunk edges first because copy/split corruption most often occurs there.
+      const priority=[];
+      for(let distance=0;distance<96;distance++){
+        priority.push(distance);
+        priority.push(damaged.length-1-distance);
+      }
+      const seen=new Set();
+      for(const position of priority){
+        if(seen.has(position)) continue;
+        seen.add(position);
+        repaired=tryPosition(position);
+        if(repaired) break;
+      }
+
+      // If the damaged character is inside the chunk, scan the remainder.
+      if(!repaired){
+        for(let position=0;position<damaged.length;position++){
+          if(seen.has(position)) continue;
+          repaired=tryPosition(position);
+          if(repaired) break;
+          if(position%250===0) await new Promise(resolve=>setTimeout(resolve,0));
+        }
+      }
+    }
+
+    if(!repaired) throw originalError;
+
+    localStorage.setItem('steadyhands.preview.bundle-repair-v1',String(repaired.position));
+    console.info('Recovered preview template bundle at part 02 position',repaired.position);
+    templates=repaired.templates;
+  }
 
   const source=templates[slug]||templates.generic;
   if(!source) throw new Error(`Template not found: ${slug}`);
