@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Loading preview…</title>
+<style>
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#071a38;color:#fff}
+#status{min-height:100vh;display:grid;place-items:center;padding:24px;text-align:center}
+#status a{color:#fff}
+</style>
+</head>
+<body>
+<div id="status">Loading your preview…</div>
+<script type="module">
+const status=document.getElementById('status');
+try{
+  const names=['templates.br.00','templates.br.01','templates.br.02','templates.br.03'];
+  const parts=await Promise.all(names.map(async n=>{
+    const r=await fetch(n,{cache:'force-cache'});
+    if(!r.ok) throw new Error('Could not load template bundle.');
+    return r.text();
+  }));
+  const raw=atob(parts.join('').replace(/\s+/g,''));
+  const bytes=new Uint8Array(raw.length);
+  for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+  const brotli=await import('https://unpkg.com/@kyr0/brotli-wasm@3.1.0/index.web.js?module').then(m=>m.default);
+  const json=new TextDecoder().decode(brotli.decompress(bytes));
+  const templates=JSON.parse(json);
+  const params=new URLSearchParams(location.search);
+  const slug=(params.get('template')||'generic').toLowerCase();
+  const page=templates[slug]||templates.generic;
+  if(!page) throw new Error('Template not found.');
+  document.open();
+  document.write(page);
+  document.close();
+}catch(err){
+  console.error(err);
+  status.innerHTML='<div><h1>Preview unavailable</h1><p>Please check your site key or try again.</p><p><a href="../preview.html">Back to Preview</a></p></div>';
+}
+</script>
+</body>
+</html>
