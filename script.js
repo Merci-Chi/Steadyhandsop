@@ -248,17 +248,17 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         </button>
 
         <div class="category-picker-overlay" id="preview-category-overlay" hidden>
-          <div class="category-picker-popup" id="preview-category-popup" role="dialog" aria-modal="true" aria-label="Choose a business category">
+          <div class="category-picker-popup" id="preview-category-popup" role="dialog" aria-modal="true" aria-label="Choose your business type">
             <div class="category-picker-popup-head">
               <div>
                 <strong>Choose a business category</strong>
-                <span id="category-picker-subtitle">Search or choose a group</span>
+                <span id="category-picker-subtitle">Search or browse by category</span>
               </div>
               <button class="category-picker-close" type="button" aria-label="Close category picker">×</button>
             </div>
             <div class="category-picker-search-wrap">
               <input class="category-picker-search" id="preview-category-search" type="search"
-                placeholder="Search categories…" autocomplete="off" aria-label="Search business categories">
+                placeholder="Search business types…" autocomplete="off" aria-label="Search business categories">
             </div>
             <div class="category-picker-groups" id="category-picker-content" aria-live="polite"></div>
           </div>
@@ -299,13 +299,13 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       const popular=POPULAR_CATEGORIES.filter(slug=>TEMPLATE_CATEGORIES.includes(slug));
       contentEl.innerHTML=`
         <section class="category-popular">
-          <div class="category-section-title">Popular</div>
+          <div class="category-section-title">Popular businesses</div>
           <div class="category-popular-grid">
             ${popular.map(optionButton).join('')}
           </div>
         </section>
         <section class="category-browse">
-          <div class="category-section-title">Browse categories</div>
+          <div class="category-section-title">Browse by categories</div>
           <div class="category-group-grid">
             ${groups.map(([name,slugs])=>{
               const meta=CATEGORY_GROUPS.find(group=>group.name===name);
@@ -360,7 +360,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
               ${matches.map(optionButton).join('')}
             </div>
           </div>`
-        : '<p class="category-picker-empty">No categories found. Try another word.</p>';
+        : '<p class="category-picker-empty">No business types found. Try another word.</p>';
       contentEl.scrollTop=0;
     };
 
