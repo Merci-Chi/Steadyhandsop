@@ -190,21 +190,37 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
 
   const CATEGORY_GROUPS = [
-    {name:'Home & Trades', words:['appliance','awning','cabinet','carpentry','chimney','concrete','construction','countertop','deck','demolition','drywall','electrical','excavation','fence','firewood','flooring','garage','glass','gutter','handyman','hardware','home-improvement','home-inspection','hvac','insulation','interior-design','irrigation','junk-removal','land-surveyor','landscaping','locksmith','painting','paving','pest-control','plumbing','pool-service','pressure-washing','property-maintenance','remodeling','roofing','septic','sod','solar','tree-service','water-damage','water-well','welding']},
-    {name:'Auto, Marine & Transportation', words:['auto-','boat-','car-wash','engine-rebuilding','golf-cart','marine-','mobile-home','motorcycle','moving-company','rv-','tire-shop','towing','trailer-','transmission','transportation','truck-','trucking','vehicle-inspection']},
-    {name:'Food, Drink & Hospitality', words:['bakery','bar-pub','beer-distributor','butcher','cafe','catering','coffee-shop','convenience-store','deli','food-bakery','grocery','ice-cream','liquor-store','restaurant','vacation-rental','cabin-rental']},
-    {name:'Health & Wellness', words:['acupuncture','assisted-living','chiropractic','counseling','day-spa','dentist','fitness','hearing','home-health','massage','medical-','optometry','pharmacy','physical-therapy','podiatry','speech-therapy','weight-loss','wellness','yoga']},
-    {name:'Beauty & Personal Care', words:['barber-salon','beauty','pet-grooming','tanning','tattoo-piercing']},
-    {name:'Professional & Financial', words:['architect','attorney','bail-bonds','consulting','employment-agency','financial-advisor','insurance','notary','private-investigator','professional','tax-accounting','title-escrow']},
-    {name:'Retail & Shopping', words:['antique-store','clothing-boutique','coin-dealer','furniture-store','jewelry','pawn-shop','pet-store','retail','shopping-center','smoke-vape','surf-shop','tailor','thrift-store']},
-    {name:'Pets, Animals & Agriculture', words:['agricultural','animal-feed','cattle','dog-breeder','farm-','feed-farm','horse-boarding','plant-nursery','taxidermy','veterinary']},
-    {name:'Property & Real Estate', words:['apartments','office-space','park-recreation','parking','property-management','property-services','real-estate','storage']},
-    {name:'Events, Arts & Creative', words:['art-gallery','artist-studio','auction-house','dance-school','engraving','estate-liquidation','event-venue','events','florist','funeral-home','graphic-design','musician-band','party-rentals','photo-booth','photography-video','sign-printing']},
-    {name:'Industrial, Equipment & Logistics', words:['equipment-rental','heavy-equipment','hydraulics','machine-shop','manufacturing','metal-ironwork','propane','utility-gas','warehouse-logistics','waste-management','wholesale-distributor']},
-    {name:'Education & Community', words:['community-center','daycare','driving-school','gymnastics','martial-arts','preschool-learning-center']},
-    {name:'Technology & Repair', words:['computer-repair','general-repair-service','small-engine-repair']},
-    {name:'Other', words:[]}
+    {name:'Home & Trades', icon:'⌂', words:['appliance','awning','cabinet','carpentry','chimney','concrete','construction','countertop','deck','demolition','drywall','electrical','excavation','fence','firewood','flooring','garage','glass','gutter','handyman','hardware','home-improvement','home-inspection','hvac','insulation','interior-design','irrigation','junk-removal','land-surveyor','landscaping','locksmith','painting','paving','pest-control','plumbing','pool-service','pressure-washing','property-maintenance','remodeling','roofing','septic','sod','solar','tree-service','water-damage','water-well','welding']},
+    {name:'Auto & Transportation', icon:'◈', words:['auto-','boat-','car-wash','engine-rebuilding','golf-cart','marine-','mobile-home','motorcycle','moving-company','rv-','tire-shop','towing','trailer-','transmission','transportation','truck-','trucking','vehicle-inspection']},
+    {name:'Food & Hospitality', icon:'◉', words:['bakery','bar-pub','beer-distributor','butcher','cafe','catering','coffee-shop','convenience-store','deli','food-bakery','grocery','ice-cream','liquor-store','restaurant','vacation-rental','cabin-rental']},
+    {name:'Health & Wellness', icon:'✚', words:['acupuncture','assisted-living','chiropractic','counseling','day-spa','dentist','fitness','hearing','home-health','massage','medical-','optometry','pharmacy','physical-therapy','podiatry','speech-therapy','weight-loss','wellness','yoga']},
+    {name:'Beauty & Personal Care', icon:'✦', words:['barber-salon','beauty','pet-grooming','tanning','tattoo-piercing']},
+    {name:'Professional Services', icon:'▣', words:['architect','attorney','bail-bonds','consulting','employment-agency','financial-advisor','insurance','notary','private-investigator','professional','tax-accounting','title-escrow']},
+    {name:'Retail & Shopping', icon:'◇', words:['antique-store','clothing-boutique','coin-dealer','furniture-store','jewelry','pawn-shop','pet-store','retail','shopping-center','smoke-vape','surf-shop','tailor','thrift-store']},
+    {name:'Property & Real Estate', icon:'▤', words:['apartments','office-space','park-recreation','parking','property-management','property-services','real-estate','storage']},
+    {name:'Events & Creative', icon:'✧', words:['art-gallery','artist-studio','auction-house','dance-school','engraving','estate-liquidation','event-venue','events','florist','funeral-home','graphic-design','musician-band','party-rentals','photo-booth','photography-video','sign-printing']},
+    {name:'Industrial & Logistics', icon:'⚙', words:['equipment-rental','heavy-equipment','hydraulics','machine-shop','manufacturing','metal-ironwork','propane','utility-gas','warehouse-logistics','waste-management','wholesale-distributor']},
+    {name:'Education & Community', icon:'◎', words:['community-center','daycare','driving-school','gymnastics','martial-arts','preschool-learning-center']},
+    {name:'Other', icon:'•••', words:[]}
   ];
+
+  const POPULAR_CATEGORIES = [
+    'cleaning','landscaping','plumbing','roofing','barber-salon','restaurant','auto-repair','real-estate'
+  ];
+
+  const SEARCH_ALIASES = {
+    'barber-salon':['hair','hair salon','barbershop','barber','salon'],
+    'hvac':['ac','air conditioning','heating','air conditioner'],
+    'attorney-law':['lawyer','legal','law'],
+    'landscaping':['yard','lawn','gardener','landscape'],
+    'cleaning':['maid','house cleaning','janitorial'],
+    'auto-repair':['mechanic','car repair','garage'],
+    'real-estate':['realtor','realtor','homes','house'],
+    'restaurant':['food','dining'],
+    'dentist':['dental'],
+    'plumbing':['plumber'],
+    'electrical':['electrician']
+  };
 
   function categoryGroup(slug){
     const found=CATEGORY_GROUPS.find(group=>group.words.some(word=>slug.includes(word)));
@@ -236,7 +252,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
             <div class="category-picker-popup-head">
               <div>
                 <strong>Choose a business category</strong>
-                <span>Search or browse by group</span>
+                <span id="category-picker-subtitle">Search or choose a group</span>
               </div>
               <button class="category-picker-close" type="button" aria-label="Close category picker">×</button>
             </div>
@@ -244,7 +260,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
               <input class="category-picker-search" id="preview-category-search" type="search"
                 placeholder="Search categories…" autocomplete="off" aria-label="Search business categories">
             </div>
-            <div class="category-picker-groups" role="listbox" aria-label="Business categories"></div>
+            <div class="category-picker-groups" id="category-picker-content" aria-live="polite"></div>
           </div>
         </div>
       </div>`;
@@ -256,29 +272,96 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     const overlay=document.querySelector('#preview-category-overlay');
     const popup=document.querySelector('#preview-category-popup');
     const search=document.querySelector('#preview-category-search');
-    const groupsEl=overlay?.querySelector('.category-picker-groups');
+    const contentEl=document.querySelector('#category-picker-content');
     const hidden=document.querySelector('#preview-category-value');
     const valueEl=toggle?.querySelector('.category-picker-value');
     const closeButton=overlay?.querySelector('.category-picker-close');
-    if(!field||!toggle||!overlay||!popup||!search||!groupsEl||!hidden||!valueEl||!closeButton) return;
+    const subtitle=document.querySelector('#category-picker-subtitle');
+    if(!field||!toggle||!overlay||!popup||!search||!contentEl||!hidden||!valueEl||!closeButton||!subtitle) return;
 
     const groups=groupedCategories();
+    let activeGroup=null;
 
-    const render=(query='')=>{
-      const q=query.trim().toLowerCase();
-      groupsEl.innerHTML=groups.map(([group,slugs])=>{
-        const filtered=slugs.filter(slug=>!q || labelFromSlug(slug).toLowerCase().includes(q) || slug.includes(q));
-        if(!filtered.length) return '';
-        return `<section class="category-picker-group">
-          <div class="category-picker-heading">${escapeHTML(group)}</div>
-          <div class="category-picker-options">
-            ${filtered.map(slug=>`<button type="button" class="category-picker-option" role="option"
-              data-category="${escapeHTML(slug)}" aria-selected="${hidden.value===slug?'true':'false'}">
-              <span>${escapeHTML(labelFromSlug(slug))}</span>
-            </button>`).join('')}
+    const matchesSearch=(slug,q)=>{
+      const label=labelFromSlug(slug).toLowerCase();
+      const aliases=(SEARCH_ALIASES[slug]||[]).join(' ').toLowerCase();
+      return label.includes(q)||slug.includes(q)||aliases.includes(q);
+    };
+
+    const optionButton=slug=>`<button type="button" class="category-picker-option" role="option"
+      data-category="${escapeHTML(slug)}" aria-selected="${hidden.value===slug?'true':'false'}">
+      <span>${escapeHTML(labelFromSlug(slug))}</span>
+    </button>`;
+
+    const renderHome=()=>{
+      activeGroup=null;
+      subtitle.textContent='Search or choose a group';
+      const popular=POPULAR_CATEGORIES.filter(slug=>TEMPLATE_CATEGORIES.includes(slug));
+      contentEl.innerHTML=`
+        <section class="category-popular">
+          <div class="category-section-title">Popular</div>
+          <div class="category-popular-grid">
+            ${popular.map(optionButton).join('')}
+          </div>
+        </section>
+        <section class="category-browse">
+          <div class="category-section-title">Browse categories</div>
+          <div class="category-group-grid">
+            ${groups.map(([name,slugs])=>{
+              const meta=CATEGORY_GROUPS.find(group=>group.name===name);
+              return `<button type="button" class="category-group-card" data-category-group="${escapeHTML(name)}">
+                <span class="category-group-icon" aria-hidden="true">${escapeHTML(meta?.icon||'•')}</span>
+                <span class="category-group-copy">
+                  <strong>${escapeHTML(name)}</strong>
+                  <small>${slugs.length} categories</small>
+                </span>
+                <span class="category-group-arrow" aria-hidden="true">→</span>
+              </button>`;
+            }).join('')}
           </div>
         </section>`;
-      }).join('') || '<p class="category-picker-empty">No categories found.</p>';
+    };
+
+    const renderGroup=name=>{
+      activeGroup=name;
+      const group=groups.find(([groupName])=>groupName===name);
+      if(!group){renderHome();return}
+      subtitle.textContent=name;
+      contentEl.innerHTML=`
+        <button type="button" class="category-back-button" data-category-back>
+          <span aria-hidden="true">←</span> Back to categories
+        </button>
+        <div class="category-group-view-title">
+          <strong>${escapeHTML(name)}</strong>
+          <span>${group[1].length} choices</span>
+        </div>
+        <div class="category-picker-options category-picker-options-drilldown">
+          ${group[1].map(optionButton).join('')}
+        </div>`;
+      contentEl.scrollTop=0;
+    };
+
+    const renderSearch=query=>{
+      const q=query.trim().toLowerCase();
+      if(!q){
+        if(activeGroup) renderGroup(activeGroup);
+        else renderHome();
+        return;
+      }
+      activeGroup=null;
+      subtitle.textContent='Search results';
+      const matches=TEMPLATE_CATEGORIES
+        .filter(slug=>slug!=='generic'&&matchesSearch(slug,q))
+        .sort((a,b)=>labelFromSlug(a).localeCompare(labelFromSlug(b)));
+      contentEl.innerHTML=matches.length
+        ? `<div class="category-search-results">
+            <div class="category-section-title">${matches.length} result${matches.length===1?'':'s'}</div>
+            <div class="category-picker-options category-picker-options-search">
+              ${matches.map(optionButton).join('')}
+            </div>
+          </div>`
+        : '<p class="category-picker-empty">No categories found. Try another word.</p>';
+      contentEl.scrollTop=0;
     };
 
     const open=()=>{
@@ -286,8 +369,8 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       toggle.setAttribute('aria-expanded','true');
       field.classList.add('is-open');
       search.value='';
-      render('');
-      groupsEl.scrollTop=0;
+      renderHome();
+      contentEl.scrollTop=0;
       requestAnimationFrame(()=>search.focus({preventScroll:true}));
     };
 
@@ -297,22 +380,34 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       field.classList.remove('is-open');
     };
 
-    toggle.addEventListener('click',open);
-    closeButton.addEventListener('click',closePicker);
-    overlay.addEventListener('click',event=>{
-      if(event.target===overlay) closePicker();
-    });
-    search.addEventListener('input',()=>render(search.value));
-
-    groupsEl.addEventListener('click',event=>{
-      const option=event.target.closest('[data-category]');
-      if(!option) return;
-      const slug=option.dataset.category;
+    const chooseCategory=slug=>{
       hidden.value=slug;
       valueEl.textContent=labelFromSlug(slug);
       valueEl.classList.add('has-value');
       closePicker();
       toggle.focus();
+    };
+
+    toggle.addEventListener('click',open);
+    closeButton.addEventListener('click',closePicker);
+    overlay.addEventListener('click',event=>{
+      if(event.target===overlay) closePicker();
+    });
+    search.addEventListener('input',()=>renderSearch(search.value));
+
+    contentEl.addEventListener('click',event=>{
+      const option=event.target.closest('[data-category]');
+      if(option){chooseCategory(option.dataset.category);return}
+      const groupButton=event.target.closest('[data-category-group]');
+      if(groupButton){
+        search.value='';
+        renderGroup(groupButton.dataset.categoryGroup);
+        return;
+      }
+      if(event.target.closest('[data-category-back]')){
+        search.value='';
+        renderHome();
+      }
     });
 
     popup.addEventListener('keydown',event=>{
@@ -320,25 +415,10 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         event.preventDefault();
         closePicker();
         toggle.focus();
-        return;
-      }
-      const options=[...groupsEl.querySelectorAll('.category-picker-option')];
-      if(!['ArrowDown','ArrowUp','Enter'].includes(event.key)) return;
-      const active=document.activeElement;
-      let index=options.indexOf(active);
-      if(event.key==='ArrowDown'){
-        event.preventDefault();
-        (options[Math.min(index+1,options.length-1)]||options[0])?.focus();
-      } else if(event.key==='ArrowUp'){
-        event.preventDefault();
-        (options[Math.max(index-1,0)]||options[options.length-1])?.focus();
-      } else if(event.key==='Enter' && active?.matches('.category-picker-option')){
-        event.preventDefault();
-        active.click();
       }
     });
 
-    render();
+    renderHome();
   }
 
   function showPreviewForm(mode){
