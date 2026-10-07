@@ -54,17 +54,315 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 }));
 
 
+(function steadyHandsPreviewFlow(){
+  let templateSlugsCache=null;
+
+  async function supabaseRequest(path, options={}){
+    if(!config?.supabaseUrl || !config?.supabaseAnonKey) throw new Error('Supabase is not configured.');
+    const headers={
+      apikey:config.supabaseAnonKey,
+      Authorization:`Bearer ${config.supabaseAnonKey}`,
+      'Content-Type':'application/json',
+      ...(options.headers||{})
+    };
+    const response=await fetch(`${config.supabaseUrl}/rest/v1/${path}`,{...options,headers});
+    const text=await response.text();
+    let data=null;
+    try{data=text?JSON.parse(text):null}catch{data=text}
+    if(!response.ok) throw new Error(data?.message||data?.error||`Request failed (${response.status})`);
+    return data;
+  }
+
+  async function savePreviewRequest(record){
+    return supabaseRequest('preview_requests',{
+      method:'POST',
+      headers:{Prefer:'return=minimal'},
+      body:JSON.stringify({
+        preview_type:record.mode==='full'?'full':'short',
+        company_name:record.businessName,
+        business_category:record.categoryLabel||record.category,
+        template_key:record.category,
+        email:record.email,
+        phone:record.phone||null,
+        services:Array.isArray(record.services)?record.services.join(', '):(record.services||null),
+        about_business:record.about||null,
+        address_or_service_area:record.address||null,
+        instagram_url:record.instagram||null,
+        facebook_url:record.facebook||null,
+        tiktok_url:record.tiktok||null,
+        website_url:record.website||null
+      })
+    });
+  }
+
+  async function getSiteByKey(code){
+    const rows=await supabaseRequest('rpc/get_site_by_key',{
+      method:'POST',
+      body:JSON.stringify({p_site_key:String(code||'').trim()})
+    });
+    const row=Array.isArray(rows)?rows[0]:rows;
+    if(!row) return null;
+    return {
+      siteKey:row.site_key,
+      category:row.template_key||'generic',
+      categoryLabel:row.business_category||'',
+      businessName:row.company_name||'',
+      email:row.public_email||'',
+      phone:row.public_phone||'',
+      services:String(row.services||'').split(/[,\n]/).map(v=>v.trim()).filter(Boolean),
+      about:row.about_business||'',
+      description:row.about_business||'',
+      address:row.address_or_service_area||'',
+      instagram:row.instagram_url||'',
+      facebook:row.facebook_url||'',
+      tiktok:row.tiktok_url||'',
+      website:row.website_url||''
+    };
+  }
+
+  async function saveContactRequest(payload){
+    return supabaseRequest('contact_requests',{
+      method:'POST',
+      headers:{Prefer:'return=minimal'},
+      body:JSON.stringify(payload)
+    });
+  }
+
+  function toB64(value){
+    const bytes=new TextEncoder().encode(value);
+    let binary='';
+    bytes.forEach(byte=>binary+=String.fromCharCode(byte));
+    return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  }
+
+  function fromB64(value){
+    const normalized=value.replace(/-/g,'+').replace(/_/g,'/');
+    const raw=atob(normalized+'='.repeat((4-normalized.length%4)%4));
+    const bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+  }
+
+  function portableSiteKey(record){
+    return `SH1.${toB64(JSON.stringify(record))}`;
+  }
+
+  function decodePortableSiteKey(code){
+    if(!String(code).startsWith('SH1.')) return null;
+    try{return JSON.parse(fromB64(String(code).slice(4)))}catch{return null}
+  }
+
+  function labelFromSlug(slug){
+    return String(slug||'').split('-').map(w=>w?`${w[0].toUpperCase()}${w.slice(1)}`:'').join(' ');
+  }
+
+  async function loadTemplateSlugs(){
+    if(templateSlugsCache) return templateSlugsCache;
+    const names=['Sites/templates.br.00','Sites/templates.br.01','Sites/templates.br.02','Sites/templates.br.03'];
+    const parts=await Promise.all(names.map(async n=>{
+      const r=await fetch(n,{cache:'force-cache'});
+      if(!r.ok) throw new Error('Could not load categories.');
+      return r.text();
+    }));
+    const raw=atob(parts.join('').replace(/\s+/g,''));
+    const bytes=new Uint8Array(raw.length);
+    for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+    const brotli=await import('https://unpkg.com/@kyr0/brotli-wasm@3.1.0/index.web.js?module').then(m=>m.default);
+    const templates=JSON.parse(new TextDecoder().decode(brotli.decompress(bytes)));
+    templateSlugsCache=Object.keys(templates).sort((a,b)=>labelFromSlug(a).localeCompare(labelFromSlug(b)));
+    return templateSlugsCache;
+  }
+
+  function openCategorySite(record){
+    const category=(record.category||'generic').toLowerCase();
+    const data=toB64(JSON.stringify(record));
+    const key=record.siteKey||portableSiteKey(record);
+    location.href=`Sites/index.html?template=${encodeURIComponent(category)}&sitekey=${encodeURIComponent(key)}&data=${encodeURIComponent(data)}`;
+  }
+
+  async function resolveSiteKey(code){
+    const portable=decodePortableSiteKey(code);
+    if(portable) return {...portable,siteKey:code};
+    const local=Object.entries(config.siteKeys||{}).find(([key])=>key.toLowerCase()===String(code).toLowerCase())?.[1];
+    if(local) return {...local,siteKey:code};
+    try{return await getSiteByKey(code)}catch(err){console.warn('Site-key lookup failed',err);return null}
+  }
+
+  function categoryField(){
+    return `<label><span>Business category</span><input id="preview-category" name="categoryLabel" list="steady-category-list" placeholder="Start typing your business type" required autocomplete="off"><datalist id="steady-category-list"><option value="Loading categories…"></datalist><input type="hidden" id="preview-category-slug" name="category"></label>`;
+  }
+
+  async function hydrateCategoryList(){
+    const list=document.querySelector('#steady-category-list');
+    const input=document.querySelector('#preview-category');
+    const hidden=document.querySelector('#preview-category-slug');
+    if(!list||!input||!hidden) return;
+    try{
+      const slugs=await loadTemplateSlugs();
+      list.innerHTML=slugs.map(slug=>`<option value="${escapeHTML(labelFromSlug(slug))}" data-slug="${escapeHTML(slug)}"></option>`).join('');
+      const sync=()=>{
+        const typed=input.value.trim().toLowerCase();
+        const exact=slugs.find(slug=>labelFromSlug(slug).toLowerCase()===typed || slug.toLowerCase()===typed);
+        hidden.value=exact||'';
+      };
+      input.addEventListener('input',sync);
+      input.addEventListener('change',sync);
+    }catch(err){
+      console.error(err);
+      list.innerHTML='';
+    }
+  }
+
+  function showPreviewForm(mode){
+    const full=mode==='full';
+    modal(full?'Full Preview':'Short Preview',`
+      <p class="make-flow-intro">${full?'Tell us a little more so the preview feels like your business.':'Just the basics. We’ll build a starting point.'}</p>
+      <form id="make-preview-form" class="make-preview-form">
+        <div class="form-grid-two">
+          <label><span>Company name</span><input name="businessName" required autocomplete="organization"></label>
+          ${categoryField()}
+          <label><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
+          ${full?'<label><span>Phone <em>Optional</em></span><input name="phone" type="tel" autocomplete="tel"></label>':''}
+        </div>
+        ${full?`
+          <label><span>Services <em>Optional</em></span><textarea name="services" rows="3" placeholder="One per line or separated by commas"></textarea></label>
+          <label><span>About your business <em>Optional</em></span><textarea name="about" rows="3" placeholder="A short description is plenty."></textarea></label>
+          <label><span>Address or service area <em>Optional</em></span><input name="address" autocomplete="street-address"></label>
+          <label><span>Current website <em>Optional</em></span><input name="website" type="url" placeholder="https://"></label>
+          <details class="social-details"><summary>Social media <span>Optional</span></summary>
+            <div class="form-grid-two social-fields">
+              <label><span>Instagram</span><input name="instagram" type="url" placeholder="https://instagram.com/..."></label>
+              <label><span>Facebook</span><input name="facebook" type="url" placeholder="https://facebook.com/..."></label>
+              <label><span>TikTok</span><input name="tiktok" type="url" placeholder="https://tiktok.com/@..."></label>
+              <label><span>Yelp / Google link</span><input name="yelp" type="url" placeholder="https://"></label>
+            </div>
+          </details>
+          <p class="make-flow-note">Don’t have everything yet? That’s okay. Fill out what you know.</p>
+        `:''}
+        <p class="form-message" id="make-preview-message" role="status"></p>
+        <button class="button primary" type="submit">Create My Preview <span aria-hidden="true">→</span></button>
+      </form>`);
+    hydrateCategoryList();
+    document.querySelector('#make-preview-form')?.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const form=new FormData(e.currentTarget);
+      const category=(form.get('category')||'').toString().trim();
+      const message=document.querySelector('#make-preview-message');
+      if(!category){
+        message.textContent='Choose a business category from the list.';
+        return;
+      }
+      const record={
+        mode,
+        businessName:(form.get('businessName')||'').toString().trim(),
+        category,
+        categoryLabel:(form.get('categoryLabel')||labelFromSlug(category)).toString().trim(),
+        email:(form.get('email')||'').toString().trim(),
+        phone:(form.get('phone')||'').toString().trim(),
+        services:(form.get('services')||'').toString().split(/[,\n]/).map(v=>v.trim()).filter(Boolean),
+        about:(form.get('about')||'').toString().trim(),
+        description:(form.get('about')||'').toString().trim(),
+        address:(form.get('address')||'').toString().trim(),
+        website:(form.get('website')||'').toString().trim(),
+        instagram:(form.get('instagram')||'').toString().trim(),
+        facebook:(form.get('facebook')||'').toString().trim(),
+        tiktok:(form.get('tiktok')||'').toString().trim(),
+        yelp:(form.get('yelp')||'').toString().trim()
+      };
+      record.siteKey=portableSiteKey(record);
+      message.textContent='Creating your preview…';
+      try{await savePreviewRequest(record)}catch(err){console.warn('Preview request save failed',err)}
+      openCategorySite(record);
+    });
+  }
+
+  function showMakeSiteChoice(){
+    modal('Make Your Site',`
+      <p class="make-flow-intro">How much do you want to tell us?</p>
+      <div class="preview-choice-grid">
+        <button class="preview-choice" type="button" data-preview-choice="short"><strong>Short Preview</strong><span>Company name, category, and email.</span></button>
+        <button class="preview-choice" type="button" data-preview-choice="full"><strong>Full Preview</strong><span>A few extra details for a more tailored preview.</span></button>
+      </div>`);
+    content.querySelectorAll('[data-preview-choice]').forEach(btn=>btn.addEventListener('click',()=>showPreviewForm(btn.dataset.previewChoice)));
+  }
+
+  function showContact(){
+    modal('Contact Us',`
+      <div class="contact-choice-tabs">
+        <button class="contact-tab active" type="button" data-contact-tab="text">Text</button>
+        <button class="contact-tab" type="button" data-contact-tab="email">Email</button>
+        <button class="contact-tab" type="button" data-contact-tab="call">Schedule a Call</button>
+      </div>
+      <div id="contact-panel"></div>`);
+    const panel=document.querySelector('#contact-panel');
+    const render=type=>{
+      content.querySelectorAll('.contact-tab').forEach(b=>b.classList.toggle('active',b.dataset.contactTab===type));
+      if(type==='text') panel.innerHTML=`<div class="contact-panel-card"><p>Have a quick question? Send us a text.</p><strong>(702) 372-6399</strong><a class="button primary" href="sms:+17023726399">Send a Text</a></div>`;
+      if(type==='email') panel.innerHTML=`<div class="contact-panel-card"><p>Send us what you need and we’ll get back to you.</p><strong>${escapeHTML(config.email)}</strong><a class="button primary" href="mailto:${encodeURIComponent(config.email)}">Email Us</a></div>`;
+      if(type==='call'){
+        panel.innerHTML=`<form id="schedule-call-form" class="make-preview-form"><p>Tell us when you’re available. We’ll follow up to confirm a time.</p><label><span>Name</span><input name="name" required autocomplete="name"></label><div class="form-grid-two"><label><span>Email</span><input name="email" type="email" autocomplete="email"></label><label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label></div><label><span>When are you available?</span><textarea name="availability" rows="3" required placeholder="Example: Tuesday after 2 PM"></textarea></label><p class="form-message" id="call-message" role="status"></p><button class="button primary" type="submit">Request a Call</button></form>`;
+        document.querySelector('#schedule-call-form')?.addEventListener('submit',async e=>{
+          e.preventDefault();
+          const f=new FormData(e.currentTarget);
+          const msg=document.querySelector('#call-message');
+          const payload={contact_type:'schedule_call',name:String(f.get('name')||''),email:String(f.get('email')||'')||null,phone:String(f.get('phone')||'')||null,message:null,availability:String(f.get('availability')||'')};
+          if(!payload.email&&!payload.phone){msg.textContent='Add an email or phone number so we can reach you.';return}
+          msg.textContent='Sending…';
+          try{await saveContactRequest(payload);msg.textContent='Got it. We’ll follow up to confirm a time.'}
+          catch(err){
+            console.warn(err);
+            msg.textContent='Opening your email app instead…';
+            const body=`Name: ${payload.name}\nEmail: ${payload.email||''}\nPhone: ${payload.phone||''}\nAvailability: ${payload.availability}`;
+            location.href=`mailto:${encodeURIComponent(config.email)}?subject=${encodeURIComponent('Schedule a Call')}&body=${encodeURIComponent(body)}`;
+          }
+        });
+      }
+    };
+    content.querySelectorAll('[data-contact-tab]').forEach(btn=>btn.addEventListener('click',()=>render(btn.dataset.contactTab)));
+    render('text');
+  }
+
+  document.addEventListener('click',e=>{
+    const link=e.target.closest('a,button');
+    if(!link) return;
+    const href=link.getAttribute('href')||'';
+    const text=(link.textContent||'').trim().replace(/\s+/g,' ');
+    if(href.endsWith('make-your-site.html') || link.dataset.action==='make-site'){
+      e.preventDefault();
+      showMakeSiteChoice();
+      return;
+    }
+    if(/^Contact Us(?:\s*→)?$/i.test(text) || link.dataset.action==='contact-us'){
+      e.preventDefault();
+      showContact();
+    }
+  });
+
+  window.steadyHandsResolvePreview=resolveSiteKey;
+  window.steadyHandsOpenPreview=openCategorySite;
+})();
+
 // Dedicated preview page form
 const previewPageForm = document.querySelector('#preview-page-form');
 if (previewPageForm) {
-  previewPageForm.addEventListener('submit', e => {
+  previewPageForm.addEventListener('submit', async e => {
     e.preventDefault();
     const code = document.querySelector('#preview-page-code').value.trim();
     const message = document.querySelector('#preview-page-message');
-    if (config.previewPortalUrl && go(config.previewPortalUrl)) return;
+    if (!code) return;
+    message.textContent = 'Looking up your site…';
+    try {
+      const record = await window.steadyHandsResolvePreview(code);
+      if (record) {
+        message.textContent = 'Opening your preview…';
+        window.steadyHandsOpenPreview(record);
+        return;
+      }
+    } catch (err) {
+      console.warn(err);
+    }
     const url = Object.entries(config.previews || {}).find(([key]) => key.toLowerCase() === code.toLowerCase())?.[1];
     if (url && go(url)) return;
-    message.textContent = 'This preview code is not available. Check the code or contact Steady Hands for your personal preview link.';
+    message.textContent = 'We couldn’t find that site key. Check the code or contact Steady Hands.';
   });
 }
 
