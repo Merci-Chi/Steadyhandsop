@@ -211,10 +211,9 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     const category=(record.category||'generic').toLowerCase();
     const key=record.siteKey||createSessionSiteKey(record);
     const sessionRecord={...record,siteKey:key};
-    const isSessionKey=String(key).startsWith('SHS-');
-    if(isSessionKey) storeSessionPreview(sessionRecord);
-    const dataParam=isSessionKey?'':`&data=${encodeURIComponent(toB64(JSON.stringify(sessionRecord)))}`;
-    location.href=`Previews/${encodeURIComponent(category)}.html?sitekey=${encodeURIComponent(key)}${dataParam}`;
+    if(String(key).startsWith('SHS-')) storeSessionPreview(sessionRecord);
+    const data=toB64(JSON.stringify(sessionRecord));
+    location.href=`Previews/${encodeURIComponent(category)}.html?sitekey=${encodeURIComponent(key)}&data=${encodeURIComponent(data)}`;
   }
 
   async function resolveSiteKey(code){
