@@ -238,7 +238,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
   function categoryField(){
     return `
-      <div class="custom-category-field">
+      <div class="form-field custom-category-field">
         <span class="custom-category-label">Business type</span>
         <input type="hidden" id="preview-category-value" name="category" required>
         <button class="category-picker-toggle" id="preview-category-toggle" type="button"
@@ -427,15 +427,15 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       <p class="make-flow-intro">${full?'Tell us a little more so the preview feels like your business.':'Just the basics. We’ll build a starting point.'}</p>
       <form id="make-preview-form" class="make-preview-form ${full?'full-preview-form':'short-preview-form'}">
         <div class="form-grid-two preview-main-row">
-          <label><span>Company name</span><input name="businessName" required autocomplete="organization"></label>
+          <label class="form-field"><span>Company name</span><input name="businessName" required autocomplete="organization"></label>
           ${categoryField()}
         </div>
         ${full
           ? `<div class="form-grid-two preview-contact-row">
-              <label><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
-              <label><span>Phone <em>Optional</em></span><input name="phone" type="tel" autocomplete="tel"></label>
+              <label class="form-field"><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
+              <label class="form-field"><span>Phone <em>Optional</em></span><input name="phone" type="tel" autocomplete="tel"></label>
             </div>`
-          : `<label class="preview-email-full"><span>Email</span><input name="email" type="email" required autocomplete="email"><small>We’ll send your preview details here.</small></label>`
+          : `<label class="form-field preview-email-full"><span>Email</span><input name="email" type="email" required autocomplete="email"><small>We’ll send your preview details here.</small></label>`
         }
         ${full?`
           <label><span>Services <em>Optional</em></span><textarea name="services" rows="3" placeholder="One per line or separated by commas"></textarea></label>
