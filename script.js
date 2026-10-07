@@ -459,9 +459,50 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     renderHome();
   }
 
+  function quickPreviewExamples(category,categoryLabel,businessName,email){
+    const label=categoryLabel||labelFromSlug(category);
+    const groups=[
+      [/clean|janitor/,['Residential Cleaning','Deep Cleaning','Move-Out Cleaning','Recurring Cleaning']],
+      [/landscap|lawn|tree|garden|sod|irrigation/,['Landscape Maintenance','Cleanups','Irrigation Service','Outdoor Enhancements']],
+      [/plumb|water-well|septic/,['Plumbing Repairs','Drain Service','Fixture Installation','Emergency Service']],
+      [/electric/,['Electrical Repairs','Installations','Troubleshooting','Panel Upgrades']],
+      [/roof/,['Roof Repair','Roof Inspections','Replacement','Maintenance']],
+      [/hvac/,['AC Repair','Heating Service','Preventive Maintenance','System Installation']],
+      [/barber|salon|beauty|spa|massage|tattoo/,['Appointments','Signature Services','Consultations','Special Packages']],
+      [/restaurant|cafe|coffee|bakery|deli|food/,['House Favorites','Fresh Specials','Takeout','Catering']],
+      [/auto|tire|truck|transmission|towing|vehicle|car-wash/,['Diagnostics','Repairs','Maintenance','Inspections']],
+      [/dent|medical|clinic|chiropr|therapy|optom|podiat|wellness|hearing/,['Consultations','Appointments','Treatment Plans','Follow-Up Care']],
+      [/real-estate|property|apartments/,['Property Search','Listings','Consultations','Local Guidance']],
+      [/photo|graphic|artist|event|musician|dance/,['Consultations','Custom Packages','Events','Bookings']],
+      [/construction|remodel|painting|flooring|concrete|fence|deck|handyman|carpentry|cabinet/,['Estimates','Custom Projects','Repairs','Installations']]
+    ];
+    const services=(groups.find(([re])=>re.test(category))?.[1]||['Consultations','Custom Service','Local Support','Request a Quote']).slice();
+    return {
+      mode:'quick',
+      businessName,
+      category,
+      categoryLabel:label,
+      email,
+      public_email:email,
+      phone:'(702) 555-0147',
+      public_phone:'(702) 555-0147',
+      services,
+      about:`${businessName} provides professional ${label.toLowerCase()} services with friendly communication, dependable work, and straightforward pricing.`,
+      description:`${businessName} provides professional ${label.toLowerCase()} services with friendly communication, dependable work, and straightforward pricing.`,
+      address:'123 Main Street, Las Vegas, NV 89101',
+      address_or_service_area:'Las Vegas and surrounding areas',
+      website:'https://example.com',
+      instagram:'https://instagram.com/example',
+      facebook:'https://facebook.com/example',
+      tiktok:'https://tiktok.com/@example',
+      yelp:'https://www.yelp.com/',
+      google:'https://www.google.com/maps'
+    };
+  }
+
   function showPreviewForm(mode){
     const full=mode==='full';
-    modal(full?'Full Preview':'Short Preview',`
+    modal(full?'Full Preview':'Quick Preview',`
       <p class="make-flow-intro">${full?'Tell us a little more so the preview feels like your business.':'Just the basics. We’ll build a starting point.'}</p>
       <form id="make-preview-form" class="make-preview-form ${full?'full-preview-form':'short-preview-form'}">
         <div class="form-grid-two preview-main-row">
@@ -503,23 +544,28 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         message.textContent='Choose your business type from the list.';
         return;
       }
-      const record={
-        mode,
-        businessName:(form.get('businessName')||'').toString().trim(),
-        category,
-        categoryLabel:labelFromSlug(category),
-        email:(form.get('email')||'').toString().trim(),
-        phone:(form.get('phone')||'').toString().trim(),
-        services:(form.get('services')||'').toString().split(/[,\n]/).map(v=>v.trim()).filter(Boolean),
-        about:(form.get('about')||'').toString().trim(),
-        description:(form.get('about')||'').toString().trim(),
-        address:(form.get('address')||'').toString().trim(),
-        website:(form.get('website')||'').toString().trim(),
-        instagram:(form.get('instagram')||'').toString().trim(),
-        facebook:(form.get('facebook')||'').toString().trim(),
-        tiktok:(form.get('tiktok')||'').toString().trim(),
-        yelp:(form.get('yelp')||'').toString().trim()
-      };
+      const businessName=(form.get('businessName')||'').toString().trim();
+      const email=(form.get('email')||'').toString().trim();
+      const categoryLabel=labelFromSlug(category);
+      const record=full
+        ? {
+            mode:'full',
+            businessName,
+            category,
+            categoryLabel,
+            email,
+            phone:(form.get('phone')||'').toString().trim(),
+            services:(form.get('services')||'').toString().split(/[,\n]/).map(v=>v.trim()).filter(Boolean),
+            about:(form.get('about')||'').toString().trim(),
+            description:(form.get('about')||'').toString().trim(),
+            address:(form.get('address')||'').toString().trim(),
+            website:(form.get('website')||'').toString().trim(),
+            instagram:(form.get('instagram')||'').toString().trim(),
+            facebook:(form.get('facebook')||'').toString().trim(),
+            tiktok:(form.get('tiktok')||'').toString().trim(),
+            yelp:(form.get('yelp')||'').toString().trim()
+          }
+        : quickPreviewExamples(category,categoryLabel,businessName,email);
       record.siteKey=createSessionSiteKey(record);
       message.textContent='Creating your preview…';
       try{await savePreviewRequest(record)}catch(err){console.warn('Preview request save failed',err)}
@@ -531,7 +577,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     modal('Make Your Site',`
       <p class="make-flow-intro">How much do you want to tell us?</p>
       <div class="preview-choice-grid">
-        <button class="preview-choice" type="button" data-preview-choice="short"><strong>Short Preview</strong><span>Company name, category, and email.</span></button>
+        <button class="preview-choice" type="button" data-preview-choice="quick"><strong>Quick Preview</strong><span>Company name, category, and email. We’ll fill the rest with examples.</span></button>
         <button class="preview-choice" type="button" data-preview-choice="full"><strong>Full Preview</strong><span>A few extra details for a more tailored preview.</span></button>
       </div>`);
     content.querySelectorAll('[data-preview-choice]').forEach(btn=>btn.addEventListener('click',()=>showPreviewForm(btn.dataset.previewChoice)));
