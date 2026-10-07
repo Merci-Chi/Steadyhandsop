@@ -440,7 +440,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     if(!link) return;
     const href=link.getAttribute('href')||'';
     const text=(link.textContent||'').trim().replace(/\s+/g,' ');
-    if(href.endsWith('make-your-site.html') || link.dataset.action==='make-site'){
+    if(link.dataset.action==='make-site'){
       e.preventDefault();
       showMakeSiteChoice();
       return;
