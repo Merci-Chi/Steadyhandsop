@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="View Steady Hands client website references and completed small-business website projects.">
+  <title>Client References | Steady Hands</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="references-page">
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Steady Hands home">
+      <img class="logo" src="images/logo.png" alt="">
+      <img class="wordmark" src="images/wordmark-white.png" alt="Steady Hands Operation">
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav id="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="preview.html">Preview</a>
+      <a href="references.html" class="active">References</a>
+      <a href="pricing.html">Pricing</a>
+        <a href="faq.html">FAQ</a>
+      <button class="button outline light" data-action="login">Client Login</button>
+    </nav>
+  </div>
+</header>
+
+<main class="references-main">
+  <div class="references-bg" aria-hidden="true"></div>
+  <section class="content-shell client-work-shell references-work-shell">
+    <section class="container client-work-section" aria-label="Client website references">
+      <div class="client-work-heading">
+        <p class="section-kicker">Real client work</p>
+        <h1>Client References</h1>
+        <p class="section-subtitle">See websites we’ve built for real businesses.</p>
+      </div>
+
+      <div class="client-work-grid" aria-label="Client reference cards">
+        <article class="client-work-card live-work-card">
+          <div class="mini-site-frame">
+            <div class="mini-site-crop">
+              <iframe src="https://sheylasprocleaning.com" title="Sheyla's Pro Cleaning live website preview" loading="eager" scrolling="no"></iframe>
+            </div>
+          </div>
+          <div class="client-work-meta">
+            <div>
+              <h3>Sheyla's Pro Cleaning</h3>
+              <p>Cleaning Services</p>
+            </div>
+            <a class="button small outline" href="https://sheylasprocleaning.com" target="_blank" rel="noopener noreferrer">Visit Website <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="client-work-card live-work-card">
+          <div class="mini-site-frame">
+            <div class="mini-site-crop">
+              <iframe src="https://studio47hairsalon.com" title="Studio 47 Hair Salon live website preview" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </div>
+          <div class="client-work-meta">
+            <div>
+              <h3>Studio 47 Hair Salon</h3>
+              <p>Beauty &amp; Salon</p>
+            </div>
+            <a class="button small outline" href="https://studio47hairsalon.com" target="_blank" rel="noopener noreferrer">Visit Website <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="client-work-card review-work-card">
+          <div class="review-work-inner">
+            <p class="review-work-label">Client Review</p>
+            <span class="review-quote-mark" aria-hidden="true">“</span>
+            <p class="review-work-copy">Kira has been very helpful and extremely knowledgeable as to what she’s doing. This has been a fantastic and fun experience!!!</p>
+            <p class="review-work-note">Customer service • Quality • Wait time</p>
+          </div>
+        </article>
+
+        <article class="client-work-card live-work-card">
+          <div class="mini-site-frame">
+            <div class="mini-site-crop">
+              <iframe src="https://dflandscape.com" title="DF Landscape live website preview" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </div>
+          <div class="client-work-meta">
+            <div>
+              <h3>DF Landscape</h3>
+              <p>Landscaping</p>
+            </div>
+            <a class="button small outline" href="https://dflandscape.com" target="_blank" rel="noopener noreferrer">Visit Website <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="client-work-actions">
+        <a class="button primary" href="pricing.html">View Pricing <span aria-hidden="true">→</span></a>
+        <a class="button secondary" href="make-your-site.html">Make Your Site <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a class="brand" href="index.html"><img class="logo" src="images/logo.png" alt=""><img class="wordmark" src="images/wordmark.png" alt="Steady Hands Operation"></a>
+    <div class="footer-contact"><a href="tel:+17023726399">Call or text (702) 372-6399</a><a href="mailto:kiara@steadyhandsop.com">kiara@steadyhandsop.com</a><p>Las Vegas, Nevada · © <span id="year"></span> Steady Hands LLC</p></div>
+  </div>
+</footer>
+
+<dialog id="modal" aria-labelledby="modal-title"><button class="close" aria-label="Close dialog">×</button><h2 id="modal-title"></h2><div id="modal-content"></div></dialog>
+</body>
+</html>
