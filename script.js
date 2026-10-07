@@ -188,17 +188,143 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     try{return await getSiteByKey(code)}catch(err){console.warn('Site-key lookup failed',err);return null}
   }
 
-  function categoryField(){
-    const options=TEMPLATE_CATEGORIES
-      .filter(slug=>slug!=='generic')
-      .map(slug=>`<option value="${escapeHTML(slug)}">${escapeHTML(labelFromSlug(slug))}</option>`)
-      .join('');
-    return `<label><span>Business category</span><select id="preview-category" name="category" required><option value="" selected disabled>Select your business category</option>${options}</select></label>`;
+
+  const CATEGORY_GROUPS = [
+    {name:'Home & Trades', words:['appliance','awning','cabinet','carpentry','chimney','concrete','construction','countertop','deck','demolition','drywall','electrical','excavation','fence','firewood','flooring','garage','glass','gutter','handyman','hardware','home-improvement','home-inspection','hvac','insulation','interior-design','irrigation','junk-removal','land-surveyor','landscaping','locksmith','painting','paving','pest-control','plumbing','pool-service','pressure-washing','property-maintenance','remodeling','roofing','septic','sod','solar','tree-service','water-damage','water-well','welding']},
+    {name:'Auto, Marine & Transportation', words:['auto-','boat-','car-wash','engine-rebuilding','golf-cart','marine-','mobile-home','motorcycle','moving-company','rv-','tire-shop','towing','trailer-','transmission','transportation','truck-','trucking','vehicle-inspection']},
+    {name:'Food, Drink & Hospitality', words:['bakery','bar-pub','beer-distributor','butcher','cafe','catering','coffee-shop','convenience-store','deli','food-bakery','grocery','ice-cream','liquor-store','restaurant','vacation-rental','cabin-rental']},
+    {name:'Health & Wellness', words:['acupuncture','assisted-living','chiropractic','counseling','day-spa','dentist','fitness','hearing','home-health','massage','medical-','optometry','pharmacy','physical-therapy','podiatry','speech-therapy','weight-loss','wellness','yoga']},
+    {name:'Beauty & Personal Care', words:['barber-salon','beauty','pet-grooming','tanning','tattoo-piercing']},
+    {name:'Professional & Financial', words:['architect','attorney','bail-bonds','consulting','employment-agency','financial-advisor','insurance','notary','private-investigator','professional','tax-accounting','title-escrow']},
+    {name:'Retail & Shopping', words:['antique-store','clothing-boutique','coin-dealer','furniture-store','jewelry','pawn-shop','pet-store','retail','shopping-center','smoke-vape','surf-shop','tailor','thrift-store']},
+    {name:'Pets, Animals & Agriculture', words:['agricultural','animal-feed','cattle','dog-breeder','farm-','feed-farm','horse-boarding','plant-nursery','taxidermy','veterinary']},
+    {name:'Property & Real Estate', words:['apartments','office-space','park-recreation','parking','property-management','property-services','real-estate','storage']},
+    {name:'Events, Arts & Creative', words:['art-gallery','artist-studio','auction-house','dance-school','engraving','estate-liquidation','event-venue','events','florist','funeral-home','graphic-design','musician-band','party-rentals','photo-booth','photography-video','sign-printing']},
+    {name:'Industrial, Equipment & Logistics', words:['equipment-rental','heavy-equipment','hydraulics','machine-shop','manufacturing','metal-ironwork','propane','utility-gas','warehouse-logistics','waste-management','wholesale-distributor']},
+    {name:'Education & Community', words:['community-center','daycare','driving-school','gymnastics','martial-arts','preschool-learning-center']},
+    {name:'Technology & Repair', words:['computer-repair','general-repair-service','small-engine-repair']},
+    {name:'Other', words:[]}
+  ];
+
+  function categoryGroup(slug){
+    const found=CATEGORY_GROUPS.find(group=>group.words.some(word=>slug.includes(word)));
+    return found?.name||'Other';
   }
 
-  async function hydrateCategoryList(){
-    return TEMPLATE_CATEGORIES;
+  function groupedCategories(){
+    const groups=new Map(CATEGORY_GROUPS.map(group=>[group.name,[]]));
+    TEMPLATE_CATEGORIES
+      .filter(slug=>slug!=='generic')
+      .forEach(slug=>groups.get(categoryGroup(slug)).push(slug));
+    for(const values of groups.values()) values.sort((a,b)=>labelFromSlug(a).localeCompare(labelFromSlug(b)));
+    return [...groups.entries()].filter(([,values])=>values.length);
   }
+
+  function categoryField(){
+    return \`
+      <div class="custom-category-field">
+        <span class="custom-category-label">Business category</span>
+        <input type="hidden" id="preview-category-value" name="category" required>
+        <button class="category-picker-toggle" id="preview-category-toggle" type="button"
+          aria-haspopup="listbox" aria-expanded="false" aria-controls="preview-category-menu">
+          <span class="category-picker-value">Select your business category</span>
+          <span class="category-picker-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="category-picker-menu" id="preview-category-menu" hidden>
+          <div class="category-picker-search-wrap">
+            <input class="category-picker-search" id="preview-category-search" type="search"
+              placeholder="Search categories…" autocomplete="off" aria-label="Search business categories">
+          </div>
+          <div class="category-picker-groups" role="listbox" aria-label="Business categories"></div>
+        </div>
+      </div>\`;
+  }
+
+  function hydrateCategoryList(){
+    const field=document.querySelector('.custom-category-field');
+    const toggle=document.querySelector('#preview-category-toggle');
+    const menu=document.querySelector('#preview-category-menu');
+    const search=document.querySelector('#preview-category-search');
+    const groupsEl=menu?.querySelector('.category-picker-groups');
+    const hidden=document.querySelector('#preview-category-value');
+    const valueEl=toggle?.querySelector('.category-picker-value');
+    if(!field||!toggle||!menu||!search||!groupsEl||!hidden||!valueEl) return;
+
+    const groups=groupedCategories();
+
+    const render=(query='')=>{
+      const q=query.trim().toLowerCase();
+      groupsEl.innerHTML=groups.map(([group,slugs])=>{
+        const filtered=slugs.filter(slug=>!q || labelFromSlug(slug).toLowerCase().includes(q) || slug.includes(q));
+        if(!filtered.length) return '';
+        return \`<section class="category-picker-group">
+          <div class="category-picker-heading">\${escapeHTML(group)}</div>
+          <div class="category-picker-options">
+            \${filtered.map(slug=>\`<button type="button" class="category-picker-option" role="option"
+              data-category="\${escapeHTML(slug)}" aria-selected="\${hidden.value===slug?'true':'false'}">
+              <span>\${escapeHTML(labelFromSlug(slug))}</span>
+            </button>\`).join('')}
+          </div>
+        </section>\`;
+      }).join('') || '<p class="category-picker-empty">No categories found.</p>';
+    };
+
+    const open=()=>{
+      menu.hidden=false;
+      toggle.setAttribute('aria-expanded','true');
+      field.classList.add('is-open');
+      render(search.value);
+      requestAnimationFrame(()=>search.focus());
+    };
+    const closePicker=()=>{
+      menu.hidden=true;
+      toggle.setAttribute('aria-expanded','false');
+      field.classList.remove('is-open');
+    };
+
+    toggle.addEventListener('click',()=>menu.hidden?open():closePicker());
+    search.addEventListener('input',()=>render(search.value));
+
+    groupsEl.addEventListener('click',event=>{
+      const option=event.target.closest('[data-category]');
+      if(!option) return;
+      const slug=option.dataset.category;
+      hidden.value=slug;
+      valueEl.textContent=labelFromSlug(slug);
+      valueEl.classList.add('has-value');
+      closePicker();
+    });
+
+    menu.addEventListener('keydown',event=>{
+      const options=[...groupsEl.querySelectorAll('.category-picker-option')];
+      if(event.key==='Escape'){
+        event.preventDefault();
+        closePicker();
+        toggle.focus();
+        return;
+      }
+      if(!['ArrowDown','ArrowUp','Enter'].includes(event.key)) return;
+      const active=document.activeElement;
+      let index=options.indexOf(active);
+      if(event.key==='ArrowDown'){
+        event.preventDefault();
+        (options[Math.min(index+1,options.length-1)]||options[0])?.focus();
+      } else if(event.key==='ArrowUp'){
+        event.preventDefault();
+        (options[Math.max(index-1,0)]||options[options.length-1])?.focus();
+      } else if(event.key==='Enter' && active?.matches('.category-picker-option')){
+        event.preventDefault();
+        active.click();
+      }
+    });
+
+    document.addEventListener('click',event=>{
+      if(!field.contains(event.target)) closePicker();
+    });
+
+    render();
+  }
+
 
   function showPreviewForm(mode){
     const full=mode==='full';
