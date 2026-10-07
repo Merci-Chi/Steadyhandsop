@@ -226,16 +226,26 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         <span class="custom-category-label">Business category</span>
         <input type="hidden" id="preview-category-value" name="category" required>
         <button class="category-picker-toggle" id="preview-category-toggle" type="button"
-          aria-haspopup="listbox" aria-expanded="false" aria-controls="preview-category-menu">
+          aria-haspopup="dialog" aria-expanded="false" aria-controls="preview-category-popup">
           <span class="category-picker-value">Select your business category</span>
           <span class="category-picker-chevron" aria-hidden="true">⌄</span>
         </button>
-        <div class="category-picker-menu" id="preview-category-menu" hidden>
-          <div class="category-picker-search-wrap">
-            <input class="category-picker-search" id="preview-category-search" type="search"
-              placeholder="Search categories…" autocomplete="off" aria-label="Search business categories">
+
+        <div class="category-picker-overlay" id="preview-category-overlay" hidden>
+          <div class="category-picker-popup" id="preview-category-popup" role="dialog" aria-modal="true" aria-label="Choose a business category">
+            <div class="category-picker-popup-head">
+              <div>
+                <strong>Choose a business category</strong>
+                <span>Search or browse by group</span>
+              </div>
+              <button class="category-picker-close" type="button" aria-label="Close category picker">×</button>
+            </div>
+            <div class="category-picker-search-wrap">
+              <input class="category-picker-search" id="preview-category-search" type="search"
+                placeholder="Search categories…" autocomplete="off" aria-label="Search business categories">
+            </div>
+            <div class="category-picker-groups" role="listbox" aria-label="Business categories"></div>
           </div>
-          <div class="category-picker-groups" role="listbox" aria-label="Business categories"></div>
         </div>
       </div>`;
   }
@@ -243,12 +253,14 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
   function hydrateCategoryList(){
     const field=document.querySelector('.custom-category-field');
     const toggle=document.querySelector('#preview-category-toggle');
-    const menu=document.querySelector('#preview-category-menu');
+    const overlay=document.querySelector('#preview-category-overlay');
+    const popup=document.querySelector('#preview-category-popup');
     const search=document.querySelector('#preview-category-search');
-    const groupsEl=menu?.querySelector('.category-picker-groups');
+    const groupsEl=overlay?.querySelector('.category-picker-groups');
     const hidden=document.querySelector('#preview-category-value');
     const valueEl=toggle?.querySelector('.category-picker-value');
-    if(!field||!toggle||!menu||!search||!groupsEl||!hidden||!valueEl) return;
+    const closeButton=overlay?.querySelector('.category-picker-close');
+    if(!field||!toggle||!overlay||!popup||!search||!groupsEl||!hidden||!valueEl||!closeButton) return;
 
     const groups=groupedCategories();
 
@@ -270,24 +282,26 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     };
 
     const open=()=>{
-      menu.hidden=false;
+      overlay.hidden=false;
       toggle.setAttribute('aria-expanded','true');
       field.classList.add('is-open');
       search.value='';
       render('');
       groupsEl.scrollTop=0;
-      requestAnimationFrame(()=>{
-        groupsEl.scrollTop=0;
-        search.focus({preventScroll:true});
-      });
+      requestAnimationFrame(()=>search.focus({preventScroll:true}));
     };
+
     const closePicker=()=>{
-      menu.hidden=true;
+      overlay.hidden=true;
       toggle.setAttribute('aria-expanded','false');
       field.classList.remove('is-open');
     };
 
-    toggle.addEventListener('click',()=>menu.hidden?open():closePicker());
+    toggle.addEventListener('click',open);
+    closeButton.addEventListener('click',closePicker);
+    overlay.addEventListener('click',event=>{
+      if(event.target===overlay) closePicker();
+    });
     search.addEventListener('input',()=>render(search.value));
 
     groupsEl.addEventListener('click',event=>{
@@ -298,16 +312,17 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       valueEl.textContent=labelFromSlug(slug);
       valueEl.classList.add('has-value');
       closePicker();
+      toggle.focus();
     });
 
-    menu.addEventListener('keydown',event=>{
-      const options=[...groupsEl.querySelectorAll('.category-picker-option')];
+    popup.addEventListener('keydown',event=>{
       if(event.key==='Escape'){
         event.preventDefault();
         closePicker();
         toggle.focus();
         return;
       }
+      const options=[...groupsEl.querySelectorAll('.category-picker-option')];
       if(!['ArrowDown','ArrowUp','Enter'].includes(event.key)) return;
       const active=document.activeElement;
       let index=options.indexOf(active);
@@ -323,13 +338,8 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       }
     });
 
-    document.addEventListener('click',event=>{
-      if(!field.contains(event.target)) closePicker();
-    });
-
     render();
   }
-
 
   function showPreviewForm(mode){
     const full=mode==='full';
