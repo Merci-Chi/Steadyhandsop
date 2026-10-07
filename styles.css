@@ -1530,3 +1530,35 @@ footer{flex:0 0 auto}
     margin-top:0;
   }
 }
+
+/* Short preview layout refinement */
+.make-preview-form .preview-main-row{
+  align-items:start;
+}
+.make-preview-form .preview-main-row > label,
+.make-preview-form .preview-main-row > .custom-category-field{
+  margin-top:0!important;
+}
+.short-preview-form{
+  gap:16px;
+}
+.preview-email-full{
+  display:grid;
+  gap:6px;
+}
+.preview-email-full small{
+  color:#74869a;
+  font-size:.78rem;
+  margin-top:1px;
+}
+.short-preview-form .form-message{
+  margin:0;
+}
+.short-preview-form .button.primary{
+  margin-top:2px;
+}
+@media(min-width:621px){
+  .short-preview-form .preview-email-full{
+    grid-column:1/-1;
+  }
+}
