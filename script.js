@@ -221,7 +221,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
   }
 
   function categoryField(){
-    return \`
+    return `
       <div class="custom-category-field">
         <span class="custom-category-label">Business category</span>
         <input type="hidden" id="preview-category-value" name="category" required>
@@ -237,7 +237,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
           </div>
           <div class="category-picker-groups" role="listbox" aria-label="Business categories"></div>
         </div>
-      </div>\`;
+      </div>`;
   }
 
   function hydrateCategoryList(){
@@ -257,15 +257,15 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       groupsEl.innerHTML=groups.map(([group,slugs])=>{
         const filtered=slugs.filter(slug=>!q || labelFromSlug(slug).toLowerCase().includes(q) || slug.includes(q));
         if(!filtered.length) return '';
-        return \`<section class="category-picker-group">
-          <div class="category-picker-heading">\${escapeHTML(group)}</div>
+        return `<section class="category-picker-group">
+          <div class="category-picker-heading">${escapeHTML(group)}</div>
           <div class="category-picker-options">
-            \${filtered.map(slug=>\`<button type="button" class="category-picker-option" role="option"
-              data-category="\${escapeHTML(slug)}" aria-selected="\${hidden.value===slug?'true':'false'}">
-              <span>\${escapeHTML(labelFromSlug(slug))}</span>
-            </button>\`).join('')}
+            ${filtered.map(slug=>`<button type="button" class="category-picker-option" role="option"
+              data-category="${escapeHTML(slug)}" aria-selected="${hidden.value===slug?'true':'false'}">
+              <span>${escapeHTML(labelFromSlug(slug))}</span>
+            </button>`).join('')}
           </div>
-        </section>\`;
+        </section>`;
       }).join('') || '<p class="category-picker-empty">No categories found.</p>';
     };
 
