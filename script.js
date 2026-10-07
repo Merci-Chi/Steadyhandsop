@@ -158,7 +158,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
   async function loadTemplateSlugs(){
     if(templateSlugsCache) return templateSlugsCache;
-    const names=['Sites/templates.br.00','Sites/templates.br.01','Sites/templates.br.02','Sites/templates.br.03'];
+    const names=['Previews/templates.br.00','Previews/templates.br.01','Previews/templates.br.02','Previews/templates.br.03'];
     const parts=await Promise.all(names.map(async n=>{
       const r=await fetch(n,{cache:'force-cache'});
       if(!r.ok) throw new Error('Could not load categories.');
@@ -177,7 +177,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     const category=(record.category||'generic').toLowerCase();
     const data=toB64(JSON.stringify(record));
     const key=record.siteKey||portableSiteKey(record);
-    location.href=`Sites/index.html?template=${encodeURIComponent(category)}&sitekey=${encodeURIComponent(key)}&data=${encodeURIComponent(data)}`;
+    location.href=`Previews/${encodeURIComponent(category)}.html?sitekey=${encodeURIComponent(key)}&data=${encodeURIComponent(data)}`;
   }
 
   async function resolveSiteKey(code){
