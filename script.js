@@ -425,13 +425,18 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     const full=mode==='full';
     modal(full?'Full Preview':'Short Preview',`
       <p class="make-flow-intro">${full?'Tell us a little more so the preview feels like your business.':'Just the basics. We’ll build a starting point.'}</p>
-      <form id="make-preview-form" class="make-preview-form">
-        <div class="form-grid-two">
+      <form id="make-preview-form" class="make-preview-form ${full?'full-preview-form':'short-preview-form'}">
+        <div class="form-grid-two preview-main-row">
           <label><span>Company name</span><input name="businessName" required autocomplete="organization"></label>
           ${categoryField()}
-          <label><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
-          ${full?'<label><span>Phone <em>Optional</em></span><input name="phone" type="tel" autocomplete="tel"></label>':''}
         </div>
+        ${full
+          ? `<div class="form-grid-two preview-contact-row">
+              <label><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
+              <label><span>Phone <em>Optional</em></span><input name="phone" type="tel" autocomplete="tel"></label>
+            </div>`
+          : `<label class="preview-email-full"><span>Email</span><input name="email" type="email" required autocomplete="email"><small>We’ll send your preview details here.</small></label>`
+        }
         ${full?`
           <label><span>Services <em>Optional</em></span><textarea name="services" rows="3" placeholder="One per line or separated by commas"></textarea></label>
           <label><span>About your business <em>Optional</em></span><textarea name="about" rows="3" placeholder="A short description is plenty."></textarea></label>
