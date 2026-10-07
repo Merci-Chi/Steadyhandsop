@@ -91,7 +91,9 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         instagram_url:record.instagram||null,
         facebook_url:record.facebook||null,
         tiktok_url:record.tiktok||null,
-        website_url:record.website||null
+        website_url:record.website||null,
+        yelp_url:record.yelp||null,
+        site_key:record.siteKey||null
       })
     });
   }
@@ -143,6 +145,38 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     return new TextDecoder().decode(bytes);
   }
 
+  const SESSION_PREVIEW_PREFIX='steadyhands.preview.';
+
+  function storeSessionPreview(record){
+    if(!record?.siteKey) return;
+    try{
+      sessionStorage.setItem(`${SESSION_PREVIEW_PREFIX}${record.siteKey}`,JSON.stringify(record));
+      sessionStorage.setItem(`${SESSION_PREVIEW_PREFIX}current`,record.siteKey);
+    }catch(err){
+      console.warn('Could not store preview session',err);
+    }
+  }
+
+  function createSessionSiteKey(record){
+    const randomId=(globalThis.crypto?.randomUUID?.()||`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,12)}`)
+      .replace(/[^a-z0-9]/gi,'')
+      .slice(0,20)
+      .toUpperCase();
+    const siteKey=`SHS-${randomId}`;
+    storeSessionPreview({...record,siteKey});
+    return siteKey;
+  }
+
+  function readSessionSiteKey(code){
+    const key=String(code||'').trim();
+    if(!key.startsWith('SHS-')) return null;
+    try{
+      const raw=sessionStorage.getItem(`${SESSION_PREVIEW_PREFIX}${key}`);
+      return raw?JSON.parse(raw):null;
+    }catch{return null}
+  }
+
+  // Backward compatibility for preview links generated before session keys.
   function portableSiteKey(record){
     return `SH1.${toB64(JSON.stringify(record))}`;
   }
@@ -175,12 +209,17 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
   function openCategorySite(record){
     const category=(record.category||'generic').toLowerCase();
-    const data=toB64(JSON.stringify(record));
-    const key=record.siteKey||portableSiteKey(record);
-    location.href=`Previews/${encodeURIComponent(category)}.html?sitekey=${encodeURIComponent(key)}&data=${encodeURIComponent(data)}`;
+    const key=record.siteKey||createSessionSiteKey(record);
+    const sessionRecord={...record,siteKey:key};
+    const isSessionKey=String(key).startsWith('SHS-');
+    if(isSessionKey) storeSessionPreview(sessionRecord);
+    const dataParam=isSessionKey?'':`&data=${encodeURIComponent(toB64(JSON.stringify(sessionRecord)))}`;
+    location.href=`Previews/${encodeURIComponent(category)}.html?sitekey=${encodeURIComponent(key)}${dataParam}`;
   }
 
   async function resolveSiteKey(code){
+    const sessionRecord=readSessionSiteKey(code);
+    if(sessionRecord) return {...sessionRecord,siteKey:String(code).trim()};
     const portable=decodePortableSiteKey(code);
     if(portable) return {...portable,siteKey:code};
     const local=Object.entries(config.siteKeys||{}).find(([key])=>key.toLowerCase()===String(code).toLowerCase())?.[1];
@@ -482,7 +521,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
         tiktok:(form.get('tiktok')||'').toString().trim(),
         yelp:(form.get('yelp')||'').toString().trim()
       };
-      record.siteKey=portableSiteKey(record);
+      record.siteKey=createSessionSiteKey(record);
       message.textContent='Creating your preview…';
       try{await savePreviewRequest(record)}catch(err){console.warn('Preview request save failed',err)}
       openCategorySite(record);
