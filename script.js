@@ -239,7 +239,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
   function categoryField(){
     return `
       <div class="custom-category-field">
-        <span class="custom-category-label">Business category</span>
+        <span class="custom-category-label">Business type</span>
         <input type="hidden" id="preview-category-value" name="category" required>
         <button class="category-picker-toggle" id="preview-category-toggle" type="button"
           aria-haspopup="dialog" aria-expanded="false" aria-controls="preview-category-popup">
@@ -258,7 +258,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
             </div>
             <div class="category-picker-search-wrap">
               <input class="category-picker-search" id="preview-category-search" type="search"
-                placeholder="Search business types…" autocomplete="off" aria-label="Search business categories">
+                placeholder="Search business types…" autocomplete="off" aria-label="Search business types">
             </div>
             <div class="category-picker-groups" id="category-picker-content" aria-live="polite"></div>
           </div>
@@ -295,7 +295,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
     const renderHome=()=>{
       activeGroup=null;
-      subtitle.textContent='Search or choose a group';
+      subtitle.textContent='Search or browse by category';
       const popular=POPULAR_CATEGORIES.filter(slug=>TEMPLATE_CATEGORIES.includes(slug));
       contentEl.innerHTML=`
         <section class="category-popular">
@@ -313,7 +313,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
                 <span class="category-group-icon" aria-hidden="true">${escapeHTML(meta?.icon||'•')}</span>
                 <span class="category-group-copy">
                   <strong>${escapeHTML(name)}</strong>
-                  <small>${slugs.length} categories</small>
+                  <small>${slugs.length} business types</small>
                 </span>
                 <span class="category-group-arrow" aria-hidden="true">→</span>
               </button>`;
