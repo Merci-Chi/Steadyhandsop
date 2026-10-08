@@ -38,9 +38,13 @@ function hydrate(doc,record){
    const photoP=doc.querySelector('.photo-copy p');if(photoP)photoP.textContent=address;
  }
  if(services.length){
-   let heads=[...doc.querySelectorAll('.services .service h3,.services h3,.service-grid h3,.service-card h3,[class*="services"] h3')];
+   let heads=[...doc.querySelectorAll('.services .service h3,.services h3,.services h4,.service-grid h3,.service-grid h4,.service-card h3,.service-card h4,[class*="services"] h3,[class*="services"] h4')];
    const unique=[];const seen=new Set();for(const h of heads){if(!seen.has(h)){seen.add(h);unique.push(h)}}
-   unique.forEach((h,i)=>{if(services[i])h.textContent=services[i];else if(i>=services.length&&i>2)h.closest('.service,.service-card,article,li,div')?.setAttribute('hidden','')});
+   unique.forEach((h,i)=>{
+     if(services[i]) h.textContent=services[i];
+     else if(record.mode==='quick') h.textContent=services[i%services.length];
+     else if(i>=services.length&&i>2) h.closest('.service,.service-card,article,li,div')?.setAttribute('hidden','');
+   });
  }
  const links={instagram:record.instagram,facebook:record.facebook,tiktok:record.tiktok,yelp:record.yelp,google:record.google};
  for(const [name,url] of Object.entries(links)){if(!url)continue;doc.querySelectorAll('a').forEach(a=>{if((a.textContent||'').toLowerCase().includes(name))a.href=url})}
