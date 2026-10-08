@@ -81,8 +81,32 @@
     }
     .questionnaire-page .add-service:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(11,34,58,.10)}
     .questionnaire-page .color-card{
-      border:1px solid rgba(95,129,160,.22);border-radius:15px;padding:14px;background:rgba(248,251,255,.74)
+      border:1px solid rgba(95,129,160,.22);border-radius:15px;padding:16px;background:rgba(248,251,255,.74)
     }
+    .questionnaire-page .color-card-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:12px}
+    .questionnaire-page .swatch-grid{display:flex;flex-wrap:wrap;gap:11px}
+    .questionnaire-page .color-swatch{
+      width:42px;height:42px;border-radius:50%;border:3px solid rgba(255,255,255,.95);
+      box-shadow:0 0 0 1px rgba(71,101,135,.28),0 5px 12px rgba(7,26,52,.10);
+      cursor:pointer;position:relative;transition:transform .15s ease,box-shadow .15s ease
+    }
+    .questionnaire-page .color-swatch:hover{transform:translateY(-2px)}
+    .questionnaire-page .color-swatch.selected{
+      box-shadow:0 0 0 3px #102a56,0 7px 16px rgba(7,26,52,.20);
+      transform:scale(1.05)
+    }
+    .questionnaire-page .color-swatch.selected:after{
+      content:"✓";position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:17px;
+      color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.75)
+    }
+    .questionnaire-page .color-swatch.light.selected:after{color:#102a56;text-shadow:none}
+    .questionnaire-page .custom-color-wrap{display:flex;align-items:center;gap:10px;margin-top:12px}
+    .questionnaire-page .custom-color-wrap input[type="color"]{
+      width:42px;height:42px;padding:0;border:0;border-radius:50%;overflow:hidden;background:transparent;cursor:pointer
+    }
+    .questionnaire-page .custom-color-wrap input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+    .questionnaire-page .custom-color-wrap input[type="color"]::-webkit-color-swatch{border:3px solid white;border-radius:50%;box-shadow:0 0 0 1px rgba(71,101,135,.28)}
+    .questionnaire-page .custom-color-label{font-size:12px;color:var(--text);font-weight:700}
     .questionnaire-page .actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
     .questionnaire-page .submit{
       border:1px solid rgba(193,223,248,.34);display:inline-flex;align-items:center;justify-content:center;min-height:50px;
@@ -174,12 +198,72 @@
     </section>
 
     <section class="section">
-      <div class="section-head"><div class="step">5</div><div><h2>Color preferences</h2><p>Tell us the colors you want the website to use.</p></div></div>
+      <div class="section-head"><div class="step">5</div><div><h2>Color preferences</h2><p>Tap the circular colors you want used on the website.</p></div></div>
       <div class="grid three">
-        <div class="color-card"><label class="field"><span class="label">Primary color</span><input name="primaryColor" placeholder="Navy, #071A38, etc."></label></div>
-        <div class="color-card"><label class="field"><span class="label">Secondary color</span><input name="secondaryColor" placeholder="White, cream, gray, etc."></label></div>
-        <div class="color-card"><label class="field"><span class="label">Accent color</span><input name="accentColor" placeholder="Gold, green, orange, etc."></label></div>
-        <label class="field full"><span class="label">Colors to avoid</span><input name="avoidColors" placeholder="Example: no pink or bright red"></label>
+        <div class="color-card">
+          <div class="color-card-title">Primary color</div>
+          <div class="swatch-grid" data-color-group="primary">
+            <button class="color-swatch" type="button" data-color="#102A56" style="background:#102A56" aria-label="Navy"></button>
+            <button class="color-swatch" type="button" data-color="#111827" style="background:#111827" aria-label="Black"></button>
+            <button class="color-swatch" type="button" data-color="#2563EB" style="background:#2563EB" aria-label="Blue"></button>
+            <button class="color-swatch" type="button" data-color="#0F766E" style="background:#0F766E" aria-label="Teal"></button>
+            <button class="color-swatch" type="button" data-color="#166534" style="background:#166534" aria-label="Green"></button>
+            <button class="color-swatch" type="button" data-color="#7C3AED" style="background:#7C3AED" aria-label="Purple"></button>
+            <button class="color-swatch" type="button" data-color="#9F1239" style="background:#9F1239" aria-label="Burgundy"></button>
+            <button class="color-swatch" type="button" data-color="#B45309" style="background:#B45309" aria-label="Brown"></button>
+          </div>
+          <div class="custom-color-wrap"><input type="color" data-custom-color="primary" value="#102A56"><span class="custom-color-label">Custom color</span></div>
+          <input type="hidden" name="primaryColor">
+        </div>
+
+        <div class="color-card">
+          <div class="color-card-title">Secondary color</div>
+          <div class="swatch-grid" data-color-group="secondary">
+            <button class="color-swatch light" type="button" data-color="#FFFFFF" style="background:#FFFFFF" aria-label="White"></button>
+            <button class="color-swatch light" type="button" data-color="#F5F1E8" style="background:#F5F1E8" aria-label="Cream"></button>
+            <button class="color-swatch light" type="button" data-color="#E5E7EB" style="background:#E5E7EB" aria-label="Light gray"></button>
+            <button class="color-swatch" type="button" data-color="#94A3B8" style="background:#94A3B8" aria-label="Slate"></button>
+            <button class="color-swatch" type="button" data-color="#334155" style="background:#334155" aria-label="Dark slate"></button>
+            <button class="color-swatch light" type="button" data-color="#DBEAFE" style="background:#DBEAFE" aria-label="Light blue"></button>
+            <button class="color-swatch light" type="button" data-color="#DCFCE7" style="background:#DCFCE7" aria-label="Light green"></button>
+            <button class="color-swatch light" type="button" data-color="#FCE7F3" style="background:#FCE7F3" aria-label="Light pink"></button>
+          </div>
+          <div class="custom-color-wrap"><input type="color" data-custom-color="secondary" value="#FFFFFF"><span class="custom-color-label">Custom color</span></div>
+          <input type="hidden" name="secondaryColor">
+        </div>
+
+        <div class="color-card">
+          <div class="color-card-title">Accent color</div>
+          <div class="swatch-grid" data-color-group="accent">
+            <button class="color-swatch" type="button" data-color="#D4AF37" style="background:#D4AF37" aria-label="Gold"></button>
+            <button class="color-swatch" type="button" data-color="#F97316" style="background:#F97316" aria-label="Orange"></button>
+            <button class="color-swatch" type="button" data-color="#DC2626" style="background:#DC2626" aria-label="Red"></button>
+            <button class="color-swatch" type="button" data-color="#EC4899" style="background:#EC4899" aria-label="Pink"></button>
+            <button class="color-swatch" type="button" data-color="#8B5CF6" style="background:#8B5CF6" aria-label="Violet"></button>
+            <button class="color-swatch" type="button" data-color="#06B6D4" style="background:#06B6D4" aria-label="Cyan"></button>
+            <button class="color-swatch" type="button" data-color="#22C55E" style="background:#22C55E" aria-label="Bright green"></button>
+            <button class="color-swatch" type="button" data-color="#FACC15" style="background:#FACC15" aria-label="Yellow"></button>
+          </div>
+          <div class="custom-color-wrap"><input type="color" data-custom-color="accent" value="#D4AF37"><span class="custom-color-label">Custom color</span></div>
+          <input type="hidden" name="accentColor">
+        </div>
+
+        <div class="color-card field full">
+          <div class="color-card-title">Colors to avoid</div>
+          <div class="swatch-grid" data-color-group="avoid" data-multi="true">
+            <button class="color-swatch light" type="button" data-color="White" style="background:#FFFFFF" aria-label="Avoid white"></button>
+            <button class="color-swatch" type="button" data-color="Black" style="background:#111827" aria-label="Avoid black"></button>
+            <button class="color-swatch" type="button" data-color="Red" style="background:#DC2626" aria-label="Avoid red"></button>
+            <button class="color-swatch" type="button" data-color="Orange" style="background:#F97316" aria-label="Avoid orange"></button>
+            <button class="color-swatch" type="button" data-color="Yellow" style="background:#FACC15" aria-label="Avoid yellow"></button>
+            <button class="color-swatch" type="button" data-color="Green" style="background:#22C55E" aria-label="Avoid green"></button>
+            <button class="color-swatch" type="button" data-color="Blue" style="background:#2563EB" aria-label="Avoid blue"></button>
+            <button class="color-swatch" type="button" data-color="Purple" style="background:#8B5CF6" aria-label="Avoid purple"></button>
+            <button class="color-swatch" type="button" data-color="Pink" style="background:#EC4899" aria-label="Avoid pink"></button>
+            <button class="color-swatch" type="button" data-color="Brown" style="background:#92400E" aria-label="Avoid brown"></button>
+          </div>
+          <input type="hidden" name="avoidColors">
+        </div>
       </div>
     </section>
 
@@ -246,6 +330,32 @@ serviceList.addEventListener('click',event=>{
   if(!button)return;
   button.closest('.service-card')?.remove();
   updateServiceCards();
+});
+
+document.querySelectorAll('[data-color-group]').forEach(group=>{
+  group.addEventListener('click',event=>{
+    const swatch=event.target.closest('.color-swatch');
+    if(!swatch)return;
+    const key=group.dataset.colorGroup;
+    const input=form.querySelector('[name="'+(key==='avoid'?'avoidColors':key+'Color')+'"]');
+    if(group.dataset.multi==='true'){
+      swatch.classList.toggle('selected');
+      input.value=[...group.querySelectorAll('.color-swatch.selected')].map(btn=>btn.dataset.color).join(', ');
+      return;
+    }
+    group.querySelectorAll('.color-swatch').forEach(btn=>btn.classList.remove('selected'));
+    swatch.classList.add('selected');
+    input.value=swatch.dataset.color;
+  });
+});
+document.querySelectorAll('[data-custom-color]').forEach(picker=>{
+  picker.addEventListener('input',()=>{
+    const key=picker.dataset.customColor;
+    const group=document.querySelector('[data-color-group="'+key+'"]');
+    group?.querySelectorAll('.color-swatch').forEach(btn=>btn.classList.remove('selected'));
+    const input=form.querySelector('[name="'+key+'Color"]');
+    if(input)input.value=picker.value;
+  });
 });
 
 function toB64(value){
