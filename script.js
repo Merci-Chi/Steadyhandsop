@@ -474,19 +474,100 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       if(type==='text') panel.innerHTML=`<div class="contact-panel-card"><p>Have a quick question? Send us a text.</p><strong>(702) 372-6399</strong><a class="button primary" href="sms:+17023726399">Send a Text</a></div>`;
       if(type==='email') panel.innerHTML=`<div class="contact-panel-card"><p>Send us what you need and we’ll get back to you.</p><strong>${escapeHTML(config.email)}</strong><a class="button primary" href="mailto:${encodeURIComponent(config.email)}">Email Us</a></div>`;
       if(type==='call'){
-        panel.innerHTML=`<form id="schedule-call-form" class="make-preview-form"><p>Tell us when you’re available. We’ll follow up to confirm a time.</p><label><span>Name</span><input name="name" required autocomplete="name"></label><div class="form-grid-two"><label><span>Email</span><input name="email" type="email" autocomplete="email"></label><label><span>Phone</span><input name="phone" type="tel" autocomplete="tel"></label></div><label><span>When are you available?</span><textarea name="availability" rows="3" required placeholder="Example: Tuesday after 2 PM"></textarea></label><p class="form-message" id="call-message" role="status"></p><button class="button primary" type="submit">Request a Call</button></form>`;
-        document.querySelector('#schedule-call-form')?.addEventListener('submit',async e=>{
+        panel.innerHTML=`
+          <form id="schedule-call-form" class="make-preview-form contact-call-form">
+            <div class="contact-call-intro">
+              <span class="contact-call-icon" aria-hidden="true">☎</span>
+              <div>
+                <strong>Schedule a call</strong>
+                <p>Tell us when you’re available and we’ll follow up to confirm a time.</p>
+              </div>
+            </div>
+            <p class="contact-required-note"><strong>*</strong> Required fields</p>
+
+            <label class="contact-field-full">
+              <span>Phone *</span>
+              <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" maxlength="20" placeholder="(000)000-0000">
+              <small>International numbers are supported too, like +00(000)000-0000.</small>
+            </label>
+
+            <div class="form-grid-two contact-name-grid">
+              <label>
+                <span>Name *</span>
+                <input name="name" required autocomplete="name">
+              </label>
+              <label>
+                <span>Company name <em>(Optional)</em></span>
+                <input name="company" autocomplete="organization">
+              </label>
+            </div>
+
+            <label>
+              <span>Email <em>(Optional)</em></span>
+              <input name="email" type="email" autocomplete="email">
+            </label>
+
+            <label>
+              <span>When are you available? *</span>
+              <textarea name="availability" rows="3" required placeholder="Example: Tuesday after 2 PM"></textarea>
+            </label>
+
+            <p class="form-message" id="call-message" role="status"></p>
+            <button class="button primary contact-submit-button" type="submit">Request a Call</button>
+          </form>`;
+
+        const form=document.querySelector('#schedule-call-form');
+        const phoneInput=form?.querySelector('input[name="phone"]');
+
+        const formatContactPhone=value=>{
+          const digits=String(value||'').replace(/\D/g,'').slice(0,15);
+          if(!digits) return '';
+          const local=digits.slice(-10);
+          const country=digits.length>10?digits.slice(0,-10):'';
+
+          let localFormatted='';
+          if(local.length<=3) localFormatted='('+local;
+          else if(local.length<=6) localFormatted='('+local.slice(0,3)+')'+local.slice(3);
+          else localFormatted='('+local.slice(0,3)+')'+local.slice(3,6)+'-'+local.slice(6);
+
+          return country?'+'+country+localFormatted:localFormatted;
+        };
+
+        phoneInput?.addEventListener('input',()=>{
+          phoneInput.value=formatContactPhone(phoneInput.value);
+          try{phoneInput.setSelectionRange(phoneInput.value.length,phoneInput.value.length)}catch{}
+        });
+
+        form?.addEventListener('submit',async e=>{
           e.preventDefault();
           const f=new FormData(e.currentTarget);
           const msg=document.querySelector('#call-message');
-          const payload={contact_type:'schedule_call',name:String(f.get('name')||''),email:String(f.get('email')||'')||null,phone:String(f.get('phone')||'')||null,message:null,availability:String(f.get('availability')||'')};
-          if(!payload.email&&!payload.phone){msg.textContent='Add an email or phone number so we can reach you.';return}
+          const rawPhone=String(f.get('phone')||'');
+          const phoneDigits=rawPhone.replace(/\D/g,'');
+          if(phoneDigits.length<10){
+            msg.textContent='Enter a complete phone number.';
+            phoneInput?.focus();
+            return;
+          }
+
+          const company=String(f.get('company')||'').trim();
+          const payload={
+            contact_type:'schedule_call',
+            name:String(f.get('name')||'').trim(),
+            email:String(f.get('email')||'').trim()||null,
+            phone:formatContactPhone(rawPhone),
+            message:company?`Company: ${company}`:null,
+            availability:String(f.get('availability')||'').trim()
+          };
+
           msg.textContent='Sending…';
-          try{await saveContactRequest(payload);msg.textContent='Got it. We’ll follow up to confirm a time.'}
-          catch(err){
+          try{
+            await saveContactRequest(payload);
+            msg.textContent='Got it. We’ll follow up to confirm a time.';
+          }catch(err){
             console.warn(err);
             msg.textContent='Opening your email app instead…';
-            const body=`Name: ${payload.name}\nEmail: ${payload.email||''}\nPhone: ${payload.phone||''}\nAvailability: ${payload.availability}`;
+            const body=`Name: ${payload.name}\nCompany: ${company}\nPhone: ${payload.phone}\nEmail: ${payload.email||''}\nAvailability: ${payload.availability}`;
             location.href=`mailto:${encodeURIComponent(config.email)}?subject=${encodeURIComponent('Schedule a Call')}&body=${encodeURIComponent(body)}`;
           }
         });
