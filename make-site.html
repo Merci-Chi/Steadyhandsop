@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261007-1737">
+  <link rel="stylesheet" href="styles.css?v=20261008-questionnaire-wizard1">
   <script src="config.js?v=20261007-2212"></script>
   <style>
     body.questionnaire-page{background:#102a56;color:var(--ink);min-height:100vh}
@@ -199,6 +199,62 @@
       .questionnaire-page .grid,.questionnaire-page .grid.three{grid-template-columns:1fr}
       .questionnaire-page .field.full{grid-column:auto}
     }
+
+    /* Guided Make Your Site questionnaire */
+    .questionnaire-page .questionnaire-progress{
+      width:min(820px,100%);margin:0 auto 16px;padding:15px 18px;border-radius:18px;
+      background:rgba(7,29,61,.72);border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 14px 34px rgba(4,20,45,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)
+    }
+    .questionnaire-page .questionnaire-progress-copy{display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;margin-bottom:10px}
+    .questionnaire-page .questionnaire-progress-copy span{font-size:11px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:#cfe2f4}
+    .questionnaire-page .questionnaire-progress-copy strong{font-size:13px}
+    .questionnaire-page .questionnaire-progress-track{height:7px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden}
+    .questionnaire-page .questionnaire-progress-track span{display:block;width:16.666%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#8cc7ff,#ffffff);transition:width .28s ease}
+    .questionnaire-page .questionnaire-wizard{width:min(820px,100%);margin:0 auto;display:block}
+    .questionnaire-page .questionnaire-wizard>.section{display:none;min-height:430px;padding:36px 38px}
+    .questionnaire-page .questionnaire-wizard>.section.wizard-active{display:block;animation:wizardIn .26s ease}
+    .questionnaire-page .questionnaire-submit-section{display:none!important}
+    @keyframes wizardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .questionnaire-page .wizard-question-number{
+      display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;padding:7px 10px;border-radius:999px;
+      background:#e8f3fd;color:#234d76;font-size:10px;font-weight:850;letter-spacing:.06em;text-transform:uppercase
+    }
+    .questionnaire-page .wizard-controls{
+      margin-top:28px;padding-top:20px;border-top:1px solid rgba(95,129,160,.18);
+      display:flex;align-items:center;justify-content:space-between;gap:12px
+    }
+    .questionnaire-page .wizard-back,.questionnaire-page .wizard-next{
+      min-height:48px;border-radius:999px;padding:12px 20px;font:inherit;font-size:13px;font-weight:850;cursor:pointer;transition:.18s
+    }
+    .questionnaire-page .wizard-back{
+      border:1px solid rgba(95,129,160,.32);background:rgba(255,255,255,.76);color:var(--navy)
+    }
+    .questionnaire-page .wizard-next{
+      border:1px solid rgba(193,223,248,.34);background:linear-gradient(135deg,#163968,#102a56);
+      color:#fff;box-shadow:0 10px 24px rgba(6,29,52,.20);margin-left:auto
+    }
+    .questionnaire-page .wizard-next:hover,.questionnaire-page .wizard-back:hover{transform:translateY(-1px)}
+    .questionnaire-page .wizard-error{
+      display:none;margin:16px 0 0;padding:11px 13px;border-radius:11px;background:#fff3f1;color:#a13a32;
+      font-size:12px;font-weight:750;border:1px solid #f2d0cc
+    }
+    .questionnaire-page .wizard-error.show{display:block}
+    .questionnaire-page .wizard-complete{
+      text-align:center;padding:30px 12px
+    }
+    .questionnaire-page .wizard-complete-icon{
+      width:64px;height:64px;margin:0 auto 15px;border-radius:20px;display:grid;place-items:center;
+      background:linear-gradient(145deg,#dff6ea,#c8edd8);color:#147c49;font-size:30px
+    }
+    .questionnaire-page .wizard-complete h2{font-size:31px!important;margin-bottom:10px!important}
+    .questionnaire-page .wizard-complete p{max-width:540px;margin:0 auto!important;line-height:1.6}
+    @media(max-width:720px){
+      .questionnaire-page .questionnaire-progress{border-radius:15px;padding:13px 14px}
+      .questionnaire-page .questionnaire-wizard>.section{min-height:0;padding:25px 20px}
+      .questionnaire-page .wizard-controls{position:sticky;bottom:10px;background:rgba(248,251,255,.92);backdrop-filter:blur(8px);padding:13px;border-radius:15px;margin:24px -6px -7px}
+      .questionnaire-page .wizard-back,.questionnaire-page .wizard-next{padding:11px 16px}
+    }
   </style>
 </head>
 <body class="questionnaire-page">
@@ -224,13 +280,21 @@
 <main class="make-site-wrap"><div class="page">
   <div class="hero">
     <div class="eyebrow">Make Your Site</div>
-    <h1>Tell us what you want on your website.</h1>
-    <p>Fill out the questionnaire below. You can add as many services as you need and include any extra instructions at the end.</p>
+    <h1>Let’s build your website together.</h1>
+    <p>We’ll walk you through it one step at a time. Most people finish in just a few minutes.</p>
   </div>
 
-  <form id="website-questionnaire" class="questionnaire">
+  <div class="questionnaire-progress" aria-live="polite">
+    <div class="questionnaire-progress-copy">
+      <span id="questionnaire-step-label">Step 1 of 6</span>
+      <strong id="questionnaire-step-title">Your business</strong>
+    </div>
+    <div class="questionnaire-progress-track"><span id="questionnaire-progress-bar"></span></div>
+  </div>
+
+  <form id="website-questionnaire" class="questionnaire questionnaire-wizard">
     <section class="section">
-      <div class="section-head"><div class="step">1</div><div><h2>Company information</h2><p>Start with the name and type of business.</p></div></div>
+      <div class="section-head"><div class="step">1</div><div><h2>First, tell us about your business.</h2><p>What should we call your company, and what kind of business is it?</p></div></div>
       <div class="grid">
         <label class="field"><span class="label">Company name *</span><input name="businessName" required autocomplete="organization"></label>
         <div class="field custom-category-field">
@@ -262,7 +326,7 @@
     </section>
 
     <section class="section">
-      <div class="section-head"><div class="step">2</div><div><h2>Contact information</h2><p>Tell us what contact information should be connected to the site.</p></div></div>
+      <div class="section-head"><div class="step">2</div><div><h2>How should customers reach you?</h2><p>These details can be used on your website’s contact section.</p></div></div>
       <div class="grid">
         <label class="field"><span class="label">Contact name *</span><input name="contactName" required autocomplete="name"></label>
         <label class="field"><span class="label">Email *</span><input name="email" type="email" required autocomplete="email"></label>
@@ -273,7 +337,7 @@
     </section>
 
     <section class="section">
-      <div class="section-head"><div class="step">3</div><div><h2>Social media</h2><p>Add any pages you want connected to the website.</p></div></div>
+      <div class="section-head"><div class="step">3</div><div><h2>Where else can people find you?</h2><p>Add any social or business pages you want connected. You can skip anything you don’t use.</p></div></div>
       <div class="grid">
         <label class="field"><span class="label">Instagram</span><input name="instagram" type="url" placeholder="https://instagram.com/..."></label>
         <label class="field"><span class="label">Facebook</span><input name="facebook" type="url" placeholder="https://facebook.com/..."></label>
@@ -283,7 +347,7 @@
     </section>
 
     <section class="section">
-      <div class="section-head"><div class="step">4</div><div><h2>Services</h2><p>Add each service you want shown. Use the + button to add another service card below.</p></div></div>
+      <div class="section-head"><div class="step">4</div><div><h2>What do you want customers to hire you for?</h2><p>Add your services one at a time. You can add as many as you need.</p></div></div>
       <div id="service-list" class="service-list">
         <div class="service-card">
           <label class="field"><span class="label">Service 1 *</span><input name="service" required placeholder="Example: Lawn maintenance"></label>
@@ -294,7 +358,7 @@
     </section>
 
     <section class="section">
-      <div class="section-head"><div class="step">5</div><div><h2>Color preferences</h2><p>Choose a color, then choose the shade you like from light to dark.</p></div></div>
+      <div class="section-head"><div class="step">5</div><div><h2>What should your website feel like?</h2><p>Start with your main color, then choose the shade that feels right for your brand.</p></div></div>
       <div class="grid three">
 
         <div class="color-card" data-color-picker="primary">
@@ -411,11 +475,11 @@
       </div>
     </section>
     <section class="section">
-      <div class="section-head"><div class="step">6</div><div><h2>Other specifications</h2><p>Add anything else you want us to know about the website.</p></div></div>
+      <div class="section-head"><div class="step">6</div><div><h2>Anything else you want us to know?</h2><p>This is your space for style ideas, special features, examples you like, or anything important to your vision.</p></div></div>
       <label class="field"><span class="label">Notes</span><textarea name="notes" rows="6" placeholder="Example: I want a dark luxury style, a gallery on the home page, and a contact button that stays visible on mobile."></textarea></label>
     </section>
 
-    <section class="section">
+    <section class="section questionnaire-submit-section" hidden>
       <div class="actions">
         <p id="form-message" class="form-message" role="status"></p>
         <button id="submit-button" class="submit" type="submit">Submit Website Request →</button>
@@ -448,6 +512,109 @@ const addService=document.getElementById('add-service');
 const message=document.getElementById('form-message');
 const submitButton=document.getElementById('submit-button');
 const config=window.STEADY_HANDS||{};
+
+const wizardSections=[...form.querySelectorAll(':scope > .section')].filter(section=>!section.classList.contains('questionnaire-submit-section'));
+const wizardStepLabel=document.getElementById('questionnaire-step-label');
+const wizardStepTitle=document.getElementById('questionnaire-step-title');
+const wizardProgressBar=document.getElementById('questionnaire-progress-bar');
+const wizardTitles=['Your business','Contact details','Your online presence','Your services','Your style','Final details'];
+let wizardStep=0;
+
+function wizardValidation(step){
+  const section=wizardSections[step];
+  const required=[...section.querySelectorAll('input[required],textarea[required],select[required]')];
+  for(const field of required){
+    if(!field.checkValidity()){
+      field.reportValidity();
+      return false;
+    }
+  }
+  if(step===0&&!String(form.querySelector('[name="category"]')?.value||'').trim()){
+    document.getElementById('business-category-toggle')?.focus();
+    return 'Choose your business category before continuing.';
+  }
+  if(step===1){
+    const phone=String(form.querySelector('[name="phone"]')?.value||'').replace(/\D/g,'');
+    if(phone.length!==10){
+      form.querySelector('[name="phone"]')?.focus();
+      return 'Enter a complete 10-digit phone number.';
+    }
+  }
+  if(step===3){
+    const services=[...section.querySelectorAll('input[name="service"]')].map(input=>input.value.trim()).filter(Boolean);
+    if(!services.length)return 'Add at least one service before continuing.';
+  }
+  if(step===4&&!String(form.querySelector('[name="primaryColor"]')?.value||'').trim()){
+    return 'Choose your primary color and shade before continuing.';
+  }
+  return true;
+}
+
+function renderWizard(){
+  wizardSections.forEach((section,index)=>{
+    section.classList.toggle('wizard-active',index===wizardStep);
+    section.setAttribute('aria-hidden',String(index!==wizardStep));
+
+    let badge=section.querySelector('.wizard-question-number');
+    if(!badge){
+      badge=document.createElement('div');
+      badge.className='wizard-question-number';
+      badge.innerHTML='<i class="bi bi-stars"></i><span>Question '+(index+1)+'</span>';
+      section.prepend(badge);
+    }
+
+    let error=section.querySelector('.wizard-error');
+    if(!error){
+      error=document.createElement('p');
+      error.className='wizard-error';
+      error.setAttribute('role','alert');
+      section.appendChild(error);
+    }
+
+    let controls=section.querySelector('.wizard-controls');
+    if(!controls){
+      controls=document.createElement('div');
+      controls.className='wizard-controls';
+      controls.innerHTML=
+        (index>0?'<button class="wizard-back" type="button"><i class="bi bi-arrow-left"></i> Back</button>':'<span></span>')+
+        '<button class="wizard-next" type="button">'+
+        (index===wizardSections.length-1?'Submit Website Request <i class="bi bi-arrow-right"></i>':'Continue <i class="bi bi-arrow-right"></i>')+
+        '</button>';
+      section.appendChild(controls);
+      controls.querySelector('.wizard-back')?.addEventListener('click',()=>{
+        wizardStep=Math.max(0,wizardStep-1);
+        renderWizard();
+      });
+      controls.querySelector('.wizard-next')?.addEventListener('click',()=>{
+        const result=wizardValidation(wizardStep);
+        const currentError=section.querySelector('.wizard-error');
+        currentError.classList.remove('show');
+        currentError.textContent='';
+        if(result!==true){
+          if(typeof result==='string'){
+            currentError.textContent=result;
+            currentError.classList.add('show');
+          }
+          return;
+        }
+        if(wizardStep===wizardSections.length-1){
+          form.requestSubmit();
+          return;
+        }
+        wizardStep++;
+        renderWizard();
+      });
+    }
+  });
+
+  wizardStepLabel.textContent='Step '+(wizardStep+1)+' of '+wizardSections.length;
+  wizardStepTitle.textContent=wizardTitles[wizardStep]||'Your website';
+  wizardProgressBar.style.width=(((wizardStep+1)/wizardSections.length)*100)+'%';
+  wizardSections[wizardStep]?.scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(()=>wizardSections[wizardStep]?.querySelector('input:not([type="hidden"]),textarea,button')?.focus({preventScroll:true}));
+}
+
+renderWizard();
 
 function formatPhone(value){
   const digits=String(value||'').replace(/\D/g,'').slice(0,10);
@@ -763,6 +930,13 @@ form.addEventListener('submit',async event=>{
     form.querySelectorAll('input,textarea,button').forEach(el=>{
       if(el!==submitButton) el.disabled=true;
     });
+    const finalSection=wizardSections[wizardSections.length-1];
+    finalSection.innerHTML='<div class="wizard-complete"><div class="wizard-complete-icon"><i class="bi bi-check-lg"></i></div><h2>Your request is in!</h2><p>Thanks for telling us about your website. We’ll review everything you sent and reach out using the contact information you provided.</p></div>';
+    wizardStepLabel.textContent='Complete';
+    wizardStepTitle.textContent='Request submitted';
+    wizardProgressBar.style.width='100%';
+    finalSection.scrollIntoView({behavior:'smooth',block:'center'});
+    window.lucide?.createIcons?.();
   }catch(error){
     console.error(error);
     message.textContent=error?.message||'We could not submit your request. Please try again.';
