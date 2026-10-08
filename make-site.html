@@ -85,6 +85,73 @@
     }
     .questionnaire-page .color-card-title{font-size:13px;font-weight:800;color:var(--ink);margin-bottom:12px}
     .questionnaire-page .color-stage[hidden]{display:none}
+    .questionnaire-page .optional-text{font-weight:600;color:#7287a1;font-size:12px}
+    .questionnaire-page .category-picker-toggle{
+      min-height:50px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+      border:1px solid rgba(95,129,160,.32);border-radius:13px;background:rgba(255,255,255,.9);
+      color:var(--ink);padding:13px 14px;text-align:left;font:inherit;cursor:pointer
+    }
+    .questionnaire-page .category-picker-toggle:hover{border-color:#7ea9d4}
+    .questionnaire-page .category-picker-value{color:#526780}
+    .questionnaire-page .category-picker-value.has-value{color:var(--ink);font-weight:700}
+    .questionnaire-page .category-picker-overlay{
+      position:fixed;inset:0;z-index:1000;background:rgba(3,19,38,.68);padding:24px;
+      display:grid;place-items:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+    }
+    .questionnaire-page .category-picker-overlay[hidden]{display:none}
+    .questionnaire-page .category-picker-popup{
+      width:min(820px,100%);max-height:min(760px,calc(100vh - 48px));display:flex;flex-direction:column;overflow:hidden;
+      background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(239,247,255,.97));
+      border:1px solid rgba(202,232,255,.72);border-radius:24px;box-shadow:0 30px 90px rgba(2,16,34,.4)
+    }
+    .questionnaire-page .category-picker-head{
+      display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px 16px
+    }
+    .questionnaire-page .category-picker-head strong{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:24px;color:var(--navy)}
+    .questionnaire-page .category-picker-head span{display:block;margin-top:3px;font-size:13px;color:var(--text)}
+    .questionnaire-page .category-picker-close{
+      width:42px;height:42px;border-radius:50%;border:1px solid rgba(95,129,160,.26);background:#fff;color:var(--navy);
+      display:grid;place-items:center;font-size:18px;cursor:pointer
+    }
+    .questionnaire-page .category-picker-search-wrap{position:relative;padding:0 24px 16px}
+    .questionnaire-page .category-picker-search-wrap i{position:absolute;left:39px;top:50%;transform:translateY(-72%);color:#6e829a}
+    .questionnaire-page .category-picker-search-wrap input{padding-left:42px}
+    .questionnaire-page .category-picker-content{overflow:auto;padding:4px 24px 24px}
+    .questionnaire-page .category-section-title{
+      margin:10px 0 12px;font-size:11px;text-transform:uppercase;letter-spacing:.15em;font-weight:850;color:#68809a
+    }
+    .questionnaire-page .category-industry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .questionnaire-page .category-industry-card{
+      border:1px solid rgba(95,129,160,.22);border-radius:16px;background:rgba(255,255,255,.86);
+      display:grid;grid-template-columns:50px 1fr auto;align-items:center;gap:13px;padding:15px;text-align:left;color:var(--ink);cursor:pointer
+    }
+    .questionnaire-page .category-industry-card:hover{border-color:#7ea9d4;box-shadow:0 9px 22px rgba(7,26,52,.08)}
+    .questionnaire-page .category-industry-icon{
+      width:48px;height:48px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(145deg,#dbeaf7,#c6dcef);color:var(--navy);font-size:22px
+    }
+    .questionnaire-page .category-industry-copy strong{display:block;font-size:14px}
+    .questionnaire-page .category-industry-copy small{display:block;color:#7589a0;margin-top:2px;font-size:11px}
+    .questionnaire-page .category-industry-card>.bi-chevron-right{color:#71869e}
+    .questionnaire-page .category-back{
+      border:0;background:transparent;color:var(--navy);font-weight:850;display:inline-flex;align-items:center;gap:7px;padding:8px 0 13px;cursor:pointer
+    }
+    .questionnaire-page .category-types-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .questionnaire-page .category-type-option{
+      min-height:46px;border:1px solid rgba(95,129,160,.22);border-radius:13px;background:#fff;color:var(--ink);
+      display:flex;align-items:center;gap:10px;padding:11px 13px;text-align:left;font-weight:700;cursor:pointer
+    }
+    .questionnaire-page .category-type-option i{color:#5e7fa3}
+    .questionnaire-page .category-type-option:hover{border-color:#7ea9d4;background:#f6fbff}
+    .questionnaire-page .category-picker-empty{color:var(--text);padding:18px 2px}
+    @media(max-width:620px){
+      .questionnaire-page .category-picker-overlay{padding:12px}
+      .questionnaire-page .category-picker-popup{max-height:calc(100vh - 24px);border-radius:19px}
+      .questionnaire-page .category-industry-grid,.questionnaire-page .category-types-grid{grid-template-columns:1fr}
+      .questionnaire-page .category-picker-head,.questionnaire-page .category-picker-content{padding-left:17px;padding-right:17px}
+      .questionnaire-page .category-picker-search-wrap{padding-left:17px;padding-right:17px}
+      .questionnaire-page .category-picker-search-wrap i{left:32px}
+    }
     .questionnaire-page .swatch-grid{display:flex;flex-wrap:wrap;gap:11px}
     .questionnaire-page .color-swatch{
       width:44px;height:44px;border-radius:50%;border:3px solid rgba(255,255,255,.96);
@@ -166,7 +233,31 @@
       <div class="section-head"><div class="step">1</div><div><h2>Company information</h2><p>Start with the name and type of business.</p></div></div>
       <div class="grid">
         <label class="field"><span class="label">Company name *</span><input name="businessName" required autocomplete="organization"></label>
-        <label class="field"><span class="label">Business category *</span><select name="category" required><option value="">Choose a business type</option><option value="acupuncture">Acupuncture</option><option value="agricultural-service">Agricultural Service</option><option value="animal-feed-store">Animal Feed Store</option><option value="antique-store">Antique Store</option><option value="apartments-housing">Apartments Housing</option><option value="appliance-repair">Appliance Repair</option><option value="architect">Architect</option><option value="art-gallery">Art Gallery</option><option value="artist-studio">Artist Studio</option><option value="assisted-living">Assisted Living</option><option value="attorney-law">Attorney Law</option><option value="auction-house">Auction House</option><option value="auto-body">Auto Body</option><option value="auto-dealer">Auto Dealer</option><option value="auto-detailing">Auto Detailing</option><option value="auto-glass">Auto Glass</option><option value="auto-parts-accessories">Auto Parts Accessories</option><option value="auto-repair">Auto Repair</option><option value="auto-salvage-junkyard">Auto Salvage Junkyard</option><option value="awning-canopy">Awning Canopy</option><option value="bail-bonds">Bail Bonds</option><option value="bakery-desserts">Bakery Desserts</option><option value="bar-pub">Bar Pub</option><option value="barber-salon">Barber Salon</option><option value="beauty">Beauty</option><option value="beer-distributor">Beer Distributor</option><option value="boat-dealer">Boat Dealer</option><option value="boat-marina">Boat Marina</option><option value="boat-repair">Boat Repair</option><option value="butcher-meat-market">Butcher Meat Market</option><option value="cabin-rental">Cabin Rental</option><option value="cabinet-countertop">Cabinet Countertop</option><option value="cabinetry">Cabinetry</option><option value="cafe-boba">Cafe Boba</option><option value="car-wash">Car Wash</option><option value="carpentry-woodworking">Carpentry Woodworking</option><option value="catering-food-truck">Catering Food Truck</option><option value="cattle-poultry-farm">Cattle Poultry Farm</option><option value="chimney-fireplace">Chimney Fireplace</option><option value="chiropractic">Chiropractic</option><option value="cleaning">Cleaning</option><option value="clothing-boutique">Clothing Boutique</option><option value="coffee-shop">Coffee Shop</option><option value="coin-dealer">Coin Dealer</option><option value="community-center">Community Center</option><option value="computer-repair">Computer Repair</option><option value="concrete-masonry">Concrete Masonry</option><option value="construction">Construction</option><option value="consulting">Consulting</option><option value="convenience-store">Convenience Store</option><option value="counseling-mental-health">Counseling Mental Health</option><option value="countertop-stone">Countertop Stone</option><option value="dance-school">Dance School</option><option value="day-spa-med-spa">Day Spa Med Spa</option><option value="daycare-childcare">Daycare Childcare</option><option value="deck-fence-outdoor-structures">Deck Fence Outdoor Structures</option><option value="deck-patio">Deck Patio</option><option value="deli">Deli</option><option value="demolition">Demolition</option><option value="dentist">Dentist</option><option value="dog-breeder">Dog Breeder</option><option value="driving-school">Driving School</option><option value="drywall">Drywall</option><option value="electrical">Electrical</option><option value="employment-agency">Employment Agency</option><option value="engine-rebuilding">Engine Rebuilding</option><option value="engraving-trophies">Engraving Trophies</option><option value="equipment-rental">Equipment Rental</option><option value="estate-liquidation">Estate Liquidation</option><option value="event-venue">Event Venue</option><option value="events">Events</option><option value="excavation">Excavation</option><option value="farm-ranch-agriculture">Farm Ranch Agriculture</option><option value="farm-stand-produce">Farm Stand Produce</option><option value="feed-farm-supply">Feed Farm Supply</option><option value="fence-contractor">Fence Contractor</option><option value="financial-advisor">Financial Advisor</option><option value="firewood-supplier">Firewood Supplier</option><option value="fitness">Fitness</option><option value="flooring">Flooring</option><option value="florist">Florist</option><option value="food-bakery">Food Bakery</option><option value="funeral-home">Funeral Home</option><option value="furniture-store">Furniture Store</option><option value="garage-door">Garage Door</option><option value="gas-station">Gas Station</option><option value="general-repair-service">General Repair Service</option><option value="glass-mirror">Glass Mirror</option><option value="glass-repair">Glass Repair</option><option value="glass-window-door">Glass Window Door</option><option value="golf-cart-dealer">Golf Cart Dealer</option><option value="graphic-design">Graphic Design</option><option value="grocery-market">Grocery Market</option><option value="gutter-siding">Gutter Siding</option><option value="gymnastics">Gymnastics</option><option value="handyman">Handyman</option><option value="hardware-building-supply">Hardware Building Supply</option><option value="hearing-aid-audiology">Hearing Aid Audiology</option><option value="hearing-health">Hearing Health</option><option value="heavy-equipment-sales-service">Heavy Equipment Sales Service</option><option value="home-health-care">Home Health Care</option><option value="home-improvement-center">Home Improvement Center</option><option value="home-inspection">Home Inspection</option><option value="horse-boarding-stable">Horse Boarding Stable</option><option value="hvac">Hvac</option><option value="hydraulics">Hydraulics</option><option value="ice-cream-dessert">Ice Cream Dessert</option><option value="insulation">Insulation</option><option value="insurance">Insurance</option><option value="interior-design">Interior Design</option><option value="irrigation-sprinkler">Irrigation Sprinkler</option><option value="jewelry">Jewelry</option><option value="junk-removal-hauling">Junk Removal Hauling</option><option value="land-surveyor">Land Surveyor</option><option value="landscaping">Landscaping</option><option value="laundry">Laundry</option><option value="liquor-store">Liquor Store</option><option value="locksmith">Locksmith</option><option value="machine-shop">Machine Shop</option><option value="manufacturing-industrial">Manufacturing Industrial</option><option value="marina-marine">Marina Marine</option><option value="marine-hardware">Marine Hardware</option><option value="martial-arts">Martial Arts</option><option value="massage-spa">Massage Spa</option><option value="medical-clinic">Medical Clinic</option><option value="medical-doctor-specialist">Medical Doctor Specialist</option><option value="medical-supply-equipment">Medical Supply Equipment</option><option value="metal-ironwork">Metal Ironwork</option><option value="mobile-home-supply">Mobile Home Supply</option><option value="motorcycle-powersports">Motorcycle Powersports</option><option value="moving-company">Moving Company</option><option value="musician-band">Musician Band</option><option value="notary-document-services">Notary Document Services</option><option value="office-space-rental">Office Space Rental</option><option value="optometry">Optometry</option><option value="painting">Painting</option><option value="park-recreation">Park Recreation</option><option value="parking-lot-truck-parking">Parking Lot Truck Parking</option><option value="parking-storage">Parking Storage</option><option value="party-rentals">Party Rentals</option><option value="paving-asphalt">Paving Asphalt</option><option value="pawn-shop">Pawn Shop</option><option value="pest-control">Pest Control</option><option value="pet-grooming">Pet Grooming</option><option value="pet-store">Pet Store</option><option value="pharmacy">Pharmacy</option><option value="photo-booth">Photo Booth</option><option value="photography-video">Photography Video</option><option value="physical-therapy">Physical Therapy</option><option value="plant-nursery-garden">Plant Nursery Garden</option><option value="plumbing">Plumbing</option><option value="podiatry">Podiatry</option><option value="pool-service">Pool Service</option><option value="preschool-learning-center">Preschool Learning Center</option><option value="pressure-washing">Pressure Washing</option><option value="private-investigator">Private Investigator</option><option value="professional">Professional</option><option value="propane-supplier">Propane Supplier</option><option value="property-maintenance">Property Maintenance</option><option value="property-management">Property Management</option><option value="property-services">Property Services</option><option value="real-estate">Real Estate</option><option value="remodeling-renovation">Remodeling Renovation</option><option value="restaurant">Restaurant</option><option value="retail">Retail</option><option value="roofing">Roofing</option><option value="rv-mobile-home-park">Rv Mobile Home Park</option><option value="rv-repair">Rv Repair</option><option value="security-systems">Security Systems</option><option value="septic-service">Septic Service</option><option value="shopping-center">Shopping Center</option><option value="sign-printing">Sign Printing</option><option value="small-engine-repair">Small Engine Repair</option><option value="smoke-vape-tobacco">Smoke Vape Tobacco</option><option value="sod-lawn-supply">Sod Lawn Supply</option><option value="solar">Solar</option><option value="speech-therapy">Speech Therapy</option><option value="storage">Storage</option><option value="surf-shop">Surf Shop</option><option value="tailor-alterations">Tailor Alterations</option><option value="tanning">Tanning</option><option value="tattoo-piercing">Tattoo Piercing</option><option value="tax-accounting">Tax Accounting</option><option value="taxidermy">Taxidermy</option><option value="thrift-store">Thrift Store</option><option value="tire-shop">Tire Shop</option><option value="title-escrow-company">Title Escrow Company</option><option value="towing">Towing</option><option value="trailer-repair-dealer">Trailer Repair Dealer</option><option value="transmission-shop">Transmission Shop</option><option value="transportation-limo">Transportation Limo</option><option value="tree-service">Tree Service</option><option value="truck-dealer">Truck Dealer</option><option value="truck-parking">Truck Parking</option><option value="truck-repair">Truck Repair</option><option value="trucking-freight">Trucking Freight</option><option value="upholstery">Upholstery</option><option value="utility-gas-company">Utility Gas Company</option><option value="vacation-rental">Vacation Rental</option><option value="vehicle-inspection">Vehicle Inspection</option><option value="veterinary">Veterinary</option><option value="warehouse-logistics">Warehouse Logistics</option><option value="waste-management">Waste Management</option><option value="water-damage-restoration">Water Damage Restoration</option><option value="water-well-pump">Water Well Pump</option><option value="weight-loss-service">Weight Loss Service</option><option value="welding-fabrication">Welding Fabrication</option><option value="wellness-center">Wellness Center</option><option value="wholesale-distributor">Wholesale Distributor</option><option value="window-tinting">Window Tinting</option><option value="yoga">Yoga</option></select></label>
+        <div class="field custom-category-field">
+          <span class="label">Business category *</span>
+          <input type="hidden" name="category" id="business-category-value">
+          <button class="category-picker-toggle" id="business-category-toggle" type="button" aria-haspopup="dialog" aria-expanded="false">
+            <span class="category-picker-value">Choose a business type</span>
+            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+
+          <div class="category-picker-overlay" id="business-category-overlay" hidden>
+            <div class="category-picker-popup" role="dialog" aria-modal="true" aria-labelledby="category-picker-title">
+              <div class="category-picker-head">
+                <div>
+                  <strong id="category-picker-title">Choose your business type</strong>
+                  <span id="category-picker-subtitle">Browse by industry</span>
+                </div>
+                <button class="category-picker-close" type="button" aria-label="Close business category picker"><i class="bi bi-x-lg"></i></button>
+              </div>
+              <div class="category-picker-search-wrap">
+                <i class="bi bi-search" aria-hidden="true"></i>
+                <input id="category-picker-search" type="search" placeholder="Search business types…" autocomplete="off" aria-label="Search business types">
+              </div>
+              <div class="category-picker-content" id="category-picker-content" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -207,7 +298,7 @@
       <div class="grid three">
 
         <div class="color-card" data-color-picker="primary">
-          <div class="color-card-title">Primary color</div>
+          <div class="color-card-title">Primary color *</div>
 
           <div class="color-stage" data-stage="base">
             <div class="swatch-grid">
@@ -238,7 +329,7 @@
         </div>
 
         <div class="color-card" data-color-picker="secondary">
-          <div class="color-card-title">Secondary color</div>
+          <div class="color-card-title">Secondary color <span class="optional-text">(Optional)</span></div>
 
           <div class="color-stage" data-stage="base">
             <div class="swatch-grid">
@@ -269,7 +360,7 @@
         </div>
 
         <div class="color-card" data-color-picker="accent">
-          <div class="color-card-title">Accent color</div>
+          <div class="color-card-title">Accent color <span class="optional-text">(Optional)</span></div>
 
           <div class="color-stage" data-stage="base">
             <div class="swatch-grid">
@@ -300,7 +391,7 @@
         </div>
 
         <div class="color-card field full">
-          <div class="color-card-title">Colors to avoid</div>
+          <div class="color-card-title">Colors to avoid <span class="optional-text">(Optional)</span></div>
           <div class="swatch-grid" data-avoid-group>
             <button class="color-swatch" type="button" data-color="Red" style="background:#EF4444" aria-label="Avoid red"></button>
             <button class="color-swatch" type="button" data-color="Orange" style="background:#F97316" aria-label="Avoid orange"></button>
@@ -383,6 +474,119 @@ serviceList.addEventListener('click',event=>{
   button.closest('.service-card')?.remove();
   updateServiceCards();
 });
+
+const BUSINESS_CATEGORIES=["acupuncture","agricultural-service","animal-feed-store","antique-store","apartments-housing","appliance-repair","architect","art-gallery","artist-studio","assisted-living","attorney-law","auction-house","auto-body","auto-dealer","auto-detailing","auto-glass","auto-parts-accessories","auto-repair","auto-salvage-junkyard","awning-canopy","bail-bonds","bakery-desserts","bar-pub","barber-salon","beauty","beer-distributor","boat-dealer","boat-marina","boat-repair","butcher-meat-market","cabin-rental","cabinet-countertop","cabinetry","cafe-boba","car-wash","carpentry-woodworking","catering-food-truck","cattle-poultry-farm","chimney-fireplace","chiropractic","cleaning","clothing-boutique","coffee-shop","coin-dealer","community-center","computer-repair","concrete-masonry","construction","consulting","convenience-store","counseling-mental-health","countertop-stone","dance-school","day-spa-med-spa","daycare-childcare","deck-fence-outdoor-structures","deck-patio","deli","demolition","dentist","dog-breeder","driving-school","drywall","electrical","employment-agency","engine-rebuilding","engraving-trophies","equipment-rental","estate-liquidation","event-venue","events","excavation","farm-ranch-agriculture","farm-stand-produce","feed-farm-supply","fence-contractor","financial-advisor","firewood-supplier","fitness","flooring","florist","food-bakery","funeral-home","furniture-store","garage-door","gas-station","general-repair-service","glass-mirror","glass-repair","glass-window-door","golf-cart-dealer","graphic-design","grocery-market","gutter-siding","gymnastics","handyman","hardware-building-supply","hearing-aid-audiology","hearing-health","heavy-equipment-sales-service","home-health-care","home-improvement-center","home-inspection","horse-boarding-stable","hvac","hydraulics","ice-cream-dessert","insulation","insurance","interior-design","irrigation-sprinkler","jewelry","junk-removal-hauling","land-surveyor","landscaping","laundry","liquor-store","locksmith","machine-shop","manufacturing-industrial","marina-marine","marine-hardware","martial-arts","massage-spa","medical-clinic","medical-doctor-specialist","medical-supply-equipment","metal-ironwork","mobile-home-supply","motorcycle-powersports","moving-company","musician-band","notary-document-services","office-space-rental","optometry","painting","park-recreation","parking-lot-truck-parking","parking-storage","party-rentals","paving-asphalt","pawn-shop","pest-control","pet-grooming","pet-store","pharmacy","photo-booth","photography-video","physical-therapy","plant-nursery-garden","plumbing","podiatry","pool-service","preschool-learning-center","pressure-washing","private-investigator","professional","propane-supplier","property-maintenance","property-management","property-services","real-estate","remodeling-renovation","restaurant","retail","roofing","rv-mobile-home-park","rv-repair","security-systems","septic-service","shopping-center","sign-printing","small-engine-repair","smoke-vape-tobacco","sod-lawn-supply","solar","speech-therapy","storage","surf-shop","tailor-alterations","tanning","tattoo-piercing","tax-accounting","taxidermy","thrift-store","tire-shop","title-escrow-company","towing","trailer-repair-dealer","transmission-shop","transportation-limo","tree-service","truck-dealer","truck-parking","truck-repair","trucking-freight","upholstery","utility-gas-company","vacation-rental","vehicle-inspection","veterinary","warehouse-logistics","waste-management","water-damage-restoration","water-well-pump","weight-loss-service","welding-fabrication","wellness-center","wholesale-distributor","window-tinting","yoga"];
+const CATEGORY_GROUPS=[{"name":"Home & Trades","icon":"bi-house-gear","words":["appliance","awning","cabinet","carpentry","chimney","concrete","construction","countertop","deck","demolition","drywall","electrical","excavation","fence","firewood","flooring","garage","glass","gutter","handyman","hardware","home-improvement","home-inspection","hvac","insulation","interior-design","irrigation","junk-removal","land-surveyor","landscaping","locksmith","painting","paving","pest-control","plumbing","pool-service","pressure-washing","property-maintenance","remodeling","roofing","septic","sod","solar","tree-service","water-damage","water-well","welding"]},{"name":"Auto & Transportation","icon":"bi-car-front","words":["auto-","boat-","car-wash","engine-rebuilding","golf-cart","marine-","mobile-home","motorcycle","moving-company","rv-","tire-shop","towing","trailer-","transmission","transportation","truck-","trucking","vehicle-inspection"]},{"name":"Food & Hospitality","icon":"bi-cup-hot","words":["bakery","bar-pub","beer-distributor","butcher","cafe","catering","coffee-shop","convenience-store","deli","food-bakery","grocery","ice-cream","liquor-store","restaurant","vacation-rental","cabin-rental"]},{"name":"Health & Wellness","icon":"bi-heart-pulse","words":["acupuncture","assisted-living","chiropractic","counseling","day-spa","dentist","fitness","hearing","home-health","massage","medical-","optometry","pharmacy","physical-therapy","podiatry","speech-therapy","weight-loss","wellness","yoga"]},{"name":"Beauty & Personal Care","icon":"bi-scissors","words":["barber-salon","beauty","pet-grooming","tanning","tattoo-piercing"]},{"name":"Professional Services","icon":"bi-briefcase","words":["architect","attorney","bail-bonds","consulting","employment-agency","financial-advisor","insurance","notary","private-investigator","professional","tax-accounting","title-escrow"]},{"name":"Retail & Shopping","icon":"bi-bag","words":["antique-store","clothing-boutique","coin-dealer","furniture-store","jewelry","pawn-shop","pet-store","retail","shopping-center","smoke-vape","surf-shop","tailor","thrift-store"]},{"name":"Property & Real Estate","icon":"bi-buildings","words":["apartments","office-space","park-recreation","parking","property-management","property-services","real-estate","storage"]},{"name":"Events & Creative","icon":"bi-stars","words":["art-gallery","artist-studio","auction-house","dance-school","engraving","estate-liquidation","event-venue","events","florist","funeral-home","graphic-design","musician-band","party-rentals","photo-booth","photography-video","sign-printing"]},{"name":"Industrial & Logistics","icon":"bi-gear-wide-connected","words":["equipment-rental","heavy-equipment","hydraulics","machine-shop","manufacturing","metal-ironwork","propane","utility-gas","warehouse-logistics","waste-management","wholesale-distributor"]},{"name":"Education & Community","icon":"bi-mortarboard","words":["community-center","daycare","driving-school","gymnastics","martial-arts","preschool-learning-center"]},{"name":"Other","icon":"bi-grid","words":[]}];
+const SEARCH_ALIASES={
+  'barber-salon':['hair','hair salon','barbershop','barber','salon'],
+  'hvac':['ac','air conditioning','heating'],
+  'attorney-law':['lawyer','legal','law'],
+  'landscaping':['yard','lawn','gardener'],
+  'cleaning':['maid','house cleaning','janitorial'],
+  'auto-repair':['mechanic','car repair','garage'],
+  'real-estate':['realtor','homes','house'],
+  'restaurant':['food','dining'],
+  'dentist':['dental'],
+  'plumbing':['plumber'],
+  'electrical':['electrician']
+};
+function categoryGroup(slug){
+  return CATEGORY_GROUPS.find(group=>group.words.some(word=>slug.includes(word)))?.name||'Other';
+}
+function groupedBusinessCategories(){
+  const map=new Map(CATEGORY_GROUPS.map(group=>[group.name,[]]));
+  BUSINESS_CATEGORIES.forEach(slug=>map.get(categoryGroup(slug)).push(slug));
+  for(const list of map.values())list.sort((a,b)=>labelFromSlug(a).localeCompare(labelFromSlug(b)));
+  return [...map.entries()].filter(([,list])=>list.length);
+}
+(function initCategoryPicker(){
+  const toggle=document.getElementById('business-category-toggle');
+  const overlay=document.getElementById('business-category-overlay');
+  const closeButton=overlay?.querySelector('.category-picker-close');
+  const search=document.getElementById('category-picker-search');
+  const content=document.getElementById('category-picker-content');
+  const subtitle=document.getElementById('category-picker-subtitle');
+  const hidden=document.getElementById('business-category-value');
+  const valueEl=toggle?.querySelector('.category-picker-value');
+  if(!toggle||!overlay||!closeButton||!search||!content||!subtitle||!hidden||!valueEl)return;
+
+  const grouped=groupedBusinessCategories();
+  let activeGroup=null;
+  const typeIcon='<i class="bi bi-building" aria-hidden="true"></i>';
+
+  function optionButton(slug){
+    return '<button class="category-type-option" type="button" data-category="'+slug+'">'+typeIcon+'<span>'+labelFromSlug(slug)+'</span></button>';
+  }
+  function renderIndustries(){
+    activeGroup=null;
+    subtitle.textContent='Browse by industry';
+    content.innerHTML='<div class="category-section-title">Business industries</div><div class="category-industry-grid">'+
+      grouped.map(([name,list])=>{
+        const meta=CATEGORY_GROUPS.find(group=>group.name===name);
+        return '<button class="category-industry-card" type="button" data-industry="'+name+'">'+
+          '<span class="category-industry-icon"><i class="bi '+(meta?.icon||'bi-grid')+'" aria-hidden="true"></i></span>'+
+          '<span class="category-industry-copy"><strong>'+name+'</strong><small>'+list.length+' business types</small></span>'+
+          '<i class="bi bi-chevron-right" aria-hidden="true"></i></button>';
+      }).join('')+'</div>';
+    content.scrollTop=0;
+  }
+  function renderGroup(name){
+    activeGroup=name;
+    const entry=grouped.find(([groupName])=>groupName===name);
+    if(!entry){renderIndustries();return}
+    subtitle.textContent=name;
+    content.innerHTML='<button class="category-back" type="button" data-category-back><i class="bi bi-arrow-left"></i> Back to industries</button>'+
+      '<div class="category-section-title">'+name+'</div><div class="category-types-grid">'+entry[1].map(optionButton).join('')+'</div>';
+    content.scrollTop=0;
+  }
+  function renderSearch(query){
+    const q=query.trim().toLowerCase();
+    if(!q){activeGroup?renderGroup(activeGroup):renderIndustries();return}
+    activeGroup=null;
+    subtitle.textContent='Search results';
+    const matches=BUSINESS_CATEGORIES.filter(slug=>{
+      const label=labelFromSlug(slug).toLowerCase();
+      const aliases=(SEARCH_ALIASES[slug]||[]).join(' ').toLowerCase();
+      return slug.includes(q)||label.includes(q)||aliases.includes(q);
+    }).sort((a,b)=>labelFromSlug(a).localeCompare(labelFromSlug(b)));
+    content.innerHTML=matches.length
+      ? '<div class="category-section-title">'+matches.length+' result'+(matches.length===1?'':'s')+'</div><div class="category-types-grid">'+matches.map(optionButton).join('')+'</div>'
+      : '<p class="category-picker-empty">No business types found. Try another search.</p>';
+  }
+  function openPicker(){
+    overlay.hidden=false;
+    toggle.setAttribute('aria-expanded','true');
+    search.value='';
+    renderIndustries();
+    requestAnimationFrame(()=>search.focus({preventScroll:true}));
+  }
+  function closePicker(){
+    overlay.hidden=true;
+    toggle.setAttribute('aria-expanded','false');
+  }
+  toggle.addEventListener('click',openPicker);
+  closeButton.addEventListener('click',closePicker);
+  overlay.addEventListener('click',event=>{if(event.target===overlay)closePicker()});
+  search.addEventListener('input',()=>renderSearch(search.value));
+  content.addEventListener('click',event=>{
+    const option=event.target.closest('[data-category]');
+    if(option){
+      hidden.value=option.dataset.category;
+      valueEl.textContent=labelFromSlug(option.dataset.category);
+      valueEl.classList.add('has-value');
+      closePicker();
+      toggle.focus();
+      return;
+    }
+    const industry=event.target.closest('[data-industry]');
+    if(industry){search.value='';renderGroup(industry.dataset.industry);return}
+    if(event.target.closest('[data-category-back]')){search.value='';renderIndustries()}
+  });
+  overlay.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){event.preventDefault();closePicker();toggle.focus()}
+  });
+  renderIndustries();
+})();
 
 const COLOR_SHADES={
   red:['#FEF2F2','#FECACA','#F87171','#EF4444','#B91C1C','#7F1D1D'],
@@ -500,6 +704,17 @@ form.addEventListener('submit',async event=>{
   const services=[...form.querySelectorAll('input[name="service"]')].map(input=>input.value.trim()).filter(Boolean);
   if(!services.length){message.textContent='Add at least one service.';return}
   const category=String(data.get('category')||'').trim();
+  if(!category){
+    message.textContent='Choose a business category.';
+    document.getElementById('business-category-toggle')?.focus();
+    return;
+  }
+  const primaryColor=String(data.get('primaryColor')||'').trim();
+  if(!primaryColor){
+    message.textContent='Choose a primary color and shade.';
+    document.querySelector('[data-color-picker="primary"]')?.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
   const record={
     mode:'questionnaire',
     businessName:String(data.get('businessName')||'').trim(),
@@ -518,7 +733,7 @@ form.addEventListener('submit',async event=>{
     yelp:String(data.get('yelp')||'').trim(),
     services,
     colorPreferences:{
-      primary:String(data.get('primaryColor')||'').trim(),
+      primary:primaryColor,
       secondary:String(data.get('secondaryColor')||'').trim(),
       accent:String(data.get('accentColor')||'').trim(),
       avoid:String(data.get('avoidColors')||'').trim()
