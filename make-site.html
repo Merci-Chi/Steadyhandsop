@@ -241,14 +241,32 @@
     }
     .questionnaire-page .wizard-error.show{display:block}
     .questionnaire-page .wizard-complete{
-      text-align:center;padding:30px 12px
+      max-width:620px;margin:10px auto 0;text-align:center;padding:26px 24px 12px
     }
     .questionnaire-page .wizard-complete-icon{
-      width:64px;height:64px;margin:0 auto 15px;border-radius:20px;display:grid;place-items:center;
-      background:linear-gradient(145deg,#dff6ea,#c8edd8);color:#147c49;font-size:30px
+      width:58px;height:58px;margin:0 auto 14px;border-radius:18px;display:grid;place-items:center;
+      background:linear-gradient(145deg,#dff6ea,#c8edd8);color:#147c49;font-size:28px;
+      box-shadow:0 10px 24px rgba(20,124,73,.12)
     }
-    .questionnaire-page .wizard-complete h2{font-size:31px!important;margin-bottom:10px!important}
-    .questionnaire-page .wizard-complete p{max-width:540px;margin:0 auto!important;line-height:1.6}
+    .questionnaire-page .wizard-complete h2{font-size:30px!important;margin:0 0 8px!important}
+    .questionnaire-page .wizard-complete>p{max-width:510px;margin:0 auto 20px!important;line-height:1.6;color:#52657c}
+    .questionnaire-page .wizard-next-steps{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;text-align:left
+    }
+    .questionnaire-page .wizard-next-step{
+      border:1px solid rgba(95,129,160,.18);background:rgba(248,251,255,.8);border-radius:14px;padding:14px
+    }
+    .questionnaire-page .wizard-next-step i{font-size:18px;color:#245d96}
+    .questionnaire-page .wizard-next-step strong{display:block;margin:7px 0 4px;font-size:12px;color:var(--navy)}
+    .questionnaire-page .wizard-next-step span{display:block;font-size:10px;line-height:1.45;color:#74869a}
+    .questionnaire-page .wizard-home-link{
+      display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:11px 17px;border-radius:999px;
+      background:linear-gradient(135deg,#163968,#102a56);color:#fff;font-size:12px;font-weight:850;text-decoration:none
+    }
+    .questionnaire-page footer{margin-top:0}
+    @media(max-width:720px){
+      .questionnaire-page .wizard-next-steps{grid-template-columns:1fr}
+    }
     @media(max-width:720px){
       .questionnaire-page .questionnaire-progress{border-radius:15px;padding:13px 14px}
       .questionnaire-page .questionnaire-wizard>.section{min-height:0;padding:25px 20px}
@@ -488,6 +506,13 @@
   </form>
 </div></main>
 
+<footer>
+  <div class="container footer-inner">
+    <a class="brand" href="index.html"><img class="logo" src="images/logo.png" alt=""><img class="wordmark" src="images/wordmark.png" alt="Steady Hands Operation"></a>
+    <div class="footer-contact"><a href="tel:+17023726399">Call or text (702) 372-6399</a><a href="mailto:kiara@steadyhandsop.com">kiara@steadyhandsop.com</a><p>Las Vegas, Nevada · © <span id="year"></span> Steady Hands LLC</p></div>
+  </div>
+</footer>
+
 <script>
 const menuToggle=document.querySelector('.menu-toggle');
 const mainNav=document.querySelector('#nav');
@@ -501,6 +526,8 @@ mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>se
 document.addEventListener('click',event=>{
   if(window.innerWidth<=820&&mainNav.classList.contains('open')&&!mainNav.contains(event.target)&&!menuToggle.contains(event.target))setHeaderMenu(false);
 });
+document.getElementById('year') && (document.getElementById('year').textContent=new Date().getFullYear());
+
 document.getElementById('client-login')?.addEventListener('click',()=>{
   if(window.STEADY_HANDS?.clientPortalUrl) location.href=window.STEADY_HANDS.clientPortalUrl;
   else location.href='mailto:'+encodeURIComponent(window.STEADY_HANDS?.email||'')+'?subject='+encodeURIComponent('Client dashboard access');
@@ -931,7 +958,7 @@ form.addEventListener('submit',async event=>{
       if(el!==submitButton) el.disabled=true;
     });
     const finalSection=wizardSections[wizardSections.length-1];
-    finalSection.innerHTML='<div class="wizard-complete"><div class="wizard-complete-icon"><i class="bi bi-check-lg"></i></div><h2>Your request is in!</h2><p>Thanks for telling us about your website. We’ll review everything you sent and reach out using the contact information you provided.</p></div>';
+    finalSection.innerHTML='<div class="wizard-complete"><div class="wizard-complete-icon"><i class="bi bi-check-lg"></i></div><h2>Your request is in!</h2><p>Thanks for sending everything over. Your website request is now with our team.</p><div class="wizard-next-steps"><div class="wizard-next-step"><i class="bi bi-search"></i><strong>We review it</strong><span>We’ll look over your business details, services, colors, and notes.</span></div><div class="wizard-next-step"><i class="bi bi-chat-dots"></i><strong>We reach out</strong><span>We’ll contact you if we need anything else before getting started.</span></div><div class="wizard-next-step"><i class="bi bi-laptop"></i><strong>We start building</strong><span>Your request gives us the direction we need to begin your website.</span></div></div><a class="wizard-home-link" href="index.html">Back to Home <i class="bi bi-arrow-right"></i></a></div>';
     wizardStepLabel.textContent='Complete';
     wizardStepTitle.textContent='Request submitted';
     wizardProgressBar.style.width='100%';
