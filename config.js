@@ -1,5 +1,7 @@
 /* Edit these settings before launching. Leave unused URLs empty. */
-window.STEADY_HANDS = {\n  supabaseUrl: 'https://glonbvrcudwuzjundrii.supabase.co',\n  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsb25idnJjdWR3dXpqdW5kcmlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2MjQwMzYsImV4cCI6MjEwMzIwMDAzNn0.YEoFfQmabxOPaQmG672GZk63QhQVdOIZYrRQuCA2NmY',
+window.STEADY_HANDS = {
+  supabaseUrl: 'https://glonbvrcudwuzjundrii.supabase.co',
+  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsb25idnJjdWR3dXpqdW5kcmlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2MjQwMzYsImV4cCI6MjEwMzIwMDAzNn0.YEoFfQmabxOPaQmG672GZk63QhQVdOIZYrRQuCA2NmY',
   email: 'kiara@steadyhandsop.com',
   clientPortalUrl: '',
   previewPortalUrl: '',
@@ -9,6 +11,8 @@ window.STEADY_HANDS = {\n  supabaseUrl: 'https://glonbvrcudwuzjundrii.supabase.c
   examples: { landscaping: '', cleaning: '', barbershop: '' },
   // Public preview codes only. Never put passwords or private client data here.
   previews: { /* 'PUBLIC-CODE': 'https://your-preview-address.example' */ },
-  // Optional local fallback preview records.\n  siteKeys: {},\n  // Publish only real feedback with permission.
+  // Optional local fallback preview records.
+  siteKeys: {},
+  // Publish only real feedback with permission.
   references: [ /* { business: 'Client business', quote: 'Approved feedback' } */ ]
 };
