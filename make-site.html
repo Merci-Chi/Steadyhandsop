@@ -449,6 +449,23 @@ const message=document.getElementById('form-message');
 const submitButton=document.getElementById('submit-button');
 const config=window.STEADY_HANDS||{};
 
+function formatPhone(value){
+  const digits=String(value||'').replace(/\D/g,'').slice(0,10);
+  if(!digits)return '';
+  if(digits.length<4)return '('+digits;
+  if(digits.length<7)return '('+digits.slice(0,3)+')'+digits.slice(3);
+  return '('+digits.slice(0,3)+')'+digits.slice(3,6)+'-'+digits.slice(6);
+}
+const phoneInput=form.querySelector('input[name="phone"]');
+phoneInput?.addEventListener('input',()=>{
+  const start=phoneInput.selectionStart;
+  phoneInput.value=formatPhone(phoneInput.value);
+  try{phoneInput.setSelectionRange(phoneInput.value.length,phoneInput.value.length)}catch{}
+});
+phoneInput?.setAttribute('placeholder','(000)000-0000');
+phoneInput?.setAttribute('inputmode','numeric');
+phoneInput?.setAttribute('maxlength','13');
+
 function labelFromSlug(value){
   return String(value||'').replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
 }
@@ -718,6 +735,12 @@ form.addEventListener('submit',async event=>{
     document.querySelector('[data-color-picker="primary"]')?.scrollIntoView({behavior:'smooth',block:'center'});
     return;
   }
+  const phone=formatPhone(data.get('phone'));
+  if(phone.replace(/\D/g,'').length!==10){
+    message.textContent='Enter a 10-digit phone number.';
+    phoneInput?.focus();
+    return;
+  }
   const record={
     mode:'questionnaire',
     businessName:String(data.get('businessName')||'').trim(),
@@ -726,8 +749,8 @@ form.addEventListener('submit',async event=>{
     contactName:String(data.get('contactName')||'').trim(),
     email:String(data.get('email')||'').trim(),
     public_email:String(data.get('email')||'').trim(),
-    phone:String(data.get('phone')||'').trim(),
-    public_phone:String(data.get('phone')||'').trim(),
+    phone,
+    public_phone:phone,
     address:String(data.get('address')||'').trim(),
     website:String(data.get('website')||'').trim(),
     instagram:String(data.get('instagram')||'').trim(),
