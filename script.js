@@ -476,13 +476,6 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       if(type==='call'){
         panel.innerHTML=`
           <form id="schedule-call-form" class="make-preview-form contact-call-form">
-            <div class="contact-call-intro">
-              <span class="contact-call-icon" aria-hidden="true">☎</span>
-              <div>
-                <strong>Schedule a call</strong>
-                <p>Tell us when you’re available and we’ll follow up to confirm a time.</p>
-              </div>
-            </div>
             <p class="contact-required-note"><strong>*</strong> Required fields</p>
 
             <label class="contact-field-full">
