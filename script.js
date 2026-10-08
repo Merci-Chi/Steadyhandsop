@@ -462,21 +462,43 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
   function quickPreviewExamples(category,categoryLabel,businessName,email){
     const label=categoryLabel||labelFromSlug(category);
     const groups=[
-      [/clean|janitor/,['Residential Cleaning','Deep Cleaning','Move-Out Cleaning','Recurring Cleaning']],
-      [/landscap|lawn|tree|garden|sod|irrigation/,['Landscape Maintenance','Cleanups','Irrigation Service','Outdoor Enhancements']],
-      [/plumb|water-well|septic/,['Plumbing Repairs','Drain Service','Fixture Installation','Emergency Service']],
-      [/electric/,['Electrical Repairs','Installations','Troubleshooting','Panel Upgrades']],
-      [/roof/,['Roof Repair','Roof Inspections','Replacement','Maintenance']],
-      [/hvac/,['AC Repair','Heating Service','Preventive Maintenance','System Installation']],
-      [/barber|salon|beauty|spa|massage|tattoo/,['Appointments','Signature Services','Consultations','Special Packages']],
-      [/restaurant|cafe|coffee|bakery|deli|food/,['House Favorites','Fresh Specials','Takeout','Catering']],
-      [/auto|tire|truck|transmission|towing|vehicle|car-wash/,['Diagnostics','Repairs','Maintenance','Inspections']],
-      [/dent|medical|clinic|chiropr|therapy|optom|podiat|wellness|hearing/,['Consultations','Appointments','Treatment Plans','Follow-Up Care']],
-      [/real-estate|property|apartments/,['Property Search','Listings','Consultations','Local Guidance']],
-      [/photo|graphic|artist|event|musician|dance/,['Consultations','Custom Packages','Events','Bookings']],
-      [/construction|remodel|painting|flooring|concrete|fence|deck|handyman|carpentry|cabinet/,['Estimates','Custom Projects','Repairs','Installations']]
+      [/party-rental|event-rental|party-rentals/,['Tables & Chairs','Tent Rentals','Bounce Houses','Party Packages','Linens & Decor','Concession Machines','Lighting Packages','Event Setup','Event Breakdown','Delivery & Pickup','Backdrops & Props','Custom Event Rentals']],
+      [/event|venue|catering/,['Event Packages','Private Events','Corporate Events','Birthday Parties','Weddings','Setup Service','Decor Packages','Equipment Rentals','Delivery & Pickup','Custom Packages','Event Coordination','Booking Consultations']],
+      [/clean|janitor/,['Residential Cleaning','Commercial Cleaning','Deep Cleaning','Move-Out Cleaning','Move-In Cleaning','Recurring Cleaning','Office Cleaning','Post-Construction Cleaning','Kitchen Cleaning','Bathroom Cleaning','Floor Care','Custom Cleaning Plans']],
+      [/landscap|lawn|tree|garden|sod|irrigation/,['Landscape Maintenance','Lawn Care','Yard Cleanups','Irrigation Service','Tree & Shrub Care','Sod Installation','Mulch & Rock','Planting','Seasonal Cleanup','Outdoor Enhancements','Paver Projects','Custom Landscaping']],
+      [/plumb|water-well|septic/,['Plumbing Repairs','Drain Cleaning','Leak Detection','Fixture Installation','Water Heater Service','Sewer Line Service','Pipe Repair','Toilet Repair','Faucet Repair','Garbage Disposal Service','Preventive Maintenance','Emergency Service']],
+      [/electric/,['Electrical Repairs','Outlet & Switch Repair','Lighting Installation','Panel Upgrades','Troubleshooting','Ceiling Fan Installation','Wiring Repairs','Breaker Replacement','Safety Inspections','EV Charger Installation','Outdoor Lighting','Emergency Electrical Service']],
+      [/roof/,['Roof Repair','Roof Inspections','Roof Replacement','Leak Repair','Storm Damage Repair','Shingle Service','Flat Roof Service','Flashing Repair','Gutter Service','Preventive Maintenance','Emergency Tarping','Free Estimates']],
+      [/hvac|heating|air-conditioning/,['AC Repair','Heating Repair','Preventive Maintenance','System Installation','Thermostat Service','Indoor Air Quality','Ductwork Service','Tune-Ups','Heat Pump Service','Mini-Split Service','Emergency HVAC Service','System Inspections']],
+      [/barber/,['Haircuts','Fades','Line-Ups','Beard Trims','Kids Cuts','Hot Towel Shaves','Hair Designs','Senior Cuts','Scissor Cuts','Edge-Ups','Grooming Packages','Appointments']],
+      [/salon|beauty|spa|massage|tattoo/,['Consultations','Signature Services','Appointments','Custom Treatments','Special Packages','Event Services','Touch-Ups','Premium Services','New Client Services','Gift Services','Maintenance Appointments','Custom Packages']],
+      [/restaurant|cafe|coffee|bakery|deli|food/,['House Favorites','Fresh Specials','Lunch Menu','Dinner Menu','Takeout','Catering','Family Meals','Desserts','Beverages','Online Ordering','Private Events','Seasonal Specials']],
+      [/auto-detail|car-wash/,['Exterior Detail','Interior Detail','Full Detail','Wash & Wax','Paint Correction','Ceramic Coating','Headlight Restoration','Odor Removal','Pet Hair Removal','Wheel Cleaning','Mobile Detailing','Detail Packages']],
+      [/auto|tire|truck|transmission|towing|vehicle/,['Diagnostics','Oil Changes','Brake Service','Tire Service','Engine Repair','Transmission Service','Battery Service','Suspension Repair','AC Service','Inspections','Preventive Maintenance','Roadside Assistance']],
+      [/dent|medical|clinic|chiropr|therapy|optom|podiat|wellness|hearing/,['Consultations','New Patient Visits','Routine Appointments','Treatment Plans','Follow-Up Care','Preventive Care','Evaluations','Screenings','Specialty Services','Care Planning','Patient Education','Appointment Scheduling']],
+      [/real-estate|property-management|apartments|housing/,['Property Search','Home Listings','Buyer Consultations','Seller Consultations','Rental Listings','Property Management','Market Analysis','Home Tours','Investment Properties','Tenant Services','Listing Support','Local Guidance']],
+      [/photo|graphic|artist|musician|dance/,['Consultations','Custom Packages','Private Sessions','Event Services','Commercial Services','Creative Projects','Custom Design','Booking Packages','Premium Packages','On-Site Services','Special Requests','Custom Quotes']],
+      [/construction|remodel|painting|flooring|concrete|fence|deck|handyman|carpentry|cabinet/,['Free Estimates','Repairs','Installations','Custom Projects','Renovations','Maintenance','Residential Projects','Commercial Projects','Upgrades','Project Planning','Material Options','Custom Quotes']],
+      [/pet|veterinary|dog|animal/,['Consultations','Routine Care','Appointments','Grooming Services','Preventive Care','Specialty Services','Wellness Visits','New Client Visits','Care Packages','Follow-Up Care','Product Recommendations','Scheduling']],
+      [/retail|boutique|store|market|jewelry|pawn/,['Featured Products','New Arrivals','Customer Orders','Special Orders','Gift Options','Seasonal Items','Local Pickup','Product Consultations','Custom Orders','Premium Products','Customer Favorites','Specialty Items']],
+      [/fitness|gym|yoga|martial/,['Memberships','Personal Training','Group Classes','Beginner Programs','Advanced Programs','Private Sessions','Fitness Assessments','Custom Programs','Open Gym','Specialty Classes','Wellness Coaching','Trial Sessions']]
     ];
-    const services=(groups.find(([re])=>re.test(category))?.[1]||['Consultations','Custom Service','Local Support','Request a Quote']).slice();
+    const matched=groups.find(([re])=>re.test(category));
+    const services=(matched?.[1]||[
+      `${label} Consultations`,
+      `${label} Services`,
+      'Appointments',
+      'Custom Service',
+      'Residential Service',
+      'Commercial Service',
+      'Maintenance',
+      'Special Requests',
+      'Premium Service',
+      'Local Support',
+      'Custom Packages',
+      'Request a Quote'
+    ]).slice();
+    const about=`${businessName} provides professional ${label.toLowerCase()} services with friendly communication, dependable work, and straightforward pricing.`;
     return {
       mode:'quick',
       businessName,
@@ -484,11 +506,11 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
       categoryLabel:label,
       email,
       public_email:email,
-      phone:'(702) 555-0147',
-      public_phone:'(702) 555-0147',
+      phone:'(000)000-0000',
+      public_phone:'(000)000-0000',
       services,
-      about:`${businessName} provides professional ${label.toLowerCase()} services with friendly communication, dependable work, and straightforward pricing.`,
-      description:`${businessName} provides professional ${label.toLowerCase()} services with friendly communication, dependable work, and straightforward pricing.`,
+      about,
+      description:about,
       address:'123 Main Street, Las Vegas, NV 89101',
       address_or_service_area:'Las Vegas and surrounding areas',
       website:'https://example.com',
