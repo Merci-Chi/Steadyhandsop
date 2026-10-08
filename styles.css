@@ -1744,3 +1744,14 @@ footer{flex:0 0 auto}
   .contact-tab{width:100%}
   .contact-name-grid{grid-template-columns:1fr}
 }
+
+
+/* Compact Schedule a Call popup */
+.contact-call-form{gap:10px}
+.contact-call-form .form-grid-two{gap:10px}
+.contact-call-form label{gap:4px;margin:0}
+.contact-call-form .contact-required-note{margin:0 0 2px!important}
+.contact-call-form input,
+.contact-call-form textarea{padding:11px 13px}
+.contact-call-form label small{margin-top:1px}
+.contact-submit-button{min-height:48px}
