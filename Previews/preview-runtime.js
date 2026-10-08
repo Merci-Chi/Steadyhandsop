@@ -14,6 +14,15 @@ function hydrate(doc,record){
  const email=record.public_email||record.email||'';
  const address=record.address||record.address_or_service_area||'';
  const services=list(record.services);
+ const colors=record.colorPreferences||{};
+ const applyColor=(name,value)=>{
+   const v=String(value||'').trim();
+   if(!v)return;
+   try{if(window.CSS?.supports?.('color',v)) doc.documentElement.style.setProperty(name,v)}catch{}
+ };
+ applyColor('--primary',colors.primary);
+ applyColor('--secondary',colors.secondary);
+ applyColor('--accent',colors.accent);
  const firstH1=doc.querySelector('h1');
  const oldBusiness=(firstH1?.textContent||doc.title.split('|')[0]||'').trim();
  if(oldBusiness)replaceText(doc,oldBusiness,business);
@@ -40,7 +49,21 @@ function hydrate(doc,record){
  if(services.length){
    let heads=[...doc.querySelectorAll('.services .service h3,.services h3,.services h4,.service-grid h3,.service-grid h4,.service-card h3,.service-card h4,[class*="services"] h3,[class*="services"] h4')];
    const unique=[];const seen=new Set();for(const h of heads){if(!seen.has(h)){seen.add(h);unique.push(h)}}
-   unique.forEach((h,i)=>{
+   if(services.length>unique.length && unique.length){
+     const seed=unique[0].closest('.service,.service-card,article,li');
+     const parent=seed?.parentElement;
+     if(seed&&parent){
+       for(let i=unique.length;i<services.length;i++){
+         const clone=seed.cloneNode(true);
+         const heading=clone.querySelector('h3,h4');
+         if(heading) heading.textContent=services[i];
+         parent.appendChild(clone);
+       }
+       heads=[...doc.querySelectorAll('.services .service h3,.services h3,.services h4,.service-grid h3,.service-grid h4,.service-card h3,.service-card h4,[class*="services"] h3,[class*="services"] h4')];
+     }
+   }
+   const final=[];const finalSeen=new Set();for(const h of heads){if(!finalSeen.has(h)){finalSeen.add(h);final.push(h)}}
+   final.forEach((h,i)=>{
      if(services[i]) h.textContent=services[i];
      else if(record.mode==='quick') h.textContent=services[i%services.length];
      else if(i>=services.length&&i>2) h.closest('.service,.service-card,article,li,div')?.setAttribute('hidden','');
