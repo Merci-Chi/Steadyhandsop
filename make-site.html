@@ -418,7 +418,7 @@
     <section class="section">
       <div class="actions">
         <p id="form-message" class="form-message" role="status"></p>
-        <button id="submit-button" class="submit" type="submit">Create My Site Preview →</button>
+        <button id="submit-button" class="submit" type="submit">Submit Website Request →</button>
       </div>
     </section>
   </form>
@@ -669,20 +669,9 @@ avoidGroup?.addEventListener('click',event=>{
   form.querySelector('[name="avoidColors"]').value=[...avoidGroup.querySelectorAll('.color-swatch.selected')].map(btn=>btn.dataset.color).join(', ');
 });
 
-function toB64(value){
-  const bytes=new TextEncoder().encode(value);
-  let binary='';
-  bytes.forEach(byte=>binary+=String.fromCharCode(byte));
-  return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-}
-function createSiteKey(){
-  const id=(globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2))
-    .replace(/[^a-z0-9]/gi,'').slice(0,20).toUpperCase();
-  return 'SHS-'+id;
-}
-async function saveQuestionnaire(record){
-  if(!config.supabaseUrl||!config.supabaseAnonKey)return;
-  const response=await fetch(config.supabaseUrl+'/rest/v1/preview_requests',{
+async function submitWebsiteRequest(record){
+  if(!config.supabaseUrl||!config.supabaseAnonKey) throw new Error('Request service is not configured.');
+  const response=await fetch(config.supabaseUrl+'/rest/v1/website_requests',{
     method:'POST',
     headers:{
       apikey:config.supabaseAnonKey,
@@ -691,30 +680,28 @@ async function saveQuestionnaire(record){
       Prefer:'return=minimal'
     },
     body:JSON.stringify({
-      preview_type:'questionnaire',
       company_name:record.businessName,
-      contact_name:record.contactName||null,
       business_category:record.categoryLabel,
-      template_key:record.category,
+      business_category_key:record.category,
+      contact_name:record.contactName,
       email:record.email,
-      phone:record.phone||null,
-      services:record.services.join(', '),
-      about_business:null,
+      phone:record.phone,
       address_or_service_area:record.address||null,
       website_url:record.website||null,
       instagram_url:record.instagram||null,
       facebook_url:record.facebook||null,
       tiktok_url:record.tiktok||null,
-      yelp_url:record.yelp||null,
+      yelp_or_google_url:record.yelp||null,
+      services:record.services,
       color_preferences:record.colorPreferences,
       specifications_notes:record.notes||null,
-      site_key:record.siteKey
+      source:'steadyhandsop.com'
     })
   });
   if(!response.ok){
     let detail='';
     try{detail=(await response.json())?.message||''}catch{}
-    throw new Error(detail||'Could not save questionnaire.');
+    throw new Error(detail||'Could not submit your website request.');
   }
 }
 form.addEventListener('submit',async event=>{
@@ -766,19 +753,22 @@ form.addEventListener('submit',async event=>{
     },
     notes:String(data.get('notes')||'').trim()
   };
-  record.siteKey=createSiteKey();
-  sessionStorage.setItem('steadyhands.preview.'+record.siteKey,JSON.stringify(record));
-  sessionStorage.setItem('steadyhands.preview.current',record.siteKey);
   submitButton.disabled=true;
-  message.textContent='Saving your questionnaire…';
+  submitButton.textContent='Submitting…';
+  message.textContent='Submitting your website request…';
   try{
-    await saveQuestionnaire(record);
+    await submitWebsiteRequest(record);
+    message.textContent='Your website request was submitted successfully. We’ll review it and contact you soon.';
+    submitButton.textContent='Request Submitted ✓';
+    form.querySelectorAll('input,textarea,button').forEach(el=>{
+      if(el!==submitButton) el.disabled=true;
+    });
   }catch(error){
-    console.warn(error);
-    message.textContent='Your preview is opening. The questionnaire could not be saved online.';
+    console.error(error);
+    message.textContent=error?.message||'We could not submit your request. Please try again.';
+    submitButton.disabled=false;
+    submitButton.textContent='Submit Website Request →';
   }
-  const packed=toB64(JSON.stringify(record));
-  location.href='Previews/'+encodeURIComponent(category)+'.html?sitekey='+encodeURIComponent(record.siteKey)+'&data='+encodeURIComponent(packed);
 });
 updateServiceCards();
 </script>
