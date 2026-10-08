@@ -10,7 +10,12 @@ function hydrate(doc,record){
  const business=record.businessName||record.companyName||record.business_name||record.name||'Your Business';
  const cat=record.categoryLabel||record.category||category.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
  const about=record.about||record.description||record.about_business||'';
- const phone=record.phone||record.public_phone||'';
+ const rawPhone=record.phone||record.public_phone||'';
+ const formatPhone=value=>{
+   const digits=String(value||'').replace(/\D/g,'').slice(-10);
+   return digits.length===10?'('+digits.slice(0,3)+')'+digits.slice(3,6)+'-'+digits.slice(6):String(value||'');
+ };
+ const phone=formatPhone(rawPhone);
  const email=record.public_email||record.email||'';
  const address=record.address||record.address_or_service_area||'';
  const services=list(record.services);
@@ -36,7 +41,7 @@ function hydrate(doc,record){
  setAll(doc,'.eyebrow,[class*="eyebrow"],[class*="kicker"]',cat);
  if(phone){
    doc.querySelectorAll('a[href^="tel:"]').forEach(a=>{a.href='tel:'+phone.replace(/[^+\d]/g,'');if(a.textContent.trim())a.textContent=phone});
-   const phoneRegex=/(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}/g;
+   const phoneRegex=/(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/g;
    const w=doc.createTreeWalker(doc.body,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);ns.forEach(n=>n.nodeValue=n.nodeValue.replace(phoneRegex,phone));
  }
  if(email){
