@@ -481,7 +481,6 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
             <label class="contact-field-full">
               <span>Phone *</span>
               <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" maxlength="20" placeholder="(000)000-0000">
-              <small>International numbers are supported too, like +00(000)000-0000.</small>
             </label>
 
             <div class="form-grid-two contact-name-grid">
