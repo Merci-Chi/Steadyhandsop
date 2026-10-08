@@ -1657,3 +1657,90 @@ footer{flex:0 0 auto}
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* Polished Contact Us schedule form */
+#modal:has(.contact-choice-tabs){
+  width:min(720px,calc(100% - 32px));
+  padding:34px 38px 36px;
+  border-radius:26px;
+  border:1px solid rgba(102,137,170,.22);
+  background:linear-gradient(150deg,#fbfdff 0%,#f2f7fc 100%);
+  box-shadow:0 32px 100px rgba(3,20,43,.42);
+}
+#modal:has(.contact-choice-tabs) h2{
+  font-size:36px;
+  letter-spacing:-.035em;
+  margin-bottom:18px;
+}
+#modal:has(.contact-choice-tabs) .close{
+  width:40px;height:40px;right:18px;top:15px;border-radius:50%;
+  display:grid;place-items:center;font-size:25px;line-height:1;
+}
+.contact-choice-tabs{
+  display:grid;
+  grid-template-columns:repeat(3,max-content);
+  gap:8px;
+  margin-bottom:22px;
+}
+.contact-tab{
+  min-height:44px;
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid #cddaea;
+  background:rgba(255,255,255,.75);
+  box-shadow:0 3px 10px rgba(12,43,77,.04);
+}
+.contact-tab.active{
+  background:linear-gradient(135deg,#1768e5,#0c5bd8);
+  border-color:#0c5bd8;
+  box-shadow:0 8px 18px rgba(12,91,216,.22);
+}
+.contact-call-form{gap:17px}
+.contact-call-intro{
+  display:flex;gap:13px;align-items:flex-start;
+  padding:16px 17px;border-radius:16px;
+  background:linear-gradient(135deg,#eef6ff,#f7fbff);
+  border:1px solid #d9e7f5;
+}
+.contact-call-icon{
+  width:42px;height:42px;flex:0 0 42px;border-radius:13px;
+  display:grid;place-items:center;background:#dcecff;color:#0c5bd8;
+  font-size:21px;font-weight:900;
+}
+.contact-call-intro strong{display:block;color:#102b4e;font-size:16px}
+.contact-call-intro p{margin:3px 0 0!important;font-size:13px;line-height:1.5;color:#64778c!important}
+.contact-required-note{
+  margin:-3px 0 0!important;
+  font-size:11px;color:#7c8da0!important;
+}
+.contact-required-note strong{color:#0c5bd8;font-size:13px}
+.contact-call-form label>span{font-size:13px;font-weight:800}
+.contact-call-form label>span em{
+  font-size:11px;font-style:normal;font-weight:650;color:#8190a2;opacity:1;margin-left:3px
+}
+.contact-call-form input,
+.contact-call-form textarea{
+  min-height:50px;
+  border-radius:13px;
+  border:1px solid #cbd9e8;
+  background:#fff;
+  padding:13px 14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+.contact-call-form textarea{min-height:105px}
+.contact-call-form label small{
+  display:block;margin-top:3px;color:#8291a3;font-size:10px;line-height:1.4;font-weight:600
+}
+.contact-call-form .form-message{min-height:18px;margin:0;font-size:12px;font-weight:750}
+.contact-submit-button{
+  width:100%;min-height:52px;margin-top:0!important;border-radius:13px!important;
+  box-shadow:0 10px 22px rgba(12,91,216,.18)
+}
+@media(max-width:620px){
+  #modal:has(.contact-choice-tabs){padding:25px 20px 24px;border-radius:22px}
+  #modal:has(.contact-choice-tabs) h2{font-size:31px}
+  .contact-choice-tabs{grid-template-columns:1fr}
+  .contact-tab{width:100%}
+  .contact-name-grid{grid-template-columns:1fr}
+}
