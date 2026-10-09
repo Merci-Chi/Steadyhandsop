@@ -863,6 +863,49 @@ avoidGroup?.addEventListener('click',event=>{
   form.querySelector('[name="avoidColors"]').value=[...avoidGroup.querySelectorAll('.color-swatch.selected')].map(btn=>btn.dataset.color).join(', ');
 });
 
+
+const previewQuery=new URLSearchParams(window.location.search);
+const originatingSiteKey=String(previewQuery.get('sitekey')||'').trim();
+const originatingBusiness=String(previewQuery.get('business')||'').trim();
+const originatingTemplate=String(previewQuery.get('template')||'').trim();
+if(originatingSiteKey){
+  let hiddenSiteKey=form.querySelector('input[name="previewSiteKey"]');
+  if(!hiddenSiteKey){
+    hiddenSiteKey=document.createElement('input');
+    hiddenSiteKey.type='hidden';
+    hiddenSiteKey.name='previewSiteKey';
+    form.appendChild(hiddenSiteKey);
+  }
+  hiddenSiteKey.value=originatingSiteKey;
+  const businessInput=form.querySelector('input[name="businessName"]');
+  if(businessInput && !businessInput.value && originatingBusiness) businessInput.value=originatingBusiness;
+  const categoryInput=document.getElementById('business-category-value');
+  const categoryValueEl=document.querySelector('#business-category-toggle .category-picker-value');
+  if(categoryInput && !categoryInput.value && originatingTemplate){
+    categoryInput.value=originatingTemplate;
+    if(categoryValueEl){
+      categoryValueEl.textContent=labelFromSlug(originatingTemplate);
+      categoryValueEl.classList.add('has-value');
+    }
+  }
+
+  const overlay=document.createElement('div');
+  overlay.className='preview-request-context';
+  overlay.innerHTML='<div class="preview-request-backdrop"></div><section class="preview-request-dialog" role="dialog" aria-modal="true" aria-labelledby="preview-request-title"><p class="preview-request-kicker">STEADY HANDS · FROM YOUR PREVIEW</p><h2 id="preview-request-title">Let’s make this site yours.</h2><p>Your preview code has been carried over. It will be included with your website request so our team knows which preview you started from.</p><div class="preview-request-key"><span>Preview site key</span><code></code></div><button class="preview-request-continue" type="button">Continue to questionnaire</button></section>';
+  overlay.querySelector('.preview-request-key code').textContent=originatingSiteKey;
+  const style=document.createElement('style');
+  style.textContent='.preview-request-context{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;padding:20px}.preview-request-backdrop{position:absolute;inset:0;background:rgba(4,19,39,.78);backdrop-filter:blur(7px)}.preview-request-dialog{position:relative;width:min(520px,100%);padding:32px;background:#fff;border:1px solid rgba(255,255,255,.7);border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.36);color:#173348}.preview-request-kicker{font-size:11px;font-weight:900;letter-spacing:.15em;color:#99702e}.preview-request-dialog h2{font-size:clamp(26px,5vw,38px);line-height:1.08;letter-spacing:-.04em;margin:12px 0}.preview-request-dialog>p:not(.preview-request-kicker){color:#5c6c77;line-height:1.6}.preview-request-key{margin:20px 0;padding:13px 15px;border-radius:10px;background:#f1f5f8;border:1px solid #dce5ea}.preview-request-key span{display:block;font-size:11px;color:#617382;margin-bottom:5px}.preview-request-key code{font-size:15px;font-weight:900;color:#102b4c;overflow-wrap:anywhere}.preview-request-continue{width:100%;min-height:48px;border:0;border-radius:999px;background:linear-gradient(135deg,#163968,#102a56);color:#fff;font:inherit;font-weight:850;cursor:pointer;margin-top:8px}body.preview-request-open{overflow:hidden}';
+  document.head.appendChild(style);
+  document.body.appendChild(overlay);
+  document.body.classList.add('preview-request-open');
+  overlay.querySelector('.preview-request-continue').addEventListener('click',()=>{
+    overlay.remove();
+    style.remove();
+    document.body.classList.remove('preview-request-open');
+    document.getElementById('website-questionnaire')?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+
 async function submitWebsiteRequest(record){
   if(!config.supabaseUrl||!config.supabaseAnonKey) throw new Error('Request service is not configured.');
   const response=await fetch(config.supabaseUrl+'/rest/v1/website_requests',{
@@ -888,8 +931,8 @@ async function submitWebsiteRequest(record){
       yelp_or_google_url:record.yelp||null,
       services:record.services,
       color_preferences:record.colorPreferences,
-      specifications_notes:record.notes||null,
-      source:'steadyhandsop.com'
+      specifications_notes:[record.notes, record.siteKey ? 'Preview site key: '+record.siteKey : ''].filter(Boolean).join('\n')||null,
+      source:record.siteKey ? 'steadyhandsop.com-preview-unlock' : 'steadyhandsop.com'
     })
   });
   if(!response.ok){
@@ -945,7 +988,8 @@ form.addEventListener('submit',async event=>{
       accent:String(data.get('accentColor')||'').trim(),
       avoid:String(data.get('avoidColors')||'').trim()
     },
-    notes:String(data.get('notes')||'').trim()
+    notes:String(data.get('notes')||'').trim(),
+    siteKey:originatingSiteKey
   };
   submitButton.disabled=true;
   submitButton.textContent='Submitting…';
