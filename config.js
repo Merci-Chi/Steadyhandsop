@@ -10,7 +10,7 @@ window.STEADY_HANDS = {
   checkout: { 'Standard Hosting': '', 'Backend Hosting': '' },
   examples: { landscaping: '', cleaning: '', barbershop: '' },
   // Public preview codes only. Never put passwords or private client data here.
-  previews: { /* 'PUBLIC-CODE': 'https://your-preview-address.example' */ },
+  previews: { 'SHS-GHWH26M9R7Q2': 'https://steadyhandsop.com/Sites/greenhousewaterheaters/' },
   // Optional local fallback preview records.
   siteKeys: {},
   // Publish only real feedback with permission.
