@@ -44,7 +44,7 @@
     if (window.STEADY_HANDS) return Promise.resolve(window.STEADY_HANDS);
     return new Promise((resolve, reject) => {
       const s = document.createElement("script");
-      s.src = "../config.js?v=20261008-unified-template2";
+      s.src = "../config.js?v=20261009-placeholder-unlock1";
       s.onload = () => window.STEADY_HANDS ? resolve(window.STEADY_HANDS) : reject(new Error("Preview configuration is unavailable."));
       s.onerror = () => reject(new Error("Could not load preview configuration."));
       document.head.appendChild(s);
@@ -139,74 +139,275 @@
     return "";
   }
 
+  function categoryProfile(slug, label) {
+    const common = {
+      "tax-accounting": {
+        title:"Bookkeeping & Accounting", services:["Bookkeeping","Tax Preparation","Payroll Support","Financial Organization","Business Tax Planning","Consultation"],
+        about:"SAMPLE PREVIEW TEXT: Get organized with practical bookkeeping and accounting support designed around your business. Replace this sample introduction with your own story, experience, and approach after unlocking your site.",
+        benefits:["Clear, organized records","Support for small businesses","Straightforward communication"],
+        cta:"Schedule a Consultation"
+      },
+      "barber-salon": {
+        title:"Barbering & Grooming", services:["Classic Haircuts","Skin Fades","Beard Trims","Lineups & Shape-Ups","Kids’ Cuts","Style Consultation"],
+        about:"SAMPLE PREVIEW TEXT: A neighborhood grooming experience focused on your preferred style and a clean finish. Add your specialties, experience, and booking details after unlocking your site.",
+        benefits:["Styles tailored to you","Attention to detail","A comfortable experience"], cta:"Request an Appointment"
+      },
+      "beauty": {
+        title:"Beauty & Salon Services",services:["Hair Styling","Color Services","Treatments","Special-Event Styling","Consultations","Maintenance & Care"],
+        about:"SAMPLE PREVIEW TEXT: A beauty space for everyday maintenance and special-occasion looks. Replace this example with your services, credentials, and salon story after unlocking your site.",
+        benefits:["Personalized service","Careful attention to detail","Options for different styles"],cta:"Book a Consultation"
+      },
+      "landscaping": {
+        title:"Landscaping & Outdoor Care",services:["Landscape Maintenance","Yard Cleanups","Irrigation & Sprinklers","Planting & Enhancements","Turf & Pavers","Seasonal Property Care"],
+        about:"SAMPLE PREVIEW TEXT: Keep outdoor spaces neat, healthy, and welcoming with landscaping services tailored to each property. Add your service area, project photos, and business story after unlocking your site.",
+        benefits:["Care for residential properties","Flexible maintenance options","Attention to curb appeal"],cta:"Request an Estimate"
+      },
+      "restaurant": {
+        title:"Dining & Food Service",services:["Dine-In","Takeout","Signature Dishes","Family Favorites","Catering Inquiries","Group Orders"],
+        about:"SAMPLE PREVIEW TEXT: Discover a welcoming food experience with a menu made for sharing and enjoying. Replace this sample copy with your real menu, hours, story, and ordering details after unlocking your site.",
+        benefits:["A welcoming dining experience","Options for different occasions","Friendly service"],cta:"View Menu"
+      },
+      "cleaning": {
+        title:"Cleaning Services",services:["Recurring Cleaning","Deep Cleaning","Move-In / Move-Out","Office Cleaning","Kitchen & Bathroom Care","Custom Cleaning Plans"],
+        about:"SAMPLE PREVIEW TEXT: Keep your space fresh and organized with cleaning options suited to your home or workplace. Add your real service area, availability, and cleaning checklist after unlocking your site.",
+        benefits:["Plans tailored to each space","Attention to the details","Flexible service options"],cta:"Request a Quote"
+      },
+      "auto-repair": {
+        title:"Automotive Repair & Maintenance",services:["Diagnostic Checks","Routine Maintenance","Brake Service","Engine & Performance","Fluid & Filter Service","Repair Estimates"],
+        about:"SAMPLE PREVIEW TEXT: Practical automotive maintenance and repair support to help you understand your vehicle’s needs. Add your real specialties, certifications, and service policies after unlocking your site.",
+        benefits:["Clear repair explanations","Maintenance-focused service","Options based on vehicle needs"],cta:"Request Service"
+      },
+      "auto-body": {
+        title:"Auto Body & Collision",services:["Bodywork Estimates","Dent Repair","Paint & Finish","Bumper Repair","Panel Alignment","Collision Repair Consultation"],
+        about:"SAMPLE PREVIEW TEXT: Auto body services focused on restoring appearance and fit after everyday damage or a collision. Add your actual repair capabilities, insurance guidance, and shop details after unlocking your site.",
+        benefits:["Detail-focused workmanship","Repair options explained","Help planning next steps"],cta:"Request an Estimate"
+      },
+      "plumbing": {
+        title:"Plumbing Services",services:["Leak Repairs","Drain Service","Fixture Installation","Water Heater Service","Pipe Repairs","Plumbing Inspections"],
+        about:"SAMPLE PREVIEW TEXT: Plumbing support for common repairs, installations, and maintenance needs. Replace this example with your licensed services, coverage area, and availability after unlocking your site.",
+        benefits:["Clear next steps","Maintenance and repair options","Care for your property"],cta:"Request Service"
+      },
+      "electrical": {
+        title:"Electrical Services",services:["Troubleshooting","Lighting Installation","Outlet & Switch Service","Panel Consultation","Fixture Upgrades","Electrical Maintenance"],
+        about:"SAMPLE PREVIEW TEXT: Electrical service options for maintenance, upgrades, and troubleshooting. Add your real license details, covered services, and service area after unlocking your site.",
+        benefits:["Safety-minded work","Options explained clearly","Service for different property needs"],cta:"Request Service"
+      },
+      "hvac": {
+        title:"Heating & Air Conditioning",services:["System Maintenance","Heating Service","Cooling Service","Airflow Troubleshooting","Thermostat Installation","System Estimates"],
+        about:"SAMPLE PREVIEW TEXT: Heating and cooling support to help maintain comfort across the seasons. Add your true equipment specialties, coverage area, and scheduling details after unlocking your site.",
+        benefits:["Seasonal maintenance options","Clear recommendations","Support for comfort needs"],cta:"Request Service"
+      },
+      "dentist": {
+        title:"Dental Care",services:["Routine Exams","Preventive Care","Cleaning Appointments","Treatment Consultations","Oral Health Guidance","Follow-Up Visits"],
+        about:"SAMPLE PREVIEW TEXT: A welcoming place to learn about dental care and available appointment options. Replace this with your actual practice information, providers, and accepted services after unlocking your site.",
+        benefits:["Patient-focused communication","Preventive care information","Appointment guidance"],cta:"Request an Appointment"
+      },
+      "medical-clinic": {
+        title:"Health & Wellness Services",services:["Appointment Requests","General Consultations","Wellness Visits","Follow-Up Care","Patient Information","Care Coordination"],
+        about:"SAMPLE PREVIEW TEXT: A professional place to learn about available healthcare services and appointment options. Add verified provider information, actual services, and patient instructions after unlocking your site.",
+        benefits:["Clear patient information","Respectful communication","Guidance on appointment options"],cta:"Request an Appointment"
+      },
+      "day-spa-med-spa": {
+        title:"Spa & Personal Care",services:["Relaxation Treatments","Skin Care Consultations","Personal Care Services","Wellness Packages","Appointment Planning","Treatment Information"],
+        about:"SAMPLE PREVIEW TEXT: Explore spa and personal-care options in a comfortable setting. Add your real service menu, qualifications, and booking rules after unlocking your site.",
+        benefits:["A relaxing experience","Options explained before booking","Personalized care"],cta:"Book a Consultation"
+      },
+      "driving-school": {
+        title:"Driving Lessons & Training",services:["Beginner Lessons","Behind-the-Wheel Practice","Road-Test Preparation","Refresher Lessons","Scheduling Guidance","Student Information"],
+        about:"SAMPLE PREVIEW TEXT: Learn about lesson options and training for different experience levels. Replace this with your real instructor credentials, locations, and scheduling information after unlocking your site.",
+        benefits:["Lessons for different experience levels","Clear training expectations","Practice-focused learning"],cta:"Request Lesson Information"
+      },
+      "real-estate": {
+        title:"Real Estate Services",services:["Buying Guidance","Selling Preparation","Property Search","Market Consultations","Listing Support","Local Area Guidance"],
+        about:"SAMPLE PREVIEW TEXT: Explore property options and learn how professional guidance can support your next move. Add your genuine listings, license details, and service areas after unlocking your site.",
+        benefits:["Guidance through the process","Clear communication","Support for your property goals"],cta:"Request a Consultation"
+      },
+      "pet-grooming": {
+        title:"Pet Grooming & Care",services:["Bath & Brush","Haircuts & Styling","Nail Trimming","Coat Maintenance","Breed-Specific Grooming","Appointment Consultation"],
+        about:"SAMPLE PREVIEW TEXT: Grooming options designed to help pets look and feel their best. Add your real grooming menu, pet requirements, and appointment policies after unlocking your site.",
+        benefits:["Careful handling","Options for different coats","Clear appointment information"],cta:"Request an Appointment"
+      },
+      "plumbing-service": {
+        title:"Home Service & Repairs",services:["Service Consultation","Routine Maintenance","Repairs","Installation Support","Property Care","Estimate Requests"],
+        about:"SAMPLE PREVIEW TEXT: Home and property service options designed around common maintenance needs. Customize this page with your real specialties, credentials, and coverage area after unlocking your site.",
+        benefits:["Practical service options","Clear estimates","Care for your property"],cta:"Request an Estimate"
+      },
+      "generic": {
+        title:"Professional Business Services",services:["Consultations","Service Planning","Custom Solutions","Ongoing Support","Project Requests","Frequently Asked Questions"],
+        about:"SAMPLE PREVIEW TEXT: A professional business focused on helpful service, clear communication, and solutions tailored to each customer. Replace this example with your actual company story and offerings after unlocking your site.",
+        benefits:["Personalized attention","Clear communication","Solutions shaped around your needs"],cta:"Contact Us"
+      }
+    };
+    const key = common[slug] ? slug : "generic";
+    const profile = common[key];
+    return {
+      categoryTitle: profile.title || label || "Professional Services",
+      services: profile.services,
+      about: profile.about,
+      benefits: profile.benefits,
+      cta: profile.cta
+    };
+  }
+
   function render(record, photoMap) {
-    const business = value(record.businessName, record.companyName, record.company_name, record.name);
-    const category = value(record.categoryLabel, record.business_category, record.category, record.template_key);
+    const category = value(record.categoryLabel, record.business_category, record.category, record.template_key) || "Professional Services";
     const selectedSlug = categorySlug(category, photoMap || {});
-    const photos = (photoMap || {})[selectedSlug] || [];
-    const heroPhoto = photoUrl(photos[0]);
-    const secondaryPhoto = photoUrl(photos[1]);
-    const phone = value(record.public_phone, record.phone);
-    const email = value(record.public_email, record.email);
-    const address = value(record.address, record.address_or_service_area, record.serviceArea);
-    const about = value(record.about, record.description, record.about_business);
-    const website = url(record.website || record.website_url);
-    const services = list(record.services);
+    const profile = categoryProfile(selectedSlug, category);
+    const photos = (photoMap || {})[selectedSlug] || (photoMap || {}).generic || [];
+    const usablePhotos = photos.map(photoUrl).filter(Boolean);
+    const heroPhoto = usablePhotos[0] || "";
+    const galleryPhotos = [usablePhotos[1] || usablePhotos[0] || "", usablePhotos[2] || usablePhotos[0] || "", usablePhotos[3] || usablePhotos[1] || usablePhotos[0] || ""].filter(Boolean);
+
+    const businessReal = value(record.businessName, record.companyName, record.company_name, record.name);
+    const business = businessReal || ("Your Example " + profile.categoryTitle + " Business");
+    const phoneReal = value(record.public_phone, record.phone);
+    const emailReal = value(record.public_email, record.email);
+    const addressReal = value(record.address, record.address_or_service_area, record.serviceArea);
+    const aboutReal = value(record.about, record.description, record.about_business);
+    const websiteReal = url(record.website || record.website_url);
+    const servicesReal = list(record.services);
+    const phone = phoneReal || "(000)000-0000";
+    const email = emailReal || "email@example.com";
+    const address = addressReal || "1234 Example Street, Example City, ST 00000";
+    const about = aboutReal || profile.about;
+    const services = servicesReal.length ? servicesReal : profile.services;
+    const isPlaceholder = {
+      business: !businessReal, phone: !phoneReal, email: !emailReal,
+      address: !addressReal, about: !aboutReal, services: !servicesReal.length,
+      website: !websiteReal
+    };
     const socials = [
       ["Facebook", url(record.facebook || record.facebook_url)],
       ["Instagram", url(record.instagram || record.instagram_url)],
       ["TikTok", url(record.tiktok || record.tiktok_url)]
-    ].filter(x => x[1]);
+    ].filter(item => item[1]);
 
-    const contactButtons = [];
-    if (phone) contactButtons.push('<a class="button button-primary" href="tel:' + esc(phone.replace(/[^\d+]/g, "")) + '">Call ' + esc(phone) + '</a>');
-    if (email) contactButtons.push('<a class="button button-secondary" href="mailto:' + esc(email) + '">Email us</a>');
-    if (website) contactButtons.push('<a class="text-link" href="' + esc(website) + '" target="_blank" rel="noopener noreferrer">Visit website ↗</a>');
+    const placeholderTag = '<span class="sample-tag">Example placeholder</span>';
+    const fakeMark = key => isPlaceholder[key] ? placeholderTag : "";
+    const tel = phone.replace(/[^\d+]/g, "");
+    const navItem = (href, text) => '<a href="' + href + '" data-preview-lock>' + text + '</a>';
+    const button = (label, kind) => '<a class="preview-button ' + (kind || "") + '" href="#unlock" data-preview-lock>' + label + '</a>';
+    const serviceCards = services.map((service, index) =>
+      '<article class="service-card"><div class="service-icon">' + ["✦","◈","✧","⌁","◇","✳"][index % 6] + '</div><h3>' + esc(service) + '</h3><p>Sample service detail. Replace this with your actual service information after unlocking.</p></article>'
+    ).join("");
+    const benefitCards = profile.benefits.map((benefit, index) =>
+      '<article class="benefit-card"><span>' + ["01","02","03"][index] + '</span><h3>' + esc(benefit) + '</h3><p>Sample preview content — customize this detail for your business.</p></article>'
+    ).join("");
+    const gallery = galleryPhotos.length ? '<div class="gallery-grid">' + galleryPhotos.map((src,index) =>
+      '<button class="gallery-tile" type="button" data-preview-lock aria-label="Preview gallery item ' + (index + 1) + '"><img src="' + esc(src) + '" alt="Stock photo placeholder for ' + esc(category) + '"><span>Stock photo · example</span></button>'
+    ).join("") + '</div>' : '<div class="gallery-empty">Stock photos for this category will appear here after the template finishes loading.</div>';
 
-    let html = '<header class="site-header"><div class="container nav">' +
-      '<a class="brand" href="#top">' + esc(business || "Business website preview") + '</a><nav aria-label="Main navigation">';
-    if (services.length) html += '<a href="#services">Services</a>';
-    if (about) html += '<a href="#about">About</a>';
-    if (phone || email || address || website || socials.length) html += '<a href="#contact">Contact</a>';
-    html += '</nav></div></header><main id="top"><section class="hero"' +
-      (heroPhoto ? ' style="background-image:linear-gradient(110deg,rgba(7,20,30,.88),rgba(7,20,30,.38)),url(&quot;' + esc(heroPhoto) + '&quot;);background-position:center;background-size:cover;"' : '') +
-      '><div class="container hero-inner">';
-    if (category) html += '<p class="eyebrow">' + esc(category) + '</p>';
-    html += '<h1>' + esc(business || "Business website preview") + '</h1>';
-    if (about) html += '<p class="hero-description">' + esc(about) + '</p>';
-    if (contactButtons.length) html += '<div class="hero-actions">' + contactButtons.slice(0, 2).join("") + '</div>';
-    html += '</div></section>';
+    document.title = business + " | " + category + " Preview";
+    document.body.innerHTML =
+      '<div class="preview-banner"><span>WEBSITE PREVIEW — interactions are disabled. <strong>This is just a preview. Unlock the full site to unlock it.</strong></span><button type="button" data-open-unlock>Unlock this site <span aria-hidden="true">↗</span></button></div>' +
+      '<header class="site-header"><div class="container nav"><a class="brand" href="#top" data-preview-lock>' + esc(business) + '</a><nav aria-label="Main navigation">' +
+        navItem("#services","Services") + navItem("#about","About") + navItem("#gallery","Gallery") + navItem("#contact","Contact") +
+      '</nav><button class="mobile-menu" type="button" aria-label="Open navigation" data-preview-lock>☰</button></div></header>' +
+      '<main id="top">' +
+        '<section class="hero"' + (heroPhoto ? ' style="background-image:linear-gradient(110deg,rgba(6,20,31,.88),rgba(6,20,31,.30)),url(&quot;' + esc(heroPhoto) + '&quot;)"' : '') + '>' +
+          '<div class="container hero-inner"><div class="hero-copy"><p class="eyebrow">' + esc(category) + ' · WEBSITE PREVIEW</p><h1>' + esc(business) + '</h1>' +
+          '<p class="hero-description">' + esc(about) + '</p>' +
+          (isPlaceholder.about ? '<p class="placeholder-note">SAMPLE PLACEHOLDER TEXT — replace this with your actual business description.</p>' : '') +
+          '<div class="hero-actions">' + button('☎ ' + esc(phone) + fakeMark("phone"),"button-primary") + button(esc(profile.cta),"button-light") + '</div>' +
+          '<p class="hero-placeholder-line">' + fakeMark("business") + ' ' + fakeMark("phone") + '</p></div></div></section>' +
 
-    if (secondaryPhoto && (business || category)) {
-      html += '<section class="photo-band" aria-label="Business photography" style="background-image:linear-gradient(100deg,rgba(7,20,30,.76),rgba(7,20,30,.25)),url(&quot;' + esc(secondaryPhoto) + '&quot;);background-position:center;background-size:cover;">' +
-        '<div class="container photo-band-inner">' +
-        (category ? '<p class="section-label">' + esc(category) + '</p>' : '') +
-        (business ? '<h2>' + esc(business) + '</h2>' : '') +
-        '</div></section>';
-    }
+        '<section class="quick-facts"><div class="container quick-facts-grid">' +
+          '<article><span class="fact-icon">☎</span><div><p>Call us</p><strong>' + esc(phone) + '</strong>' + fakeMark("phone") + '</div></article>' +
+          '<article><span class="fact-icon">✉</span><div><p>Email</p><strong>' + esc(email) + '</strong>' + fakeMark("email") + '</div></article>' +
+          '<article><span class="fact-icon">⌖</span><div><p>Location</p><strong>' + esc(address) + '</strong>' + fakeMark("address") + '</div></article>' +
+        '</div></section>' +
 
-    if (services.length) {
-      html += '<section id="services" class="section"><div class="container"><p class="section-label">What we offer</p><h2>Services</h2><div class="service-grid">';
-      html += services.map(s => '<article class="service-card"><span class="service-mark" aria-hidden="true">✦</span><h3>' + esc(s) + '</h3></article>').join("");
-      html += '</div></div></section>';
-    }
-    if (about) {
-      html += '<section id="about" class="section about-section"><div class="container about-inner"><p class="section-label">About</p><h2>' +
-        esc(business || "About us") + '</h2><p class="body-copy">' + esc(about) + '</p></div></section>';
-    }
-    if (phone || email || address || website || socials.length) {
-      html += '<section id="contact" class="section contact-section"><div class="container contact-inner"><p class="section-label">Get in touch</p><h2>Contact' +
-        (business ? ' ' + esc(business) : ' us') + '</h2>';
-      if (address) html += '<p class="contact-detail">' + esc(address) + '</p>';
-      if (contactButtons.length) html += '<div class="contact-actions">' + contactButtons.join("") + '</div>';
-      if (socials.length) html += '<div class="social-links">' + socials.map(x => '<a href="' + esc(x[1]) + '" target="_blank" rel="noopener noreferrer">' + esc(x[0]) + ' ↗</a>').join("") + '</div>';
-      html += '</div></section>';
-    }
-    html += '</main><footer class="site-footer"><div class="container footer-inner"><span>' +
-      esc(business || "Business website preview") + '</span><span>' + esc(category) + '</span></div></footer>';
-    document.title = (business || "Business website preview") + (category ? " | " + category : "");
-    document.body.innerHTML = html;
-  }
+        '<section id="services" class="section"><div class="container"><div class="section-heading"><p class="section-kicker">What we do</p><h2>Services designed around your needs</h2><p>Sample service cards show how your business offerings can be presented. Your final site can use your real service names and descriptions.</p>' + (isPlaceholder.services ? placeholderTag : '') + '</div><div class="service-grid">' + serviceCards + '</div><div class="section-actions">' + button("Explore all services","button-outline") + button(esc(profile.cta),"button-primary") + '</div></div></section>' +
+
+        (gallery ? '<section id="gallery" class="section photo-section"><div class="container"><div class="section-heading"><p class="section-kicker">A look at our work</p><h2>Gallery & inspiration</h2><p>Category-matched stock photography is used as a visual placeholder until your own photos are added.</p></div>' + gallery + '<div class="section-actions">' + button("View More Photos","button-outline") + button("Ask About This Service","button-primary") + '</div></div></section>' : '') +
+
+        '<section class="photo-band"' + (usablePhotos[1] ? ' style="background-image:linear-gradient(110deg,rgba(6,20,31,.85),rgba(6,20,31,.30)),url(&quot;' + esc(usablePhotos[1]) + '&quot;)"' : '') + '><div class="container photo-band-inner"><p class="section-kicker">Service with a personal touch</p><h2>' + esc(business) + '</h2><p>' + esc(profile.about) + '</p>' + button(esc(profile.cta),"button-light") + '</div></section>' +
+
+        '<section id="about" class="section about-section"><div class="container about-grid"><div><p class="section-kicker">About the business</p><h2>' + esc(business) + '</h2><p class="body-copy">' + esc(about) + '</p>' + (isPlaceholder.about ? '<p class="placeholder-note">EXAMPLE COPY — customize this paragraph with your own story.</p>' : '') + '</div><aside class="about-side"><div class="about-image"' + (usablePhotos[2] ? ' style="background-image:url(&quot;' + esc(usablePhotos[2]) + '&quot;)"' : '') + '></div><p>Category-matched stock photography · Replace with your own work after unlocking.</p></aside></div></section>' +
+
+        '<section class="section benefits-section"><div class="container"><div class="section-heading"><p class="section-kicker">Why choose us</p><h2>A few reasons customers may choose your business</h2><p>These are sample content blocks, not verified claims or customer reviews.</p></div><div class="benefit-grid">' + benefitCards + '</div></div></section>' +
+
+        '<section class="section reviews-section"><div class="container"><div class="section-heading"><p class="section-kicker">Customer feedback</p><h2>Reviews & testimonials</h2><p>Clearly marked examples show where genuine customer reviews can go. No real reviews have been invented.</p></div><div class="review-grid">' +
+          '<article class="review-card"><div class="review-stars">★★★★★</div><p>“Example review placeholder — add a real customer review here after you have permission to use it.”</p><strong>Sample Customer</strong><span>Placeholder testimonial</span></article>' +
+          '<article class="review-card"><div class="review-stars">★★★★★</div><p>“Sample feedback content — replace with an authentic review from your customer.”</p><strong>Example Client</strong><span>Placeholder testimonial</span></article>' +
+          '<article class="review-card"><div class="review-stars">★★★★★</div><p>“Your customer experience could be highlighted here with a real, approved testimonial.”</p><strong>Example Reviewer</strong><span>Placeholder testimonial</span></article>' +
+        '</div><div class="section-actions">' + button("Read More Reviews","button-outline") + '</div></div></section>' +
+
+        '<section id="contact" class="section contact-section"><div class="container contact-grid"><div><p class="section-kicker">Get in touch</p><h2>Let’s talk about what you need</h2><p>Use the contact details below as placeholders when the business has not supplied them yet.</p><div class="contact-actions">' + button("Call " + esc(phone),"button-primary") + button("Email " + esc(email),"button-light") + button("Get Directions","button-outline") + '</div></div><div class="contact-card"><h3>Contact details</h3><p><strong>Phone</strong><br>' + esc(phone) + ' ' + fakeMark("phone") + '</p><p><strong>Email</strong><br>' + esc(email) + ' ' + fakeMark("email") + '</p><p><strong>Address</strong><br>' + esc(address) + ' ' + fakeMark("address") + '</p><p><strong>Website</strong><br>' + esc(value(websiteReal) || "www.example.com") + ' ' + (isPlaceholder.website ? placeholderTag : '') + '</p>' +
+          (socials.length ? '<div class="social-list">' + socials.map(item=>'<a href="' + esc(item[1]) + '" data-preview-lock>' + esc(item[0]) + '</a>').join("") + '</div>' : '<p class="placeholder-note">Example social links can be added after unlocking your website.</p>') +
+        '</div></div></section>' +
+        '<section class="final-cta"><div class="container"><p class="section-kicker">Your website starts here</p><h2>Ready to make this site yours?</h2><p>Unlock to replace sample content with your real business details and customize your website.</p>' + button("Unlock the Full Site","button-primary") + '</div></section>' +
+      '</main><footer class="site-footer"><div class="container footer-inner"><div><strong>' + esc(business) + '</strong><p>Website preview · Sample content is clearly marked</p></div><div><span>' + esc(category) + '</span><p>© ' + new Date().getFullYear() + ' · Preview only</p></div></div></footer>' +
+
+      '<div class="unlock-modal" id="unlock-modal" hidden role="dialog" aria-modal="true" aria-labelledby="unlock-title"><div class="unlock-backdrop" data-close-unlock></div><div class="unlock-dialog"><button class="unlock-close" type="button" aria-label="Close popup" data-close-unlock>×</button><p class="section-kicker">Steady Hands Preview</p><h2 id="unlock-title">This is just a preview.</h2><p>Unlock the full site to unlock it. Your real business details, custom content, and working interactions can be added in the site questionnaire.</p><a class="preview-button button-primary" href="../make-site.html" data-allow-navigation>Unlock this site <span aria-hidden="true">↗</span></a><button class="preview-button button-outline" type="button" data-close-unlock>Keep Previewing</button></div></div>';
+
+    const modal = document.getElementById("unlock-modal");
+    const openModal = () => {
+      modal.hidden = false;
+      document.body.classList.add("unlock-open");
+      const close = modal.querySelector(".unlock-close");
+      if (close) close.focus();
+    };
+    const closeModal = () => {
+      modal.hidden = true;
+      document.body.classList.remove("unlock-open");
+    };
+    document.addEventListener("click", function previewClickHandler(event) {
+      const allow = event.target.closest("[data-allow-navigation]");
+      if (allow) return;
+      const close = event.target.closest("[data-close-unlock]");
+      if (close) { event.preventDefault(); closeModal(); return; }
+      const unlock = event.target.closest("[data-open-unlock]");
+      if (unlock) { event.preventDefault(); openModal(); return; }
+      const locked = event.target.closest("[data-preview-lock],.preview-button");
+      if (locked && !modal.contains(locked)) { event.preventDefault(); openModal(); }
+    });
+    document.addEventListener("keydown", function previewEscapeHandler(event) {
+      if (event.key === "Escape" && !modal.hidden) closeModal();
+    });
+
+    const appended = document.createElement("style");
+    appended.textContent = ".preview-banner{position:sticky;top:0;z-index:99999;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;background:#102b4c;color:#fff;padding:10px 16px;text-align:center;font:700 14px/1.4 Arial,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.18)}.preview-banner strong{color:#ffbf00}.preview-banner button{border:0;background:transparent;color:white;text-decoration:underline;font:800 14px Arial,sans-serif;cursor:pointer;padding:4px 8px}.sample-tag{display:inline-block;background:#fff4d9;border:1px dashed #b68630;color:#76531e;border-radius:5px;padding:2px 7px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;vertical-align:middle}.sample-tag:empty{display:none}.placeholder-note{margin-top:12px!important;padding:9px 12px;border-left:3px solid #d6aa60;background:rgba(255,255,255,.10);font-size:.82rem!important}.hero-placeholder-line{margin-top:14px!important;font-size:.8rem!important}.hero{position:relative;min-height:570px;display:flex;align-items:center;background-color:#203443;background-position:center;background-size:cover;padding:84px 0;color:#fff}.hero-inner{width:100%}.hero-copy{max-width:860px}.hero h1{font-size:clamp(2.8rem,7vw,5.7rem);line-height:.98;letter-spacing:-.05em;margin:12px 0 22px;overflow-wrap:anywhere}.hero-description{max-width:780px;font-size:1.08rem;color:rgba(255,255,255,.9);white-space:pre-wrap}.eyebrow{color:#f4d69e;text-transform:uppercase;letter-spacing:.15em;font-size:.76rem;font-weight:900}.hero-actions,.section-actions,.contact-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.preview-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:7px;text-decoration:none;font-weight:850;border:1px solid transparent;cursor:pointer;font:inherit}.button-primary{background:#d5a95f;color:#132837}.button-light{background:#fff;color:#132837}.button-outline{background:transparent;color:inherit;border-color:currentColor}.quick-facts{position:relative;z-index:2;margin-top:-26px}.quick-facts-grid{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-radius:12px;box-shadow:0 18px 50px rgba(5,20,35,.14);overflow:hidden}.quick-facts-grid article{padding:24px;display:flex;gap:14px;align-items:flex-start;border-right:1px solid #e3e9ed}.quick-facts-grid article:last-child{border:0}.fact-icon{width:42px;height:42px;flex:0 0 auto;display:grid;place-items:center;border-radius:50%;background:#f5ebd8;color:#8d682e;font-size:1.2rem}.quick-facts p{margin:0 0 4px;color:#70808a;font-size:.85rem}.quick-facts strong{overflow-wrap:anywhere;color:#142e40}.section{padding:78px 0}.section-heading{max-width:760px;margin-bottom:30px}.section-kicker{color:#a67b34;text-transform:uppercase;font-size:.76rem;letter-spacing:.16em;font-weight:900;margin:0 0 10px}.section h2,.final-cta h2{font-size:clamp(2rem,4.5vw,3.7rem);letter-spacing:-.045em;line-height:1.06;margin:0 0 16px;color:#173348}.section-heading>p:not(.section-kicker),.contact-grid>div>p:not(.section-kicker),.final-cta p{color:#5e6d76}.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.service-card{min-height:172px;background:#fff;border:1px solid #e0e6e9;border-radius:10px;padding:24px;box-shadow:0 9px 26px rgba(12,35,48,.05)}.service-icon{font-size:1.3rem;color:#bd8b3d}.service-card h3{color:#1d394c;font-size:1.1rem;margin:14px 0 8px}.service-card p{font-size:.89rem;color:#6b7880}.photo-section{background:#eef2f3}.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.gallery-tile{position:relative;height:260px;border:0;border-radius:10px;overflow:hidden;padding:0;background:#dbe3e7;cursor:pointer}.gallery-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}.gallery-tile span{position:absolute;left:12px;bottom:12px;background:rgba(12,30,44,.78);color:#fff;padding:6px 9px;border-radius:4px;font-size:.7rem;font-weight:800}.gallery-tile:hover img{transform:scale(1.03)}.photo-band{background-color:#18374a;background-position:center;background-size:cover;color:#fff;padding:70px 0;min-height:300px;display:flex;align-items:center}.photo-band-inner{width:100%}.photo-band h2{color:#fff;max-width:900px}.photo-band p:not(.section-kicker){color:rgba(255,255,255,.86);max-width:760px}.about-section{background:#fff}.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:38px;align-items:center}.body-copy{white-space:pre-wrap;color:#5f6d75;font-size:1.05rem}.about-side{background:#f3f5f6;padding:12px;border-radius:12px}.about-image{min-height:290px;border-radius:8px;background-color:#d9e2e7;background-size:cover;background-position:center}.about-side p{font-size:.77rem;color:#687983;margin:10px 4px 2px}.benefits-section{background:#f0f3f4}.benefit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.benefit-card{background:#fff;padding:23px;border:1px solid #e0e6e9;border-radius:10px}.benefit-card>span{color:#bd8b3d;font-size:.8rem;font-weight:900;letter-spacing:.12em}.benefit-card h3{font-size:1.1rem;color:#1a384a;margin:14px 0 8px}.benefit-card p{font-size:.88rem;color:#6a777f}.reviews-section{background:#fff}.review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.review-card{border:1px solid #e2e7e9;border-radius:10px;padding:24px;background:#fbfcfc}.review-stars{color:#bd8b3d;letter-spacing:.12em;margin-bottom:12px}.review-card p{color:#52616a;font-size:.94rem}.review-card strong,.review-card span{display:block}.review-card strong{margin-top:18px;color:#243e4d}.review-card span{font-size:.75rem;color:#a1742e}.contact-section{background:#eef2f3}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:start}.contact-card{background:#fff;border:1px solid #dfe6e8;border-radius:12px;padding:25px;box-shadow:0 12px 32px rgba(12,35,48,.06)}.contact-card h3{color:#183549;margin:0 0 18px}.contact-card>p{color:#52636d;margin:0 0 15px;overflow-wrap:anywhere}.contact-card strong{font-size:.82rem;color:#17374c}.social-list{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.social-list a{border:1px solid #d6dfe3;padding:8px 11px;border-radius:5px;text-decoration:none;font-weight:800}.final-cta{background:#122d40;color:#fff;padding:70px 0}.final-cta h2{color:#fff}.final-cta p{color:#d2dce2;max-width:760px}.site-footer{background:#0a1b27;color:#d1dae0;padding:26px 0}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-inner p{color:#9dabb3;font-size:.8rem;margin-top:5px}.unlock-modal[hidden]{display:none!important}.unlock-modal{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;padding:20px}.unlock-backdrop{position:absolute;inset:0;background:rgba(4,14,27,.76);backdrop-filter:blur(7px)}.unlock-dialog{position:relative;z-index:1;width:min(500px,100%);padding:36px;background:#fff;color:#173348;border-radius:18px;box-shadow:0 30px 100px rgba(0,0,0,.4)}.unlock-dialog h2{font-size:clamp(1.8rem,5vw,2.5rem);line-height:1.08;letter-spacing:-.04em;margin:10px 0 14px}.unlock-dialog p:not(.section-kicker){color:#5c6c77}.unlock-dialog .preview-button{width:100%;margin-top:12px}.unlock-close{position:absolute;top:9px;right:12px;border:0;background:transparent;color:#415563;font-size:30px;cursor:pointer}.unlock-open{overflow:hidden}.mobile-menu{display:none;border:1px solid rgba(255,255,255,.25);border-radius:7px;background:transparent;color:inherit;padding:8px 11px}@media(max-width:780px){.quick-facts-grid,.service-grid,.benefit-grid,.review-grid,.gallery-grid{grid-template-columns:1fr}.quick-facts{margin-top:0}.quick-facts-grid article{border-right:0;border-bottom:1px solid #e3e9ed}.about-grid,.contact-grid{grid-template-columns:1fr}.gallery-tile{height:230px}.nav nav{display:flex;gap:10px;flex-wrap:wrap}.mobile-menu{display:block}.hero{min-height:520px;padding:64px 0}.section{padding:54px 0}.quick-facts-grid article{padding:17px}.unlock-dialog{padding:30px 22px}.preview-banner{font-size:12px}.preview-banner button{font-size:12px}}";
+    document.head.appendChild(appended);
+
+    modal.querySelectorAll("a[data-allow-navigation]").forEach(link => {
+      link.href = "../make-site.html";
+    });
+    document.addEventListener("click", function previewClickHandler(event) {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const allowNavigation = target.closest("[data-allow-navigation]");
+      if (allowNavigation) return;
+      const close = target.closest("[data-close-unlock]");
+      if (close) { event.preventDefault(); closeModal(); return; }
+      const open = target.closest("[data-open-unlock]");
+      if (open) { event.preventDefault(); openModal(); return; }
+      const locked = target.closest("[data-preview-lock],.preview-button");
+      if (locked && !modal.contains(locked)) {
+        event.preventDefault();
+        openModal();
+      }
+    }, true);
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !modal.hidden) closeModal();
+    });
+    (async () => {
+      try {
+        const encoded = decode(params.get("data") || "");
+        let record = encoded && value(encoded.siteKey, encoded.site_key) ? encoded : null;
+        if (!record && siteKey) record = fromSession(siteKey);
+        if (!record && siteKey) record = await lookup(siteKey);
+        if (!record) {
+          errorView(siteKey ? "This site key was not found or is inactive. Check the code and try again." : "Enter your assigned site key on the Preview page to load your business information.");
+          return;
+        }
+        const photoMap = await loadTemplatePhotoMap();
+        render(record, photoMap);
+      } catch (err) {
+        console.error("Steady Hands preview:", err);
+        errorView(err && err.message ? err.message : "An unexpected error occurred.");
+      }
+    })();
 
   const style = document.createElement("style");
   style.textContent = ":root{color-scheme:light;--ink:#172633;--muted:#64727d;--line:#e1e7eb;--paper:#f5f7f8;--white:#fff;--navy:#102332;--gold:#d5a95f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.65}a{color:inherit}.container{width:min(1120px,calc(100% - 40px));margin:0 auto}.site-header{background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:800;font-size:1.05rem;text-decoration:none;letter-spacing:-.02em}.nav nav{display:flex;gap:26px}.nav nav a{font-size:.94rem;font-weight:650;text-decoration:none;color:#e4ebef}.hero{background:linear-gradient(125deg,#102332,#1c3c50);color:#fff;padding:clamp(76px,12vw,146px) 0;background-position:center;background-size:cover}.photo-band{min-height:310px;display:flex;align-items:center;color:#fff;background-color:#223743;padding:54px 0}.photo-band-inner{width:100%}.photo-band h2{font-size:clamp(1.9rem,5vw,3.4rem);max-width:900px;letter-spacing:-.045em;line-height:1.1;margin:0}.photo-band .section-label{color:#f2d39b}.eyebrow,.section-label{text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800;color:var(--gold);margin:0 0 16px}.hero h1{font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.03;letter-spacing:-.055em;max-width:900px;margin:0;font-weight:850;overflow-wrap:anywhere}.hero-description{max-width:740px;color:#d7e0e5;font-size:1.1rem;margin:24px 0 0}.hero-actions,.contact-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border-radius:7px;font-weight:750;text-decoration:none}.button-primary{background:var(--gold);color:#142634}.button-secondary{background:#fff;color:#152c3b}.text-link{font-weight:750;text-decoration:underline;text-underline-offset:4px;padding:11px 0}.section{padding:76px 0}.section h2{font-size:clamp(2rem,4vw,3.15rem);letter-spacing:-.045em;line-height:1.1;margin:0 0 26px}.section-label{color:#99702e}.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.service-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px;min-height:126px;box-shadow:0 10px 26px rgba(14,33,45,.04)}.service-mark{color:#b98734;font-size:1.1rem}.service-card h3{font-size:1.05rem;margin:12px 0 0;overflow-wrap:anywhere}.about-section{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.about-inner{max-width:880px}.body-copy{max-width:800px;color:#53636e;font-size:1.08rem;white-space:pre-wrap}.contact-inner{max-width:900px}.contact-detail{color:#52626e;margin:0 0 12px}.contact-actions{margin:18px 0}.social-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px}.social-links a{font-weight:700;text-decoration:none}.site-footer{background:#0c1c28;color:#cdd7de;padding:25px 0}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.9rem}.error-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--paper)}.error-card{width:min(620px,100%);background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(24px,5vw,48px);box-shadow:0 18px 54px rgba(10,30,42,.08)}.error-card h1{line-height:1.1;letter-spacing:-.04em}.error-card p{color:var(--muted)}@media(max-width:640px){.container{width:min(100% - 28px,1120px)}.nav{min-height:68px;align-items:flex-start;flex-direction:column;justify-content:center;padding:13px 0;gap:9px}.nav nav{flex-wrap:wrap;gap:14px}.hero{padding:72px 0}.section{padding:54px 0}.hero-actions .button,.contact-actions .button{width:100%}}";
