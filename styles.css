@@ -1755,3 +1755,7 @@ footer{flex:0 0 auto}
 .contact-call-form textarea{padding:11px 13px}
 .contact-call-form label small{margin-top:1px}
 .contact-submit-button{min-height:48px}
+
+/* Client portal navigation: flat styling, no shadow or hover underline. */
+nav a.client-portal-link,nav a.client-portal-link:hover,nav a.client-portal-link:focus-visible{box-shadow:none!important;text-shadow:none!important;transform:none!important;text-decoration:none!important}
+nav a.client-portal-link::after,nav a.client-portal-link:hover::after,nav a.client-portal-link.active::after{content:none!important;display:none!important}
