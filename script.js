@@ -641,6 +641,9 @@ if (previewPageForm) {
     const message = document.querySelector('#preview-page-message');
     if (!code) return;
     message.textContent = 'Looking up your site…';
+    // Direct custom websites take priority over category templates.
+    const directUrl = Object.entries(config.previews || {}).find(([key]) => key.toLowerCase() === code.toLowerCase())?.[1];
+    if(directUrl && go(directUrl)) return;
     try {
       const record = await window.steadyHandsResolvePreview(code);
       if (record) {
