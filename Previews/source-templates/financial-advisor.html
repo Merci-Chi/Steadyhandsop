@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>{{ site.title or site.business_name }}</title>
+
+{% if site.description %}
+<meta name="description" content="{{ site.description }}">
+{% endif %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+  --primary:#17364D;
+  --secondary:#5B7180;
+  --accent:#B89455;
+  --paper:#F4F5F2;
+  --dark:#11191d;
+  --white:#fff;
+  --muted:#687176;
+  --line:rgba(20,30,35,.12);
+  --radius:8px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--paper);
+  color:var(--dark);
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+.wrap{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+}
+
+.brand{
+  font-weight:900;
+  color:var(--primary);
+  max-width:420px;
+}
+
+.navlinks{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.navlinks a{
+  padding:10px 12px;
+  font-weight:750;
+}
+
+.navlinks .nav-cta{
+  background:var(--primary);
+  color:white;
+  border-radius:var(--radius);
+}
+
+.menu{
+  display:none;
+  width:46px;
+  height:46px;
+  border:0;
+  background:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+}
+
+.menu span{
+  width:25px;
+  height:2px;
+  background:var(--dark);
+}
+
+.hero{
+  min-height:700px;
+  display:flex;
+  align-items:center;
+  color:white;
+  background:
+    linear-gradient(90deg,rgba(13,23,28,.91),rgba(13,23,28,.54),rgba(13,23,28,.12)),
+    url("https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat;
+}
+
+.hero-copy{
+  padding:110px 0;
+  max-width:800px;
+}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.77rem;
+  font-weight:900;
+}
+
+.eyebrow:before{
+  content:"";
+  width:38px;
+  height:2px;
+  background:var(--accent);
+}
+
+h1,h2,h3{
+  font-family:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+.hero h1{
+  font-size:clamp(3rem,7vw,6.3rem);
+  line-height:.95;
+  letter-spacing:-.05em;
+  margin-bottom:22px;
+}
+
+.hero p{
+  font-size:1.08rem;
+  max-width:700px;
+  color:rgba(255,255,255,.86);
+  margin-bottom:30px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:0 20px;
+  gap:8px;
+  background:var(--accent);
+  color:white;
+  font-weight:850;
+  border-radius:var(--radius);
+}
+
+.btn.light{
+  background:white;
+  color:var(--primary);
+}
+
+.feature-strip{
+  background:var(--primary);
+  color:white;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+
+.feature{
+  padding:27px;
+  border-right:1px solid rgba(255,255,255,.12);
+}
+
+.feature:last-child{border-right:0}
+
+.feature i{
+  color:var(--accent);
+  margin-bottom:9px;
+}
+
+.feature strong{display:block}
+
+.section{
+  padding:90px 0;
+}
+
+.white{background:white}
+
+.section-label{
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.75rem;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.section-title{
+  max-width:820px;
+  font-size:clamp(2.2rem,4.6vw,4.2rem);
+  line-height:1;
+  letter-spacing:-.04em;
+  color:var(--primary);
+  margin-bottom:20px;
+}
+
+.lead{
+  max-width:780px;
+  color:#5f686d;
+}
+
+.services{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:38px;
+}
+
+.service{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:25px;
+  min-height:165px;
+  transition:.2s ease;
+}
+
+.service:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 35px rgba(0,0,0,.08);
+}
+
+.service i{
+  color:var(--accent);
+  margin-bottom:15px;
+}
+
+.service h3{
+  color:var(--primary);
+  font-size:1.08rem;
+}
+
+.visual{
+  min-height:480px;
+  background:
+    linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.12)),
+    url("https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1800&q=85") center/cover no-repeat;
+}
+
+.about{
+  background:var(--dark);
+  color:white;
+}
+
+.about-grid{
+  min-height:520px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:65px;
+}
+
+.about h2{
+  font-size:clamp(2.2rem,4.5vw,4rem);
+  line-height:1;
+  margin-bottom:20px;
+}
+
+.about p{
+  color:rgba(255,255,255,.73);
+  margin-bottom:15px;
+}
+
+.info-grid{
+  margin-top:35px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--line);
+  background:var(--line);
+  gap:1px;
+}
+
+.info{
+  padding:26px;
+  background:white;
+}
+
+.info i{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.info strong{
+  display:block;
+  color:var(--primary);
+}
+
+.info span,.info a{
+  color:#687176;
+  overflow-wrap:anywhere;
+}
+
+.contact{
+  padding:72px 0;
+  background:var(--primary);
+  color:white;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:40px;
+  align-items:center;
+}
+
+.contact h2{
+  font-size:clamp(2.1rem,4vw,3.8rem);
+  line-height:1;
+  margin-bottom:13px;
+}
+
+.contact p{
+  color:rgba(255,255,255,.72);
+}
+
+footer{
+  background:#0d1215;
+  color:rgba(255,255,255,.65);
+  padding:32px 0;
+}
+
+.footer-grid{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.footer-grid strong{color:white}
+
+@media(max-width:850px){
+  .wrap{width:min(100% - 28px,1180px)}
+
+  .menu{display:flex}
+
+  .navlinks{
+    display:none;
+    position:absolute;
+    left:14px;
+    right:14px;
+    top:78px;
+    background:white;
+    padding:12px;
+    flex-direction:column;
+    align-items:stretch;
+    box-shadow:0 18px 45px rgba(0,0,0,.14);
+  }
+
+  .navlinks.open{display:flex}
+
+  .navlinks a{color:var(--dark);padding:13px}
+  .navlinks .nav-cta{color:white}
+
+  .hero{min-height:610px}
+  .hero-copy{padding:85px 0}
+
+  .hero h1{
+    font-size:clamp(2.7rem,14vw,4.8rem);
+  }
+
+  .feature-grid,
+  .services,
+  .about-grid,
+  .info-grid,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .feature{border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}
+
+  .about-grid{
+    padding:65px 0;
+    gap:35px;
+  }
+
+  .visual{min-height:330px}
+
+  .footer-grid{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+/* Universal social links */
+.site-socials{
+  padding:28px 0;
+}
+.site-socials-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.site-social-link{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  color:var(--dark, #111);
+  border:1px solid rgba(20,30,35,.14);
+  box-shadow:0 8px 22px rgba(0,0,0,.08);
+  font-size:20px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.site-social-link:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+
+/* ===== Steady Hands preview-only layer ===== */
+.sh-preview-banner{
+  position:sticky;
+  top:0;
+  z-index:99999;
+  background:#102b4c;
+  color:#fff;
+  padding:10px 16px;
+  text-align:center;
+  font:700 14px/1.35 Arial,sans-serif;
+  box-shadow:0 2px 10px rgba(0,0,0,.18);
+}
+.sh-preview-banner strong{color:#ffbf00}
+.sh-preview-cta{
+  margin-left:8px;
+  text-decoration:underline;
+  cursor:pointer;
+}
+.sh-preview-footer{
+  margin-top:36px;
+  padding:26px 16px;
+  text-align:center;
+  border-top:1px solid rgba(0,0,0,.08);
+  background:#f7f8fa;
+  color:#334;
+  font-family:Arial,sans-serif;
+}
+.sh-preview-footer img{
+  max-width:220px;
+  width:70%;
+  height:auto;
+  display:block;
+  margin:0 auto 10px;
+}
+.sh-preview-footer p{
+  margin:4px 0;
+  font-size:13px;
+}
+.sh-preview-footer .sh-made-by{
+  font-weight:700;
+}
+.sh-preview-footer .sh-unlock{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 16px;
+  border-radius:999px;
+  background:#102b4c;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+html.sh-preview-mode a,
+html.sh-preview-mode button,
+html.sh-preview-mode input[type="submit"],
+html.sh-preview-mode input[type="button"],
+html.sh-preview-mode [role="button"]{
+  cursor:pointer !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sh-preview-banner" id="shPreviewBanner">
+  WEBSITE PREVIEW — interactions are disabled.
+  <strong>Purchase this site to unlock it.</strong>
+  <span class="sh-preview-cta" data-sh-preview-action>Unlock this site</span>
+</div>
+
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">{{ site.business_name or site.title }}</a>
+
+    <button class="menu" id="menuBtn" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="navlinks" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-copy">
+
+    <div class="eyebrow">
+      Plan • Protect • Grow
+    </div>
+
+    <h1>
+      {{ site.business_name or site.title }}
+    </h1>
+
+    {% if site.description %}
+      <p>{{ site.description }}</p>
+    {% elif site.paragraphs %}
+      <p>{{ site.paragraphs[0] }}</p>
+    {% endif %}
+
+    <div class="actions">
+      {% if site.phone %}
+      <a href="tel:{{ site.phone }}" class="btn">
+        <i class="fa-solid fa-phone"></i>
+        Call
+      </a>
+      {% endif %}
+
+      <a href="#services" class="btn light">
+        View Services
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="wrap feature-grid">
+
+    <div class="feature">
+      <i class="fa-solid fa-briefcase"></i>
+      <strong>Services</strong>
+      <span>Explore what this business provides.</span>
+    </div>
+
+    <div class="feature">
+      <i class="fa-solid fa-location-dot"></i>
+      <strong>Local Information</strong>
+      <span>See location and contact details below.</span>
+    </div>
+
+    <div class="feature">
+      <i class="fa-solid fa-phone"></i>
+      <strong>Contact</strong>
+      <span>Reach the business directly.</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="section white" id="services">
+  <div class="wrap">
+
+    <div class="section-label">
+      Services
+    </div>
+
+    <h2 class="section-title">
+      What {{ site.business_name or site.title }} provides.
+    </h2>
+
+    {% if site.services %}
+
+    <div class="services">
+      {% for service in site.services[:9] %}
+
+      <article class="service">
+        <i class="fa-solid fa-arrow-right"></i>
+        <h3>{{ service }}</h3>
+      </article>
+
+      {% endfor %}
+    </div>
+
+    {% elif site.description %}
+
+    <p class="lead">
+      {{ site.description }}
+    </p>
+
+    {% endif %}
+
+  </div>
+</section>
+
+<div class="visual"></div>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+
+    <div>
+      <div class="section-label">About</div>
+
+      <h2>
+        {{ site.business_name or site.title }}
+      </h2>
+
+      {% if site.paragraphs %}
+
+        {% for paragraph in site.paragraphs[:3] %}
+          <p>{{ paragraph }}</p>
+        {% endfor %}
+
+      {% elif site.description %}
+
+        <p>{{ site.description }}</p>
+
+      {% endif %}
+    </div>
+
+    <div>
+
+      {% if site.phone %}
+      <p>
+        <strong>Phone:</strong><br>
+        <a href="tel:{{ site.phone }}">{{ site.phone }}</a>
+      </p>
+      {% endif %}
+
+      {% if site.email %}
+      <p>
+        <strong>Email:</strong><br>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </p>
+      {% endif %}
+
+      {% if site.address %}
+      <p>
+        <strong>Location:</strong><br>
+        {{ site.address }}
+      </p>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section white">
+  <div class="wrap">
+
+    <div class="section-label">
+      Business Information
+    </div>
+
+    <h2 class="section-title">
+      Contact and location.
+    </h2>
+
+    <div class="info-grid">
+
+      {% if site.phone %}
+      <div class="info">
+        <i class="fa-solid fa-phone"></i>
+        <strong>Phone</strong>
+        <a href="tel:{{ site.phone }}">
+          {{ site.phone }}
+        </a>
+      </div>
+      {% endif %}
+
+      {% if site.email %}
+      <div class="info">
+        <i class="fa-solid fa-envelope"></i>
+        <strong>Email</strong>
+        <a href="mailto:{{ site.email }}">
+          {{ site.email }}
+        </a>
+      </div>
+      {% endif %}
+
+      {% if site.address %}
+      <div class="info">
+        <i class="fa-solid fa-location-dot"></i>
+        <strong>Address</strong>
+        <span>{{ site.address }}</span>
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+
+    <div>
+      <h2>
+        {{ site.business_name or site.title }}
+      </h2>
+
+      {% if site.description %}
+        <p>{{ site.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="actions">
+
+      {% if site.phone %}
+      <a class="btn" href="tel:{{ site.phone }}">
+        <i class="fa-solid fa-phone"></i>
+        {{ site.phone }}
+      </a>
+      {% endif %}
+
+      {% if site.email %}
+      <a class="btn light" href="mailto:{{ site.email }}">
+        Email
+      </a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+
+{% if site.links %}
+<section class="site-socials" aria-label="Social media and reviews">
+  <div class="wrap site-socials-inner">
+    {% for link in site.links %}
+      {% set social_href = link.href|lower %}
+
+      {% if 'instagram.com' in social_href %}
+      <a class="site-social-link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram" title="Instagram">
+        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+      </a>
+      {% endif %}
+
+      {% if 'facebook.com' in social_href or 'fb.com' in social_href %}
+      <a class="site-social-link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer"
+         aria-label="Facebook" title="Facebook">
+        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+      </a>
+      {% endif %}
+
+      {% if 'yelp.com' in social_href %}
+      <a class="site-social-link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer"
+         aria-label="Yelp" title="Yelp">
+        <i class="fa-brands fa-yelp" aria-hidden="true"></i>
+      </a>
+      {% endif %}
+
+      {% if 'g.page' in social_href or 'google.com/maps' in social_href or 'maps.google.com' in social_href or 'search.google.com' in social_href or 'goo.gl/maps' in social_href %}
+      <a class="site-social-link" href="{{ link.href }}" target="_blank" rel="noopener noreferrer"
+         aria-label="Google Reviews" title="Google Reviews">
+        <i class="fa-brands fa-google" aria-hidden="true"></i>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+
+    <strong>
+      {{ site.business_name or site.title }}
+    </strong>
+
+    {% if site.address %}
+      <span>{{ site.address }}</span>
+    {% endif %}
+
+  </div>
+</footer>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+if(menuBtn && navLinks){
+  menuBtn.addEventListener("click",()=>{
+    navLinks.classList.toggle("open");
+  });
+
+  navLinks.querySelectorAll("a").forEach(link=>{
+    link.addEventListener("click",()=>{
+      navLinks.classList.remove("open");
+    });
+  });
+}
+</script>
+
+
+<footer class="sh-preview-footer">
+  <img src="/images/wordmark.png" alt="Steady Hands">
+  <p class="sh-made-by">Website preview created by Steady Hands.</p>
+  <p>This preview is for demonstration only. Features activate after purchase.</p>
+  <span class="sh-unlock" data-sh-preview-action>Purchase &amp; Unlock This Site</span>
+</footer>
+
+
+<script>
+(function(){
+  document.documentElement.classList.add('sh-preview-mode');
+
+  function clean(v){
+    if(v === undefined || v === null) return '';
+    return String(v).trim();
+  }
+
+  // Rendered template values when available.
+  const siteKey = clean('{{ site.sitekey or site.site_key or site.slug or "" }}');
+  const businessName = clean('{{ site.business_name or site.title or site.name or "" }}');
+  const templateKey = clean('{{ site.template_key or site.template or "" }}');
+
+  function purchaseUrl(){
+    const url = new URL('https://steadyhandsop.com/');
+    url.searchParams.set('from_preview', '1');
+    if(siteKey) url.searchParams.set('sitekey', siteKey);
+    if(businessName) url.searchParams.set('business', businessName);
+    if(templateKey) url.searchParams.set('template', templateKey);
+    return url.toString();
+  }
+
+  function goToPurchase(e){
+    if(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+    }
+    window.location.href = purchaseUrl();
+    return false;
+  }
+
+  // Any explicit preview CTA.
+  document.addEventListener('click', function(e){
+    const target = e.target.closest(
+      '[data-sh-preview-action], a, button, [role="button"], input[type="submit"], input[type="button"]'
+    );
+    if(!target) return;
+    goToPurchase(e);
+  }, true);
+
+  // Forms should never submit from a preview.
+  document.addEventListener('submit', function(e){
+    goToPurchase(e);
+  }, true);
+
+  // Block phone/email/maps/social/book/etc navigation triggered by keyboard or script-like clicks.
+  document.addEventListener('auxclick', function(e){
+    if(e.target.closest('a,button,[role="button"]')) goToPurchase(e);
+  }, true);
+})();
+</script>
+
+</body>
+</html>
