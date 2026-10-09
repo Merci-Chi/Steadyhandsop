@@ -83,15 +83,18 @@ function hydrate(doc,record){
  const url='https://raw.githubusercontent.com/Merci-Chi/viewyoursite/main/Sites/'+encodeURIComponent(folder)+'/index.html';
  const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error('Source preview returned '+res.status);
  const html=await res.text();const doc=new DOMParser().parseFromString(html,'text/html');hydrate(doc,getRecord());
- // Render the fetched site as the document instead of using document.write()
- // from inside this running script, which can leave Safari on a blank page.
- const nextRoot=document.importNode(doc.documentElement,true);
- document.documentElement.replaceWith(nextRoot);
- // Scripts inserted through DOMParser/importNode are inert. Recreate them so
- // the fetched template's own inline behaviors (such as the mobile menu) work.
+ // Replace head/body contents without replacing document.documentElement.
+ // Replacing the root element itself can throw HierarchyRequestError in browsers.
+ const root=document.documentElement;
+ for(const attr of [...root.attributes]) root.removeAttribute(attr.name);
+ for(const attr of [...doc.documentElement.attributes]) root.setAttribute(attr.name,attr.value);
+ document.head.innerHTML=doc.head.innerHTML;
+ document.body.innerHTML=doc.body.innerHTML;
+ // Scripts parsed by DOMParser or assigned via innerHTML are inert. Recreate
+ // the fetched page's scripts so its own template interactions are initialized.
  [...document.querySelectorAll('script')].forEach(oldScript=>{
    const fresh=document.createElement('script');
-   for(const attr of oldScript.attributes)fresh.setAttribute(attr.name,attr.value);
+   for(const attr of oldScript.attributes) fresh.setAttribute(attr.name,attr.value);
    fresh.textContent=oldScript.textContent||'';
    oldScript.replaceWith(fresh);
  });
