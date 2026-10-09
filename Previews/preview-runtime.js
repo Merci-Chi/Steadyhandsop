@@ -3,7 +3,7 @@
 const params = new URLSearchParams(location.search);
 const siteKey = (params.get("sitekey") || "").trim();
 const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const clean = v => v == null || String(v).trim()==="" || String(v).trim().toUpperCase()==="NOT FOUND" || String(v).trim().toLowerCase()==="null" ? "" : v;
+const clean = v => v == null || ["","NOT FOUND","NULL","EMPTY","UNDEFINED","N/A","NA","NONE","NAN"].includes(String(v).trim().toUpperCase()) ? "" : v;
 const toList = v => Array.isArray(v) ? v : (typeof v==="string" ? v.split(/[\n\r,;]+/) : []);
 const aliases = {
  "bookkeeping service":"tax-accounting","bookkeeping":"tax-accounting","bookkeeper":"tax-accounting",
