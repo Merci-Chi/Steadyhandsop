@@ -83,6 +83,17 @@ function hydrate(doc,record){
  const url='https://raw.githubusercontent.com/Merci-Chi/viewyoursite/main/Sites/'+encodeURIComponent(folder)+'/index.html';
  const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error('Source preview returned '+res.status);
  const html=await res.text();const doc=new DOMParser().parseFromString(html,'text/html');hydrate(doc,getRecord());
- document.open();document.write('<!doctype html>'+doc.documentElement.outerHTML);document.close();
+ // Render the fetched site as the document instead of using document.write()
+ // from inside this running script, which can leave Safari on a blank page.
+ const nextRoot=document.importNode(doc.documentElement,true);
+ document.documentElement.replaceWith(nextRoot);
+ // Scripts inserted through DOMParser/importNode are inert. Recreate them so
+ // the fetched template's own inline behaviors (such as the mobile menu) work.
+ [...document.querySelectorAll('script')].forEach(oldScript=>{
+   const fresh=document.createElement('script');
+   for(const attr of oldScript.attributes)fresh.setAttribute(attr.name,attr.value);
+   fresh.textContent=oldScript.textContent||'';
+   oldScript.replaceWith(fresh);
+ });
 }catch(err){console.error(err);status.innerHTML='<div style="max-width:720px"><h1>Preview could not load</h1><p>'+String(err.message||err)+'</p><p><a href="../preview.html" style="color:white">Back to Preview</a></p></div>'}})();
 })();
