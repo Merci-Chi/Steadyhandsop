@@ -207,8 +207,56 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     return templateSlugsCache;
   }
 
+  // The research import stores human-readable business types (for example,
+  // "bookkeeping service"), while preview pages use the fixed template slugs.
+  // Resolve known labels to supported slugs and always fall back to a real page.
+  function resolveTemplateSlug(value){
+    const raw=String(value||'generic').trim().toLowerCase();
+    const normalized=raw.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+    const aliases={
+      'bookkeeping service':'tax-accounting',
+      'bookkeeper':'tax-accounting',
+      'bookkeeping':'tax-accounting',
+      'accountant':'tax-accounting',
+      'accounting service':'tax-accounting',
+      'tax preparation service':'tax-accounting',
+      'tax preparer':'tax-accounting',
+      'auto repair shop':'auto-repair',
+      'auto mechanic':'auto-repair',
+      'automotive repair shop':'auto-repair',
+      'auto body shop':'auto-body',
+      'beauty salon':'beauty',
+      'hair salon':'beauty',
+      'barber shop':'barber-salon',
+      'barber':'barber-salon',
+      'chiropractor':'chiropractic',
+      'trucking company':'trucking-freight',
+      'attorney':'attorney-law',
+      'law firm':'attorney-law',
+      'optometrist':'optometry',
+      'plumber':'plumbing',
+      'insurance agency':'insurance',
+      'day care center':'daycare-childcare',
+      'daycare center':'daycare-childcare',
+      'electrician':'electrical',
+      'used car dealer':'auto-dealer',
+      'roofing contractor':'roofing',
+      'pet groomer':'pet-grooming',
+      'landscaper':'landscaping',
+      'tree service':'tree-service',
+      'tire shop':'tire-shop',
+      'mexican restaurant':'restaurant',
+      'bakery':'bakery-desserts',
+      'real estate agency':'real-estate',
+      'veterinarian':'veterinary',
+      'nail salon':'day-spa-med-spa'
+    };
+    const candidate=aliases[raw]||normalized;
+    return templateSlugsCache.includes(candidate)?candidate:'generic';
+  }
+
   function openCategorySite(record){
-    const category=(record.category||'generic').toLowerCase();
+    const category=resolveTemplateSlug(record.category);
     const key=record.siteKey||createSessionSiteKey(record);
     const sessionRecord={...record,siteKey:key};
     if(String(key).startsWith('SHS-')) storeSessionPreview(sessionRecord);
