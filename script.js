@@ -108,6 +108,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     return {
       siteKey:row.site_key,
       category:row.template_key||'generic',
+      customSiteUrl:row.template_key==='custom-direct'?row.website_url||'':null,
       categoryLabel:row.business_category||'',
       businessName:row.company_name||'',
       email:row.public_email||'',
@@ -256,6 +257,20 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
   }
 
   function openCategorySite(record){
+    // Custom website keys must never pass through the template renderer.
+    const configured=Object.entries(config.previews||{}).find(([key])=>key.toLowerCase()===String(record.siteKey||'').toLowerCase())?.[1];
+    const target=record.customSiteUrl||configured;
+    if(target){
+      try{
+        const url=new URL(target,location.origin);
+        if(url.origin===location.origin && /^\/sites\/[a-z0-9-]+\/?(?:[?#].*)?$/i.test(url.pathname)){
+          location.assign(url.href);
+          return;
+        }
+      }catch(error){console.warn('Invalid custom site URL',error)}
+      console.warn('Custom site redirect was rejected:',target);
+      return;
+    }
     const category=resolveTemplateSlug(record.category);
     const key=record.siteKey||createSessionSiteKey(record);
     const sessionRecord={...record,siteKey:key};
