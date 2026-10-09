@@ -115,7 +115,7 @@ function splitTopLevel(text, operator) {
 function stripOuter(s) { s=s.trim();if(s[0]!=="("||s[s.length-1]!==")")return s;let depth=0,quote="";for(let i=0;i<s.length;i++){let ch=s[i];if(quote){if(ch===quote&&s[i-1]!=="\\")quote="";continue;}if(ch==='"'||ch==="'")quote=ch;else if(ch==="(")depth++;else if(ch===")"){depth--;if(depth===0&&i<s.length-1)return s;}}return s.slice(1,-1).trim();}
 function truthy(v){return Array.isArray(v)?v.length>0:!!v;}
 function evalExpr(expr,ctx) {
- expr=stripOuter(String(expr||"").trim());
+ expr=stripOuter(String(expr||"").replace(/\s+/g," ").trim());
  if(!expr)return "";
  const tern=expr.match(/^(.+?)\s+if\s+(.+?)\s+else\s+([\s\S]+)$/);if(tern)return truthy(evalExpr(tern[2],ctx))?evalExpr(tern[1],ctx):evalExpr(tern[3],ctx);
  let split=splitTopLevel(expr," or ");if(split)return truthy(evalExpr(split[0],ctx))?evalExpr(split[0],ctx):evalExpr(split[1],ctx);
