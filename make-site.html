@@ -918,6 +918,7 @@ async function submitWebsiteRequest(record){
     },
     body:JSON.stringify({
       company_name:record.businessName,
+      site_key:record.siteKey||null,
       business_category:record.categoryLabel,
       business_category_key:record.category,
       contact_name:record.contactName,
