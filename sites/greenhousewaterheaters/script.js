@@ -5,6 +5,7 @@ const nav = document.querySelector('.main-nav');
 menuButton?.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
   menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
 });
 
 document.querySelectorAll('.main-nav a').forEach(link => {
@@ -31,4 +32,21 @@ form?.addEventListener('submit', (event) => {
   status.textContent = 'Your email app should open with the estimate request. Press Send there to submit it. If nothing opens, please email greenhouseplumbing@yahoo.com directly.';
   window.location.href = mailto;
   // Do not reset: the request has not been sent until the user confirms it in their email app.
+});
+
+// Dismiss the mobile dropdown without affecting page scroll.
+document.addEventListener('keydown', event => {
+  if(event.key === 'Escape' && nav?.classList.contains('open')) {
+    nav.classList.remove('open');
+    menuButton?.setAttribute('aria-expanded','false');
+    menuButton?.setAttribute('aria-label','Open navigation menu');
+    menuButton?.focus();
+  }
+});
+document.addEventListener('click', event => {
+  if(nav?.classList.contains('open') && !event.target.closest('.site-header')) {
+    nav.classList.remove('open');
+    menuButton?.setAttribute('aria-expanded','false');
+    menuButton?.setAttribute('aria-label','Open navigation menu');
+  }
 });
