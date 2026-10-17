@@ -89,7 +89,7 @@
     function filter(){
       const query=search.value.trim().toLocaleLowerCase();let total=0;
       cards.forEach(card=>{const item=all[Number(card.dataset.productIndex)];if(!item)return;const match=(active===0||item.category===categories[active].name)&&(item.name+' '+(item.description||'')+' '+item.category).toLocaleLowerCase().includes(query);card.hidden=!match;if(match)total++;});
-      empty.hidden=total!==0;count.textContent=total+' '+(total===1?'DISH':'DISHES')+(query?' MATCHING “'+search.value.trim()+'”':' TO EXPLORE');
+      empty.hidden=total!==0;count.textContent=query?(total?'Search results for “'+search.value.trim()+'”':'No matching dishes'):'';
     }
     function select(index,focus=false){active=index;[...tabs.children].forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;});panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby','menu-tab-'+index);filter();if(focus)tabs.children[index].focus();}
     tabs.replaceChildren();categories.forEach((category,i)=>{const tab=make('button','',category.name);tab.type='button';tab.id='menu-tab-'+i;tab.setAttribute('role','tab');tab.setAttribute('aria-controls','menu-panel');tab.addEventListener('click',()=>select(i));tab.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowRight')next=(i+1)%categories.length;else if(e.key==='ArrowLeft')next=(i-1+categories.length)%categories.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=categories.length-1;else return;e.preventDefault();select(next,true);});tabs.append(tab);});
