@@ -22,13 +22,15 @@
 
 ## Homepage media
 
-The homepage leads with the supplied TikTok feature, followed by the three supplied Facebook videos/reel. These are actual platform iframe players, not food photographs disguised as videos. Each player has a permanent direct watch link as a fallback. Instagram's supplied URL is an account Reels collection, not a single video, so it appears as a direct Instagram Reels link.
+The homepage leads with the supplied TikTok feature. The Feed section plays the three supplied Facebook clips as local MP4s with native browser controls, inline mobile playback, and stills extracted from those exact clips. These MP4s were recovered from the public media URLs supplied by Facebook's player. Original canonical Facebook post links remain under each clip. No expiring social CDN URLs are embedded in the website.
 
-Social embeds require an internet connection and may be blocked by browser privacy settings or platform login, embedding, region, or availability rules. Facebook was supplied as share links; the plugin receives those exact URLs. If Facebook does not resolve a share URL in its player, replace the encoded href in the corresponding index.html iframe with that video's canonical public Facebook URL. Direct watch links remain present. No original downloadable video files were supplied, and no social video files are stored in the ZIP.
+The old Facebook share URLs resolved to canonical posts but Facebook's embedded player returned “Video unavailable,” even with those canonical URLs. Hosting the actual clips avoids that failing player. Files are in `assets/videos/` and the build copies them into `dist/assets/videos/`.
+
+TikTok still uses its documented embed player. Its public post resolved, but its media download returned HTTP 403 and no public download URL was supplied. The website handles TikTok's documented player error messages and keeps the original watch link available. Supply the original TikTok MP4 to replace that final external embed with native playback; playback of that feature has not been verified here.
 
 The homepage Menu section includes three white-background professional front photos (quesabirria, street tacos, loaded nachos), a prominent VIEW THE FULL MENU button, and linked cards leading to menu.html. Main navigation scrolls to the Menu preview.
 
-The separate Food section uses six alternate/reference images showing food in real settings: street tacos, quesabirria, loaded fries, sopes, consommé, and a breakfast burrito. White-background product photos appear in the Menu preview and full menu, while the Food section uses only the selected reference photos. Every preview and Food photo links to menu.html. The Feed section contains the embedded social video players; these are not photo covers. Homepage section order is Menu, Food, Feed.
+The separate Food section uses six alternate/reference images showing food in real settings: street tacos, quesabirria, loaded fries, sopes, consommé, and a breakfast burrito. White-background product photos appear in the Menu preview and full menu, while the Food section uses only the selected reference photos. Every preview and Food photo links to menu.html. The Feed section contains native video players with stills from the actual clips. Homepage section order is Menu, Food, Feed.
 
 ## Full menu
 

@@ -140,3 +140,8 @@ body{background:#050505;isolation:isolate}
  .hero-note{font-size:10px;letter-spacing:.5px}.outline-word{font-size:70px}
  .editorial-grid{grid-template-columns:minmax(0,1fr)}.topline a{letter-spacing:.6px}
 }
+
+/* Local clips remain playable without social-platform embeds. */
+.embed-ratio video{display:block;width:100%;height:100%;object-fit:contain;background:#090909}
+.embedded-video-grid .embed-ratio{aspect-ratio:1/1}
+.embed-playback-message{display:grid;place-content:center;min-height:220px;height:100%;padding:28px;text-align:center;color:var(--white);font-size:14px;line-height:1.7}
