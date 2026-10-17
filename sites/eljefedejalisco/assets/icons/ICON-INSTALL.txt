@@ -1,0 +1,26 @@
+EL JEFE DE JALISCO — UPDATED ICON SET
+
+Upload the CONTENTS of this folder into sites/eljefedejalisco/.
+Merge the assets folder with the existing assets folder; keep the food photos.
+
+Update the icon links in BOTH index.html and menu.html to:
+
+<link rel="icon" href="assets/images/favicon.svg?v=20261017-icons2" type="image/svg+xml">
+<link rel="icon" href="assets/images/app/icon-96.png?v=20261017-icons2" sizes="96x96" type="image/png">
+<link rel="shortcut icon" href="favicon.ico?v=20261017-icons2">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261017-icons2">
+<link rel="manifest" href="site.webmanifest?v=20261017-icons2">
+
+The supplied logo is retained. Browser icons have transparent outer backgrounds
+and tighter framing. Apple touch and maskable icons are opaque. Maskable artwork
+stays within the central 80% diameter safe circle. All original PNG dimensions
+are included, with favicon.ico and a self-contained SVG favicon.
+
+The social.jpg card is unchanged because it is not a browser icon.
+Safari controls its own dark-mode contrast treatment: these files have no white
+outline, but Safari may still add one. Safari also caches old favicons; check in
+a fresh private tab after uploading. Home-screen shortcuts may need re-adding.
+
+If using tools/prepare.py to rebuild the website, update its icon-generation
+logic before building again; its current version regenerates the old icon set.
+This archive contains icon replacements only, not a full website or food photos.
