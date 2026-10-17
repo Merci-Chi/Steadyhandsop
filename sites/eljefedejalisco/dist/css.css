@@ -145,3 +145,18 @@ body{background:#050505;isolation:isolate}
 .embed-ratio video{display:block;width:100%;height:100%;object-fit:contain;background:#090909}
 .embedded-video-grid .embed-ratio{aspect-ratio:1/1}
 .embed-playback-message{display:grid;place-content:center;min-height:220px;height:100%;padding:28px;text-align:center;color:var(--white);font-size:14px;line-height:1.7}
+
+/* Keep the mobile site inside the viewport, with vertical scrolling only. */
+html,body{max-width:100%;overflow-x:hidden;overflow-x:clip}
+@media(max-width:900px),(any-pointer:coarse){
+ html,body{touch-action:pan-y;overscroll-behavior-x:none}
+ main,.wrap,.hero-art,.hero-video,.menu-preview-grid,.editorial-grid,.embedded-video-grid,.product-layout,.product-layout>*,.product-copy,.menu-toolbar,.menu-search{min-width:0;max-width:100%}
+ .hero-video{width:100%;transform:none}
+ .menu-tabs{flex-wrap:wrap;overflow:visible;gap:8px 18px}
+ .menu-tabs button{white-space:normal;text-align:left;overflow-wrap:anywhere;max-width:100%;min-height:44px}
+ .product-thumbs{flex-wrap:wrap;overflow:visible;gap:10px}
+ .product-thumb{flex:0 0 58px;height:58px}
+ .menu-panel,.product-copy,.section-head,.order-inner,.topline a,.footer-top,.footer-bottom{overflow-wrap:anywhere}
+ .button{max-width:100%;white-space:normal}
+ .menu-search input{min-width:0;width:100%;font-size:16px}
+}

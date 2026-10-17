@@ -49,6 +49,23 @@
   }
 })();
 
+// Mobile viewport gestures: keep one-finger vertical scrolling available.
+(() => {
+  const touchDevice = window.matchMedia('(any-pointer: coarse)');
+  const blockZoomGesture = event => {
+    if (touchDevice.matches && event.cancelable) event.preventDefault();
+  };
+  const blockMultiTouch = event => {
+    if (event.touches.length > 1) blockZoomGesture(event);
+  };
+  for (const type of ['gesturestart', 'gesturechange']) {
+    document.addEventListener(type, blockZoomGesture, { passive: false });
+  }
+  for (const type of ['touchstart', 'touchmove']) {
+    document.addEventListener(type, blockMultiTouch, { passive: false });
+  }
+})();
+
 // TikTok documents playback failures through its player message API.
 (() => {
   const frame = document.querySelector('[data-tiktok-player] iframe');
