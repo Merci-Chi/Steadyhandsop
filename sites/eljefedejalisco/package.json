@@ -1,0 +1,8 @@
+{
+  "name": "el-jefe-website",
+  "private": true,
+  "scripts": {
+    "build": "python3 tools/prepare.py",
+    "watch": "python3 tools/prepare.py --watch"
+  }
+}
