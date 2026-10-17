@@ -525,6 +525,11 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
 
   function showContact(){
     modal('Contact Us',`
+      <div class="contact-direct-list" aria-label="Contact details">
+        <a href="tel:+17023726399"><span>Direct line</span><strong>(702) 372-6399</strong></a>
+        <a href="mailto:kiara@steadyhandsop.com"><span>Founder’s email</span><strong>kiara@steadyhandsop.com</strong></a>
+        <a href="mailto:support@steadyhandsop.com"><span>Support</span><strong>support@steadyhandsop.com</strong></a>
+      </div>
       <div class="contact-choice-tabs">
         <button class="contact-tab active" type="button" data-contact-tab="text">Text</button>
         <button class="contact-tab" type="button" data-contact-tab="email">Email</button>
@@ -636,6 +641,7 @@ document.querySelectorAll('[data-plan]').forEach(button => button.addEventListen
     const link=e.target.closest('a,button');
     if(!link) return;
     const href=link.getAttribute('href')||'';
+    if(href==='contact.html') return;
     const text=(link.textContent||'').trim().replace(/\s+/g,' ');
     if(/^Contact Us(?:\s*→)?$/i.test(text) || link.dataset.action==='contact-us'){
       e.preventDefault();
