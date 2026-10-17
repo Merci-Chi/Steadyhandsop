@@ -18,7 +18,7 @@ test('three local Facebook players use real local clips and posters in source an
   }
   const window = {};
   runInNewContext(read('content.js'), { window });
-  for (const item of window.EL_JEFE.videos.slice(1)) {
+  for (const item of window.EL_JEFE.videos.filter(item => item.platform.startsWith('FACEBOOK'))) {
     assert.ok(existsSync(resolve(root, item.src)));
     assert.ok(existsSync(resolve(root, item.poster)));
   }

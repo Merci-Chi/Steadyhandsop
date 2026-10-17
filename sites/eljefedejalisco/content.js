@@ -489,18 +489,18 @@ window.EL_JEFE = {
   ],
   "videos": [
     {
-      "title": "The Memphis feature",
-      "platform": "TIKTOK · @YOURMEMPHISBESTIE",
-      "url": "https://www.tiktok.com/@yourmemphisbestie/video/7677428490601352461",
-      "poster": "assets/images/menu/food-and-drink-group-shot-00.jpg",
-      "src": ""
-    },
-    {
       "title": "In the spotlight",
       "platform": "FACEBOOK · REEL",
       "url": "https://www.facebook.com/reel/565552968874128/",
       "poster": "assets/videos/facebook-reel.jpg",
       "src": "assets/videos/facebook-reel.mp4"
+    },
+    {
+      "title": "The Memphis feature",
+      "platform": "TIKTOK · @YOURMEMPHISBESTIE",
+      "url": "https://www.tiktok.com/@yourmemphisbestie/video/7677428490601352461",
+      "poster": "assets/images/menu/food-and-drink-group-shot-00.jpg",
+      "src": ""
     },
     {
       "title": "Get a taste",
