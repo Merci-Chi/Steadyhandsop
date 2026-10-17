@@ -40,3 +40,5 @@ each listed site’s folder name (for example, `eljefedejalisco`). When adding a
 site to the dropdown, also add its folder name and URL to that mapping.
 
 Run the preview checks with `node --test tests/site-previews.test.cjs`.
+
+- `contact.html` — direct phone, founder email, and support email for Steady Hands.
