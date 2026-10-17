@@ -174,3 +174,11 @@ belongs to a menu record. Generic full-menu links still open the menu normally.
 After the menu renders, a dish link opens the selected popup with a brief drop-in
 animation. Invalid links leave the normal menu usable, and a manual popup action
 cancels any pending automatic opening. Reduced-motion settings skip the animation.
+
+### Header alignment
+
+The header uses a centered 1240px inner row. On desktop, equal-width outer grid
+columns keep navigation centered on the page, with the brand on the left and
+actions on the right. At 900px and below the brand, Menu, and Translate controls
+form one centered group. Translate shows only its icon on mobile and includes
+its text label on desktop; an explicit accessible label remains on both.
