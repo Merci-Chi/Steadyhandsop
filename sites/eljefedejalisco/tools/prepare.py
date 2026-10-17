@@ -94,7 +94,7 @@ def prepare():
             tags += [f'<link rel="canonical" href="{html.escape(url, quote=True)}">',meta('og:url',url,'property')]
             graph += [{'@type':'WebSite','@id':base+'/#website','url':base+'/', 'name':config['name'],'alternateName':'Taqueria y Birrieria El Jefe de Jalisco'}]
         tags += ['<script type="application/ld+json">'+json.dumps({'@context':'https://schema.org','@graph':graph}).replace('<','\\u003c')+'</script>']
-        for file in ('css.css','content.js','js.js'):
+        for file in ('css.css','content.js','js.js','translation-languages.js','translation.js'):
             version=hashlib.sha256((ROOT/file).read_bytes()).hexdigest()[:12]
             tags.append(f'<link rel="stylesheet" href="{file}?v={version}">' if file.endswith('.css') else f'<script defer src="{file}?v={version}"></script>')
         text=re.sub(r'<head>.*?</head>', '<head>\n'+'\n'.join(tags)+'\n</head>', text, flags=re.S)
@@ -115,13 +115,13 @@ def prepare():
     dist=ROOT/'dist'
     if dist.exists(): shutil.rmtree(dist)
     dist.mkdir()
-    for name in ['index.html','menu.html','css.css','content.js','js.js','motion.js','favicon.ico','apple-touch-icon.png','site.webmanifest','robots.txt','_headers','sitemap.xml']:
+    for name in ['index.html','menu.html','css.css','content.js','js.js','motion.js','translation-languages.js','translation.js','favicon.ico','apple-touch-icon.png','site.webmanifest','robots.txt','_headers','sitemap.xml']:
         if (ROOT/name).exists(): shutil.copy2(ROOT/name,dist/name)
     shutil.copytree(ROOT/'assets',dist/'assets')
     print('Prepared icons, metadata, and dist/.'+(' Domain metadata enabled.' if base else ' Set url in site.config.json for canonical URLs, absolute share images, and sitemap.'))
 
 def signature():
-    paths=[ROOT/'site.config.json']+[ROOT/p for p in ['index.html','menu.html','css.css','content.js','js.js','motion.js']]+list((ROOT/'assets').rglob('*'))
+    paths=[ROOT/'site.config.json']+[ROOT/p for p in ['index.html','menu.html','css.css','content.js','js.js','motion.js','translation-languages.js','translation.js']]+list((ROOT/'assets').rglob('*'))
     return tuple((str(p), p.stat().st_mtime_ns, p.stat().st_size) for p in paths if p.is_file())
 
 if __name__=='__main__':
