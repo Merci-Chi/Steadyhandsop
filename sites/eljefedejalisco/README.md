@@ -22,11 +22,9 @@
 
 ## Homepage media
 
-The homepage leads with the Facebook video from `https://www.facebook.com/share/v/14rqDKVgxNm/?mibextid=wwXIfrt` (canonical video ID `565008844582946`), using the matching local `facebook-bite.mp4`. In the Feed, the TikTok feature appears first in its own row, followed by the other two Facebook clips beneath it. The two lower clips are side by side on desktop and stacked on mobile. Facebook clips use native browser controls, inline mobile playback, and stills extracted from those exact clips. These MP4s were recovered from the public media URLs supplied by Facebook's player. Original canonical Facebook post links remain under each clip. No expiring social CDN URLs are embedded in the website.
+The hero uses the local `facebook-bite.mp4`. All three local Facebook clips autoplay, loop, and remain silent, with no sound toggle. The Feed places TikTok and the two kitchen clips in one row with matching portrait frames; smaller screens scroll the row horizontally.
 
-The old Facebook share URLs resolved to canonical posts but Facebook's embedded player returned “Video unavailable,” even with those canonical URLs. Hosting the actual clips avoids that failing player. Files are in `assets/videos/` and the build copies them into `dist/assets/videos/`.
-
-TikTok still uses its documented embed player. Its public post resolved, but its media download returned HTTP 403 and no public download URL was supplied. The website handles TikTok's documented player error messages and keeps the original watch link available. Supply the original TikTok MP4 to replace that final external embed with native playback; playback of that feature has not been verified here.
+TikTok is the only video with audio. It waits for user playback and does not loop. Its documented player messages pause any currently playing local media when TikTok is audible, then resume those same media from their paused positions when TikTok ends, pauses, is muted, or fails. Already paused media is left paused. Origin and source are checked before accepting messages. TikTok playback still depends on the external provider and browser.
 
 The homepage Menu section includes three white-background professional front photos (quesabirria, street tacos, loaded nachos), a prominent VIEW THE FULL MENU button, and linked cards leading to menu.html. Main navigation scrolls to the Menu preview.
 
