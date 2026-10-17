@@ -25,7 +25,7 @@
     const categories=[{name:'ALL',items:all},...data.menu];
     const cards=[...document.querySelectorAll('[data-product-index]')];
     const productDialog=$('#product-dialog');let active=0,lastProduct=null;
-    let currentProduct=-1,currentPhoto=0;
+    let currentProduct=-1,currentPhoto=0,productOpenVersion=0;
     const photosFor=item=>item.photos?.length?item.photos:[item.image];
     function showPhoto(index){
       const item=all[currentProduct];
@@ -36,8 +36,9 @@
       const position=$('#product-position');
       if(position)position.textContent=item.name+' · Photo '+(index+1)+' of '+photos.length;
     }
-    function openProduct(item,trigger,photo=0){
+    function openProduct(item,trigger,photo=0,animate=false){
       if(!productDialog||typeof productDialog.showModal!=='function')return false;
+      productOpenVersion++;
       currentProduct=all.indexOf(item);
       lastProduct=trigger;$('#product-title').textContent=item.name;$('#product-category').textContent=item.category||'THE MENU';$('#product-description').textContent=item.description||'';$('#product-price').textContent=item.price||'ASK FOR CURRENT PRICE';
       const thumbnails=$('#product-thumbs');
@@ -49,7 +50,10 @@
         button.addEventListener('click',()=>showPhoto(i));thumbnails.append(button);
       });
       showPhoto(photo);
-      if(!productDialog.open)productDialog.showModal();
+      if(!productDialog.open){
+        productDialog.classList.toggle('product-drop-in',animate);
+        productDialog.showModal();
+      }
       else if(thumbnailHadFocus)productDialog.focus({preventScroll:true});
       return true;
     }
@@ -77,7 +81,8 @@
         moveProduct(event.key==='ArrowRight'?1:-1);
       });
       productDialog.addEventListener('click',e=>{if(e.target===productDialog)productDialog.close();});
-      productDialog.addEventListener('close',()=>{currentProduct=-1;currentPhoto=0;if(lastProduct?.isConnected)lastProduct.focus();});
+      productDialog.addEventListener('animationend',event=>{if(event.animationName==='product-drop-in')productDialog.classList.remove('product-drop-in');});
+      productDialog.addEventListener('close',()=>{productDialog.classList.remove('product-drop-in');currentProduct=-1;currentPhoto=0;if(lastProduct?.isConnected)lastProduct.focus();});
     }
     cards.forEach(card=>{const index=Number(card.dataset.productIndex),link=$('[data-product]',card);if(!all[index]||!link)return;const item=all[index];const image=$('img',card);if(image){image.src=safeUrl(item.image);image.alt=item.name;}link.href=safeUrl(item.image);link.setAttribute('aria-label','View '+item.name+' photos and details');$('h3',card).textContent=item.name;$('.menu-card-category',card).textContent=item.category;$('.menu-card-price',card).textContent=item.price||'VIEW DISH & PHOTOS';link.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;if(openProduct(all[index],link))e.preventDefault();});});
     const empty=make('div','menu-empty');empty.hidden=true;empty.append(make('h3','','No matches. Still hungry?'),make('p','','Try another dish or explore all categories.'));const reset=make('button','button','SHOW EVERYTHING');reset.type='button';empty.append(reset);$('.menu-items').append(empty);
@@ -91,6 +96,25 @@
     search.disabled=false;search.addEventListener('input',filter);reset.addEventListener('click',()=>{search.value='';select(0);search.focus();});
     document.addEventListener('keydown',e=>{if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!document.querySelector('dialog[open]')){e.preventDefault();search.focus();}});
     select(0);
+    // Homepage dish links: paint the menu before dropping in the requested popup.
+    function openLinkedProduct(){
+      const params=new URLSearchParams(location.search);
+      const dish=params.get('dish');
+      if(!dish)return;
+      const index=all.findIndex(item=>item.image.split('/').pop().replace(/-\d+\.[^.]+$/,'')===dish);
+      if(index<0)return;
+      const card=cards.find(card=>Number(card.dataset.productIndex)===index);
+      if(!card)return;
+      const raw=params.get('photo');
+      const requested=raw!==null&&/^\d+$/.test(raw)?Number(raw):0;
+      const photo=requested<photosFor(all[index]).length?requested:0;
+      const version=productOpenVersion;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(()=>{
+        if(productOpenVersion!==version||document.querySelector('dialog[open]'))return;
+        openProduct(all[index],$('[data-product]',card),photo,true);
+      },220)));
+    }
+    openLinkedProduct();
   }
 })();
 

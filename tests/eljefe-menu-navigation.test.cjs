@@ -9,7 +9,7 @@ const block = script.slice(script.indexOf("    const productDialog=$('#product-d
 
 function gallery() {
   class Element {
-    constructor() { this.children = []; this.handlers = {}; this.attributes = {}; this.open = false; this.isConnected = true; }
+    constructor() { this.children = []; this.handlers = {}; this.attributes = {}; this.open = false; this.isConnected = true; this.classList = { toggle() {}, remove() {} }; }
     append(node) { this.children.push(node); }
     replaceChildren() { this.children = []; }
     contains(node) { return this.children.includes(node); }

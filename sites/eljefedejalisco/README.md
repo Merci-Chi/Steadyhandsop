@@ -163,3 +163,14 @@ the visible category/search results in menu order and loops at the ends. The
 popup also includes matching Previous/Next buttons for touch users and announces
 the dish and photo position. Clicking a thumbnail updates the keyboard position.
 Escape still closes the popup; focus returns to the currently viewed dish card.
+
+### Homepage dish arrivals
+
+The homepage's three menu-preview cards and six Food photos link to their exact
+menu dish and photo using `menu.html?dish=<image-slug>&photo=<zero-based-index>`.
+The build regenerates those links from `content.js` and checks that each photo
+belongs to a menu record. Generic full-menu links still open the menu normally.
+
+After the menu renders, a dish link opens the selected popup with a brief drop-in
+animation. Invalid links leave the normal menu usable, and a manual popup action
+cancels any pending automatic opening. Reduced-motion settings skip the animation.
