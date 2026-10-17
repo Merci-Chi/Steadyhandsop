@@ -63,17 +63,21 @@ test('empty catalogue explains why the picker is unavailable', () => {
   assert.match(ui.message.textContent, /No custom previews/);
 });
 
-test('regular code preview still opens an existing code case-insensitively', async () => {
+test('regular code preview opens every custom folder name and existing code case-insensitively', async () => {
   const source = read('script.js').split('// Dedicated preview page form')[1].split('// GitHub Steadyhandsop phone showcase')[0];
-  let submit;
-  const navigations = [];
-  const form = { addEventListener(type, handler) { submit = handler; } };
-  const message = {};
-  runInNewContext(source, {
-    config, window: {}, console,
-    go: url => { navigations.push(url); return true; },
-    document: { querySelector: selector => ({ '#preview-page-form': form, '#preview-page-code': { value: ' DEBBYSCREW ' }, '#preview-page-message': message })[selector] }
-  });
-  await submit({ preventDefault() {} });
-  assert.deepEqual(navigations, [config.previews.debbyscrew]);
+  const slugs = Array.from(config.customPreviews, site => site.path.split('/')[1]);
+  for (const code of [...slugs, 'SHS-GHWH26M9R7Q2']) {
+    let submit;
+    const navigations = [];
+    const form = { addEventListener(type, handler) { submit = handler; } };
+    const message = {};
+    runInNewContext(source, {
+      config, window: {}, console,
+      go: url => { navigations.push(url); return true; },
+      document: { querySelector: selector => ({ '#preview-page-form': form, '#preview-page-code': { value: ` ${code.toUpperCase()} ` }, '#preview-page-message': message })[selector] }
+    });
+    await submit({ preventDefault() {} });
+    assert.ok(config.previews[code], `Missing preview code: ${code}`);
+    assert.deepEqual(navigations, [config.previews[code]]);
+  }
 });

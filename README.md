@@ -35,6 +35,8 @@ This version follows the live GitHub treatment more closely: the original `backg
 websites under **Especially made for you**. The dropdown uses `customPreviews` in
 `config.js`; when adding a published website to `sites/<slug>/index.html`, add its
 business name and `sites/<slug>/` path there. Only list previews intended for
-public browsing. Preview codes continue to use the separate `previews` mapping.
+public browsing. Preview codes use the separate `previews` mapping, which includes
+each listed site’s folder name (for example, `eljefedejalisco`). When adding a
+site to the dropdown, also add its folder name and URL to that mapping.
 
 Run the preview checks with `node --test tests/site-previews.test.cjs`.
