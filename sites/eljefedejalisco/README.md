@@ -22,7 +22,7 @@
 
 ## Homepage media
 
-The homepage leads with the first supplied Facebook reel as a local MP4. In the Feed, the TikTok feature appears first in its own row, followed by the other two Facebook clips beneath it. The two lower clips are side by side on desktop and stacked on mobile. Facebook clips use native browser controls, inline mobile playback, and stills extracted from those exact clips. These MP4s were recovered from the public media URLs supplied by Facebook's player. Original canonical Facebook post links remain under each clip. No expiring social CDN URLs are embedded in the website.
+The homepage leads with the Facebook video from `https://www.facebook.com/share/v/14rqDKVgxNm/?mibextid=wwXIfrt` (canonical video ID `565008844582946`), using the matching local `facebook-bite.mp4`. In the Feed, the TikTok feature appears first in its own row, followed by the other two Facebook clips beneath it. The two lower clips are side by side on desktop and stacked on mobile. Facebook clips use native browser controls, inline mobile playback, and stills extracted from those exact clips. These MP4s were recovered from the public media URLs supplied by Facebook's player. Original canonical Facebook post links remain under each clip. No expiring social CDN URLs are embedded in the website.
 
 The old Facebook share URLs resolved to canonical posts but Facebook's embedded player returned “Video unavailable,” even with those canonical URLs. Hosting the actual clips avoids that failing player. Files are in `assets/videos/` and the build copies them into `dist/assets/videos/`.
 

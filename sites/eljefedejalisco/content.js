@@ -489,11 +489,11 @@ window.EL_JEFE = {
   ],
   "videos": [
     {
-      "title": "In the spotlight",
-      "platform": "FACEBOOK · REEL",
-      "url": "https://www.facebook.com/reel/565552968874128/",
-      "poster": "assets/videos/facebook-reel.jpg",
-      "src": "assets/videos/facebook-reel.mp4"
+      "title": "One more bite",
+      "platform": "FACEBOOK · VIDEO",
+      "url": "https://www.facebook.com/ElJefeBirria/videos/565008844582946/",
+      "poster": "assets/videos/facebook-bite.jpg",
+      "src": "assets/videos/facebook-bite.mp4"
     },
     {
       "title": "The Memphis feature",
@@ -510,11 +510,11 @@ window.EL_JEFE = {
       "src": "assets/videos/facebook-taste.mp4"
     },
     {
-      "title": "One more bite",
-      "platform": "FACEBOOK · VIDEO",
-      "url": "https://www.facebook.com/ElJefeBirria/videos/565008844582946/",
-      "poster": "assets/videos/facebook-bite.jpg",
-      "src": "assets/videos/facebook-bite.mp4"
+      "title": "In the spotlight",
+      "platform": "FACEBOOK · REEL",
+      "url": "https://www.facebook.com/reel/565552968874128/",
+      "poster": "assets/videos/facebook-reel.jpg",
+      "src": "assets/videos/facebook-reel.mp4"
     }
   ],
   "ordering": [
