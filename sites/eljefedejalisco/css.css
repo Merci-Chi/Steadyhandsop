@@ -229,3 +229,38 @@ html{scroll-padding-top:calc(110px + var(--google-bar-height))}
  .translate-toggle svg{width:20px;height:20px}
  .header-controls{gap:8px}
 }
+
+/* Comfortable reading sizes on computers. */
+@media(min-width:901px){
+ body{font-size:17px}
+ .intro,.menu-item p,.section-head>p,.menu-preview-intro>p,.product-copy>p:not(.eyebrow){font-size:16px;line-height:1.75}
+ .intro{font-size:17px}
+ .topline,.eyebrow,.hero .eyebrow,.hero-foot,.hero-note,.hero-note span,.photo-frame figcaption,.photo-placeholder .corner,.photo-placeholder small{font-size:13px;line-height:1.6;letter-spacing:1px}
+ .brand small{font-size:11px;letter-spacing:3px}
+ .header nav a{font-size:14px;letter-spacing:.8px}
+ .button,.text-link,.actions .text-link{font-size:14px;letter-spacing:.8px}
+ .translate-toggle{font-size:13px;letter-spacing:.7px}
+ .muted,.menu-bottom p,.gallery-controls p,.video-card>p,.social-bar,.hours>p,.reviews,.reviews>span,.footer-bottom,.embed-note,.menu-page-intro>p{font-size:14px;line-height:1.7;letter-spacing:.7px}
+ .footer-sub{font-size:13px;line-height:1.7;letter-spacing:.8px}
+ .order-inner>div>p:last-child:not(.eyebrow),.delivery-name{font-size:16px;letter-spacing:.8px}
+ .delivery-status{font-size:14px;line-height:1.7}
+ .menu-tabs button{font-size:14px;letter-spacing:.8px}
+ .menu-search input{font-size:16px}
+ .menu-search kbd,#menu-count{font-size:13px}
+ .menu-card-category,.menu-card-price,.menu-item .tag{font-size:13px;line-height:1.6;letter-spacing:.8px}
+ .product-copy .eyebrow{font-size:13px;line-height:1.6}
+ .product-price{font-size:15px;line-height:1.6}
+ .product-note,.product-keyboard-hint,.product-navigation p{font-size:14px;line-height:1.7}
+ .embed-label,.embed-label>span,.embed-fallback,.video-overlay-label{font-size:13px;line-height:1.6;letter-spacing:.8px}
+ .editorial-caption>span,.menu-preview-copy p,.menu-preview-footer>span{font-size:14px;line-height:1.6;letter-spacing:.7px}
+ .language-heading p,.language-options h3,.language-code,.language-credit{font-size:12px;line-height:1.6;letter-spacing:.7px}
+ .language-option{font-size:16px;line-height:1.5}
+}
+@media(min-width:901px) and (max-width:1279px){
+ .header-inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:12px}
+ .header-inner>nav{width:100%;flex-wrap:wrap;justify-content:center;gap:0 12px}
+ .header nav a{font-size:13px;min-height:36px;letter-spacing:.4px}
+ .header-actions{gap:8px}
+ .header-actions>.order-trigger{padding:12px;gap:8px;font-size:12px;letter-spacing:.4px}
+ .translate-toggle{font-size:12px;padding:10px 8px;gap:6px;letter-spacing:.4px}
+}
