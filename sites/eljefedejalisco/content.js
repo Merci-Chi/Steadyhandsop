@@ -498,23 +498,23 @@ window.EL_JEFE = {
     {
       "title": "In the spotlight",
       "platform": "FACEBOOK · REEL",
-      "url": "https://www.facebook.com/share/r/19fmb39rSV/",
-      "poster": "assets/images/menu/quesabirria-tacos-with-consomme-00.jpg",
-      "src": ""
+      "url": "https://www.facebook.com/reel/565552968874128/",
+      "poster": "assets/videos/facebook-reel.jpg",
+      "src": "assets/videos/facebook-reel.mp4"
     },
     {
       "title": "Get a taste",
       "platform": "FACEBOOK · VIDEO",
-      "url": "https://www.facebook.com/share/v/1LBWRBYDYz/",
-      "poster": "assets/images/menu/cucumber-lime-green-drink-00.jpg",
-      "src": ""
+      "url": "https://www.facebook.com/ElJefeBirria/videos/563117679185568/",
+      "poster": "assets/videos/facebook-taste.jpg",
+      "src": "assets/videos/facebook-taste.mp4"
     },
     {
       "title": "One more bite",
       "platform": "FACEBOOK · VIDEO",
-      "url": "https://www.facebook.com/share/v/1J3WkpNPd8/",
-      "poster": "assets/images/menu/loaded-fries-00.jpg",
-      "src": ""
+      "url": "https://www.facebook.com/ElJefeBirria/videos/565008844582946/",
+      "poster": "assets/videos/facebook-bite.jpg",
+      "src": "assets/videos/facebook-bite.mp4"
     }
   ],
   "ordering": [

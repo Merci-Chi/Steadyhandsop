@@ -48,3 +48,33 @@
     select(0);
   }
 })();
+
+// TikTok documents playback failures through its player message API.
+(() => {
+  const frame = document.querySelector('[data-tiktok-player] iframe');
+  function showFallback(container, text) {
+    if (!container) return;
+    const message = document.createElement('p');
+    message.className = 'embed-playback-message';
+    message.setAttribute('role', 'status');
+    message.textContent = text;
+    container.replaceChildren(message);
+  }
+  if (frame) {
+    const fallback = () => showFallback(frame.parentElement,
+      'This feature cannot play here right now. Watch the original using the TikTok link below.');
+    frame.addEventListener('error', fallback);
+    window.addEventListener('message', event => {
+      if (event.origin !== 'https://www.tiktok.com' || event.source !== frame.contentWindow) return;
+      const data = event.data;
+      if (!data || data['x-tiktok-player'] !== true) return;
+      if (data.type === 'onPlayerError' || data.type === 'onError') fallback();
+    });
+  }
+  document.querySelectorAll('.video-embed-card video').forEach(video => {
+    const fallback = () => showFallback(video.parentElement,
+      'This clip cannot play in your browser. Watch the original using the Facebook link below.');
+    video.addEventListener('error', fallback);
+    video.querySelector('source')?.addEventListener('error', fallback);
+  });
+})();
