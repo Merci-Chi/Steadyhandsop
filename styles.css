@@ -504,8 +504,8 @@ dialog{width:min(600px,calc(100% - 32px));max-height:90dvh;border:1px solid rgba
 .preview-access-card>p{color:var(--text);margin-bottom:23px}
 .preview-page-form label{display:block;font-size:12px;font-weight:800;color:var(--ink);margin-bottom:8px}
 .preview-input-row{display:grid;grid-template-columns:1fr auto;gap:10px}
-.preview-input-row input{min-width:0;border:1px solid #a9bfd3;border-radius:14px;padding:14px 15px;background:#fff;color:var(--ink);outline:none}
-.preview-input-row input:focus{border-color:#3c78b5;box-shadow:0 0 0 3px rgba(60,120,181,.15)}
+.preview-input-row input,.preview-input-row select{min-width:0;border:1px solid #a9bfd3;border-radius:14px;padding:14px 15px;background:#fff;color:var(--ink);outline:none}
+.preview-input-row input:focus,.preview-input-row select:focus{border-color:#3c78b5;box-shadow:0 0 0 3px rgba(60,120,181,.15)}
 .preview-page-form .form-message{min-height:22px;color:#a02a21;font-size:12px;margin-top:8px}
 .preview-help{display:grid;gap:12px;margin:22px 0}
 .preview-help>div{display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;padding:13px;border-radius:15px;background:rgba(255,255,255,.65);border:1px solid rgba(104,143,177,.18)}
@@ -1759,3 +1759,10 @@ footer{flex:0 0 auto}
 /* Client portal navigation: flat styling, no shadow or hover underline. */
 nav a.client-portal-link,nav a.client-portal-link:hover,nav a.client-portal-link:focus-visible{box-shadow:none!important;text-shadow:none!important;transform:none!important;text-decoration:none!important}
 nav a.client-portal-link::after,nav a.client-portal-link:hover::after,nav a.client-portal-link.active::after{content:none!important;display:none!important}
+
+/* Two ways to open a website preview. */
+.preview-access-card .preview-method h2{font-size:clamp(22px,4vw,28px);margin-bottom:10px}
+.preview-method>p{color:var(--text);font-size:14px;margin-bottom:18px}
+.preview-custom{border-top:1px solid #b5c9dc;margin-top:8px;padding-top:26px}
+.preview-input-row select{width:100%;text-overflow:ellipsis}
+.preview-input-row .button:disabled{opacity:.55;cursor:not-allowed;transform:none}

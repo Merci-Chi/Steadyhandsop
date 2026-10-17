@@ -28,3 +28,13 @@ This version follows the live GitHub treatment more closely: the original `backg
 - `preview.html` — client website preview access
 - `references.html` — real client references
 - `pricing.html` — website development and hosting pricing
+
+## Custom site previews
+
+`preview.html` keeps the regular preview-code form and also lists public custom
+websites under **Especially made for you**. The dropdown uses `customPreviews` in
+`config.js`; when adding a published website to `sites/<slug>/index.html`, add its
+business name and `sites/<slug>/` path there. Only list previews intended for
+public browsing. Preview codes continue to use the separate `previews` mapping.
+
+Run the preview checks with `node --test tests/site-previews.test.cjs`.
