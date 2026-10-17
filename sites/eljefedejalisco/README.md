@@ -154,3 +154,12 @@ The Google translation toolbar is kept visible. Its visible iframe height sets
 below it and reset when it closes. Google controls its own translation service,
 which may be unavailable in some regions. End-to-end Google service rendering
 and physical mobile QA were not available in this environment.
+
+### Popup photo and dish navigation
+
+Left and right arrow keys move through the open dish's photos, then continue to
+the next dish's first photo or the previous dish's last photo. Navigation follows
+the visible category/search results in menu order and loops at the ends. The
+popup also includes matching Previous/Next buttons for touch users and announces
+the dish and photo position. Clicking a thumbnail updates the keyboard position.
+Escape still closes the popup; focus returns to the currently viewed dish card.

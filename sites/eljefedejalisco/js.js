@@ -25,15 +25,60 @@
     const categories=[{name:'ALL',items:all},...data.menu];
     const cards=[...document.querySelectorAll('[data-product-index]')];
     const productDialog=$('#product-dialog');let active=0,lastProduct=null;
-    function openProduct(item,trigger){
-      if(!productDialog||typeof productDialog.showModal!=='function')return false;
-      lastProduct=trigger;$('#product-title').textContent=item.name;$('#product-category').textContent=item.category||'THE MENU';$('#product-description').textContent=item.description||'';$('#product-price').textContent=item.price||'ASK FOR CURRENT PRICE';
-      const main=$('#product-image');main.src=safeUrl(item.image);main.alt=item.name;
-      const thumbnails=$('#product-thumbs');thumbnails.replaceChildren();
-      (item.photos||[item.image]).forEach((src,i)=>{const button=make('button','product-thumb');button.type='button';button.setAttribute('aria-label','View '+item.name+' photo '+(i+1));button.setAttribute('aria-pressed',String(i===0));const image=make('img');image.src=safeUrl(src);image.alt='';image.loading='lazy';button.append(image);button.addEventListener('click',()=>{main.src=safeUrl(src);main.alt=item.name+' — photo '+(i+1);[...thumbnails.children].forEach(el=>el.setAttribute('aria-pressed',String(el===button)));});thumbnails.append(button);});
-      productDialog.showModal();return true;
+    let currentProduct=-1,currentPhoto=0;
+    const photosFor=item=>item.photos?.length?item.photos:[item.image];
+    function showPhoto(index){
+      const item=all[currentProduct];
+      const photos=photosFor(item);
+      currentPhoto=index;
+      const main=$('#product-image');main.src=safeUrl(photos[index]);main.alt=item.name+' — photo '+(index+1)+' of '+photos.length;
+      [...$('#product-thumbs').children].forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+      const position=$('#product-position');
+      if(position)position.textContent=item.name+' · Photo '+(index+1)+' of '+photos.length;
     }
-    if(productDialog){$('.close-product',productDialog)?.addEventListener('click',()=>productDialog.close());productDialog.addEventListener('click',e=>{if(e.target===productDialog)productDialog.close();});productDialog.addEventListener('close',()=>{if(lastProduct?.isConnected)lastProduct.focus();});}
+    function openProduct(item,trigger,photo=0){
+      if(!productDialog||typeof productDialog.showModal!=='function')return false;
+      currentProduct=all.indexOf(item);
+      lastProduct=trigger;$('#product-title').textContent=item.name;$('#product-category').textContent=item.category||'THE MENU';$('#product-description').textContent=item.description||'';$('#product-price').textContent=item.price||'ASK FOR CURRENT PRICE';
+      const thumbnails=$('#product-thumbs');
+      const thumbnailHadFocus=thumbnails.contains(document.activeElement);
+      thumbnails.replaceChildren();
+      photosFor(item).forEach((src,i)=>{
+        const button=make('button','product-thumb');button.type='button';button.setAttribute('aria-label','View '+item.name+' photo '+(i+1));
+        const image=make('img');image.src=safeUrl(src);image.alt='';image.loading='lazy';button.append(image);
+        button.addEventListener('click',()=>showPhoto(i));thumbnails.append(button);
+      });
+      showPhoto(photo);
+      if(!productDialog.open)productDialog.showModal();
+      else if(thumbnailHadFocus)productDialog.focus({preventScroll:true});
+      return true;
+    }
+    function moveProduct(direction){
+      if(!productDialog?.open||currentProduct<0)return;
+      const photos=photosFor(all[currentProduct]);
+      const nextPhoto=currentPhoto+direction;
+      if(nextPhoto>=0&&nextPhoto<photos.length){showPhoto(nextPhoto);return;}
+      // Follow the currently visible menu/category/search order, in both directions.
+      const visible=cards.filter(card=>!card.hidden&&all[Number(card.dataset.productIndex)]);
+      const position=visible.findIndex(card=>Number(card.dataset.productIndex)===currentProduct);
+      if(position<0||!visible.length)return;
+      const next=visible[(position+direction+visible.length)%visible.length];
+      const item=all[Number(next.dataset.productIndex)];
+      openProduct(item,$('[data-product]',next),direction>0?0:photosFor(item).length-1);
+    }
+    if(productDialog){
+      $('.close-product',productDialog)?.addEventListener('click',()=>productDialog.close());
+      $('#product-previous')?.addEventListener('click',()=>moveProduct(-1));
+      $('#product-next')?.addEventListener('click',()=>moveProduct(1));
+      productDialog.addEventListener('keydown',event=>{
+        if(!productDialog.open||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey||event.target.closest('input,textarea,select,[contenteditable]'))return;
+        if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;
+        event.preventDefault();event.stopPropagation();
+        moveProduct(event.key==='ArrowRight'?1:-1);
+      });
+      productDialog.addEventListener('click',e=>{if(e.target===productDialog)productDialog.close();});
+      productDialog.addEventListener('close',()=>{currentProduct=-1;currentPhoto=0;if(lastProduct?.isConnected)lastProduct.focus();});
+    }
     cards.forEach(card=>{const index=Number(card.dataset.productIndex),link=$('[data-product]',card);if(!all[index]||!link)return;const item=all[index];const image=$('img',card);if(image){image.src=safeUrl(item.image);image.alt=item.name;}link.href=safeUrl(item.image);link.setAttribute('aria-label','View '+item.name+' photos and details');$('h3',card).textContent=item.name;$('.menu-card-category',card).textContent=item.category;$('.menu-card-price',card).textContent=item.price||'VIEW DISH & PHOTOS';link.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;if(openProduct(all[index],link))e.preventDefault();});});
     const empty=make('div','menu-empty');empty.hidden=true;empty.append(make('h3','','No matches. Still hungry?'),make('p','','Try another dish or explore all categories.'));const reset=make('button','button','SHOW EVERYTHING');reset.type='button';empty.append(reset);$('.menu-items').append(empty);
     function filter(){
