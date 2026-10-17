@@ -133,3 +133,24 @@ flex/grid children can shrink inside the viewport. Keep these changes in
 
 Browser or operating-system accessibility overrides and gestures inside
 cross-origin video players remain controlled by that browser or provider.
+
+### Custom Google translation picker
+
+Both pages have a custom black/red Translate button immediately after Menu in
+`.header-controls`. It opens a searchable, keyboard-accessible themed dialog.
+English and Español are first; the curated top-ten group continues with Chinese,
+Hindi, Arabic, French, Bengali, Portuguese, Russian, and Urdu. All other languages
+follow alphabetically. The bundled catalogue uses Google's documented NMT
+language codes; live Website Translator options are merged when available.
+
+Google's Website Translator is loaded on first use and applies the selected
+language in place when available. If its script or the selected language cannot
+load, the same choice opens Google's website translation service for that exact
+page. English clears translation cookies and returns to the original page. The
+picker and controls are marked notranslate so their labels stay usable.
+
+The Google translation toolbar is kept visible. Its visible iframe height sets
+`--google-bar-height`; body padding and the sticky header offset move the site
+below it and reset when it closes. Google controls its own translation service,
+which may be unavailable in some regions. End-to-end Google service rendering
+and physical mobile QA were not available in this environment.
