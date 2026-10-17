@@ -192,3 +192,9 @@ html{scroll-padding-top:calc(110px + var(--google-bar-height))}
 @media(min-width:901px){.header-controls{order:2}.header nav{margin-left:auto}.header>.order-trigger{order:3}}
 @media(max-width:900px){.header{gap:10px}.header-controls .nav-toggle{padding:9px 10px;gap:7px}.translate-toggle{padding:10px;gap:6px;font-size:9px}.header .brand{min-width:0}.header .brand>span{font-size:clamp(17px,4.4vw,24px)}.header .brand small{letter-spacing:2px}}
 @media(max-width:420px){.header{padding-inline:12px;gap:6px}.header .logo-crop{width:36px;height:40px}.header .brand{gap:6px;font-size:19px}.header .wordmark{max-width:90px}.header-controls{gap:5px}.header-controls .nav-toggle{font-size:9px;padding:8px;gap:5px}.translate-toggle{padding:8px 7px;letter-spacing:.3px;gap:4px}.translate-toggle svg{width:15px}.language-dialog{right:12px}}
+
+/* One continuous sequence of dish photos, available by keyboard or touch. */
+.product-navigation{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:12px;align-items:center;margin-top:12px}
+.product-navigation .arrow{margin:0;min-width:44px;min-height:44px}
+.product-navigation p{padding:0;text-align:center;font-size:12px;line-height:1.5;color:var(--white);overflow-wrap:anywhere}
+.product-keyboard-hint{font-size:11px;color:var(--muted);text-align:center;padding-top:12px}
