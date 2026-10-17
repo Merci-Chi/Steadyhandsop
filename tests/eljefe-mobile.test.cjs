@@ -6,7 +6,7 @@ const { runInNewContext } = require('node:vm');
 const root = resolve(__dirname, '../sites/eljefedejalisco');
 const source = readFileSync(resolve(root, 'js.js'), 'utf8')
   .split('// Mobile viewport gestures: keep one-finger vertical scrolling available.')[1]
-  .split('// TikTok documents playback failures through its player message API.')[0];
+  .split('// Silent local clips and exclusive TikTok playback.')[0];
 
 function gestures(coarse) {
   const handlers = new Map();
