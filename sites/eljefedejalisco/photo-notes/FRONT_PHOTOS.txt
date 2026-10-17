@@ -1,0 +1,118 @@
+SELECTED MENU FRONT PHOTOS
+==========================
+
+Street tacos
+  Front: 01_Tacos/Street tacos/00_FRONT_street-tacos.jpg
+  White-background front photo
+
+Quesabirria tacos with consomme
+  Front: 01_Tacos/Quesabirria tacos with consomme/00_FRONT_quesabirria-tacos-with-consomme.jpg
+  White-background front photo
+
+Burritos
+  Front: 02_Burritos/Burritos/00_FRONT_burritos.jpg
+  White-background front photo
+
+Wet burrito
+  Front: 02_Burritos/Wet burrito/00_FRONT_wet-burrito.jpg
+  White-background front photo
+
+Chimichanga
+  Front: 02_Burritos/Chimichanga/00_FRONT_chimichanga.jpg
+  White-background front photo
+
+Breakfast burrito
+  Front: 02_Burritos/Breakfast burrito/00_FRONT_breakfast-burrito.jpg
+  Best available front photo; no individual white-background image supplied
+
+Torta
+  Front: 03_Tortas_and_Quesadillas/Torta/00_FRONT_torta.jpg
+  White-background front photo
+
+Quesadilla
+  Front: 03_Tortas_and_Quesadillas/Quesadilla/00_FRONT_quesadilla.jpg
+  White-background front photo
+
+Mulitas
+  Front: 03_Tortas_and_Quesadillas/Mulitas/00_FRONT_mulitas.jpg
+  White-background front photo
+
+Loaded nachos
+  Front: 04_Nachos_Fries_and_Sopes/Loaded nachos/00_FRONT_loaded-nachos.jpg
+  White-background front photo
+
+Loaded fries
+  Front: 04_Nachos_Fries_and_Sopes/Loaded fries/00_FRONT_loaded-fries.jpg
+  White-background front photo
+
+Sopes
+  Front: 04_Nachos_Fries_and_Sopes/Sopes/00_FRONT_sopes.jpg
+  White-background front photo
+
+Taco salad
+  Front: 04_Nachos_Fries_and_Sopes/Taco salad/00_FRONT_taco-salad.jpg
+  White-background front photo
+
+Rice beans and shredded meat plate
+  Front: 05_Plates_and_Seafood/Rice beans and shredded meat plate/00_FRONT_rice-beans-and-shredded-meat-plate.jpg
+  White-background front photo
+
+Shrimp in red sauce plate
+  Front: 05_Plates_and_Seafood/Shrimp in red sauce plate/00_FRONT_shrimp-in-red-sauce-plate.jpg
+  Best available front photo; no individual white-background image supplied
+
+Grilled chicken plate
+  Front: 05_Plates_and_Seafood/Grilled chicken plate/00_FRONT_grilled-chicken-plate.jpg
+  Best available front photo; no individual white-background image supplied
+
+Grilled steak plate
+  Front: 05_Plates_and_Seafood/Grilled steak plate/00_FRONT_grilled-steak-plate.jpg
+  Best available front photo; no individual white-background image supplied
+
+Seafood ceviche
+  Front: 05_Plates_and_Seafood/Seafood ceviche/00_FRONT_seafood-ceviche.jpg
+  Best available front photo; no individual white-background image supplied
+
+Seafood soup
+  Front: 05_Plates_and_Seafood/Seafood soup/00_FRONT_seafood-soup.jpg
+  Best available front photo; no individual white-background image supplied
+
+Birria consomme
+  Front: 06_Sides_and_Sauces/Birria consomme/00_FRONT_birria-consomme.jpg
+  White-background front photo
+
+Chips and queso
+  Front: 06_Sides_and_Sauces/Chips and queso/00_FRONT_chips-and-queso.jpg
+  White-background front photo
+
+Salsa packets
+  Front: 06_Sides_and_Sauces/Salsa packets/00_FRONT_salsa-packets.jpg
+  Best available front photo; no individual white-background image supplied
+
+Grilled onions and peppers
+  Front: 06_Sides_and_Sauces/Grilled onions and peppers/00_FRONT_grilled-onions-and-peppers.jpg
+  Best available front photo; no individual white-background image supplied
+
+Cucumber lime green drink
+  Front: 07_Drinks/Cucumber lime green drink/00_FRONT_cucumber-lime-green-drink.jpg
+  Best available front photo; no individual white-background image supplied
+
+Yellow fruit drink
+  Front: 07_Drinks/Yellow fruit drink/00_FRONT_yellow-fruit-drink.jpg
+  Best available front photo; no individual white-background image supplied
+
+Layered orange and yellow drink
+  Front: 07_Drinks/Layered orange and yellow drink/00_FRONT_layered-orange-and-yellow-drink.jpg
+  Best available front photo; no individual white-background image supplied
+
+Brown drink
+  Front: 07_Drinks/Brown drink/00_FRONT_brown-drink.jpg
+  Best available front photo; no individual white-background image supplied
+
+Jarritos bottled sodas
+  Front: 07_Drinks/Jarritos bottled sodas/00_FRONT_jarritos-bottled-sodas.jpg
+  Best available front photo; no individual white-background image supplied
+
+Enchilada plate
+  Front: 05_Plates_and_Seafood/Enchilada plate/00_FRONT_enchilada-plate.jpg
+  White-background front photo

@@ -1,0 +1,46 @@
+MENU PHOTO INDEX
+================
+Each product appears once.
+
+TACOS
+  Street tacos — 7 photo(s)
+  Quesabirria tacos with consomme — 4 photo(s)
+
+BURRITOS
+  Burritos — 2 photo(s)
+  Wet burrito — 1 photo(s)
+  Chimichanga — 1 photo(s)
+  Breakfast burrito — 3 photo(s)
+
+TORTAS AND QUESADILLAS
+  Torta — 3 photo(s)
+  Quesadilla — 3 photo(s)
+  Mulitas — 3 photo(s)
+
+NACHOS FRIES AND SOPES
+  Loaded nachos — 2 photo(s)
+  Loaded fries — 2 photo(s)
+  Sopes — 3 photo(s)
+  Taco salad — 1 photo(s)
+
+PLATES AND SEAFOOD
+  Rice beans and shredded meat plate — 1 photo(s)
+  Shrimp in red sauce plate — 1 photo(s)
+  Grilled chicken plate — 1 photo(s)
+  Grilled steak plate — 1 photo(s)
+  Seafood ceviche — 1 photo(s)
+  Seafood soup — 1 photo(s)
+  Enchilada plate — 1 photo(s)
+
+SIDES AND SAUCES
+  Birria consomme — 3 photo(s)
+  Chips and queso — 1 photo(s)
+  Salsa packets — 1 photo(s)
+  Grilled onions and peppers — 1 photo(s)
+
+DRINKS
+  Cucumber lime green drink — 6 photo(s)
+  Yellow fruit drink — 2 photo(s)
+  Layered orange and yellow drink — 1 photo(s)
+  Brown drink — 1 photo(s)
+  Jarritos bottled sodas — 1 photo(s)
