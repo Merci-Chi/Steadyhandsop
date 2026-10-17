@@ -121,3 +121,15 @@ existing deployment output without changing the supplied photos.
 Run `npm run check` to verify local photo/icon references and decode every image.
 After `npm run build`, also run `python3 tools/check_assets.py dist` to check the
 standalone upload folder.
+
+### Mobile viewport and gestures
+
+The homepage and full menu use a fixed initial/minimum/maximum viewport scale.
+Touch devices allow vertical page panning; pinch gesture events and multi-touch
+zoom gestures are cancelled. Menu categories and product thumbnails wrap instead
+of requiring horizontal scrolling. Page overflow is clipped horizontally, and
+flex/grid children can shrink inside the viewport. Keep these changes in
+`tools/prepare.py`, `css.css`, and `js.js` when rebuilding.
+
+Browser or operating-system accessibility overrides and gestures inside
+cross-origin video players remain controlled by that browser or provider.
