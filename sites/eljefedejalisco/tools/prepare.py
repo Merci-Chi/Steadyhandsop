@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import shutil
 import time
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
 from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,7 +19,32 @@ def write(path, value):
     else:
         path.write_bytes(value)
 
+def link_home_dishes():
+    """Keep homepage dish links aligned with actual menu records and photo order."""
+    source = (ROOT/'content.js').read_text()
+    data = json.JSONDecoder().raw_decode(source[source.index('{'):])[0]
+    photos = {}
+    for category in data['menu']:
+        for item in category['items']:
+            slug = re.sub(r'-\d+\.[^.]+$', '', item['image'].rsplit('/', 1)[-1])
+            for index, photo in enumerate(item.get('photos') or [item['image']]):
+                photos[photo] = (slug, index)
+    path = ROOT/'index.html'
+    def update(match):
+        anchor = match.group(0)
+        classes = re.search(r'class="([^"]*)"', anchor)
+        if not classes or not {'menu-preview-card', 'editorial-photo'}.intersection(classes.group(1).split()):
+            return anchor
+        image = re.search(r'<img[^>]+src="([^"]+)"', anchor)
+        if not image or image.group(1) not in photos:
+            raise ValueError('Homepage dish photo does not match the menu')
+        slug, index = photos[image.group(1)]
+        href = html.escape('menu.html?' + urlencode({'dish': slug, 'photo': index}), quote=True)
+        return re.sub(r'\bhref="[^"]*"', lambda _: 'href="' + href + '"', anchor, count=1)
+    path.write_text(re.sub(r'<a\b[^>]*>.*?</a>', update, path.read_text(), flags=re.S))
+
 def prepare():
+    link_home_dishes()
     config = json.loads((ROOT / 'site.config.json').read_text())
     base = config['url'].strip().rstrip('/')
     if base and (urlparse(base).scheme != 'https' or not urlparse(base).netloc or urlparse(base).query or urlparse(base).fragment):

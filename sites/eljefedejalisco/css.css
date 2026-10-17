@@ -198,3 +198,10 @@ html{scroll-padding-top:calc(110px + var(--google-bar-height))}
 .product-navigation .arrow{margin:0;min-width:44px;min-height:44px}
 .product-navigation p{padding:0;text-align:center;font-size:12px;line-height:1.5;color:var(--white);overflow-wrap:anywhere}
 .product-keyboard-hint{font-size:11px;color:var(--muted);text-align:center;padding-top:12px}
+
+/* Arrive on the menu, then let the selected dish drop into place. */
+.product-dialog.product-drop-in[open]{animation:product-drop-in .56s cubic-bezier(.2,.8,.25,1) both;transform-origin:50% 15%}
+.product-dialog.product-drop-in::backdrop{animation:product-backdrop-in .3s ease both}
+@keyframes product-drop-in{0%{opacity:0;transform:translateY(-110px) rotate(-2deg) scale(.96)}65%{opacity:1;transform:translateY(12px) rotate(.5deg) scale(1.01)}85%{transform:translateY(-4px) rotate(-.2deg) scale(1)}100%{opacity:1;transform:none}}
+@keyframes product-backdrop-in{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.product-dialog.product-drop-in[open],.product-dialog.product-drop-in::backdrop{animation:none}}
