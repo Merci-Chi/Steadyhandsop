@@ -177,8 +177,8 @@ cancels any pending automatic opening. Reduced-motion settings skip the animatio
 
 ### Header alignment
 
-The header uses a centered 1240px inner row. On desktop, equal-width outer grid
-columns keep navigation centered on the page, with the brand on the left and
-actions on the right. At 900px and below the brand, Menu, and Translate controls
-form one centered group. Translate shows only its icon on mobile and includes
-its text label on desktop; an explicit accessible label remains on both.
+The header fills the available width inside its original edge padding. The brand
+stays on the left and the independent Translate/Order Now action group stays on
+the right. Desktop navigation alone is centered using equal outer grid columns.
+On mobile the brand stays left and Menu/Translate stay right; Translate remains
+icon-only. The desktop label and explicit accessible name remain available.
