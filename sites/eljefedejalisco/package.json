@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "python3 tools/prepare.py",
-    "watch": "python3 tools/prepare.py --watch"
+    "watch": "python3 tools/prepare.py --watch",
+    "check": "python3 tools/check_assets.py"
   }
 }

@@ -108,3 +108,14 @@ Stable favicon paths follow Google's guidance. App icons and linked styles/scrip
 The header collapses by 900 px to fit the extra Home link. Navigation, category buttons, dialog close buttons and video fallback links have at least 44 px touch targets. Search uses 16 px text to avoid iOS input zoom. Small-screen headings and cards have tighter constraints, dialog height follows the dynamic viewport, and safe-area padding accounts for display cutouts. Escape returns focus to the menu toggle; outside taps and viewport changes close the menu.
 
 This revision was checked for JS syntax, generated image dimensions and ICO frames, manifest references, static metadata, local asset links, deterministic rebuilds, and configured-domain sitemap generation. Browser rendering and physical iOS/Android home-screen installation were not available in this environment; third-party video playback remains dependent on the platforms.
+
+### GitHub Pages asset placement
+
+This site is served directly from `sites/eljefedejalisco/`. Keep the `assets/`
+folder alongside `index.html` and `menu.html`; the copy in `dist/assets/` alone
+does not serve those pages. The source assets have been restored from the
+existing deployment output without changing the supplied photos.
+
+Run `npm run check` to verify local photo/icon references and decode every image.
+After `npm run build`, also run `python3 tools/check_assets.py dist` to check the
+standalone upload folder.
