@@ -135,52 +135,38 @@
   }
 })();
 
-// Inline video playback with one shared, gentle site-audio mix.
+// Silent local clips and exclusive TikTok playback.
 (() => {
   const videos = [...document.querySelectorAll('video.ambient-video')];
-  const buttons = [...document.querySelectorAll('[data-video-sound]')];
-  if (!videos.length) return;
-  const ratios = new Map(videos.map(video => [video, 0]));
-  const animations = new WeakMap();
-  let soundOn = false;
-  function setButtons() {
-    buttons.forEach(button => {
-      button.setAttribute('aria-pressed', String(soundOn));
-      const label = soundOn ? 'Turn site sound off' : 'Turn site sound on';
-      button.setAttribute('aria-label', label);
-      button.title = label;
-    });
+  const frame = document.querySelector('[data-tiktok-player] iframe');
+  const interrupted = new Set();
+  const hiddenPlaying = new Set();
+  let tiktokPlaying = false, tiktokMuted = false, tiktokVolume = 100;
+  let exclusive = false;
+  const play = media => { media.play().catch(() => {}); };
+  const silence = video => { video.muted = true; video.volume = 0; };
+  function sync() {
+    const active = tiktokPlaying && !tiktokMuted && tiktokVolume > 0;
+    exclusive = active;
+    if (active) {
+      document.querySelectorAll('video,audio').forEach(media => {
+        if (!media.paused && !media.ended) {
+          interrupted.add(media);
+          media.pause();
+        }
+      });
+    } else if (!document.hidden) {
+      interrupted.forEach(media => { if (media.isConnected && !media.ended) play(media); });
+      interrupted.clear();
+    }
   }
-  function fade(video, target, duration = 520) {
-    const previous = animations.get(video);
-    if (previous) cancelAnimationFrame(previous);
-    const start = video.volume, started = performance.now();
-    const tick = now => {
-      const progress = Math.min(1, (now - started) / duration);
-      video.volume = start + (target - start) * (1 - Math.pow(1 - progress, 3));
-      if (progress < 1) animations.set(video, requestAnimationFrame(tick));
-      else animations.delete(video);
-    };
-    animations.set(video, requestAnimationFrame(tick));
-  }
-  function mix() {
-    const lead = videos.reduce((best, video) => ratios.get(video) > ratios.get(best) ? video : best, videos[0]);
-    videos.forEach(video => {
-      if (!soundOn) { video.muted = true; fade(video, 0, 180); return; }
-      video.muted = false;
-      fade(video, video === lead && ratios.get(video) > 0.14 ? 0.68 : 0.08);
-    });
-  }
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      ratios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
-      if (entry.isIntersecting) entry.target.play().catch(() => {});
-    });
-    mix();
-  }, { threshold: [0, 0.14, 0.4, 0.7] });
   videos.forEach(video => {
-    video.volume = 0;
-    observer.observe(video);
+    silence(video);
+    video.addEventListener('volumechange', () => silence(video));
+    video.addEventListener('play', () => {
+      silence(video);
+      if (exclusive) { interrupted.add(video); video.pause(); }
+    });
     const showIssue = () => {
       const container = video.closest('.embed-ratio');
       if (!container) return;
@@ -193,15 +179,54 @@
     video.addEventListener('error', showIssue, { once: true });
     video.querySelector('source')?.addEventListener('error', showIssue, { once: true });
   });
-  buttons.forEach(button => button.addEventListener('click', () => {
-    soundOn = !soundOn;
-    if (soundOn) videos.forEach(video => video.play().catch(() => {}));
-    mix();
-    setButtons();
-  }));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting && !exclusive && !document.hidden) play(entry.target); });
+    });
+    videos.forEach(video => observer.observe(video));
+  }
+  if (frame) {
+    function failed() {
+      tiktokPlaying = false;
+      sync();
+      const message = document.createElement('p');
+      message.className = 'embed-playback-message';
+      message.setAttribute('role', 'status');
+      const link = document.createElement('a');
+      link.href = 'https://www.tiktok.com/@yourmemphisbestie/video/7677428490601352461';
+      link.textContent = 'Watch the original TikTok feature ↗';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      message.append(link);
+      frame.parentElement?.replaceChildren(message);
+    }
+    frame.addEventListener('error', failed, { once: true });
+    window.addEventListener('message', event => {
+      if (event.origin !== 'https://www.tiktok.com' || event.source !== frame.contentWindow) return;
+      const data = event.data;
+      if (!data || data['x-tiktok-player'] !== true) return;
+      if (data.type === 'onStateChange' && [-1, 0, 1, 2, 3].includes(data.value)) {
+        // Keep interrupted media paused while TikTok buffers.
+        if (data.value !== 3) tiktokPlaying = data.value === 1;
+      } else if (data.type === 'onMute' && typeof data.value === 'boolean') {
+        tiktokMuted = data.value;
+      } else if (data.type === 'onVolumeChange' && typeof data.value === 'number' && Number.isFinite(data.value)) {
+        tiktokVolume = data.value;
+      } else if (data.type === 'onPlayerError' || data.type === 'onError') {
+        failed(); return;
+      } else return;
+      sync();
+    });
+  }
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) videos.forEach(video => video.pause());
-    else videos.forEach(video => video.play().catch(() => {}));
+    if (document.hidden) {
+      videos.forEach(video => { if (!video.paused) { hiddenPlaying.add(video); video.pause(); } });
+      frame?.contentWindow.postMessage({ 'x-tiktok-player': true, type: 'pause' }, 'https://www.tiktok.com');
+      tiktokPlaying = false;
+    } else {
+      sync();
+      hiddenPlaying.forEach(video => { if (!exclusive) play(video); });
+      hiddenPlaying.clear();
+    }
   });
-  setButtons();
 })();
