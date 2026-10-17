@@ -190,3 +190,11 @@ supporting labels/captions are generally 13–14px. Navigation and action labels
 have larger type; on narrower desktop widths navigation wraps within its center
 column while the brand and action group stay anchored left and right. The
 language picker uses 16px option text and 12px supporting labels.
+
+### Mobile readability
+
+At widths up to 900px, body and descriptive text use 16px, supporting copy and
+buttons use 13–14px, and small category/caption labels use at least 12px. Reduce
+letter spacing and allow labels to wrap so the larger text fits the existing
+cards. Language choices use 16px and the Menu control uses 12px with a 44px touch
+target. The brand-left/actions-right layout and icon-only Translate are retained.
