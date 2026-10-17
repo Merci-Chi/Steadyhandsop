@@ -135,32 +135,73 @@
   }
 })();
 
-// TikTok documents playback failures through its player message API.
+// Inline video playback with one shared, gentle site-audio mix.
 (() => {
-  const frame = document.querySelector('[data-tiktok-player] iframe');
-  function showFallback(container, text) {
-    if (!container) return;
-    const message = document.createElement('p');
-    message.className = 'embed-playback-message';
-    message.setAttribute('role', 'status');
-    message.textContent = text;
-    container.replaceChildren(message);
-  }
-  if (frame) {
-    const fallback = () => showFallback(frame.parentElement,
-      'This feature cannot play here right now. Watch the original using the TikTok link below.');
-    frame.addEventListener('error', fallback);
-    window.addEventListener('message', event => {
-      if (event.origin !== 'https://www.tiktok.com' || event.source !== frame.contentWindow) return;
-      const data = event.data;
-      if (!data || data['x-tiktok-player'] !== true) return;
-      if (data.type === 'onPlayerError' || data.type === 'onError') fallback();
+  const videos = [...document.querySelectorAll('video.ambient-video')];
+  const buttons = [...document.querySelectorAll('[data-video-sound]')];
+  if (!videos.length) return;
+  const ratios = new Map(videos.map(video => [video, 0]));
+  const animations = new WeakMap();
+  let soundOn = false;
+  function setButtons() {
+    buttons.forEach(button => {
+      button.setAttribute('aria-pressed', String(soundOn));
+      const label = soundOn ? 'Turn site sound off' : 'Turn site sound on';
+      button.setAttribute('aria-label', label);
+      button.title = label;
     });
   }
-  document.querySelectorAll('.video-embed-card video').forEach(video => {
-    const fallback = () => showFallback(video.parentElement,
-      'This clip cannot play in your browser. Watch the original using the Facebook link below.');
-    video.addEventListener('error', fallback);
-    video.querySelector('source')?.addEventListener('error', fallback);
+  function fade(video, target, duration = 520) {
+    const previous = animations.get(video);
+    if (previous) cancelAnimationFrame(previous);
+    const start = video.volume, started = performance.now();
+    const tick = now => {
+      const progress = Math.min(1, (now - started) / duration);
+      video.volume = start + (target - start) * (1 - Math.pow(1 - progress, 3));
+      if (progress < 1) animations.set(video, requestAnimationFrame(tick));
+      else animations.delete(video);
+    };
+    animations.set(video, requestAnimationFrame(tick));
+  }
+  function mix() {
+    const lead = videos.reduce((best, video) => ratios.get(video) > ratios.get(best) ? video : best, videos[0]);
+    videos.forEach(video => {
+      if (!soundOn) { video.muted = true; fade(video, 0, 180); return; }
+      video.muted = false;
+      fade(video, video === lead && ratios.get(video) > 0.14 ? 0.68 : 0.08);
+    });
+  }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      ratios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
+      if (entry.isIntersecting) entry.target.play().catch(() => {});
+    });
+    mix();
+  }, { threshold: [0, 0.14, 0.4, 0.7] });
+  videos.forEach(video => {
+    video.volume = 0;
+    observer.observe(video);
+    const showIssue = () => {
+      const container = video.closest('.embed-ratio');
+      if (!container) return;
+      const message = document.createElement('p');
+      message.className = 'embed-playback-message';
+      message.setAttribute('role', 'status');
+      message.textContent = 'This clip cannot play in this browser.';
+      container.replaceChildren(message);
+    };
+    video.addEventListener('error', showIssue, { once: true });
+    video.querySelector('source')?.addEventListener('error', showIssue, { once: true });
   });
+  buttons.forEach(button => button.addEventListener('click', () => {
+    soundOn = !soundOn;
+    if (soundOn) videos.forEach(video => video.play().catch(() => {}));
+    mix();
+    setButtons();
+  }));
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) videos.forEach(video => video.pause());
+    else videos.forEach(video => video.play().catch(() => {}));
+  });
+  setButtons();
 })();
