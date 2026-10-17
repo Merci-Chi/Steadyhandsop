@@ -182,3 +182,11 @@ stays on the left and the independent Translate/Order Now action group stays on
 the right. Desktop navigation alone is centered using equal outer grid columns.
 On mobile the brand stays left and Menu/Translate stay right; Translate remains
 icon-only. The desktop label and explicit accessible name remain available.
+
+### Desktop readability
+
+At widths above 900px, body text is 17px, descriptive copy is 16–17px, and
+supporting labels/captions are generally 13–14px. Navigation and action labels
+have larger type; on narrower desktop widths navigation wraps within its center
+column while the brand and action group stay anchored left and right. The
+language picker uses 16px option text and 12px supporting labels.
