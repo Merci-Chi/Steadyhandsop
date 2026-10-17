@@ -206,9 +206,9 @@ html{scroll-padding-top:calc(110px + var(--google-bar-height))}
 @keyframes product-backdrop-in{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.product-dialog.product-drop-in[open],.product-dialog.product-drop-in::backdrop{animation:none}}
 
-/* Keep the header centered independently of the widths of its side controls. */
+/* Brand and actions stay at the header edges; only navigation is centered. */
 .header{display:block}
-.header-inner{width:min(1240px,100%);height:100%;margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:24px}
+.header-inner{width:100%;height:100%;margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:24px}
 .header-inner>.brand{justify-self:start}
 .header-inner>nav{justify-self:center;margin:0}
 .header-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-width:0;justify-self:end}
@@ -221,8 +221,8 @@ html{scroll-padding-top:calc(110px + var(--google-bar-height))}
  .translate-toggle{padding:10px 8px;gap:6px;font-size:9px}
 }
 @media(max-width:900px){
- .header-inner{display:flex;align-items:center;justify-content:center;gap:clamp(12px,4vw,28px)}
- .header-actions{justify-content:center;flex-shrink:0}
+ .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+ .header-actions{justify-content:flex-end;flex-shrink:0;margin-left:auto}
  .header-actions>.order-trigger{display:none}
  .translate-toggle{width:44px;height:44px;min-width:44px;padding:0;gap:0}
  .translate-toggle>span{display:none}
