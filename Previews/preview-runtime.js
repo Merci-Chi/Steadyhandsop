@@ -2,6 +2,7 @@
 "use strict";
 const params = new URLSearchParams(location.search);
 const siteKey = (params.get("sitekey") || "").trim();
+const portalEmbedded = params.get("portal_embed") === "1";
 const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const clean = v => v == null || ["","NOT FOUND","NULL","EMPTY","UNDEFINED","N/A","NA","NONE","NAN"].includes(String(v).trim().toUpperCase()) ? "" : v;
 const toList = v => Array.isArray(v) ? v : (typeof v==="string" ? v.split(/[\n\r,;]+/) : []);
@@ -176,11 +177,10 @@ function renderJinja(template,site,niche) {
  return renderNodes(tokenize(template),ctx,{i:0}).out;
 }
 function makeUnlockUrl(site) {
- const u=new URL("/make-site.html",location.origin);
- u.searchParams.set("from_preview","1");
- if(site.sitekey)u.searchParams.set("sitekey",site.sitekey);
- if(site.business_name)u.searchParams.set("business",site.business_name);
- if(site.template_key)u.searchParams.set("template",site.template_key);
+ const key=String(site.sitekey||site.site_key||"").trim();
+ if(!key)throw new Error("A site key is required to continue to the portal.");
+ const u=new URL("/index.html","https://portal.steadyhandsop.com");
+ u.searchParams.set("sitekey",key);
  return u.toString();
 }
 function showFailure(message) {
@@ -192,11 +192,14 @@ function addPreviewControls(html,site) {
  // Keep original markup and CSS; only add the standard preview strip and modal.
  doc.querySelectorAll(".sh-preview-banner,#shPreviewBanner,.sh-preview-footer").forEach(n=>n.remove());
  const banner=doc.createElement("div");banner.className="steady-preview-strip";
- banner.innerHTML='WEBSITE PREVIEW — interactions are disabled. <strong>Any example details are fake placeholders.</strong> <button type="button" data-open-lock>Unlock this site ↗</button>';
+ banner.innerHTML='WEBSITE PREVIEW — interactions are disabled. <strong>Any example details are fake placeholders.</strong>'+(!portalEmbedded&&site.sitekey?' <a data-portal-continue href="'+esc(makeUnlockUrl(site))+'">Approve preview &amp; continue ↗</a>':'');
  doc.body.insertBefore(banner,doc.body.firstChild);
- const modal=doc.createElement("div");modal.className="steady-preview-modal";modal.hidden=true;modal.innerHTML='<div class="steady-preview-backdrop" data-close-lock></div><section class="steady-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="steady-preview-title"><button type="button" class="steady-preview-close" data-close-lock aria-label="Close">×</button><p>STEADY HANDS PREVIEW</p><h2 id="steady-preview-title">This is just a preview.</h2><p>This is just a preview. Unlock the full site to activate buttons and interactions, and continue to the Make Your Site questionnaire.</p>'+(site.sitekey ? '<p class="steady-preview-key-label">Your preview site key: <code>'+esc(site.sitekey)+'</code></p>' : '')+'<a class="steady-preview-unlock" href="'+esc(makeUnlockUrl(site))+'">Unlock this site ↗</a><button type="button" class="steady-preview-keep" data-close-lock>Keep Previewing</button></section>';
+ const modal=doc.createElement("div");modal.className="steady-preview-modal";modal.hidden=true;
+ const explanation=portalEmbedded?'This is a preview. Use the approval controls in your portal to continue.':'Ready to move forward? Sign up or log in to approve your preview, sign your agreement, and finish website setup through simple popups in your client portal.';
+ const continueLink=!portalEmbedded&&site.sitekey?'<a class="steady-preview-unlock" href="'+esc(makeUnlockUrl(site))+'">Continue to my client portal ↗</a>':'';
+ modal.innerHTML='<div class="steady-preview-backdrop" data-close-lock></div><section class="steady-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="steady-preview-title"><button type="button" class="steady-preview-close" data-close-lock aria-label="Close">×</button><p>STEADY HANDS PREVIEW</p><h2 id="steady-preview-title">Your website starts here.</h2><p>'+explanation+'</p>'+(site.sitekey?'<p class="steady-preview-key-label">Your existing site key: <code>'+esc(site.sitekey)+'</code></p>':'<p>Contact Kiara to connect this preview to your site key.</p>')+continueLink+'<button type="button" class="steady-preview-keep" data-close-lock>Keep Previewing</button></section>';
  doc.body.appendChild(modal);
- const css=doc.createElement("style");css.textContent='.steady-preview-strip{position:sticky;top:0;z-index:999999;background:#102b4c;color:#fff;padding:10px 16px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;font:700 13px/1.4 Arial,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.18)}.steady-preview-strip strong{color:#ffbf00}.steady-preview-strip button{background:transparent;color:#fff;border:0;text-decoration:underline;font:800 13px Arial;cursor:pointer}.steady-preview-modal[hidden]{display:none!important}.steady-preview-modal{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;padding:20px}.steady-preview-backdrop{position:absolute;inset:0;background:rgba(4,14,27,.76);backdrop-filter:blur(7px)}.steady-preview-dialog{position:relative;width:min(480px,100%);background:white;color:#173348;padding:32px;border-radius:16px;box-shadow:0 30px 100px rgba(0,0,0,.4);font-family:Arial,sans-serif}.steady-preview-dialog h2{font-size:clamp(1.8rem,5vw,2.4rem);line-height:1.08;letter-spacing:-.04em;margin:12px 0}.steady-preview-dialog p{color:#5c6c77}.steady-preview-key-label{padding:10px 12px;background:#f1f5f8;border:1px solid #dce5ea;border-radius:8px;overflow-wrap:anywhere}.steady-preview-key-label code{font-weight:800;color:#102b4c}.steady-preview-dialog p:first-child{font-size:11px;letter-spacing:.14em;color:#a67b34;font-weight:900}.steady-preview-close{position:absolute;right:12px;top:7px;border:0;background:transparent;font-size:28px;cursor:pointer}.steady-preview-unlock,.steady-preview-keep{display:block;width:100%;text-align:center;padding:13px 16px;border-radius:7px;margin-top:12px;font-weight:800;cursor:pointer}.steady-preview-unlock{background:#102b4c;color:white;text-decoration:none}.steady-preview-keep{background:white;border:1px solid #bdc8ce;color:#173348}.steady-example-placeholder{outline:1px dashed rgba(183,130,44,.8);outline-offset:2px;position:relative}.steady-example-label{display:inline-block;font:800 10px Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:#fff4d9;color:#76531e;border:1px dashed #b68630;border-radius:4px;padding:2px 5px;margin:3px}.steady-example-notice{display:block;font:800 10px Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#76531e;margin-top:5px}';
+ const css=doc.createElement("style");css.textContent='.steady-preview-strip{position:sticky;top:0;z-index:999999;background:#102b4c;color:#fff;padding:10px 16px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;text-align:center;font:700 13px/1.4 Arial,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.18)}.steady-preview-strip strong{color:#ffbf00}.steady-preview-strip button,.steady-preview-strip [data-portal-continue]{background:transparent;color:#fff;border:0;text-decoration:underline;font:800 13px Arial;cursor:pointer}.steady-preview-modal[hidden]{display:none!important}.steady-preview-modal{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;padding:20px}.steady-preview-backdrop{position:absolute;inset:0;background:rgba(4,14,27,.76);backdrop-filter:blur(7px)}.steady-preview-dialog{position:relative;width:min(480px,100%);background:white;color:#173348;padding:32px;border-radius:16px;box-shadow:0 30px 100px rgba(0,0,0,.4);font-family:Arial,sans-serif}.steady-preview-dialog h2{font-size:clamp(1.8rem,5vw,2.4rem);line-height:1.08;letter-spacing:-.04em;margin:12px 0}.steady-preview-dialog p{color:#5c6c77}.steady-preview-key-label{padding:10px 12px;background:#f1f5f8;border:1px solid #dce5ea;border-radius:8px;overflow-wrap:anywhere}.steady-preview-key-label code{font-weight:800;color:#102b4c}.steady-preview-dialog p:first-child{font-size:11px;letter-spacing:.14em;color:#a67b34;font-weight:900}.steady-preview-close{position:absolute;right:12px;top:7px;border:0;background:transparent;font-size:28px;cursor:pointer}.steady-preview-unlock,.steady-preview-keep{display:block;width:100%;text-align:center;padding:13px 16px;border-radius:7px;margin-top:12px;font-weight:800;cursor:pointer}.steady-preview-unlock{background:#102b4c;color:white;text-decoration:none}.steady-preview-keep{background:white;border:1px solid #bdc8ce;color:#173348}.steady-example-placeholder{outline:1px dashed rgba(183,130,44,.8);outline-offset:2px;position:relative}.steady-example-label{display:inline-block;font:800 10px Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:#fff4d9;color:#76531e;border:1px dashed #b68630;border-radius:4px;padding:2px 5px;margin:3px}.steady-example-notice{display:block;font:800 10px Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#76531e;margin-top:5px}';
  doc.head.appendChild(css);
  return "<!doctype html>\n"+doc.documentElement.outerHTML;
 }
@@ -207,7 +210,7 @@ function initLockedPreview(site) {
  const close=()=>{modal.hidden=true;document.body.classList.remove("steady-modal-open");};
  document.addEventListener("click",e=>{
   const t=e.target;if(!(t instanceof Element))return;
-  if(t.closest(".steady-preview-unlock"))return;
+  if(t.closest(".steady-preview-unlock,[data-portal-continue]"))return;
   if(t.closest("[data-close-lock]")){e.preventDefault();close();return;}
   if(t.closest("[data-open-lock]")){e.preventDefault();open();return;}
   const el=t.closest("a,button,[role=button],input[type=submit],input[type=button]");
@@ -237,7 +240,8 @@ async function main(){
   rendered=rendered.replace(/<script>\s*\(function\(\)\{\s*document\.documentElement\.classList\.add\('sh-preview-mode'\);[\s\S]*?<\/script>/i,"");
   const finalHtml=addPreviewControls(rendered,site);
   document.open();document.write(finalHtml);document.close();
-  initLockedPreview(site);
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>initLockedPreview(site),{once:true});
+  else initLockedPreview(site);
  } catch(err) { console.error("Preview renderer:",err);showFailure(err&&err.message?err.message:"Unexpected preview error."); }
 }
 main();
