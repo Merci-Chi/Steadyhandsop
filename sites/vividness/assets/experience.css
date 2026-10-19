@@ -1,0 +1,36 @@
+/* Self-hosted type, an adaptive compact cursor, and the liquid backdrop. */
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url('fonts/space-grotesk-latin.woff2') format('woff2')}
+@font-face{font-family:'Syne';font-style:normal;font-weight:400 800;font-display:swap;src:url('fonts/syne-latin.woff2') format('woff2')}
+:root{--font-body:'Space Grotesk',sans-serif;--font-heading:'Syne',sans-serif}
+body,body *{font-family:var(--font-body)}
+h1,h2,h3,.display,.brand-word,.hero-sticker,.about-label{font-family:var(--font-heading)}
+h1,h2{font-weight:800;letter-spacing:-.045em}h3{font-weight:700}
+.project-caption h3,.footer h3,.quote-preview{font-family:var(--font-body)}
+.brand-word{font-size:25px;font-weight:800;letter-spacing:-.055em}.brand small{font-weight:600;letter-spacing:.21em;font-size:8px}
+.hero h1{font-size:clamp(58px,6.2vw,89px);line-height:1.02;letter-spacing:-.06em}.hero .lead{font-size:16px}
+.nav{font-size:11px;gap:18px}.nav a{font-weight:600}.btn{font-weight:600;letter-spacing:-.015em}.eyebrow{font-weight:600;letter-spacing:.12em}
+html{background:#100d18}body{background:none;isolation:isolate;overflow-x:clip}
+.liquid-background{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;isolation:isolate;background:radial-gradient(ellipse at 20% 30%,#821691,transparent 60%),radial-gradient(ellipse at 80% 70%,#e52c9e,transparent 65%),#231035}
+.liquid-background canvas{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none}
+.liquid-black-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.59);pointer-events:none}
+.hero{background:linear-gradient(110deg,#1009197d,#1009192e);border-color:#9d4e843f}
+.page-hero{background:linear-gradient(120deg,#1e0b2777,#100b1d33);border-color:#9d4e844d}
+.dark{background:linear-gradient(135deg,#13091fba,#09070ed1)}
+.cta-band{background:linear-gradient(120deg,#391044a6,#1c1548a6)}
+.process{background:#100d182b}
+.project,.social-card{background:#21172ef0}
+.header{background:#09070ef2}
+.footer,.announcement{background:#09070ef5}
+/* The previous follower/dot is replaced by a single, instantaneous 18px outline. */
+.cursor-dot,html.custom-cursor .cursor-dot{display:none!important}
+.cursor-ring,.cursor-ring.over,.cursor-ring.link{--cursor-color:#fff;width:18px;height:18px;border:1.5px solid var(--cursor-color);background:transparent;box-shadow:none;color:transparent;font-size:0;padding:0;mix-blend-mode:difference;transition:width .14s ease,height .14s ease,background-color .14s ease,border-color .12s ease;will-change:left,top;transform:translate(-50%,-50%)}
+.cursor-ring.is-interactive{width:9px;height:9px;background:var(--cursor-color);border-color:var(--cursor-color)}
+.cursor-ring.is-pressed{width:6px;height:6px;background:var(--cursor-color);border-color:var(--cursor-color)}
+.cursor-ring.hide{visibility:hidden}
+html.custom-cursor label,html.custom-cursor .service-option,html.custom-cursor select{cursor:none}
+@media(min-width:901px) and (max-width:1150px){.brand-word{font-size:22px}.nav{font-size:10px;gap:12px}.nav>a.btn{font-size:10px;padding-inline:12px}}
+@media(max-width:900px){.hero h1{font-size:7vw}.brand-word{font-size:24px}.nav{font-size:15px;gap:10px}.hero .lead{font-size:14px}}
+@media(max-width:650px){.hero h1{font-size:clamp(49px,12.2vw,72px)}.page-hero h1{font-size:clamp(40px,10.5vw,62px);overflow-wrap:normal}.hero .lead{font-size:15px}.brand-word{font-size:23px}.brand small{font-size:7px;letter-spacing:.18em}.section h2{font-size:36px}.quote-form .form-heading h2{font-size:26px}.footer .brand-word{font-size:27px}.social-card h3{font-size:23px}.cursor-toggle{display:none}}
+@media(prefers-reduced-motion:reduce){.liquid-background canvas{opacity:.8}.cursor-ring,html.custom-cursor .cursor-ring{display:none!important}}
+@media(forced-colors:active){.liquid-background{display:none}.cursor-ring,html.custom-cursor .cursor-ring{display:none!important}html.custom-cursor,html.custom-cursor a,html.custom-cursor button,html.custom-cursor summary,html.custom-cursor label{cursor:auto}}
+@media(hover:hover) and (pointer:fine){html.custom-cursor input[type=radio],html.custom-cursor input[type=checkbox]{cursor:none}}
