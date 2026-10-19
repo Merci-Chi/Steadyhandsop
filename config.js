@@ -16,7 +16,7 @@ window.STEADY_HANDS = {
     'debbyscrew': 'https://steadyhandsop.com/sites/debbyscrew/',
     'eljefedejalisco': 'https://steadyhandsop.com/sites/eljefedejalisco/',
     'greenhousewaterheaters': 'https://steadyhandsop.com/sites/greenhousewaterheaters/',
-    'vividness': 'https://steadyhandsop.com/sites/vividness/'
+    'vividtees': 'https://steadyhandsop.com/sites/vividtees/'
   },
   // Display-name and offline fallback entries; new folders are discovered automatically from GitHub.
   customPreviews: [
@@ -24,7 +24,7 @@ window.STEADY_HANDS = {
     { name: "Debby's Crew LLC", path: 'sites/debbyscrew/' },
     { name: 'El Jefe de Jalisco', path: 'sites/eljefedejalisco/' },
     { name: 'Green House Water Heaters', path: 'sites/greenhousewaterheaters/' },
-    { name: 'Vivid Apparel N Custom Engraving', path: 'sites/vividness/' }
+    { name: 'Vivid Apparel N Custom Engraving', path: 'sites/vividtees/' }
   ],
   // Optional local fallback preview records.
   siteKeys: {},
