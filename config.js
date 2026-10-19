@@ -15,14 +15,16 @@ window.STEADY_HANDS = {
     '24hrtireservice': 'https://steadyhandsop.com/sites/24hrtireservice/',
     'debbyscrew': 'https://steadyhandsop.com/sites/debbyscrew/',
     'eljefedejalisco': 'https://steadyhandsop.com/sites/eljefedejalisco/',
-    'greenhousewaterheaters': 'https://steadyhandsop.com/sites/greenhousewaterheaters/'
+    'greenhousewaterheaters': 'https://steadyhandsop.com/sites/greenhousewaterheaters/',
+    'vividness': 'https://steadyhandsop.com/sites/vividness/'
   },
-  // Public custom previews listed on preview.html. Add an entry for each published sites/ website.
+  // Display-name and offline fallback entries; new folders are discovered automatically from GitHub.
   customPreviews: [
     { name: '24 HR Mobile Tire Service', path: 'sites/24hrtireservice/' },
     { name: "Debby's Crew LLC", path: 'sites/debbyscrew/' },
     { name: 'El Jefe de Jalisco', path: 'sites/eljefedejalisco/' },
-    { name: 'Green House Water Heaters', path: 'sites/greenhousewaterheaters/' }
+    { name: 'Green House Water Heaters', path: 'sites/greenhousewaterheaters/' },
+    { name: 'Vivid Apparel N Custom Engraving', path: 'sites/vividness/' }
   ],
   // Optional local fallback preview records.
   siteKeys: {},
