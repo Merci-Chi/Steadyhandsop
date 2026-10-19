@@ -138,3 +138,10 @@
 .service-dialog-info{min-width:0;padding-top:78px}
 .service-gallery-controls span{font-size:.86rem;text-align:center}
 @media(max-width:850px){.service-close,.service-close:focus-visible{top:10px!important;right:10px!important}.service-dialog-info{padding-top:24px}.service-dialog{max-height:90dvh}.service-photo-frame{height:min(40dvh,350px)}}
+
+/* Large compressed-video homepage hero — October 2026 */
+@media(min-width:900px){.hero .container{width:min(1420px,95%);grid-template-columns:minmax(0,0.83fr) minmax(0,1.17fr);gap:28px;min-height:690px}.hero-copy{padding:66px 0}.hero-visual{margin:32px 0}}
+.hero-visual .hero-video{display:block;width:100%;height:min(650px,72vw);max-height:650px;object-fit:contain;background:#0c0618;border:5px solid rgba(255,255,255,.27);border-radius:25px;box-shadow:0 26px 66px rgba(0,0,0,.65)}
+.hero-visual:has(.hero-video)::after{display:none}
+@media(max-width:899px){.hero-visual .hero-video{height:min(510px,75vw)}}
+@media(max-width:760px){.hero-visual .hero-video{height:420px;max-height:70vh}}
