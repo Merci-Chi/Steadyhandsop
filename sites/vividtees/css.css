@@ -145,3 +145,28 @@
 .hero-visual:has(.hero-video)::after{display:none}
 @media(max-width:899px){.hero-visual .hero-video{height:min(510px,75vw)}}
 @media(max-width:760px){.hero-visual .hero-video{height:420px;max-height:70vh}}
+
+/* Subtle, accessible site-wide music control. Playback only starts when selected. */
+.background-music-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1000;
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  border: 1px solid rgba(195, 130, 255, .55);
+  border-radius: 999px;
+  padding: 11px 15px;
+  background: rgba(19, 9, 29, .90);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .28);
+  font: 600 13px/1.2 inherit;
+  cursor: pointer;
+}
+.background-music-toggle:hover,
+.background-music-toggle:focus-visible { background: #7920ba; }
+.background-music-toggle[aria-pressed="true"] { border-color: #bb74ff; }
+@media (max-width: 600px) {
+  .background-music-toggle { right: 12px; bottom: 12px; padding: 10px 12px; }
+}
