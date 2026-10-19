@@ -82,3 +82,44 @@ document.addEventListener('DOMContentLoaded',()=>{
     bodyObserver.observe(document.body,{childList:true,subtree:false});
   });
 })();
+
+/* Site-wide, visitor-controlled background music. */
+document.addEventListener('DOMContentLoaded', () => {
+  const music = document.createElement('audio');
+  music.src = 'assets/background-music.mp3';
+  music.loop = true;
+  music.preload = 'none';
+  music.volume = 0.12;
+  music.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(music);
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'background-music-toggle';
+  button.setAttribute('aria-label', 'Play background music');
+  button.setAttribute('aria-pressed', 'false');
+  button.innerHTML = '<i class="fa-solid fa-music" aria-hidden="true"></i><span>Music off</span>';
+  document.body.appendChild(button);
+
+  function updateButton(playing) {
+    button.setAttribute('aria-pressed', String(playing));
+    button.setAttribute('aria-label', playing ? 'Pause background music' : 'Play background music');
+    button.querySelector('span').textContent = playing ? 'Music on' : 'Music off';
+  }
+  button.addEventListener('click', async () => {
+    if (!music.paused) {
+      music.pause();
+      updateButton(false);
+      return;
+    }
+    try {
+      await music.play();
+      updateButton(true);
+    } catch (error) {
+      updateButton(false);
+      console.warn('Background music cannot play:', error);
+    }
+  });
+  music.addEventListener('ended', () => updateButton(false));
+  music.addEventListener('error', () => updateButton(false));
+});
