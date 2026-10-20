@@ -809,3 +809,28 @@ if (previewPageForm) {
   showBlogByPosition(1,false);startBlogAutoplay();
   if(blogTrack)blogTrack.addEventListener('click',event=>{const button=event.target.closest('.like-btn');if(!button||!blogTrack.contains(button))return;const title=button.closest('.blog-post')?.querySelector('h3')?.textContent?.trim(),willLike=!button.classList.contains('liked'),matching=title?[...blogTrack.querySelectorAll('.blog-post')].filter(p=>p.querySelector('h3')?.textContent?.trim()===title).map(p=>p.querySelector('.like-btn')).filter(Boolean):[button];matching.forEach(btn=>{btn.classList.toggle('liked',willLike);btn.setAttribute('aria-pressed',String(willLike));btn.setAttribute('aria-label',willLike?'Unlike post':'Like post')})});
 })();
+
+
+/* Homepage client references: click arrows, swipe, or horizontally scroll. */
+(function(){
+  const track=document.querySelector('.client-work-section .client-work-grid');
+  const buttons=[...document.querySelectorAll('.client-work-section [data-reference-scroll]')];
+  if(!track||!buttons.length)return;
+  const refresh=()=>{
+    const last=Math.max(0,track.scrollWidth-track.clientWidth);
+    buttons.forEach(button=>{
+      const direction=Number(button.dataset.referenceScroll);
+      button.disabled=direction<0?track.scrollLeft<=2:track.scrollLeft>=last-2;
+    });
+  };
+  buttons.forEach(button=>button.addEventListener('click',()=>{
+    const first=track.querySelector('.client-work-card');
+    if(!first)return;
+    const gap=parseFloat(getComputedStyle(track).columnGap)||16;
+    const distance=first.getBoundingClientRect().width+gap;
+    track.scrollBy({left:Number(button.dataset.referenceScroll)*distance,behavior:'smooth'});
+  }));
+  track.addEventListener('scroll',refresh,{passive:true});
+  window.addEventListener('resize',refresh);
+  refresh();
+})();
