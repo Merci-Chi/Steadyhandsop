@@ -1829,3 +1829,67 @@ nav a.client-portal-link::after,nav a.client-portal-link:hover::after,nav a.clie
 .client-work-section .reference-scroll-arrow:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .client-work-section .reference-scroll-arrow:disabled{opacity:.35;cursor:default}
 @media(max-width:560px){.client-work-section .client-work-heading{padding-right:95px}.client-work-section .reference-scroll-arrow{width:39px;height:39px}.client-work-section .reference-scroll-hint{font-size:11px}}
+
+
+/* Homepage: compact, intentionally scrollable reference carousel */
+#references .client-work-grid{
+  display:flex;
+  flex-wrap:nowrap;
+  width:100%;
+  max-width:100%;
+  gap:14px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:auto;
+  padding:5px 4px 19px;
+  scroll-padding-inline:4px;
+}
+#references .client-work-grid > .client-work-card{
+  box-sizing:border-box;
+  flex:0 0 clamp(230px, calc((100% - 56px)/4), 310px);
+  min-width:0;
+  min-height:0;
+  scroll-snap-align:start;
+}
+#references .client-work-grid .live-work-card .mini-site-frame{height:166px;flex:0 0 166px}
+#references .client-work-grid .client-work-meta h3{font-size:15px}
+#references .client-work-grid .client-work-meta p{font-size:10px}
+#references .reference-scroll-hint{color:#e2f1ff;font-weight:800;font-size:14px}
+#references .reference-scroll-arrow{background:#eff8ff;color:#0f315e;border:2px solid #a0cef9;box-shadow:0 4px 12px #001c4180}
+#references .reference-scroll-arrow:hover{background:#cce9ff;color:#102950}
+#references .client-work-grid::-webkit-scrollbar{height:11px}
+#references .client-work-grid::-webkit-scrollbar-thumb{background:#b5dbff;border-radius:20px}
+#references .client-work-grid::-webkit-scrollbar-track{background:#193d6d;border-radius:20px}
+@media(max-width:820px){
+  #references .client-work-grid{max-width:100%;margin-inline:0}
+  #references .client-work-grid > .client-work-card{flex-basis:min(74vw,290px)}
+}
+@media(max-width:560px){
+  #references .client-work-grid > .client-work-card{flex-basis:min(82vw,290px)}
+}
+/* Full References page: normal wrapping grid, never a horizontal carousel */
+.references-page .client-work-section .client-work-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  width:100%;
+  max-width:100%;
+  gap:18px;
+  overflow:visible;
+  padding:0;
+  margin:0;
+  scroll-snap-type:none;
+}
+.references-page .client-work-section .client-work-grid > .client-work-card{
+  width:auto;
+  min-width:0;
+  min-height:290px;
+  flex:auto;
+  scroll-snap-align:none;
+}
+@media(max-width:1050px){
+  .references-page .client-work-section .client-work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .references-page .client-work-section .client-work-grid{grid-template-columns:1fr}
+}
