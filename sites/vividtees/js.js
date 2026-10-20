@@ -29,7 +29,8 @@ function renderCart(){let target=document.getElementById('cart-items');if(!targe
 function emailHref(subject,body){return `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
 function handleQuote(event){event.preventDefault();let form=event.currentTarget;let f=new FormData(form);let cart=readCart();if(!cart.length){notify('Please add at least one item.');return}let items=cart.map(x=>`${x.qty} × ${PRODUCTS.find(p=>p.id===x.id).name}`).join('\n');let body=`Hi Vivid Tee's Custom Apparel,\n\nI'd like a quote for:\n${items}\n\nName: ${f.get('name')}\nEmail: ${f.get('email')}\nPhone: ${f.get('phone')||'Not provided'}\nNeeded by: ${f.get('deadline')||'Flexible'}\nDetails, sizes, colors, design: ${f.get('details')||'Please contact me to discuss'}\n\nPlease confirm availability and pricing.\n`;window.location.href=emailHref('Website custom order quote request',body);document.getElementById('checkout-status').textContent='Your email application should open with the order details. Please send the email to complete the request. No order or payment has been placed.'}
 function handleContact(e){e.preventDefault();let f=new FormData(e.currentTarget),body=`Name: ${f.get('name')}\nEmail: ${f.get('email')}\nPhone: ${f.get('phone')||'Not provided'}\nTopic: ${f.get('topic')}\n\n${f.get('message')}`;window.location.href=emailHref('Website inquiry: '+f.get('topic'),body);document.getElementById('contact-status').textContent='Your email app should open. Please send the message to complete your inquiry.'}
-document.addEventListener('DOMContentLoaded',()=>{updateCount();setupShop();renderCart();document.getElementById('quote-form')?.addEventListener('submit',handleQuote);document.getElementById('contact-form')?.addEventListener('submit',handleContact);document.querySelector('.mobile-toggle')?.addEventListener('click',()=>{let nav=document.querySelector('.nav-links');let opened=nav.classList.toggle('open');document.querySelector('.mobile-toggle').setAttribute('aria-expanded',String(opened))});document.addEventListener('click',e=>{let add=e.target.closest('[data-add]'),rem=e.target.closest('[data-remove]'),qty=e.target.closest('[data-qty]');if(add)addCart(add.dataset.add);let view=e.target.closest('[data-view]');if(view)showShopDetail(view.dataset.view);if(rem)setQty(rem.dataset.remove,0);if(qty){let item=readCart().find(x=>x.id===qty.dataset.qty);setQty(qty.dataset.qty,(item?.qty||0)+Number(qty.dataset.delta))}})});
+function initializeVividPage(){updateCount();setupShop();renderCart();document.getElementById('quote-form')?.addEventListener('submit',handleQuote);document.getElementById('contact-form')?.addEventListener('submit',handleContact);document.querySelector('.mobile-toggle')?.addEventListener('click',()=>{let nav=document.querySelector('.nav-links');let opened=nav.classList.toggle('open');document.querySelector('.mobile-toggle').setAttribute('aria-expanded',String(opened))});document.addEventListener('click',e=>{let add=e.target.closest('[data-add]'),rem=e.target.closest('[data-remove]'),qty=e.target.closest('[data-qty]');if(add)addCart(add.dataset.add);let view=e.target.closest('[data-view]');if(view)showShopDetail(view.dataset.view);if(rem)setQty(rem.dataset.remove,0);if(qty){let item=readCart().find(x=>x.id===qty.dataset.qty);setQty(qty.dataset.qty,(item?.qty||0)+Number(qty.dataset.delta))}})}
+document.addEventListener('DOMContentLoaded',initializeVividPage);
 
 function showShopDetail(id){
  const p=PRODUCTS.find(item=>item.id===id);const dialog=document.getElementById('shop-detail');if(!p||!dialog)return;
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   music.preload = 'none';
   music.volume = 0.12;
   music.setAttribute('aria-hidden', 'true');
+  music.dataset.vividBackgroundMusic = 'true';
   document.body.appendChild(music);
 
   const button = document.createElement('button');
@@ -123,3 +125,77 @@ document.addEventListener('DOMContentLoaded', () => {
   music.addEventListener('ended', () => updateButton(false));
   music.addEventListener('error', () => updateButton(false));
 });
+
+
+/* Seamless same-site page navigation: keep the music element attached and playing. */
+(() => {
+  const pages = new Set(['index.html', 'shop.html', 'about.html', 'faq.html', 'contact.html', 'cart.html']);
+  const player = () => document.querySelector('audio[data-vivid-background-music]');
+  const toggle = () => document.querySelector('.background-music-toggle');
+  let navigationInProgress = false;
+
+  async function showPage(url, addHistory) {
+    if (navigationInProgress) return;
+    navigationInProgress = true;
+    try {
+      const response = await fetch(url.href, {credentials: 'same-origin'});
+      if (!response.ok) throw new Error('Page response: ' + response.status);
+      const html = await response.text();
+      const nextDocument = new DOMParser().parseFromString(html, 'text/html');
+      if (!nextDocument.querySelector('.main-header')) throw new Error('Unexpected page');
+      // Never remove the audio element from the DOM: removing it can interrupt playback.
+      const music = player(), button = toggle();
+      for (const node of Array.from(document.body.children)) {
+        if (node !== music && node !== button) node.remove();
+      }
+      for (const node of Array.from(nextDocument.body.children)) {
+        if (node.tagName === 'SCRIPT') continue; // js.js stays loaded once.
+        document.body.insertBefore(document.importNode(node, true), music || button || null);
+      }
+      document.title = nextDocument.title;
+      const oldDescription = document.querySelector('meta[name="description"]');
+      const newDescription = nextDocument.querySelector('meta[name="description"]');
+      if (oldDescription && newDescription) oldDescription.content = newDescription.content;
+      if (addHistory) history.pushState({}, '', url.href);
+      initializeVividPage();
+      const detailDialog = document.getElementById('shop-detail');
+      if (detailDialog) {
+        detailDialog.querySelector('[data-close-detail]')?.addEventListener('click', () => detailDialog.close());
+        detailDialog.addEventListener('click', e => { if (e.target === detailDialog) detailDialog.close(); });
+      }
+      if (document.getElementById('service-gallery-grid')) {
+        if (typeof setupServiceGallery === 'function') setupServiceGallery();
+        else {
+          const script = document.createElement('script');
+          script.src = 'shop-categories.js';
+          script.onload = () => { if (typeof setupServiceGallery === 'function') setupServiceGallery(); };
+          document.head.appendChild(script);
+        }
+      }
+      window.scrollTo(0, 0);
+    } catch (error) {
+      console.warn('Seamless navigation unavailable; using normal navigation:', error);
+      location.assign(url.href);
+    } finally {
+      navigationInProgress = false;
+    }
+  }
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || event.defaultPrevented || event.button !== 0 ||
+        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey ||
+        link.target && link.target !== '_self' || link.hasAttribute('download')) return;
+    const url = new URL(link.href, location.href);
+    const name = url.pathname.split('/').pop() || 'index.html';
+    if (url.origin !== location.origin || !pages.has(name) ||
+        url.pathname.substring(0, url.pathname.lastIndexOf('/') + 1) !== location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1) ||
+        (url.pathname === location.pathname && url.search === location.search && url.hash)) return;
+    event.preventDefault();
+    showPage(url, true);
+  });
+  window.addEventListener('popstate', () => {
+    const url = new URL(location.href);
+    if (pages.has(url.pathname.split('/').pop() || 'index.html')) showPage(url, false);
+  });
+})();
