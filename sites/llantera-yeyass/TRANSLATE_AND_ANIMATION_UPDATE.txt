@@ -1,0 +1,1 @@
+Custom English-first language selector, Spanish second, plus ten other Google Translate languages. Google Translate requires an internet connection; use a local web server for the most consistent preview. Scroll reveals honor reduced-motion settings. Brick wall moves upward 24% of scroll displacement (capped at 420px).

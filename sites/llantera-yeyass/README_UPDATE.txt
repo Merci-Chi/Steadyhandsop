@@ -1,0 +1,1 @@
+Website update: navigation rebuilt from real HTML links styled using CSS (not navigation screenshot). White areas use supplied white brick wall jpg. Separate assets/tire-tread-variation-1.png through -4.png are transparent black tracks independently positioned with CSS opacity. Open index.html to view.

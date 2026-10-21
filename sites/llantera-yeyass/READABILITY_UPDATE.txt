@@ -1,0 +1,1 @@
+Added solid white readability cards over full-width parallax brick wall, corrected heading and paragraph colors, increased font sizes, and reduced tread opacity. CSS navigation and gallery preserved.

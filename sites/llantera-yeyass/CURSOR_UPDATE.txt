@@ -1,0 +1,1 @@
+Mouse cursor: normal 30px hollow circle; on links, buttons and interactive controls it becomes a small solid 13px dot. Clicking compresses to 10px. Touch devices retain standard behavior.

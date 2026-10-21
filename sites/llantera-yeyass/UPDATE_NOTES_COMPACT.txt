@@ -1,0 +1,1 @@
+Moved translation widget to right side of hero on desktop; below hero copy on phones. Reduced card height; shortened reviews with ellipses (complete original reviews retained as title tooltips on previews); tightened section spacing. The native dropdown continues to control Google Translate.

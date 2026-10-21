@@ -1,0 +1,12 @@
+Wordmark and brand identification source pages:
+Michelin: https://commons.wikimedia.org/wiki/File:Michelin_Wordmark.svg
+BFGoodrich: https://commons.wikimedia.org/wiki/File:BFGoodrich_logo.svg
+Goodyear: https://news.goodyear.com/logos?l=100
+Continental: https://commons.wikimedia.org/wiki/File:Continental_logo.svg
+Pirelli: https://commons.wikimedia.org/wiki/File:Pirelli_-_logo_full_(Italy,_1997).svg
+Bridgestone: https://commons.wikimedia.org/wiki/File:Bridgestone_logo.svg
+Yokohama: https://commons.wikimedia.org/wiki/File:Yokohama_(Unternehmen)_logo.svg
+
+Six wordmarks use remote Wikimedia Commons Special:FilePath links. Goodyear uses styled wordmark text because a local downloadable asset could not be verified. All logos are trademarks and brand authorization/stock is unverified. Logos need internet access in this version.
+
+Google reviews: user-provided CSV; CSV provides Name, Rating, Date, Review but no profile URL, therefore Google attribution is unverified. Only 4- and 5-star reviews displayed as requested. Overall rating not claimed.

@@ -1,0 +1,1 @@
+Hero layout is now compact: reduced 24/7 size, padding, headline spacing, and CTA whitespace. Existing CSS navigation, wall and tire overlays retained.

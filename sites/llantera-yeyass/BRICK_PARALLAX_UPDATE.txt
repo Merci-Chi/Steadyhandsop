@@ -1,0 +1,1 @@
+Brick-wall photograph now fills 100% of browser width. Background uses a fixed pseudo-element with a subtle downward counter-scroll offset when scrolling down. Reduced-motion preference disables motion. Original individual transparent tire-tread PNG overlays and CSS racing navigation remain unchanged.

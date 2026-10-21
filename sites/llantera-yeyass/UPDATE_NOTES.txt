@@ -1,0 +1,1 @@
+Increased hero translation card size; added four real shop-photo slides changing every seven seconds (28-second loop); removed tire brand disclaimer text.
