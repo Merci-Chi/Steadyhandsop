@@ -217,3 +217,25 @@ html,body{max-width:100%;overflow-x:clip} .wrap, .hero, .section,.menu-section,.
   -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%);
   mask-image:linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%);
 }}
+
+/* Wider site canvas and safe headline spacing — 2026-10-20 */
+@media(min-width:1101px){
+  .wrap{width:calc(100% - 48px);max-width:1800px}
+  .hero.wrap,.video-hero.wrap{width:calc(100% - 48px);max-width:1800px}
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:clamp(24px,3vw,55px)}
+  .hero-copy{min-width:0;padding-left:clamp(20px,3vw,52px)}
+  .hero h1{font-size:clamp(65px,7.2vw,113px);line-height:1.01;overflow:visible;padding-block:.07em .09em;margin-top:14px}
+  .hero-copy .eyebrow{display:block;line-height:1.6}
+  .video-hero{padding-top:clamp(95px,9vw,145px);padding-bottom:clamp(80px,7vw,120px)}
+}
+@media(min-width:761px) and (max-width:1100px){
+  .wrap{width:calc(100% - 32px);max-width:none}
+  .hero h1{font-size:clamp(60px,7.7vw,92px);line-height:1.02;padding-block:.06em .1em}
+  .hero-copy{min-width:0;padding-left:clamp(8px,2vw,25px)}
+}
+@media(max-width:760px){
+  .hero h1{line-height:1.03!important;padding-block:.06em .12em;overflow:visible}
+  .video-hero{padding-top:clamp(90px,18vw,120px)!important}
+}
+html{scroll-padding-top:calc(110px + var(--translate-banner-offset, 0px))}
+section[id],div[id="visit"],div[id="reviews"]{scroll-margin-top:calc(110px + var(--translate-banner-offset, 0px))}
