@@ -2,7 +2,7 @@
 (()=>{'use strict';
 if(document.getElementById('sh-site-preview-bar'))return;
 const match=location.pathname.match(/\/sites\/([^/]+)\//);
-const site=match?decodeURIComponent(match[1]):location.pathname.split('/').filter(Boolean)[0];
+const site=document.currentScript?.dataset.site || (match?decodeURIComponent(match[1]):location.pathname.split('/').filter(Boolean)[0]);
 if(!site)return;
 const style=document.createElement('style');
 style.textContent=`
