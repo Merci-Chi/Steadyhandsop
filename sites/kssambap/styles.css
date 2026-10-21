@@ -207,3 +207,13 @@ html,body{max-width:100%;overflow-x:clip} .wrap, .hero, .section,.menu-section,.
 @media(max-width:380px){.brand-stack .brand-hangul{font-size:23px!important}.brand-stack .brand-english{font-size:9px!important}.gallery-grid{gap:6px!important}.site-header{padding-inline:12px!important}.video-tile-label{font-size:10px}.button{font-size:10px}}
 @media(hover:none),(pointer:coarse){#custom-cursor,#dialog-custom-cursor{display:none!important}html,body,a,button{cursor:auto!important}.highlight:hover,.gallery-card:hover,.menu-item:hover,.video-tile:hover{transform:none!important}}
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none!important}.reveal-ready,.kss-enter{opacity:1!important;transform:none!important}}
+
+/* K-SSAMbap marquee: soft fade at both horizontal edges; scrolling stays uninterrupted. */
+.marquee{
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image:linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+@media(max-width:600px){.marquee{
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%);
+  mask-image:linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%);
+}}
