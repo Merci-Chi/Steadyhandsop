@@ -8,7 +8,7 @@
 /* K-SSAMbap white linen texture, scaled to the viewport width and repeated vertically. */
 :root{--bg:#f5f3ef;--cream:#24221e;--muted:#635e55;--line:#211b1726;--red:#c92527}
 html{background:#f8f7f4}
-body{background-color:#292929;background-image:url('assets/images/white-texture-background.png');background-position:center top;background-size:100% auto;background-repeat:repeat-y;background-attachment:scroll;color:var(--cream)}
+body{background-color:#292929;background-image:none;background-position:center top;background-size:100% auto;background-repeat:repeat-y;background-attachment:scroll;color:var(--cream)}
 .topline{color:#59544d;border-bottom-color:#2a252023}
 .site-header{background:#faf9f5ed;border-bottom:1px solid #29241c31;box-shadow:0 3px 18px #0000000d}
 .site-header .nav a{color:#252019}.site-header .nav a:hover,.site-header .nav a[aria-current=page]{color:var(--red)}
@@ -97,7 +97,7 @@ html[lang='ko'] .korean-item-name,body.korean-selected .korean-item-name{display
 /* October design pass: charcoal-first UI, light texture only in gutters and deliberate accents. */
 :root{--bg:#0b0b0b;--cream:#f6f3ee;--muted:#bdb7af;--line:#ffffff27;--red:#d62b2c}
 html{background:#0b0b0b}
-body{background-color:#292929;background-image:url('assets/images/white-texture-background.png');background-position:center top;background-size:100% auto;background-repeat:repeat-y;color:#f6f3ee}
+body{background-color:#292929;background-image:none;background-position:center top;background-size:100% auto;background-repeat:repeat-y;color:#f6f3ee}
 /* Full-width dark bands and inset charcoal surfaces allow the texture to appear only between panels. */
 .topline{background:#0c0c0c;color:#c3bdb6;border-bottom:1px solid #ffffff22}
 .site-header{background:#0c0c0cf5;border-bottom:1px solid #ffffff27;box-shadow:0 8px 26px #0005;gap:clamp(12px,1.8vw,30px)}
@@ -239,3 +239,11 @@ html,body{max-width:100%;overflow-x:clip} .wrap, .hero, .section,.menu-section,.
 }
 html{scroll-padding-top:calc(110px + var(--translate-banner-offset, 0px))}
 section[id],div[id="visit"],div[id="reviews"]{scroll-margin-top:calc(110px + var(--translate-banner-offset, 0px))}
+
+/* Solid black canvas: remove textured gutters and preserve cinematic videos. */
+html,body{background:#000!important;background-image:none!important}
+.wrap{background-color:#101010}
+.video-hero,.cinematic-feature,.page-hero.menu-video-hero{background-color:#000}
+.hero-video-layer,.page-hero .menu-hero-video{background-color:#000}
+@media(min-width:761px){.wrap,.hero.wrap,.video-hero.wrap{width:100%;max-width:none}}
+@media(max-width:760px){.wrap{width:100%!important}}
