@@ -1,0 +1,1 @@
+Mobile responsive update: sticky collapsible navigation, thumb-friendly controls, fluid layouts, one-column menu cards, two-column gallery and video thumbnails, full-screen swipe photo viewer, safe area sizes, and translation overlay. Test via local HTTP server for Google Translate and embedded maps. No changes made to business data.

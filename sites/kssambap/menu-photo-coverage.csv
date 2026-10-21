@@ -1,0 +1,40 @@
+Category,Menu item,Number of matched photos,Folder,Status
+Signature Set,Ssambap Set Meal,0,01_Menu_Items/Signature Set/ssambap_set_meal,No confidently matching standalone photo
+Stews and Soups,Rich Fermented Soybean Paste Stew,0,01_Menu_Items/Stews and Soups/rich_fermented_soybean_paste_stew,No confidently matching standalone photo
+Stews and Soups,Soft Tofu Stew,2,01_Menu_Items/Stews and Soups/soft_tofu_stew,Photo match to verify
+Stews and Soups,Soybean Paste Stew,0,01_Menu_Items/Stews and Soups/soybean_paste_stew,No confidently matching standalone photo
+Stews and Soups,Kimchi Stew,0,01_Menu_Items/Stews and Soups/kimchi_stew,No confidently matching standalone photo
+Stews and Soups,Pollack Stew,0,01_Menu_Items/Stews and Soups/pollack_stew,No confidently matching standalone photo
+Stews and Soups,Army Stew,0,01_Menu_Items/Stews and Soups/army_stew,No confidently matching standalone photo
+Stews and Soups,Spicy Fish Roe Stew,0,01_Menu_Items/Stews and Soups/spicy_fish_roe_stew,No confidently matching standalone photo
+BBQ and Meat,Grilled Beef Short Ribs,0,01_Menu_Items/BBQ and Meat/grilled_beef_short_ribs,No confidently matching standalone photo
+BBQ and Meat,Grilled Bulgogi,5,01_Menu_Items/BBQ and Meat/grilled_bulgogi,Photo match to verify
+BBQ and Meat,Grilled Spicy Pork,3,01_Menu_Items/BBQ and Meat/grilled_spicy_pork,Photo match to verify
+BBQ and Meat,Grilled Chicken Bulgogi,0,01_Menu_Items/BBQ and Meat/grilled_chicken_bulgogi,No confidently matching standalone photo
+BBQ and Meat,Grilled Spicy Pork Ribs,0,01_Menu_Items/BBQ and Meat/grilled_spicy_pork_ribs,No confidently matching standalone photo
+BBQ and Meat,Braised Pork Short Ribs,0,01_Menu_Items/BBQ and Meat/braised_pork_short_ribs,No confidently matching standalone photo
+BBQ and Meat,Braised Beef Short Ribs,0,01_Menu_Items/BBQ and Meat/braised_beef_short_ribs,No confidently matching standalone photo
+BBQ and Meat,Braised Beef Short Ribs and Back Rib with Spicy Sauce,0,01_Menu_Items/BBQ and Meat/braised_beef_short_ribs_and_back_rib_with_spicy_sauce,No confidently matching standalone photo
+BBQ and Meat,Braised Pigs Trotters,1,01_Menu_Items/BBQ and Meat/braised_pigs_trotters,Photo match to verify
+BBQ and Meat,Braised Black Cod,0,01_Menu_Items/BBQ and Meat/braised_black_cod,No confidently matching standalone photo
+BBQ and Meat,Pork Belly,0,01_Menu_Items/BBQ and Meat/pork_belly,No confidently matching standalone photo
+BBQ and Meat,Spicy Stir Fried Baby Octopus,0,01_Menu_Items/BBQ and Meat/spicy_stir_fried_baby_octopus,No confidently matching standalone photo
+BBQ and Meat,Spicy Stir Fried Squid,0,01_Menu_Items/BBQ and Meat/spicy_stir_fried_squid,No confidently matching standalone photo
+Fish and Seafood,Grilled Yellowtail Croaker,0,01_Menu_Items/Fish and Seafood/grilled_yellowtail_croaker,No confidently matching standalone photo
+Fish and Seafood,Grilled Atka Mackerel,0,01_Menu_Items/Fish and Seafood/grilled_atka_mackerel,No confidently matching standalone photo
+Fish and Seafood,Grilled Flounder,0,01_Menu_Items/Fish and Seafood/grilled_flounder,No confidently matching standalone photo
+Fish and Seafood,Grilled Cutlassfish,0,01_Menu_Items/Fish and Seafood/grilled_cutlassfish,No confidently matching standalone photo
+Fish and Seafood,Grilled Mackerel,1,01_Menu_Items/Fish and Seafood/grilled_mackerel,Photo match to verify
+Fish and Seafood,Spicy Marinated Crab,0,01_Menu_Items/Fish and Seafood/spicy_marinated_crab,No confidently matching standalone photo
+Fish and Seafood,Soy Sauce Marinated Crab,0,01_Menu_Items/Fish and Seafood/soy_sauce_marinated_crab,No confidently matching standalone photo
+Fish and Seafood,Spicy Marinated Flatfish,0,01_Menu_Items/Fish and Seafood/spicy_marinated_flatfish,No confidently matching standalone photo
+Rice and Side Orders,Shrimp Fried Rice,0,01_Menu_Items/Rice and Side Orders/shrimp_fried_rice,No confidently matching standalone photo
+Rice and Side Orders,Kimchi Fried Rice,0,01_Menu_Items/Rice and Side Orders/kimchi_fried_rice,No confidently matching standalone photo
+Rice and Side Orders,Pork Cutlet,0,01_Menu_Items/Rice and Side Orders/pork_cutlet,No confidently matching standalone photo
+Rice and Side Orders,Egg Fried Rice,0,01_Menu_Items/Rice and Side Orders/egg_fried_rice,No confidently matching standalone photo
+Rice and Side Orders,Kimchi Pancake,0,01_Menu_Items/Rice and Side Orders/kimchi_pancake,No confidently matching standalone photo
+Rice and Side Orders,Seafood Pancake,0,01_Menu_Items/Rice and Side Orders/seafood_pancake,No confidently matching standalone photo
+Rice and Side Orders,Dumplings,1,01_Menu_Items/Rice and Side Orders/dumplings,Photo match to verify
+Rice and Side Orders,Vegetable Pancake,0,01_Menu_Items/Rice and Side Orders/vegetable_pancake,No confidently matching standalone photo
+Rice and Side Orders,Fried Egg,0,01_Menu_Items/Rice and Side Orders/fried_egg,No confidently matching standalone photo
+Rice and Side Orders,Seasoned Vegetables,0,01_Menu_Items/Rice and Side Orders/seasoned_vegetables,No confidently matching standalone photo
