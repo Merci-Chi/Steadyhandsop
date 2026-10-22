@@ -12,6 +12,9 @@ window.STEADY_HANDS = {
   // Public preview codes only. Never put passwords or private client data here.
   previews: {
     'SHS-GHWH26M9R7Q2': 'https://steadyhandsop.com/sites/greenhousewaterheaters/',
+    'ankajewelry': 'https://steadyhandsop.com/sites/ankajewelry/',
+    'llantera-yeyass': 'https://steadyhandsop.com/sites/llantera-yeyass/',
+    'kssambap': 'https://steadyhandsop.com/sites/kssambap/',
     '24hrtireservice': 'https://steadyhandsop.com/sites/24hrtireservice/',
     'debbyscrew': 'https://steadyhandsop.com/sites/debbyscrew/',
     'eljefedejalisco': 'https://steadyhandsop.com/sites/eljefedejalisco/',
@@ -20,6 +23,9 @@ window.STEADY_HANDS = {
   },
   // Display-name and offline fallback entries; new folders are discovered automatically from GitHub.
   customPreviews: [
+    { name: 'Anka Jewelry', path: 'sites/ankajewelry/' },
+    { name: 'Llantera Yeyass', path: 'sites/llantera-yeyass/' },
+    { name: 'K-Ssambap', path: 'sites/kssambap/' },
     { name: '24 HR Mobile Tire Service', path: 'sites/24hrtireservice/' },
     { name: "Debby's Crew LLC", path: 'sites/debbyscrew/' },
     { name: 'El Jefe de Jalisco', path: 'sites/eljefedejalisco/' },

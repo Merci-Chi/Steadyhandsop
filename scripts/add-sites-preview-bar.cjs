@@ -40,9 +40,13 @@ body.sh-custom-preview>.site-header,body.sh-custom-preview>header.topbar,body.sh
 <!-- steady-sites-preview:style:end -->`;
 
 function decorate(html, code) {
-  // Replace our own marked blocks only; retain the site's original markup.
+  // Replace marked blocks and migrate the older unmarked preview banner.
+  // Leave all business content and unrelated styles/scripts intact.
   let result = html.replace(/<!-- steady-sites-preview:(style|bar):start -->[\s\S]*?<!-- steady-sites-preview:\1:end -->\s*/g, '');
   if (!/<body\b/i.test(result) || !/<\/head\s*>/i.test(result)) return html;
+  result = result.replace(/<style\b[^>]*\bid\s*=\s*(["'])sh-preview-style\1[^>]*>[\s\S]*?<\/style>\s*/gi, '');
+  result = result.replace(/<aside\b[^>]*\bid\s*=\s*(["'])sh-site-preview-bar\1[^>]*>[\s\S]*?<\/aside>\s*(<script\b[^>]*>([\s\S]*?)<\/script>)?/gi,
+    (_, quote, script = '', source = '') => /getElementById\(\s*['"]sh-site-preview-bar['"]\s*\)/.test(source) ? '' : script);
   result = result.replace(/<\/head\s*>/i, style + '\n</head>');
   result = result.replace(/<body\b([^>]*)>\s*/i, (_, attrs) => {
     if (/\bclass\s*=/i.test(attrs)) {

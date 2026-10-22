@@ -10,9 +10,39 @@
   <link rel="preload" href="images/hero-poster.webp" as="image" fetchpriority="high">
   <link rel="stylesheet" href="css.css">
   <script src="js.js" defer></script>
+<!-- steady-sites-preview:style:start -->
+<style>
+:root{--sh-preview-bar-height:48px}
+#sh-site-preview-bar{box-sizing:border-box;position:sticky;top:0;z-index:1000000;width:100%;margin:0;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:8px 20px;flex-wrap:wrap;background:#102b4c;color:#fff;text-align:center;font:700 13px/1.4 Arial,sans-serif;letter-spacing:normal;box-shadow:0 2px 10px #0000002e}
+#sh-site-preview-bar span{font:inherit;color:inherit}
+#sh-site-preview-bar[hidden]{display:none}
+#sh-site-preview-bar a{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:3px 0;color:#fff!important;background:transparent;font:800 13px/1.4 Arial,sans-serif;text-decoration:underline;text-underline-offset:3px;letter-spacing:normal;text-transform:none;white-space:normal;overflow-wrap:anywhere}
+#sh-site-preview-bar a:focus-visible{outline:2px solid #ffbf00;outline-offset:4px;border-radius:2px}
+body.sh-custom-preview{padding-top:0!important}
+body.sh-custom-preview>.site-header,body.sh-custom-preview>header.topbar,body.sh-custom-preview>header.header{position:sticky!important;top:var(--sh-preview-bar-height)!important}
+@media(max-width:480px){#sh-site-preview-bar{padding:8px 12px;gap:0 12px}#sh-site-preview-bar a{min-height:44px}}
+</style>
+<!-- steady-sites-preview:style:end -->
 </head>
-<body>
-  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<body class="sh-custom-preview">
+<!-- steady-sites-preview:bar:start -->
+<aside id="sh-site-preview-bar" aria-label="Website preview">
+  <span>WEBSITE PREVIEW</span>
+  <a href="https://portal.steadyhandsop.com/index.html?preview=ankajewelry">Approve preview &amp; continue ↗</a>
+</aside>
+<script>
+(() => {
+  const bar = document.getElementById('sh-site-preview-bar');
+  // The portal supplies its own approval controls beside an embedded preview.
+  if (window.self !== window.top) bar.hidden = true;
+  const measure = () => document.documentElement.style.setProperty('--sh-preview-bar-height', bar.getBoundingClientRect().height + 'px');
+  measure();
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measure).observe(bar);
+  else window.addEventListener('resize', measure);
+})();
+</script>
+<!-- steady-sites-preview:bar:end -->
+<svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="m8 3 3 5-3 3c1.5 3 2 3.5 5 5l3-3 5 3c0 3-2 5-4 5C10 21 3 14 3 7c0-2 2-4 5-4Z"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
