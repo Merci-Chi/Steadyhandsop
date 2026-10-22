@@ -74,3 +74,16 @@ html{scroll-padding-top:calc(var(--site-header-height,180px) + 16px)}
 /* Steadyhands credentials retain their own navy identity. */
 .site-credentials{background:#17365b;border:1.5px solid #a9bfd9;color:#fff;gap:13px;padding:14px 24px;box-shadow:0 5px 16px #10284214}.site-credentials .credentials-logo{width:34px;height:34px;display:block;object-fit:contain;flex-shrink:0;mix-blend-mode:screen;filter:none}.site-credentials:hover{background:#244a75;color:#fff;border-color:#c7d7eb}.site-credentials:focus-visible{outline-color:#17365b}@media(max-width:600px){.site-credentials{padding:13px 22px}.site-credentials .credentials-logo{width:31px;height:31px}}
 
+
+/* Match the review reference while preserving the 4.4-star fill. */
+.customer-reviews h2,.customer-reviews .rating-overall>strong,.customer-reviews .rating-row>span{color:#102541}
+.customer-reviews .rating-overall{border-color:#d6dfeb}
+.customer-reviews .rating-overall>p,.customer-reviews .rating-overall>span,.customer-reviews .rating-invitation>p,.customer-reviews .rating-distribution>p,.customer-reviews .review-read{color:#607188}
+.customer-reviews .rating-track{background:#e5ebf3}
+.customer-reviews .rating-track>span{background:#102541}
+.customer-reviews .star-fill .rating-star{filter:invert(67%) sepia(97%) saturate(1132%) hue-rotate(4deg) brightness(91%) contrast(92%)}
+.customer-reviews .review-count{display:block;margin-top:14px;color:#102541;font-size:16px;font-weight:700;line-height:1.6;text-decoration:underline;text-underline-offset:3px}
+.customer-reviews .review-write{background:linear-gradient(180deg,#f3c447,#dba20b);color:#102541;font-weight:800;box-shadow:0 10px 22px #dba20b20;justify-content:center}
+.customer-reviews .review-write:hover{background:linear-gradient(180deg,#eebc35,#cd9708)}
+.customer-reviews .review-read{display:inline-flex;flex-wrap:wrap;text-decoration:none}
+.customer-reviews .review-read:hover{text-decoration:underline;text-underline-offset:4px}
