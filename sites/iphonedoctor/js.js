@@ -9,12 +9,14 @@ if(document.querySelector('#hero-video')){
 const video=document.querySelector('#hero-video');
 const sound=document.querySelector('#sound-toggle');
 const play=document.querySelector('#play-toggle');
-// Preserve the chosen sound state while fading the last 45% of the page.
+// Fade with the portion of the video visible below the sticky header.
 function fadeAudio(){
- const scrollRange=Math.max(0,document.documentElement.scrollHeight-innerHeight);
- const progress=scrollRange>0?Math.min(1,Math.max(0,scrollY/scrollRange)):0;
- const fade=Math.min(1,Math.max(0,(progress-.55)/.45));
- video.volume=1-fade*fade*(3-2*fade);
+ const rect=video.getBoundingClientRect();
+ const viewportTop=Math.max(0,siteHeader?.getBoundingClientRect().bottom||0);
+ const visibleHeight=Math.max(0,Math.min(rect.bottom,innerHeight)-Math.max(rect.top,viewportTop));
+ const availableHeight=Math.max(0,Math.min(rect.height,innerHeight-viewportTop));
+ const visible=document.hidden||!availableHeight?0:Math.min(1,visibleHeight/availableHeight);
+ video.volume=visible*visible*(3-2*visible);
 }
 let audioFrame=0;
 function scheduleAudioFade(){
@@ -23,7 +25,10 @@ function scheduleAudioFade(){
 addEventListener('scroll',scheduleAudioFade,{passive:true});
 addEventListener('resize',scheduleAudioFade);
 addEventListener('pageshow',scheduleAudioFade);
-new ResizeObserver(scheduleAudioFade).observe(document.querySelector('main'));
+document.addEventListener('visibilitychange',fadeAudio);
+const audioLayoutObserver=new ResizeObserver(scheduleAudioFade);
+audioLayoutObserver.observe(video);
+if(siteHeader)audioLayoutObserver.observe(siteHeader);
 fadeAudio();
 function syncMedia(){sound.setAttribute('aria-pressed',String(!video.muted));sound.innerHTML=icon(video.muted?'volume_off':'volume_up')+`<span>${video.muted?'Sound off — tap to listen':'Sound on'}</span>`;play.innerHTML=icon(video.paused?'play_arrow':'pause');play.setAttribute('aria-label',video.paused?'Play background video':'Pause background video')}
 sound.addEventListener('click',async()=>{video.muted=!video.muted;if(video.paused){try{await video.play()}catch{}}syncMedia()});
