@@ -1,0 +1,18 @@
+PLATFORM ICON SOURCES
+Fetched October 21, 2026 for source identification next to ratings/links.
+
+google.png — Google-hosted G icon:
+https://www.gstatic.com/images/branding/product/2x/googleg_48dp.png
+
+birdeye.png — Birdeye site favicon, retrieved via Google's favicon service:
+https://www.google.com/s2/favicons?domain=birdeye.com&sz=128
+
+chamber.png — ChamberofCommerce.com site favicon, same service:
+https://www.google.com/s2/favicons?domain=chamberofcommerce.com&sz=128
+
+loc8nearme.png — Loc8NearMe site favicon, same service:
+https://www.google.com/s2/favicons?domain=loc8nearme.com&sz=128
+
+These are the platform brand icons, not generated substitutes. Logos and
+trademarks remain the property of their respective owners. No affiliation
+or endorsement is implied.
