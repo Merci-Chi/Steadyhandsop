@@ -56,7 +56,7 @@ document.addEventListener('keydown', event => {
     menuButton.focus();
   }
 });
-window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+window.matchMedia('(min-width: 981px)').addEventListener('change', closeMenu);
 
 // Keep only one FAQ open. Native <details> also works with JavaScript disabled.
 const questions = [...document.querySelectorAll('.faq-list details')];
