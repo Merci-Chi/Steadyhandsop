@@ -33,8 +33,21 @@ header{display:flex;flex-wrap:wrap;gap:20px;padding-left:4%;padding-right:4%}hea
 
 .popup-navigation{justify-content:space-between}.carousel-heading{margin-bottom:30px}
 
+/* Keep the shop details and credentials together in one desktop footer row. */
+.page-footer{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:24px}
+.page-footer .site-credit{padding:0;background:transparent;justify-content:flex-end}
+.page-footer .site-credentials{white-space:nowrap}
+@media(max-width:1100px){
+ .page-footer{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .page-footer .site-credit{justify-content:flex-start}
+}
+@media(max-width:650px){
+ .page-footer{grid-template-columns:minmax(0,1fr);gap:20px}
+}
+
 /* Site credentials button, matched to the red brand palette. */
 .site-credit{display:flex;justify-content:center;align-items:center;padding:12px 6% 30px;background:#f6f5f2}.site-credentials{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 24px;border:1.5px solid #e31937;border-radius:999px;background:#e319370b;color:#c81330;font-family:Manrope,sans-serif;font-weight:800;font-size:18px;line-height:1.4;transition:background .2s,color .2s,transform .2s}.site-credentials>.icon{width:25px;height:25px;filter:invert(18%) sepia(95%) saturate(3987%) hue-rotate(338deg) brightness(90%) contrast(94%)}.site-credentials:hover{background:#e31937;color:#fff;transform:translateY(-2px)}.site-credentials:hover>.icon{filter:invert(1)}.site-credentials:focus-visible{outline:3px solid #e31937;outline-offset:5px}@media(max-width:600px){.site-credit{padding-bottom:28px}.site-credentials{font-size:17px;padding:14px 22px}}@media(prefers-reduced-motion:reduce){.site-credentials:hover{transform:none}}
 
 /* Steadyhands credentials retain their own navy identity. */
 .site-credentials{background:#17365b;border:1.5px solid #a9bfd9;color:#fff;gap:13px;padding:14px 24px;box-shadow:0 5px 16px #10284214}.site-credentials .credentials-logo{width:34px;height:34px;display:block;object-fit:contain;flex-shrink:0;mix-blend-mode:screen;filter:none}.site-credentials:hover{background:#244a75;color:#fff;border-color:#c7d7eb}.site-credentials:focus-visible{outline-color:#17365b}@media(max-width:600px){.site-credentials{padding:13px 22px}.site-credentials .credentials-logo{width:31px;height:31px}}
+

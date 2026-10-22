@@ -3,6 +3,22 @@ if(document.querySelector('#hero-video')){
 const video=document.querySelector('#hero-video');
 const sound=document.querySelector('#sound-toggle');
 const play=document.querySelector('#play-toggle');
+// Preserve the chosen sound state while fading the last 45% of the page.
+function fadeAudio(){
+ const scrollRange=Math.max(0,document.documentElement.scrollHeight-innerHeight);
+ const progress=scrollRange>0?Math.min(1,Math.max(0,scrollY/scrollRange)):0;
+ const fade=Math.min(1,Math.max(0,(progress-.55)/.45));
+ video.volume=1-fade*fade*(3-2*fade);
+}
+let audioFrame=0;
+function scheduleAudioFade(){
+ if(!audioFrame)audioFrame=requestAnimationFrame(()=>{audioFrame=0;fadeAudio()});
+}
+addEventListener('scroll',scheduleAudioFade,{passive:true});
+addEventListener('resize',scheduleAudioFade);
+addEventListener('pageshow',scheduleAudioFade);
+new ResizeObserver(scheduleAudioFade).observe(document.querySelector('main'));
+fadeAudio();
 function syncMedia(){sound.setAttribute('aria-pressed',String(!video.muted));sound.innerHTML=icon(video.muted?'volume_off':'volume_up')+`<span>${video.muted?'Sound off — tap to listen':'Sound on'}</span>`;play.innerHTML=icon(video.paused?'play_arrow':'pause');play.setAttribute('aria-label',video.paused?'Play background video':'Pause background video')}
 sound.addEventListener('click',async()=>{video.muted=!video.muted;if(video.paused){try{await video.play()}catch{}}syncMedia()});
 play.addEventListener('click',async()=>{if(video.paused){try{await video.play()}catch{}}else video.pause();syncMedia()});
@@ -27,3 +43,4 @@ if(carousel){
  modal.addEventListener('click',e=>{if(e.target===modal){const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close()}});
  document.querySelectorAll('.open-reviews').forEach(b=>b.addEventListener('click',()=>openReview(0,b)));addEventListener('resize',render);render();
 }
+
