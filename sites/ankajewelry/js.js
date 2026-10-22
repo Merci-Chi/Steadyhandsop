@@ -218,34 +218,43 @@ viewerImage.addEventListener('touchend', event => {
   }
 })();
 
-// Every card enters once as it comes into view; content stays available
-// if animation APIs are unavailable or the visitor prefers reduced motion.
+// Cards and text fade in once, without moving their layout or flashing
+// visible before an observer starts the entrance.
 (() => {
-  const cards = [...document.querySelectorAll('.service, .photo-card, .watch-banner, .faq-list details, .platform-rating, .review-card, .contact-row, .map-panel')];
+  const elements = [...document.querySelectorAll(
+    '.service, .photo-card, .watch-banner, .faq-list details, .platform-rating, ' +
+    '.review-card, .contact-row, .map-panel, .section-heading, .hero-copy > *, ' +
+    '.about-copy > *, .gallery-note, .faq-followup, .ratings-date, .review-footnote'
+  )];
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (typeof IntersectionObserver === 'undefined' || !Element.prototype.animate) return;
-  const running = new Set();
+  if (motion.matches || typeof IntersectionObserver === 'undefined') return;
+
+  const reveal = element => element.classList.add('is-revealed');
   const observer = new IntersectionObserver(entries => {
-    const entering = entries.filter(entry => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left);
-    entering.forEach((entry, index) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      reveal(entry.target);
       observer.unobserve(entry.target);
-      if (motion.matches) return;
-      const animation = entry.target.animate([
-        { opacity: 0, translate: '0 28px' },
-        { opacity: 1, translate: '0 0' }
-      ], { duration: 650, delay: Math.min(index, 3) * 75, easing: 'cubic-bezier(.2,.65,.3,1)', fill: 'backwards' });
-      running.add(animation);
-      animation.finished.then(() => running.delete(animation), () => running.delete(animation));
     });
-  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
-  cards.forEach(card => observer.observe(card));
-  motion.addEventListener('change', () => {
-    if (motion.matches) { running.forEach(animation => animation.cancel()); running.clear(); }
+  }, { threshold: 0, rootMargin: '0px 0px 32px 0px' });
+
+  elements.forEach(element => {
+    element.classList.add('reveal-pending');
+    observer.observe(element);
   });
-  // Keyboard navigation reveals the focused card immediately.
-  document.addEventListener('focusin', event => {
-    for (const animation of running) {
-      if (animation.effect.target.contains(event.target)) animation.finish();
+  motion.addEventListener('change', () => {
+    if (motion.matches) {
+      observer.disconnect();
+      elements.forEach(element => element.classList.remove('reveal-pending'));
     }
+  });
+  // Focused content is always immediately visible, including during a fade.
+  document.addEventListener('focusin', event => {
+    elements.forEach(element => {
+      if (element.contains(event.target)) {
+        reveal(element);
+        observer.unobserve(element);
+      }
+    });
   });
 })();

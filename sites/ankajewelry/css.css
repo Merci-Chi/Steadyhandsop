@@ -85,3 +85,10 @@
 
 /* Matching service illustrations drawn on a 32px grid. */
 .service-icon{stroke-width:1.5}
+
+/* Stationary entrances: the card, image and caption fade together. */
+.reveal-pending{opacity:0;transition:opacity .75s ease-in-out}
+.reveal-pending.is-revealed{opacity:1}
+.reveal-pending:focus-within{opacity:1;transition:none}
+@media(prefers-reduced-motion:reduce){.reveal-pending{opacity:1;transition:none}}
+@media print{.reveal-pending{opacity:1!important;transition:none!important}}
