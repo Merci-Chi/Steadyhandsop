@@ -98,3 +98,19 @@ html{scroll-padding-top:calc(var(--site-header-height,180px) + 16px)}
 .popup-photos a{display:block;border-radius:6px;overflow:hidden}
 .popup-photos img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#f6f5f2}
 @media(max-width:650px){.customer-note .review-photos img{width:56px;height:56px}.review-popup .popup-content{max-height:50svh}}
+
+/* Compact Google attribution and stars, independent of generic dialog images. */
+.review-provider{display:flex;align-items:center;justify-content:flex-start;gap:14px;width:max-content;max-width:100%}
+.customer-note .review-provider{margin-bottom:0}
+.review-popup .review-provider{margin:0 40px 22px 0}
+.review-provider .review-google-logo{display:block;flex:0 0 74px;width:74px;height:24px;max-height:none;margin:0;object-fit:contain;filter:none}
+.review-provider .note-stars,.review-provider .popup-stars{display:inline-flex;flex:none;justify-content:flex-start;align-items:center;gap:2px;width:auto;margin:0}
+.review-provider .note-stars img,.review-provider .popup-stars .icon{display:block;flex:0 0 18px;width:18px;height:18px;max-height:none;margin:0;filter:invert(67%) sepia(97%) saturate(1132%) hue-rotate(4deg) brightness(91%) contrast(92%)}
+.review-popup .popup-label{text-align:left}
+.review-popup:focus{outline:none}
+.review-popup .popup-close{border:0;outline:none;box-shadow:none;border-radius:6px}
+.review-popup .popup-close .icon{width:20px;height:20px;margin:0}
+.review-popup .popup-close:hover{background:#f0f2f5}
+.review-popup .popup-close:focus-visible{outline:2px solid #17365b;outline-offset:2px}
+.popup-navigation button:disabled{opacity:.3;cursor:default}
+.popup-navigation button:disabled:hover{background:#fff}
