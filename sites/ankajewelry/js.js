@@ -115,34 +115,6 @@ viewerImage.addEventListener('touchend', event => {
   touchStart = null;
 }, { passive: true });
 
-// AMBIENT FILM: forward/reverse motion with gradual eased turnarounds is encoded in the MP4.
-// Start silently inline on mobile and desktop; native looping handles each repeat.
-(() => {
-  const video = document.getElementById('hero-video');
-  if (!video) return;
-  video.muted = true;
-  video.defaultMuted = true;
-  video.autoplay = true;
-  video.loop = true;
-  video.playsInline = true;
-  video.controls = false;
-
-  function syncPlayback() {
-    if (document.hidden) { video.pause(); return; }
-    const attempt = video.play();
-    // Device settings can block autoplay. Keep the poster and retry on interaction.
-    if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {});
-  }
-
-  video.addEventListener('canplay', syncPlayback);
-  document.addEventListener('visibilitychange', syncPlayback);
-  window.addEventListener('pageshow', syncPlayback);
-  document.addEventListener('touchend', syncPlayback, { passive: true });
-  document.addEventListener('click', syncPlayback, { passive: true });
-  document.addEventListener('keydown', syncPlayback);
-  syncPlayback();
-})();
-
 // Adaptive cursor: white difference blending inverts the pixels beneath it.
 (() => {
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
