@@ -116,43 +116,30 @@ viewerImage.addEventListener('touchend', event => {
 }, { passive: true });
 
 // AMBIENT FILM: forward/reverse motion with gradual eased turnarounds is encoded in the MP4.
-// Native playback gives smooth, silent looping independent of page scrolling.
+// Start silently inline on mobile and desktop; native looping handles each repeat.
 (() => {
   const video = document.getElementById('hero-video');
-  const toggle = document.getElementById('film-toggle');
-  if (!video || !toggle) return;
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let userPaused = false;
-  let allowMotion = false;
+  if (!video) return;
   video.muted = true;
   video.defaultMuted = true;
-  toggle.hidden = false;
-
-  function updateButton() {
-    toggle.textContent = video.paused ? 'Play film' : 'Pause film';
-    toggle.setAttribute('aria-label', video.paused ? 'Play background film' : 'Pause background film');
-  }
+  video.autoplay = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.controls = false;
 
   function syncPlayback() {
-    const shouldPlay = !userPaused && !document.hidden && (!motion.matches || allowMotion);
-    if (!shouldPlay) { video.pause(); updateButton(); return; }
+    if (document.hidden) { video.pause(); return; }
     const attempt = video.play();
-    if (attempt && typeof attempt.catch === 'function') attempt.catch(updateButton);
+    // Device settings can block autoplay. Keep the poster and retry on interaction.
+    if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {});
   }
 
-  toggle.addEventListener('click', () => {
-    userPaused = !video.paused;
-    if (!userPaused) allowMotion = true;
-    syncPlayback();
-  });
-  video.addEventListener('play', updateButton);
-  video.addEventListener('pause', updateButton);
-  video.addEventListener('error', () => { toggle.hidden = true; });
   video.addEventListener('canplay', syncPlayback);
   document.addEventListener('visibilitychange', syncPlayback);
   window.addEventListener('pageshow', syncPlayback);
-  motion.addEventListener('change', () => { allowMotion = false; syncPlayback(); });
-  updateButton();
+  document.addEventListener('touchend', syncPlayback, { passive: true });
+  document.addEventListener('click', syncPlayback, { passive: true });
+  document.addEventListener('keydown', syncPlayback);
   syncPlayback();
 })();
 
