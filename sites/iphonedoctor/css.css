@@ -87,3 +87,14 @@ html{scroll-padding-top:calc(var(--site-header-height,180px) + 16px)}
 .customer-reviews .review-write:hover{background:linear-gradient(180deg,#eebc35,#cd9708)}
 .customer-reviews .review-read{display:inline-flex;flex-wrap:wrap;text-decoration:none}
 .customer-reviews .review-read:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* Supplied customer repair photos, with full reviews in a scrollable viewer. */
+.review-photos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.customer-note .review-photos img{width:64px;height:64px;object-fit:cover;border-radius:5px}
+.review-popup .popup-content{max-height:55svh;overflow:auto;padding-right:10px}
+.review-popup .popup-review{max-height:none;overflow:visible;padding-right:0}
+.popup-photos .review-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0 0}
+.popup-photos .review-photos:empty{display:none}
+.popup-photos a{display:block;border-radius:6px;overflow:hidden}
+.popup-photos img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#f6f5f2}
+@media(max-width:650px){.customer-note .review-photos img{width:56px;height:56px}.review-popup .popup-content{max-height:50svh}}
