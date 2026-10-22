@@ -1,4 +1,10 @@
 const icon=name=>`<img class="icon" src="assets/icons/${name}.svg" alt="" aria-hidden="true">`;
+const siteHeader=document.querySelector('.site-header');
+if(siteHeader){
+ const syncHeaderHeight=()=>document.documentElement.style.setProperty('--site-header-height',siteHeader.getBoundingClientRect().height+'px');
+ new ResizeObserver(syncHeaderHeight).observe(siteHeader);
+ syncHeaderHeight();
+}
 if(document.querySelector('#hero-video')){
 const video=document.querySelector('#hero-video');
 const sound=document.querySelector('#sound-toggle');
