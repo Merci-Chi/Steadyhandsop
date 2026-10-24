@@ -1,0 +1,21 @@
+UPDATED 7 DAYS ROAD SIDE SERVICE - ORANGE NEON MOTION
+
+1. Enlarged the original review honeycomb effect to 1180px maximum width.
+2. Repositioned the honeycomb to make a dominant top/right framing feature.
+3. Shortened review section vertical padding and removed unused whitespace.
+4. Tightened the review heading-to-card gap and card minimum height.
+5. Included 5 source effects from the user ZIP: streak, frame, grain, ring and smoke.
+6. Recolored green/cyan chromatic parts of these PNGs to orange, preserving alpha and neutral detail.
+7. Placed recolored streak and frame in the hero background.
+8. Placed animated orange ring and grain in the reviews area.
+9. Placed an orange streak behind the CTA.
+10. Added moving orange smoke to the contact area.
+11. Animated the existing flare, smoke, honeycomb, road trail and chevrons gently.
+12. Added per-element scroll reveals for nearly every text element, photo, review card and call button.
+13. Staggered those reveals and made them trigger once when scrolling into view.
+14. Disabled nonessential motion when the system prefers reduced motion.
+15. Kept effect layers behind readable content and pointer events off.
+16. Preserved custom cursor, local icon SVGs, phone and map links, business name and three reviews.
+17. Preserved the flipped hero truck image and desktop/mobile layout.
+
+NOTE: Hero stock photo is loaded from Unsplash online; availability and owner approval of map contact details still need confirmation.

@@ -1,0 +1,5 @@
+Icons based on Lucide open-source SVG icon shapes.
+https://lucide.dev/license
+ISC License (c) Lucide Icons and Contributors.
+Permission to use, copy, modify and distribute this software for any purpose, with or without fee, is hereby granted, provided the copyright and permission notice appears in all copies.
+Provided AS IS without warranty.

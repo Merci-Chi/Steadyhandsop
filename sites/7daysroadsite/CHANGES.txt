@@ -1,0 +1,43 @@
+7 DAYS ROAD SIDE SERVICE — OPAQUE EFFECTS / VISUAL REDESIGN
+
+CHANGES MADE
+01 Rebuilt ALL eight effect files as fully opaque RGB PNGs (no alpha/transparency).
+02 Composited artwork on solid black (for clean screen blending against the site).
+03 Removed CSS opacity reduction from all eight effects: they now render at full artwork strength.
+04 Added screen blending so the opaque black background doesn't appear as a rectangle.
+05 Kept hero image flipped horizontally with the truck on the right; text remains normal.
+06 Kept a separate dark left-side gradient for headline legibility.
+07 Kept the tightened hero typography, simpler spacing and stronger CTA.
+08 Kept the duplicate truck image removed from the About section.
+09 Positioned metal corner upper-left within the hero.
+10 Positioned flare right of the hero text.
+11 Positioned smoke at the lower-right edge of hero.
+12 Sized tire textures to an upper-right detail and hid them on phones.
+13 Placed honeycomb upper-right behind reviews.
+14 Placed ember glow lower-left behind reviews.
+15 Placed chevrons right of the call-to-action.
+16 Placed road-light artwork low in the About decorative art panel.
+17 Kept smoke art at the bottom of the final contact section.
+18 Added mobile-specific effect sizes and cropping.
+19 Preserved three provided five-star reviews, telephone and map links.
+20 Preserved the company name exactly as 7 Days Road Side Service.
+
+NOTES
+PNG overlay files are opaque in all pixels and contain no alpha channel.
+The site uses screen blending for them: a visual compositing method, not transparency in the files.
+A remote illustrative Unsplash stock photo is still used in the hero and needs internet access.
+Maps, phone number and review attribution should be confirmed by the owner before launch.
+
+
+INTERACTION PASS
+- Added scroll-enter stagger animations to all content blocks with IntersectionObserver.
+- Added automatic reveal for blocks already in viewport; observer unobserves after entrance.
+- Added motion-reduction fallback and no-JavaScript-friendly CSS behavior.
+- Added white outlined mouse cursor with transparent center on desktop.
+- Added mix-blend-mode:difference so the cursor inverts over light and dark surfaces.
+- Added solid smaller white cursor on links, buttons and other interactive elements.
+- Added hover transitions to SVG icons and press states to custom cursor.
+- Mobile and touch devices retain normal native pointer behavior.
+- Replaced text-character arrows/phone/map decorative icons with inline SVG based on Lucide open-source icon designs.
+- All icons are included inline: no dependency on remote icon CDN.
+- Preserved truck flip, photo/overlay placement, reviews, phone and map links.

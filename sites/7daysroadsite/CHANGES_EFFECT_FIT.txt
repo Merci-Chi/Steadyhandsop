@@ -1,0 +1,17 @@
+Effects sizing / placement update
+
+1. Cropped black empty margins from all eight OPAQUE PNG assets without introducing transparency.
+2. Enlarged metallic corner in the hero, anchored upper-left.
+3. Enlarged hero flare and positioned over the right-hand truck area.
+4. Enlarged hero smoke to span the lower image.
+5. Enlarged tire print in the upper right; hidden on narrow phones to avoid busy composition.
+6. Expanded roadway light trails to cover lower About artwork panel.
+7. Expanded review honeycomb across top-right background.
+8. Expanded ember vignette into lower reviews background.
+9. Enlarged chevrons in right side of CTA, correcting tiny clipped corner effect.
+10. Enlarged CTA flare to spread across the right half instead of a tiny streak.
+11. Enlarged contact smoke to span the section.
+12. Adjusted mobile-specific sizing for all effects; kept content above decorative layers.
+13. Preserved animated sections, custom contrast-aware cursor, SVG icons, three reviews, phone and map links, and right-hand hero truck.
+
+Effects are still opaque RGB PNGs, composited with CSS mix-blend-mode: screen against dark site backgrounds. No new photos or company facts were added. Browser-specific rendering should be checked before launch.
