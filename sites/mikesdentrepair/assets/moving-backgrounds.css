@@ -1,0 +1,32 @@
+/* Moving luxury overlays — visual only; no business photography implied. */
+@property --shimmer-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes ambianceDrift{0%{background-position:0% 45%}50%{background-position:100% 55%}100%{background-position:0% 45%}}
+@keyframes textureFloat{0%{transform:translate3d(-2%,0,0) scale(1.07) rotate(-.5deg)}50%{transform:translate3d(2%,-1.5%,0) scale(1.12) rotate(.5deg)}100%{transform:translate3d(-2%,0,0) scale(1.07) rotate(-.5deg)}}
+@keyframes waveFloat{0%{transform:translate3d(-4%,1%,0) scale(1.1)}50%{transform:translate3d(4%,-2%,0) scale(1.17)}100%{transform:translate3d(-4%,1%,0) scale(1.1)}}
+@keyframes luminousBreath{0%,100%{opacity:.12}50%{opacity:.28}}
+@keyframes sheenGlide{0%,100%{transform:translateX(-25%) rotate(-12deg);opacity:.1}50%{transform:translateX(35%) rotate(-12deg);opacity:.25}}
+/* The FAQ and contact backdrop retain high contrast across all screen sizes. */
+.faqs,.contact-section{position:relative;isolation:isolate;overflow:hidden}
+.faqs>.shell,.contact-section>.shell{position:relative;z-index:2}
+.faqs{background:linear-gradient(115deg,#eff5f2 0%,#e5f2ee 48%,#e9f5f1 100%)!important}
+.faqs::before{content:"";position:absolute;inset:-8%;z-index:0;pointer-events:none;background:url('overlays/11_topographic_contours.png') center/cover no-repeat;opacity:.18;mix-blend-mode:multiply;animation:textureFloat 30s ease-in-out infinite}
+.faqs::after{content:"";position:absolute;inset:-18%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 22% 33%,#72c9b640,transparent 35%),radial-gradient(ellipse at 80% 67%,#7cb9b84f,transparent 40%),url('overlays/07_precision_wave_lines.png') center/cover no-repeat;opacity:.19;animation:waveFloat 24s ease-in-out infinite}
+.faq-list details{position:relative;z-index:2;background:linear-gradient(90deg,#ffffff20,#ffffff0b);backdrop-filter:blur(2px)}
+.faq-list details:hover{background:#ffffff4d}
+.contact-section{background:linear-gradient(120deg,#bee8df 0%,#a5d9d1 55%,#b5e6dd 100%)!important}
+.contact-section::before{content:"";position:absolute;inset:-12%;z-index:0;pointer-events:none;background:url('overlays/01_teal_silk_waves.png') center/cover no-repeat;mix-blend-mode:soft-light;opacity:.34;animation:waveFloat 25s ease-in-out infinite}
+.contact-section::after{content:"";position:absolute;inset:-14%;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 85% 22%,#e8fffa98,transparent 40%),url('overlays/06_soft_spotlight.png') center/cover no-repeat;mix-blend-mode:soft-light;opacity:.27;animation:textureFloat 32s ease-in-out infinite reverse}
+.contact-card{position:relative;isolation:isolate;overflow:hidden;background:#f9fdfbef!important}
+.contact-card::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(125deg,transparent 30%,#9dd9d126 50%,transparent 70%);background-size:220% 100%;animation:ambianceDrift 12s ease-in-out infinite;pointer-events:none}
+/* Every existing overlay gains a soft, independent motion treatment. */
+.hero,.marquee,.services,.split-section,.stock-gallery,.reputation,.footer{animation:ambianceDrift 38s ease-in-out infinite;background-size:115% 115%}
+.hero::before,.reputation::before{animation:textureFloat 30s ease-in-out infinite;transform-origin:center}
+.hero::after{animation:waveFloat 28s ease-in-out infinite, luminousBreath 10s ease-in-out infinite}
+.hero-media::after,.split-image::before{animation:waveFloat 27s ease-in-out infinite}
+.service-card::before{animation:textureFloat 32s ease-in-out infinite}
+.stock-gallery figure::after{animation:luminousBreath 9s ease-in-out infinite}
+.service-art img{transition:transform .8s cubic-bezier(.22,1,.36,1),filter .6s}
+.service-card:hover .service-art img{transform:translateY(-7px) scale(1.035);filter:drop-shadow(0 9px 14px #25b7aa32)}
+/* Avoid manipulating position or stacking of interactive links. */
+@media(max-width:760px){.faqs::before,.contact-section::before{opacity:.12}.faqs::after,.contact-section::after{opacity:.13}.faq-list details{backdrop-filter:none}}
+@media(prefers-reduced-motion:reduce){.faqs::before,.faqs::after,.contact-section::before,.contact-section::after,.contact-card::before,.hero,.marquee,.services,.split-section,.stock-gallery,.reputation,.footer,.hero::before,.hero::after,.reputation::before,.hero-media::after,.split-image::before,.service-card::before,.stock-gallery figure::after{animation:none!important}.service-art img{transition:none!important}}

@@ -1,0 +1,43 @@
+/* Luxury Mikes · local image overlays + scroll transitions + adaptive cursor */
+:root{--easing:cubic-bezier(.22,1,.36,1)}
+body{isolation:isolate}
+/* All 12 generated images are applied in separate, restrained layers. */
+.hero{background-image:linear-gradient(90deg,#041014ea,#041112ee),url('overlays/12_black_emerald_marble.png');background-size:cover}
+.hero::before{content:"";position:absolute;inset:0;background:url('overlays/02_emerald_smoke.png') left top/65% auto no-repeat;opacity:.36;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background:url('overlays/01_teal_silk_waves.png') 70% 40%/65% auto no-repeat;opacity:.16;pointer-events:none}
+.hero-media::after{content:"";position:absolute;inset:0;background:url('overlays/04_diagonal_light_beams.png') center/cover;mix-blend-mode:screen;opacity:.17;pointer-events:none}
+.marquee{background-image:linear-gradient(#07191be8,#07191be8),url('overlays/07_precision_wave_lines.png');background-position:center;background-size:cover}
+.services{background-image:linear-gradient(#eff4f1f4,#eff4f1f4),url('overlays/11_topographic_contours.png');background-size:cover}
+.service-card{position:relative;overflow:hidden}.service-card:before{content:"";position:absolute;inset:0;background:url('overlays/08_hexagon_grid.png') center/cover;opacity:.035;pointer-events:none}
+.service-card-dark:before{opacity:.20}
+.split-section{background-image:linear-gradient(#e4efebec,#e4efebec),url('overlays/10_carbon_fiber.png');background-size:cover}
+.split-image::before{content:"";position:absolute;inset:0;background:url('overlays/09_rain_on_glass.png') center/cover;opacity:.13;pointer-events:none;z-index:1}
+.stock-gallery{background-image:linear-gradient(#e3ece8ef,#e3ece8ef),url('overlays/06_soft_spotlight.png');background-size:cover}
+.stock-gallery figure{position:relative}.stock-gallery figure:after{content:"";position:absolute;top:0;left:0;right:0;height:260px;background:url('overlays/03_cinematic_grain.png') center/cover;mix-blend-mode:screen;opacity:.08;pointer-events:none}
+.reputation{position:relative;background-image:linear-gradient(#091b1de3,#091b1df0),url('overlays/05_teal_bokeh_particles.png');background-size:cover}
+.reputation::before{content:"";position:absolute;inset:0;background:url('overlays/12_black_emerald_marble.png') center/cover;opacity:.16;pointer-events:none}
+.faqs{background-image:linear-gradient(#f0f4f1f5,#f0f4f1f5),url('overlays/11_topographic_contours.png');background-size:cover}
+.contact-section{background-image:linear-gradient(#b6e6dbed,#b6e6dbed),url('overlays/06_soft_spotlight.png');background-size:cover}
+.footer{background-image:linear-gradient(#060d0fee,#060d0fee),url('overlays/08_hexagon_grid.png');background-size:cover}
+/* scroll reveal: visible fallback until JS has initialized */
+.motion-ready [data-reveal]{opacity:0;transform:translate3d(0,35px,0) scale(.985);filter:blur(5px);transition:opacity .8s var(--easing),transform .9s var(--easing),filter .75s ease;transition-delay:var(--stagger,0ms)}
+.motion-ready [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+.service-card,.gallery-grid figure,.review-panel,.contact-card{will-change:transform}
+.gallery-grid img{transition:transform .85s var(--easing),filter .5s ease}
+.gallery-grid figure:hover img{transform:scale(1.065);filter:saturate(1.05)}
+.btn,.nav a,.text-link,.contact-card a,.footer a{transition:transform .25s ease,background-color .25s ease,color .25s ease,box-shadow .25s ease}
+.btn:hover{box-shadow:0 12px 35px #04bb9f31}
+.ui-icon{width:1em;height:1em;display:inline-block;vertical-align:-.13em;flex:none}
+.line-icon .ui-icon{width:27px;height:27px}.stars{display:flex;gap:8px}.stars .ui-icon{width:21px;height:21px;fill:currentColor}
+.marquee b{display:flex;align-items:center}.marquee .ui-icon{width:22px;height:22px}
+.text-link .ui-icon,.nav-phone .ui-icon,.btn .ui-icon,.big-phone .ui-icon{transition:transform .23s ease}
+a:hover .ui-icon{transform:translate(2px,-2px)}
+/* Ultra-visible inversion cursor. mix-blend-mode:difference renders black on light / white on dark. */
+@media (hover:hover) and (pointer:fine){html.cursor-active,html.cursor-active body,html.cursor-active a,html.cursor-active button,html.cursor-active summary{cursor:none!important}
+ #luxury-cursor{position:fixed;z-index:2147483647;top:0;left:0;width:29px;height:29px;pointer-events:none;border:2px solid #fff;border-radius:50%;background:transparent;mix-blend-mode:difference;transform:translate3d(-90px,-90px,0) translate(-50%,-50%);transition:width .2s var(--easing),height .2s var(--easing),background-color .2s,border-width .2s;will-change:transform;opacity:0}
+ #luxury-cursor.cursor-seen{opacity:1}
+ #luxury-cursor.cursor-clickable{width:12px;height:12px;background:#fff;border-width:0}
+ #luxury-cursor.cursor-pressed{width:8px;height:8px}
+}
+@media (hover:none),(pointer:coarse){#luxury-cursor{display:none!important}}
+@media(prefers-reduced-motion:reduce){.motion-ready [data-reveal]{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}.gallery-grid img{transition:none!important}}

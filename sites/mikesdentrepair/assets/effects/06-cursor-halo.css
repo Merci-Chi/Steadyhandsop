@@ -1,0 +1,2 @@
+/* CURSOR HALO: desktop-only pointer tracking, JS separately supplied */
+.fx-cursor-layer{position:fixed;left:0;top:0;width:410px;height:410px;border-radius:50%;z-index:43;pointer-events:none;opacity:0;background:radial-gradient(circle,#63ddc11d 0,#2d9a8a12 29%,transparent 70%);transform:translate3d(calc(var(--fx-x, -500px) - 50%),calc(var(--fx-y, -500px) - 50%),0);transition:opacity .35s ease}@media(hover:hover) and (pointer:fine){body.fx-cursor .fx-cursor-layer{opacity:1}}@media(prefers-reduced-motion:reduce){.fx-cursor-layer{display:none}}

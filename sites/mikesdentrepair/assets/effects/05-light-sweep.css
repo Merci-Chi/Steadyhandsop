@@ -1,0 +1,2 @@
+/* LIGHT SWEEP: occasional muted teal diagonal sweep */
+body.fx-sweep .fx-sweep-layer{position:fixed;z-index:44;pointer-events:none;inset:-30% -65%;background:linear-gradient(108deg,transparent 39%,#9af6db00 43%,#8ff4dd16 49%,#9af6db00 55%,transparent 61%);transform:translateX(-55%);animation:fxSweep 16s linear infinite}@keyframes fxSweep{0%,15%{transform:translateX(-60%)}45%,100%{transform:translateX(60%)}}@media(prefers-reduced-motion:reduce){body.fx-sweep .fx-sweep-layer{animation:none;opacity:0}}

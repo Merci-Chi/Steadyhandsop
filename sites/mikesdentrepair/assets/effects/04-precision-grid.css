@@ -1,0 +1,2 @@
+/* PRECISION GRID: delicate full viewport technical texture */
+body.fx-grid .fx-grid-layer{position:fixed;inset:0;z-index:42;pointer-events:none;background:linear-gradient(90deg,transparent calc(100% - 1px),#5be0cb14 calc(100% - 1px)),linear-gradient(transparent calc(100% - 1px),#5be0cb14 calc(100% - 1px));background-size:96px 96px;mask-image:linear-gradient(to bottom,#0005,transparent 87%)}

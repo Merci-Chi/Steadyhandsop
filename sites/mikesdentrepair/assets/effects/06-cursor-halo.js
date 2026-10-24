@@ -1,0 +1,2 @@
+/* Only used when the cursor halo effect is enabled. */
+(()=>{let raf=0,x=-600,y=-600;document.addEventListener('pointermove',e=>{if(!document.body.classList.contains('fx-cursor')||e.pointerType!=='mouse')return;x=e.clientX;y=e.clientY;if(raf)return;raf=requestAnimationFrame(()=>{document.documentElement.style.setProperty('--fx-x',x+'px');document.documentElement.style.setProperty('--fx-y',y+'px');raf=0})},{passive:true})})();

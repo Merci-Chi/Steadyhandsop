@@ -1,0 +1,10 @@
+(()=>{'use strict';
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce && 'IntersectionObserver' in window){document.documentElement.classList.add('motion-ready');const items=[...document.querySelectorAll('[data-reveal]')];items.forEach((el,i)=>{el.style.setProperty('--stagger',`${Math.min((i%5)*75,300)}ms`)});const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -20px 0px'});items.forEach(el=>observer.observe(el));requestAnimationFrame(()=>{items.filter(el=>el.getBoundingClientRect().top<innerHeight*.96).forEach(el=>el.classList.add('is-visible'))});}
+const fine=matchMedia('(pointer:fine) and (hover:hover)');if(!fine.matches)return;
+const cursor=document.createElement('div');cursor.id='luxury-cursor';cursor.setAttribute('aria-hidden','true');document.body.append(cursor);document.documentElement.classList.add('cursor-active');
+let px=-100,py=-100,scheduled=false;function paint(){cursor.style.transform=`translate3d(${px}px,${py}px,0) translate(-50%,-50%)`;scheduled=false}
+document.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;px=e.clientX;py=e.clientY;cursor.classList.add('cursor-seen');const interactive=e.target.closest('a,button,summary,input,select,textarea,[role="button"],[tabindex]:not([tabindex="-1"])');cursor.classList.toggle('cursor-clickable',!!interactive);if(!scheduled){scheduled=true;requestAnimationFrame(paint)}},{passive:true});
+document.addEventListener('pointerdown',()=>cursor.classList.add('cursor-pressed'));document.addEventListener('pointerup',()=>cursor.classList.remove('cursor-pressed'));document.addEventListener('pointercancel',()=>cursor.classList.remove('cursor-pressed'));
+document.addEventListener('mouseleave',()=>cursor.classList.remove('cursor-seen'));window.addEventListener('blur',()=>cursor.classList.remove('cursor-seen'));
+})();

@@ -1,0 +1,2 @@
+/* VIGNETTE: edge darkening, no pointer interception */
+body.fx-vignette .fx-vignette-layer{position:fixed;inset:0;pointer-events:none;z-index:46;background:radial-gradient(ellipse 90% 82% at 50% 45%,transparent 48%,#02131325 100%)}
