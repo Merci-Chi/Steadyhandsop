@@ -1,0 +1,7 @@
+CONTINUOUS BACKGROUND ANIMATION UPDATE
+
+The hero photograph floats gently; smoke drifts; contours sway; grain shimmers; both ring assets rotate (the large centered ring completes a turn every 22 seconds, About ring every 38 seconds); frames pulse. All five PNG overlays are still used.
+
+Animations are CSS-only and work without JavaScript. Reduced-motion users see a static version by design.
+
+Keep index.html, css.css, js.js and assets folder together.

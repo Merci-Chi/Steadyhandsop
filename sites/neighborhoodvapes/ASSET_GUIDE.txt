@@ -1,0 +1,16 @@
+NEIGHBORHOOD VAPES & SMOKES — BOLD NEON SMOKE DESIGN
+
+All five generated transparent PNG overlays are bundled and used on the site:
+- smoke-overlay.png: hero and mid-page smoke
+- streak-overlay.png: hero and footer streaks
+- grain-overlay.png: hero and footer grain / particles
+- frame-overlay.png: product section frame
+- ring-overlay.png: About and mid-page rings
+
+Images are illustrative, not photographs of the actual store. No source authorizes representing them as actual store photos.
+
+Open index.html after extracting the entire folder. Google Maps and Google Fonts require internet access.
+
+Business listing: https://cannabisshop.com/stores/neighborhood-vapes-smokes/
+Phone: (725) 217-7077 | 1311 W Craig Rd, Suite C, North Las Vegas, NV 89032
+Owner, hours, social profiles, inventory and pricing have not been independently confirmed.
