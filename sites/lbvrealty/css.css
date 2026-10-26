@@ -479,3 +479,9 @@ a { color: inherit; }
 .pm-contact-section{padding:clamp(45px,5vw,75px) 0}.pm-contact{display:flex;align-items:center;justify-content:space-between;gap:30px}.pm-contact h2{margin-top:8px}.pm-contact p{font:14px/1.7 Arial,sans-serif;color:#62584e;margin:12px 0 0}.pm-contact-actions{display:flex;align-items:center;gap:25px;flex-wrap:wrap}.pm-phone{font:700 14px Arial,sans-serif;color:#6c4c29;text-decoration:underline;text-underline-offset:5px}
 @media(max-width:900px){.pm-intro-grid,.pm-section-header{grid-template-columns:1fr;gap:22px}.pm-intro-action{max-width:600px}.pm-cards{grid-template-columns:1fr 1fr}.pm-card:last-child{grid-column:1/-1}.pm-contact{align-items:flex-start;flex-direction:column}}
 @media(max-width:620px){.pm-cards{grid-template-columns:1fr}.pm-card:last-child{grid-column:auto}.pm-intro{padding:35px 0}.pm-intro h1{font-size:37px}.pm-intro-action{padding-left:17px}.pm-portal{align-items:flex-start;flex-direction:column}.pm-portal .pm-button{width:100%}.pm-contact-actions{align-items:flex-start;flex-direction:column;gap:18px}.pm-contact-actions .pm-button{width:100%}}
+
+/* Listing-card photo fallback: galleries remain on property detail pages. */
+.rental-visual,.featured-card-photo{position:relative}
+.rental-visual .listing-image-fallback,.featured-card-photo .listing-image-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#f3e8d5;background:linear-gradient(135deg,#302922,#594733);font:600 13px/1.5 Arial,sans-serif;letter-spacing:.04em}
+.rental-visual img,.featured-card-photo img{position:relative;z-index:1}
+.rental-visual img.listing-image-failed,.featured-card-photo img.listing-image-failed{display:none}
