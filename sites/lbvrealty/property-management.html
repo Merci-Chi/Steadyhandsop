@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#171717" name="theme-color"/><meta content="Property management inquiries and owner services at La Belle Vie Property Management." name="description"/><title>Property Management | La Belle Vie Property Management</title><link href="css.css" rel="stylesheet"/></head><body><header class="site-header">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#171717" name="theme-color"/><meta content="Property management inquiries and owner services at La Belle Vie Property Management." name="description"/><title>Property Management | La Belle Vie Property Management</title><link href="css.css" rel="stylesheet"/><style>
+/* Property Management: distinct editorial design, separate from Contact photo */
+.management-page{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,#f8f5ef 0%,#f2ece3 100%)}
+.management-page::before{content:"";position:absolute;inset:0 0 0 auto;width:min(38vw,510px);background:linear-gradient(270deg,rgba(248,245,239,.12),rgba(248,245,239,.92) 76%,#f8f5ef),url("site-assets/images/rental-85745/cover.jpg") center/cover no-repeat;opacity:.65;pointer-events:none;z-index:-1}
+.management-page .pm-section{padding:clamp(46px,5vw,72px) 0 clamp(62px,7vw,98px)}
+.management-page .pm-wrap{width:min(1260px,calc(100% - 72px));margin-inline:auto}
+.management-page .pm-section-header{margin-bottom:32px}
+.management-page .pm-section-header h2{font-size:clamp(36px,4.3vw,60px);line-height:1.08;letter-spacing:-.025em}
+.management-page .pm-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.management-page .pm-card{display:flex;flex-direction:column;min-height:335px;padding:30px 29px;border:1px solid #e0d4c5;border-radius:18px;background:rgba(255,255,255,.97);box-shadow:0 14px 35px rgba(46,34,24,.075);transition:transform .2s ease,box-shadow .2s ease;box-sizing:border-box}
+.management-page .pm-card:hover{transform:translateY(-3px);box-shadow:0 20px 42px rgba(46,34,24,.12)}
+.management-page .pm-icon{width:54px;height:54px;border-radius:13px;display:grid;place-items:center;background:#f2e9dc;color:#966827}
+.management-page .pm-card h3{font-size:clamp(23px,2.2vw,28px);line-height:1.22}
+.management-page .pm-card p{line-height:1.7}
+.management-page .pm-card a{margin-top:auto}
+@media(max-width:900px){.management-page .pm-cards{grid-template-columns:1fr;max-width:680px}.management-page .pm-card{min-height:0}.management-page .pm-wrap{width:calc(100% - 44px)}}
+@media(max-width:600px){.management-page::before{width:100%;height:230px;inset:0 0 auto;opacity:.30;background:linear-gradient(180deg,rgba(248,245,239,.15),#f8f5ef),url("site-assets/images/rental-85745/cover.jpg") center/cover no-repeat}.management-page .pm-wrap{width:calc(100% - 28px)}.management-page .pm-section{padding:34px 0 55px}.management-page .pm-card{padding:24px;border-radius:14px}.management-page .pm-section-header h2{font-size:39px}}
+</style></head><body><header class="site-header">
 <div class="header-inner">
 <a aria-label="La Belle Vie Realty — home" class="brand" href="index.html">
 <img alt="La Belle Vie Property Management" height="923" src="site-assets/images/logo-light.png" width="1971"/>
