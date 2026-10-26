@@ -552,3 +552,13 @@ a { color: inherit; }
   .contact-page .contact-social{padding-left:58px;}
   .contact-page .contact-panel{padding:23px 19px;border-radius:8px;}
 }
+
+/* Higher-contrast contact icons over the photographic background */
+.contact-page .contact-method::before{
+  background:#32271e;
+  color:#f3cf85;
+  border:2px solid #d5ad67;
+  box-shadow:0 3px 12px rgba(28,20,14,.28),0 0 0 4px rgba(255,255,255,.88);
+  font-weight:700;
+  text-shadow:0 1px 1px rgba(0,0,0,.2);
+}
