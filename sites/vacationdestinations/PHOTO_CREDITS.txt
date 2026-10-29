@@ -1,0 +1,94 @@
+BUNDLED DESTINATION PHOTOGRAPHS
+Location photographs illustrate destinations, not guaranteed resort assignments.
+Images resized and JPEG-compressed for the web; CSS crops previews.
+CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
+CC BY-SA 2.0: https://creativecommons.org/licenses/by-sa/2.0/
+CC BY 2.0: https://creativecommons.org/licenses/by/2.0/
+
+Orlando, Florida
+images/destination-1.jpg
+Author: Michael Rivera
+License: CC BY-SA 4.0
+Source: https://commons.wikimedia.org/wiki/File:Lake_Eola_and_Orlando_skyline.jpg
+
+Daytona Beach, Florida
+images/destination-2.jpg
+Author: Yinan Chen
+License: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Gfp-florida-daytona-beach-beach-shoreline.jpg
+
+Hilton Head Island, South Carolina
+images/destination-3.jpg
+Author: Infratec~commonswiki (attribution as recorded on Commons)
+License: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Hilton_Head_Island.jpg
+
+Las Vegas Strip, Nevada
+images/destination-4.jpg
+Author: YosemiteYamper
+License: CC BY-SA 4.0
+Source: https://commons.wikimedia.org/wiki/File:Las_Vegas_Strip_at_night_2023.jpg
+
+Gatlinburg, Tennessee
+images/destination-5.jpg
+Author: Sarrail
+License: CC BY-SA 4.0
+Source: https://commons.wikimedia.org/wiki/File:Gatlinburg%2C_Tennessee_viewed_from_the_Gatlinburg_SkyLift_Park.jpg
+
+Cancun, Mexico
+images/destination-6.jpg
+Author: dronepicr
+License: CC BY 2.0
+Source: https://commons.wikimedia.org/wiki/File:Cancun_Strand_Luftbild_%2821552302623%29.jpg
+
+Table Rock Lake near Branson, Missouri
+images/destination-7.jpg
+Author: Bruce Grembowski
+License: CC BY-SA 4.0
+Source: https://commons.wikimedia.org/wiki/File:Table_Rock_Lake%2C_Branson%2C_Missouri.jpg
+
+Punta Cana, Dominican Republic
+images/destination-8.jpg
+Author: NoonIcarus
+License: CC BY-SA 3.0
+Source: https://commons.wikimedia.org/wiki/File:Punta_Cana_Beach_02.jpg
+
+Port Lucaya Beach, Freeport, Bahamas
+images/destination-9.jpg
+Author: Pietro Valocchi
+License: CC BY-SA 3.0 / Flickr CC BY-SA 2.0
+Source: https://commons.wikimedia.org/wiki/File:LucayaBeach.JPG
+
+ADDITIONAL DETAIL PAGE PHOTOS
+Resized and compressed; previews cropped with CSS.
+
+images/detail-pocono.jpg
+The Knob Overlook in Mount Pocono looking southeast.jpeg
+Author: Dough4872
+Source: https://commons.wikimedia.org/wiki/File:The_Knob_Overlook_in_Mount_Pocono_looking_southeast.jpeg
+License: https://creativecommons.org/licenses/by-sa/4.0/
+
+images/detail-myrtle.jpg
+Panorama of the Myrtle Beach Beachfront.jpg
+Author: DiscoA340
+Source: https://commons.wikimedia.org/wiki/File:Panorama_of_the_Myrtle_Beach_Beachfront.jpg
+License: https://creativecommons.org/licenses/by-sa/4.0/
+
+images/detail-havasu.jpg
+Lake Havasu City London Bridge Panorama.jpg
+Author: Cathixx
+Source: https://commons.wikimedia.org/wiki/File:Lake_Havasu_City_London_Bridge_Panorama.jpg
+License: https://creativecommons.org/licenses/by-sa/3.0/
+
+images/detail-williamsburg.jpg
+Williamsburg - Duke of Gloucester Street.jpg
+Author: roger4336 (Roger W)
+Source: https://commons.wikimedia.org/wiki/File:Williamsburg_-_Duke_of_Gloucester_Street.jpg
+License: https://creativecommons.org/licenses/by-sa/2.0/
+
+images/detail-cayman.jpg
+Seven Mile Beach Facing North.jpg
+Author: Coolcaesar
+Source: https://commons.wikimedia.org/wiki/File:Seven_Mile_Beach_Facing_North.jpg
+License: https://creativecommons.org/licenses/by/4.0/

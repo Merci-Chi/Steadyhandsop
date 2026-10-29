@@ -1,0 +1,29 @@
+Large card titles now show verified destination/city names; resorts are secondary subtitles.
+Unconfirmed locations are intentionally not assigned guessed cities.
+1. Orlando | Summer Bay Resort · Florida
+2. Daytona Beach | Florida · Beach getaway
+3. Country Inn & Suites | Radisson · Location not confirmed
+4. Pocono Mountains | 2-bedroom villa · Pennsylvania
+5. Westgate Resort | Location not confirmed
+6. Hilton Head | SR Hotel & Resort · South Carolina
+7. Westgate Resort | Beach Escape · Location not confirmed
+8. Orlando | Westgate Day Drive Offer · Florida
+9. Orlando | Westgate Resort & Spa · Florida
+10. Punta Cana | Hyatt Regency Resort · Dominican Republic
+11. Lake Havasu City | Westgate Resort · Arizona
+12. Williamsburg | Spinnaker Resort · Virginia
+13. Hilton Head | South Carolina
+14. Las Vegas | Nevada
+15. Gatlinburg | Tennessee
+16. Cancún | Mexico
+17. Branson | Missouri
+18. Freeport | Bahamas
+19. Grand Cayman | Cayman Islands
+20. Orlando | The Club by Holiday Inn · Florida
+21. Orlando | Calypso Cay · Florida
+22. Westgate Resorts | Multiple destinations · See details
+23. Orlando | Summer Bay Resort · Florida
+24. Orlando | Summer Bay Resort studio · Florida
+25. Myrtle Beach | South Carolina
+26. Pocono Mountains | Mountain Resort Villa · Pennsylvania
+27. Destination not verified | Additional catalog listing

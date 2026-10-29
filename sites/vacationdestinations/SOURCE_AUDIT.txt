@@ -1,0 +1,18 @@
+DESTINATION INQUIRY SOURCE REVIEW — OCTOBER 27, 2026
+Source: https://vacationdestinationsfl.com/destination-inquiry/
+17 items reported by catalog; 16 visible on page 1. Page 2 returned HTTP 429.
+17 corresponding detail pages added (one flagged as unverified page 2 item), plus separate legacy card pages for unidentified previous marketing cards.
+Every card's View Details now opens a LOCAL detail page. Each verified page links to its original product URL for complete up-to-date terms and booking.
+
+IMPORTANT GAPS / CONFLICTS:
+- Could not retrieve full copy from every product page because the seller's site returned 429 errors.
+- Williamsburg Virginia product copy references Cancun and Villa Group Mexico eligibility.
+- Lake Havasu $149 points to a Bahamas Wyndham product URL.
+- Pocono Mountains 2-bedroom villa $99 has /pkg-branson-mo/ URL.
+- Orlando Holiday Inn product link names Vista Cay Resort in its URL.
+- Hilton Head page allows certain dogs at property level, while package rules say no pets.
+- Hyatt All-Inclusive page lists Hyatt resorts and also Taino Beach Resort in description.
+- Photos are destination illustrations from the PREVIOUS ZIP, not verified photographs of the specific property.
+- No payment backend is replicated. The original source handles purchases.
+- Legacy cards with no matching current product have their prices REMOVED rather than guessed.
+- For legal and eligibility text, customers should read seller original product pages. Full legal terms were not reliably retrievable for every offer.

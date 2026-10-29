@@ -1,0 +1,1 @@
+Removed the large homepage hero/cover section. Destination package cards now begin immediately below the sticky header, with only a compact section introduction. Trust strip moved below destination cards. Existing colors, logo, cards, policies, booking inquiry, and detail pages retained.

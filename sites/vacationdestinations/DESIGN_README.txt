@@ -1,0 +1,1 @@
+Card design recreated in responsive HTML/CSS from the supplied 3x3 image reference. Prices and lengths are carried over only where documented in the provided screenshots. No invented capacity or amenities are included. Photography currently loads from the previously supplied online image sources; the included SVG artwork is offline fallback.

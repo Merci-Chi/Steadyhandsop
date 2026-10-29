@@ -1,0 +1,1 @@
+All nine homepage cards now share the same dimensions, photo/body split, aligned title, price badge, and View Details button. Individual destination accents, sourced prices and details, and detail-page links have been preserved. Packages with unverified pricing still say Inquire. Las Vegas retains its dark theme with corrected contrast.

@@ -1,0 +1,227 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Kaushan+Script&display=swap');
+:root{--navy:#073044;--orange:#ff620e;--cream:#fff7ee}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fffdfa;color:var(--navy);font-family:'DM Sans',Arial,sans-serif}body::before{content:'';position:absolute;right:0;top:0;width:370px;height:280px;background:url('images/palm-corner.png') right top/contain no-repeat;pointer-events:none;z-index:2;opacity:.77} .reference-header{height:114px;padding:12px clamp(20px,4.2vw,66px);display:flex;align-items:center;justify-content:space-between;gap:30px;background:rgba(255,253,250,.97);position:relative;z-index:3}.site-brand img{display:block;width:265px;max-height:97px;object-fit:contain}.main-nav{display:flex;gap:35px;align-items:center;margin-left:auto}.main-nav a{color:#0b3446;text-decoration:none;font-weight:600;font-size:14px}.main-nav .nav-active{border-bottom:2px solid var(--orange);padding-bottom:6px}.primary-action{display:inline-flex;align-items:center;justify-content:center;gap:20px;background:#fa610d;color:white!important;text-decoration:none;border-radius:11px;padding:16px 24px;font-size:14px;font-weight:700;white-space:nowrap;box-shadow:0 7px 16px #d8592233}.primary-action span{font-size:20px}.destinations{padding:10px clamp(18px,2vw,33px) 0!important;max-width:1700px;margin:auto;background:transparent!important}.intro{padding:3px 26px 23px;position:relative}.intro-topline{font-size:12px;letter-spacing:.25em;color:#f65c11;font-weight:800;margin:6px 0 -8px}.intro-line{display:flex;justify-content:space-between;align-items:center;gap:30px}.intro-script{width:min(60vw,690px);height:145px;object-fit:contain;object-position:left center}.intro-features{display:flex;gap:25px;align-items:center}.intro-features>div{text-align:center;min-width:78px}.intro-features .fi{height:44px;width:44px;border:1.5px solid #ff860e;border-radius:50%;color:#ff7807;display:grid;place-items:center;margin:0 auto 5px;font-size:27px}.intro-features small{font-size:11px;line-height:1.25;display:block}.intro p{text-align:center;font-size:15px;margin:-7px 0 1px}.reference-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.reference-card{display:block!important;position:relative!important;border:0!important;overflow:hidden!important;min-height:306px!important;max-height:none!important;border-radius:14px!important;box-shadow:0 7px 16px #0a334622!important;background:#fff8ed!important;transform:none!important;padding:0!important;isolation:isolate}.reference-card .tile-photo{height:67%!important;position:absolute!important;top:0;left:0;right:0;overflow:hidden!important}.reference-card .tile-photo img{width:100%;height:100%;object-fit:cover}.reference-card .tile-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.13),transparent 45%)}.reference-card .tile-location{position:absolute;top:17px;left:18px;z-index:4;color:white!important;font-size:11px;font-weight:800;letter-spacing:.04em;text-shadow:0 1px 4px #0009}.reference-card .tile-location svg{display:none}.reference-card .tile-body{position:absolute!important;inset:auto 0 0 0!important;min-height:129px!important;height:42%!important;padding:15px 20px 13px!important;background:#fffaf4!important;border-radius:56% 16% 0 0 / 19% 17% 0 0!important;z-index:3!important;display:flex!important;flex-direction:column;justify-content:space-between}.reference-card .tile-copy{width:70%;min-width:0}.reference-card h3{font-family:'Kaushan Script','Brush Script MT',cursive!important;font-weight:400!important;color:#052d42!important;font-size:clamp(26px,3vw,42px)!important;line-height:1.1!important;margin:0 0 6px!important;letter-spacing:-.04em}.reference-card .tile-subhead{text-transform:uppercase;letter-spacing:.22em;font-size:9px!important;font-weight:700!important;color:#28586b!important;line-height:1.35;max-height:30px;overflow:hidden}.reference-card .tile-lower{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;margin:0!important}.reference-card .tile-info{color:#163746!important;font-size:10px!important;line-height:1.2!important}.reference-card .tile-info svg{display:none}.reference-card .tile-button{font-size:11px!important;padding:12px 15px!important;border-radius:9px!important;background:#ff671a!important;color:white!important;white-space:nowrap;border:0!important;font-weight:800!important;text-decoration:none!important}.reference-card .tile-button span{font-size:16px}.reference-card .tile-price{position:absolute!important;z-index:5!important;right:10px!important;bottom:58px!important;top:auto!important;left:auto!important;background:#fff0dd!important;box-shadow:0 4px 14px #092c4129!important;border-radius:12px!important;padding:10px 14px!important;min-width:111px!important;max-width:42%!important;min-height:61px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;color:#91430e!important}.reference-card .tile-price span{font-size:9px!important;line-height:1.2!important;text-align:center;text-transform:uppercase;font-weight:800!important;letter-spacing:.05em}.reference-card .tile-price strong{font-size:29px!important;line-height:1.05!important;white-space:nowrap}.reference-card .tile-price small{display:none}.reference-card.ref-2 .tile-price{background:#ffcc55!important;color:#8d3108!important}.reference-card.ref-3 .tile-price{background:#f8fefb!important;color:#064b46!important}.reference-card.ref-4{background:#052d43!important}.reference-card.ref-4 .tile-body{background:#072b41!important}.reference-card.ref-4 h3,.reference-card.ref-4 .tile-subhead,.reference-card.ref-4 .tile-info{color:white!important}.reference-card.ref-4 .tile-price{background:#072339!important;color:#ffce74!important;border:1px solid #f8d58b}.reference-card.ref-5 .tile-price{background:#597a2e!important;color:white!important}.reference-card.ref-6 .tile-price,.reference-card.ref-8 .tile-price{background:#087b95!important;color:white!important}.reference-card.ref-9 .tile-price{background:#12669b!important;color:white!important}.reference-card.ref-4 .tile-button{background:#f5bd61!important;color:#082c3f!important}.reference-card.ref-5 .tile-button{background:#4e742a!important}.reference-card.ref-6 .tile-button,.reference-card.ref-8 .tile-button,.reference-card.ref-9 .tile-button{background:#036a91!important}.reference-card.ref-7 .tile-button{background:#9f2b17!important}.cta-panel{position:relative;overflow:hidden;margin:18px clamp(18px,2vw,33px) 0;min-height:150px;border-radius:22px 22px 0 0;background:linear-gradient(100deg,#ffeedc,#fff9ef 54%,#ffebd7);display:flex;align-items:center;justify-content:center;gap:22px;padding:27px 25px 40px}.cta-panel .cta-palm-left{position:absolute;left:0;bottom:0;width:290px;height:100%;object-fit:cover;object-position:left bottom;pointer-events:none;opacity:.56}.cta-panel .cta-palm-right{position:absolute;right:0;top:0;width:250px;height:100%;object-fit:cover;object-position:right top;pointer-events:none}.cta-copy{z-index:2;text-align:center}.cta-copy h2{font-family:'Kaushan Script',cursive;font-size:clamp(25px,3.1vw,42px);font-weight:400;margin:0 0 5px}.cta-copy p{margin:0;font-size:14px}.cta-panel>.primary-action{position:relative;z-index:2}.cta-sun{font-size:51px;color:#ff9f1f;position:relative;z-index:2}.reference-footer{position:relative;min-height:230px;background:linear-gradient(125deg,#083b4e,#003144 80%);color:#e8f6f6;overflow:hidden;padding:45px clamp(26px,6vw,90px) 34px}.reference-footer .footer-wave{position:absolute;left:0;top:-42px;width:100%;height:110px;object-fit:fill;opacity:.88;pointer-events:none}.reference-footer:after{content:'';position:absolute;inset:auto 0 0;height:65%;background:linear-gradient(transparent,#031e2d99);pointer-events:none}.footer-layout{position:relative;z-index:2;display:grid;grid-template-columns:1.3fr 1.5fr .65fr 1.1fr;gap:33px;max-width:1300px;margin:auto}.footer-brand img{width:220px;max-width:100%;filter:brightness(0) invert(1)}.footer-brand small{display:block;letter-spacing:.25em;font-size:9px;margin:3px 0 0 22px}.reference-footer h3{font-size:14px;color:#ffcc85;margin:0 0 13px}.reference-footer a{display:block;color:#e1eaed!important;text-decoration:none;font-size:12px;margin-bottom:8px}.reference-footer p{font-size:12px;line-height:1.7;margin:0 0 15px;color:#d8e6e8}.footer-two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 17px}.reference-footer .contact-btn{display:inline-block;background:#fff;color:#093448!important;padding:12px 20px;border-radius:9px;font-weight:800}.header,.nav,.menu-toggle{display:none!important}@media(max-width:950px){.reference-header{flex-wrap:wrap;height:auto;padding:13px 20px}.main-nav{gap:12px;order:3;justify-content:center;width:100%;flex-wrap:wrap}.site-brand img{width:215px}.intro-line{display:block}.intro-script{width:min(100%,550px)}.intro-features{justify-content:center;margin:0 0 12px}.reference-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-layout{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.reference-header>.primary-action{padding:11px 12px;font-size:12px}.site-brand img{width:150px}.intro{padding:0 2px 20px}.intro-script{height:100px}.intro-features{gap:8px}.intro-features>div{min-width:60px}.intro-features small{font-size:9px}.reference-grid{grid-template-columns:1fr}.reference-card{min-height:315px!important}.reference-card h3{font-size:38px!important}.cta-panel{display:flex;flex-wrap:wrap;padding:26px 18px 45px}.cta-palm-left{opacity:.28!important}.cta-copy{width:100%}.cta-sun{display:none}.footer-layout{grid-template-columns:1fr 1fr;gap:20px}.footer-brand img{width:150px}.footer-two-col{grid-template-columns:1fr}}
+
+
+/* Reference fidelity adjustments — compact brand, tightly spaced cards, layered surf footer */
+body{background:#fffdfa}
+body::before{width:310px;height:215px;right:0;top:-5px;background-size:cover;background-position:right top;opacity:.82}
+.reference-header{height:108px;padding:10px clamp(22px,4vw,60px);background:transparent}
+.site-brand img{width:278px;max-height:92px}
+.destinations{padding:2px clamp(16px,1.7vw,28px) 0!important}
+.intro{padding:6px 19px 24px}
+.intro-topline{margin:0 0 -4px;font-size:12px}
+.intro-line{align-items:center;min-height:126px}
+.intro-script{height:auto;width:min(58vw,660px);max-height:137px;object-fit:contain;object-position:left center}
+.intro-features{gap:29px;margin-top:11px}
+.intro-features .fi{font-size:24px}
+.intro p{margin:0 0 0;font-size:15px;transform:translateY(-2px)}
+.reference-grid{gap:14px}
+.reference-card{min-height:292px!important;transition:transform .2s ease,box-shadow .2s ease!important}
+.reference-card:hover{transform:translateY(-4px)!important;box-shadow:0 14px 25px #07304425!important}
+.reference-card .tile-body{height:42%!important;min-height:123px!important}
+.reference-card .tile-price{bottom:58px!important}
+.cta-panel{margin-top:22px;min-height:135px;padding:20px 22px 34px;border-radius:19px 19px 0 0;gap:20px}
+.cta-panel .cta-palm-left{width:200px;object-fit:cover;opacity:.48;object-position:left bottom}
+.cta-panel .cta-palm-right{width:190px;opacity:.9;object-position:right top}
+.cta-copy h2{font-size:clamp(25px,3vw,40px)}
+.cta-panel .primary-action{margin-right:45px}
+.reference-footer{margin-top:0;min-height:270px;padding:57px clamp(24px,5vw,75px) 35px;background:linear-gradient(110deg,#08495b,#033343 55%,#052d3c);isolation:isolate}
+.reference-footer .footer-wave-layer{position:absolute;width:100%;height:auto;left:0;object-fit:fill;pointer-events:none;z-index:0}
+.reference-footer .layer-a{top:-2px;height:63px;opacity:.94}
+.reference-footer .layer-b{top:14px;height:64px;opacity:.7}
+.reference-footer .layer-c{bottom:-1px;top:auto;height:122px;opacity:.68;object-fit:fill}
+.reference-footer:after{background:linear-gradient(180deg,transparent 38%,#01263470);z-index:0}
+.footer-layout{z-index:3;grid-template-columns:1.23fr 1.45fr .62fr 1.02fr;gap:34px;max-width:1250px}
+.footer-brand img{width:215px;filter:brightness(0) invert(1)}
+.reference-footer h3{color:#ffd19a}
+.reference-footer .contact-btn{display:inline-flex}
+@media(max-width:950px){.intro-line{display:block}.intro-script{width:min(100%,620px)}.intro-features{margin:4px auto 12px;justify-content:center}.reference-footer{padding-top:65px}}
+@media(max-width:600px){body::before{width:140px;height:130px}.reference-header{height:auto}.site-brand img{width:160px}.intro{padding:5px 2px 20px}.intro-script{width:100%;max-height:115px}.intro p{font-size:13px}.reference-card{min-height:312px!important}.cta-panel .primary-action{margin-right:0}.reference-footer .layer-c{height:85px}.footer-layout{grid-template-columns:1fr 1fr}}
+
+/* Embossed gradient feature badges — placed close to the heading */
+.intro-line{justify-content:flex-start!important;gap:clamp(16px,2.6vw,42px)!important}
+.intro-script{width:clamp(350px,44vw,640px)!important;flex:0 1 auto}
+.intro-features{display:grid!important;grid-template-columns:repeat(4,minmax(90px,1fr));gap:clamp(9px,1.1vw,19px)!important;align-items:start!important;margin:0!important;flex:0 1 545px;max-width:545px;width:100%;transform:translateX(-14px)}
+.intro-features .feature-item{min-width:0!important;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
+.intro-features .fi{position:relative;display:grid!important;place-items:center;width:68px!important;height:68px!important;border-radius:20px!important;color:#fff!important;border:1px solid rgba(255,255,255,.75)!important;background:linear-gradient(145deg,#ffcf73 0%,#ff951f 33%,#f06a0e 74%,#cd4310 100%)!important;box-shadow:inset 2px 3px 4px #fff9,inset -4px -5px 9px #a840196e,0 5px 0 #9e45186b,0 10px 19px #9c4f2f4a!important;margin:0!important;font-size:0!important;transform:rotate(-2deg);transition:transform .2s,box-shadow .2s}
+.intro-features .feature-item:nth-child(2) .fi{background:linear-gradient(145deg,#6dd5d9,#129ead 48%,#036173 100%)!important;box-shadow:inset 2px 3px 4px #fff8,inset -4px -5px 8px #003e5b88,0 5px 0 #04536388,0 10px 19px #15445b4d!important;transform:rotate(2deg)}
+.intro-features .feature-item:nth-child(3) .fi{background:linear-gradient(145deg,#ffdc91,#ffae40 42%,#ec701e 100%)!important;transform:rotate(2deg)}
+.intro-features .feature-item:nth-child(4) .fi{background:linear-gradient(145deg,#51b9c3,#098498 50%,#03516e 100%)!important;box-shadow:inset 2px 3px 4px #fff8,inset -4px -5px 8px #003e5b88,0 5px 0 #04536388,0 10px 19px #15445b4d!important}
+.intro-features .fi:after{content:'';position:absolute;inset:4px;border-radius:15px;border:1px solid #fff5;pointer-events:none}
+.intro-features .fi svg{width:32px;height:32px;filter:drop-shadow(0 2px 1px #7d39075e)}
+.intro-features .feature-item:hover .fi{transform:translateY(-3px) rotate(0deg);box-shadow:inset 2px 3px 5px #fff9,inset -3px -5px 9px #703f2a55,0 7px 0 #7b492d44,0 14px 24px #123f4940!important}
+.intro-features .feature-label{font-family:'Nunito Sans','DM Sans',sans-serif;color:#093849;font-weight:900;font-size:12px;line-height:1.22;letter-spacing:-.02em;text-shadow:0 1px 0 #fff}
+@media(max-width:1120px){.intro-line{gap:13px!important}.intro-script{width:clamp(300px,43vw,530px)!important}.intro-features{transform:none;gap:8px!important}.intro-features .fi{width:57px!important;height:57px!important;border-radius:17px!important}.intro-features .fi svg{width:27px;height:27px}.intro-features .feature-label{font-size:11px}}
+@media(max-width:950px){.intro-script{width:min(100%,620px)!important}.intro-features{margin:6px auto 15px!important;max-width:560px}}
+@media(max-width:600px){.intro-features{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px!important}.intro-features .fi{width:51px!important;height:51px!important;border-radius:15px!important}.intro-features .fi svg{width:24px;height:24px}.intro-features .feature-label{font-size:9px;letter-spacing:-.025em}}
+
+
+/* Consistent premium styling across all nine travel packages */
+.reference-grid{align-items:stretch;gap:16px!important}
+.reference-grid>.reference-card{height:318px!important;min-height:318px!important;max-height:318px!important;background:#fffaf4!important;border-radius:17px!important;box-shadow:0 7px 16px #062f4324,0 1px 2px #062f4312!important;overflow:hidden!important}
+.reference-grid>.reference-card .tile-photo{height:68%!important;inset:0 0 auto!important}
+.reference-grid>.reference-card .tile-photo img{height:100%!important;width:100%!important;object-fit:cover!important}
+.reference-grid>.reference-card .tile-body{inset:auto 0 0!important;height:45%!important;min-height:143px!important;border-radius:50% 18% 0 0/18% 16% 0 0!important;background:#fffaf4!important;padding:17px 19px 14px!important;display:flex!important;justify-content:space-between!important}
+.reference-grid>.reference-card .tile-copy{width:calc(100% - 126px)!important;max-width:none!important;min-width:0!important}
+.reference-grid>.reference-card h3{font-size:clamp(28px,2.9vw,40px)!important;line-height:1.08!important;white-space:normal!important;color:#073448!important;text-shadow:none!important;overflow-wrap:normal}
+.reference-grid>.reference-card .tile-subhead{color:#356074!important;font-size:9px!important;letter-spacing:.13em!important;line-height:1.3!important;max-height:35px!important;overflow:hidden!important}
+.reference-grid>.reference-card .tile-lower{min-height:39px!important;gap:8px!important;align-items:end!important}
+.reference-grid>.reference-card .tile-info{color:#24495a!important;font-size:10px!important;font-weight:700!important;max-width:48%!important}
+.reference-grid>.reference-card .tile-info b{font-size:10px!important;font-weight:800!important}
+.reference-grid>.reference-card .tile-button{min-width:125px!important;min-height:39px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;padding:10px 12px!important;border-radius:9px!important;box-shadow:0 5px 9px #0d3a4e24!important;transition:transform .18s,filter .18s}
+.reference-grid>.reference-card .tile-button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.reference-grid>.reference-card .tile-price{right:12px!important;bottom:59px!important;min-width:115px!important;width:115px!important;max-width:115px!important;min-height:70px!important;padding:10px 8px!important;box-shadow:0 5px 13px #072f4228!important;border:1px solid #ffffff80!important;z-index:5!important}
+.reference-grid>.reference-card .tile-price span{font-size:8px!important;font-weight:900!important;color:inherit!important;letter-spacing:.035em!important;opacity:.92!important}
+.reference-grid>.reference-card .tile-price strong{font-size:26px!important;letter-spacing:-.045em!important;color:inherit!important;line-height:1.08!important;text-decoration:none!important;text-shadow:none!important;opacity:1!important;white-space:nowrap!important}
+.reference-grid>.reference-card.ref-1 .tile-price strong{font-size:24px!important}
+.reference-grid>.reference-card .tile-price-none strong{font-size:21px!important;letter-spacing:-.03em!important}
+/* Las Vegas is intentionally dark, but ensure every element contrasts correctly */
+.reference-grid>.reference-card.ref-4{background:#072c40!important}
+.reference-grid>.reference-card.ref-4 .tile-body{background:#072c40!important}
+.reference-grid>.reference-card.ref-4 h3,.reference-grid>.reference-card.ref-4 .tile-subhead,.reference-grid>.reference-card.ref-4 .tile-info,.reference-grid>.reference-card.ref-4 .tile-info b{color:#fffaf0!important}
+.reference-grid>.reference-card.ref-4 .tile-price{color:#ffd179!important;background:#05283b!important;border:1px solid #dbaa56!important}
+.reference-grid>.reference-card.ref-4 .tile-button{background:#f3bd69!important;color:#092c40!important}
+/* retain each individual package's accent color */
+.reference-grid>.reference-card.ref-2 .tile-price{background:#ffcd55!important;color:#803406!important}
+.reference-grid>.reference-card.ref-3 .tile-price{background:#eefcf9!important;color:#084f53!important}
+.reference-grid>.reference-card.ref-5 .tile-price{background:#577d33!important;color:white!important}
+.reference-grid>.reference-card.ref-6 .tile-price,.reference-grid>.reference-card.ref-8 .tile-price{background:#087d95!important;color:#fff!important}
+.reference-grid>.reference-card.ref-9 .tile-price{background:#12669b!important;color:#fff!important}
+@media(max-width:1050px){.reference-grid>.reference-card .tile-copy{width:calc(100% - 125px)!important}.reference-grid>.reference-card h3{font-size:32px!important}}
+@media(max-width:600px){.reference-grid>.reference-card{height:325px!important;min-height:325px!important;max-height:325px!important}.reference-grid>.reference-card h3{font-size:35px!important}.reference-grid>.reference-card .tile-copy{width:calc(100% - 126px)!important}}
+
+/* Final consistency pass — all nine package actions share one visual style. */
+.reference-grid > .reference-card .tile-button,
+.reference-grid > .reference-card.ref-4 .tile-button {
+  background:linear-gradient(135deg,#ff8528 0%,#ff6517 55%,#f35009 100%)!important;
+  color:#fff!important; border:1px solid rgba(255,255,255,.34)!important;
+  border-radius:11px!important; min-width:145px!important; width:145px!important;
+  height:45px!important;min-height:45px!important;padding:0 12px!important;
+  font-family:'Nunito Sans',sans-serif!important;font-size:12px!important;
+  line-height:1!important;font-weight:900!important;letter-spacing:.005em!important;
+  box-shadow:inset 0 1px 1px #ffffff55,0 7px 14px #bf4e1a33!important;
+  text-shadow:0 1px 1px #8f390733!important;flex:0 0 145px!important;
+}
+.reference-grid > .reference-card .tile-button span{font-size:18px!important;color:inherit!important}
+.reference-grid > .reference-card .tile-button:hover{background:linear-gradient(135deg,#ff9d44,#f65a10)!important;box-shadow:0 10px 18px #b5491c40!important}
+/* The prior global `footer img {max-width:175px!important}` rule was shrinking
+   full-width wave PNGs into tiny pills at the left edge. Reset it here. */
+.reference-footer{position:relative!important;width:100%!important;max-width:none!important;overflow:hidden!important;isolation:isolate!important;min-height:315px!important;padding-top:82px!important}
+.reference-footer > img.footer-wave-layer{position:absolute!important;left:0!important;right:0!important;width:100%!important;min-width:100%!important;max-width:none!important;height:110px!important;max-height:none!important;object-fit:fill!important;object-position:center!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;filter:none!important;pointer-events:none!important;display:block!important}
+.reference-footer > img.footer-wave-layer.layer-a{top:0!important;bottom:auto!important;height:94px!important;opacity:1!important;z-index:2!important}
+.reference-footer > img.footer-wave-layer.layer-b{top:18px!important;bottom:auto!important;height:98px!important;opacity:.55!important;z-index:1!important}
+.reference-footer > img.footer-wave-layer.layer-c{top:auto!important;bottom:0!important;height:135px!important;opacity:.52!important;z-index:1!important}
+.reference-footer .footer-layout{position:relative!important;z-index:4!important}
+/* Keep brand art transparent instead of rendering an empty white tile. */
+.reference-footer .footer-brand img{background:transparent!important;border-radius:0!important;padding:0!important;max-width:240px!important;max-height:150px!important;width:100%!important;height:auto!important;object-fit:contain!important;filter:brightness(0) invert(1)!important}
+@media(max-width:700px){
+ .reference-grid > .reference-card .tile-button, .reference-grid > .reference-card.ref-4 .tile-button{min-width:124px!important;width:124px!important;flex-basis:124px!important;font-size:11px!important;height:42px!important;min-height:42px!important}
+ .reference-footer{padding-top:75px!important}
+ .reference-footer > img.footer-wave-layer.layer-a{height:76px!important}
+ .reference-footer > img.footer-wave-layer.layer-b{height:78px!important}
+ .reference-footer > img.footer-wave-layer.layer-c{height:105px!important}
+}
+
+/* Original footer artwork, with original colors and no whitening filter. */
+.reference-footer .footer-original-logo{display:flex;align-items:center;gap:8px;width:100%;max-width:240px;min-width:0}
+.reference-footer .footer-brand .footer-original-logo img{display:block!important;filter:none!important;min-width:0!important;max-height:none!important;background:transparent!important;padding:0!important;border:0!important;border-radius:0!important;height:auto!important;object-fit:contain!important}
+.reference-footer .footer-brand .footer-original-logo .footer-original-mark{width:36%!important;max-width:36%!important;flex:0 0 36%}
+.reference-footer .footer-brand .footer-original-logo .footer-original-wordmark{width:60%!important;max-width:60%!important;flex:0 0 60%}
+
+/* Top-right palm: larger artwork behind the header and feature buttons. */
+body::before{width:520px;height:320px;top:0;right:0;background-size:cover;background-position:right top;z-index:0}
+.intro{z-index:1}
+@media(max-width:600px){body::before{width:240px;height:210px}}
+
+/* Sticky header and evenly aligned navigation labels. */
+.reference-header{position:sticky;top:0;z-index:100;background:rgba(255,253,250,.97);box-shadow:0 3px 14px #0730440d;backdrop-filter:blur(12px)}
+.main-nav{align-items:center}
+.main-nav a{display:inline-flex;align-items:center;line-height:1.25;padding-top:6px;padding-bottom:6px;border-bottom:2px solid transparent}
+.main-nav .nav-active{border-bottom-color:var(--orange);padding-bottom:6px}
+.reference-header>.primary-action{line-height:1.25;align-items:center}
+.reference-header>.primary-action span{line-height:1}
+html{scroll-padding-top:120px}
+@media(max-width:950px){html{scroll-padding-top:175px}}
+
+/* Header spacing, depth and navigation feedback. */
+.reference-header{box-shadow:0 8px 22px #0730441f,0 2px 5px #0730440a;border-bottom:1px solid #e9ded166}
+.main-nav{gap:clamp(20px,2.5vw,38px)}
+.main-nav a{position:relative;border-bottom:0!important;padding:10px 0!important;transition:color .2s ease,transform .2s ease}
+.main-nav a::after{content:'';position:absolute;left:0;right:0;bottom:2px;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.main-nav a.nav-active::after,.main-nav a:hover::after,.main-nav a:focus-visible::after{transform:scaleX(1)}
+.main-nav a:hover{color:#e65a0b;transform:translateY(-2px)}
+.main-nav a:focus-visible{outline:2px solid #117a87;outline-offset:5px;border-radius:3px}
+.reference-header>.primary-action{padding:18px 25px;min-height:57px}
+@media(max-width:950px){.main-nav{gap:18px}.reference-header>.primary-action{padding:14px 18px}}
+@media(prefers-reduced-motion:reduce){.main-nav a,.main-nav a::after,body .primary-action,body .contact-btn,body .detail-cta,body .btn,body .tile-button{transition:none!important}}
+
+/* Embossed price badges retain every card's existing color palette. */
+body .reference-grid>.reference-card .tile-price{
+ background-image:linear-gradient(145deg,#ffffff66 0%,#ffffff26 25%,transparent 48%,#0000000d 75%,#00000020 100%)!important;
+ border:1px solid #ffffff99!important;border-radius:16px!important;
+ box-shadow:inset 2px 3px 5px #ffffff80,inset -4px -5px 9px #00000026,0 5px 0 #183c4a40,0 12px 22px #173d4b30!important;
+ overflow:visible!important;transition:transform .2s ease,box-shadow .2s ease;
+}
+body .reference-grid>.reference-card .tile-price::after{content:'';position:absolute;inset:5px;border:1px solid #ffffff66;border-radius:11px;pointer-events:none}
+body .reference-grid>.reference-card .tile-price:hover{transform:translateY(-2px);box-shadow:inset 2px 3px 5px #ffffff80,inset -4px -5px 9px #00000026,0 7px 0 #183c4a40,0 16px 25px #173d4b38!important}
+@media(prefers-reduced-motion:reduce){body .reference-grid>.reference-card .tile-price{transition:none}}
+
+/* Las Vegas: readable navy lettering on the cream card face. */
+body .reference-grid>.reference-card.ref-4 .tile-body{background:#fffaf4!important;color:#073044!important}
+body .reference-grid>.reference-card.ref-4 h3{color:#073044!important;text-shadow:none!important}
+body .reference-grid>.reference-card.ref-4 .tile-subhead{color:#376173!important;opacity:1!important}
+body .reference-grid>.reference-card.ref-4 .tile-info,body .reference-grid>.reference-card.ref-4 .tile-info b{color:#153f47!important;opacity:1!important}
+
+/* Larger price badges anchored to the photo, clear of the location label. */
+body .reference-grid>.reference-card .tile-price{
+ top:14px!important;right:14px!important;bottom:auto!important;left:auto!important;
+ width:145px!important;min-width:145px!important;max-width:145px!important;
+ min-height:88px!important;padding:13px 10px!important;z-index:6!important;
+ border:2px solid #fff8e8!important;
+ box-shadow:inset 2px 3px 5px #ffffff80,inset -4px -5px 9px #00000026,0 5px 0 #17354299,0 12px 24px #001a31a6,0 0 0 1px #052c4266!important;
+}
+body .reference-grid>.reference-card .tile-price span{font-size:10px!important;line-height:1.22!important;letter-spacing:.025em!important;opacity:1!important}
+body .reference-grid>.reference-card .tile-price strong{font-size:33px!important;line-height:1.1!important}
+body .reference-grid>.reference-card.ref-1 .tile-price strong{font-size:29px!important}
+body .reference-grid>.reference-card .tile-price-none strong{font-size:27px!important}
+body .reference-grid>.reference-card .tile-price:hover{transform:translateY(-2px)}
+@media(max-width:1120px) and (min-width:951px){body .reference-grid>.reference-card .tile-price{width:132px!important;min-width:132px!important;max-width:132px!important;min-height:82px!important}body .reference-grid>.reference-card.ref-1 .tile-price strong{font-size:26px!important}}
+
+/* Traveler testimonials: raised cards with softly embossed edges. */
+.guest-reviews{max-width:1700px;margin:0 auto;padding:65px clamp(18px,2vw,33px) 58px;scroll-margin-top:120px}
+.guest-reviews-heading{text-align:center;margin:0 auto 34px;max-width:650px}
+.guest-reviews-eyebrow{display:block;color:#e3651a;letter-spacing:.2em;font-size:11px;font-weight:900;margin-bottom:12px}
+.guest-reviews-heading h2{font-family:'Bree Serif',Georgia,serif;font-size:clamp(30px,3.5vw,46px);line-height:1.15;color:#073044;margin:0 0 13px}
+.guest-reviews-heading>p{font-size:15px;color:#587580;margin:0}
+.guest-reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:27px;align-items:stretch}
+.guest-review{position:relative;isolation:isolate;display:flex;flex-direction:column;min-width:0;padding:29px 28px 25px;border:1px solid #fff;border-radius:22px;background:linear-gradient(145deg,#fffefa,#fff7ec);box-shadow:inset 2px 3px 5px #fff,inset -3px -4px 8px #b9914e21,0 6px 0 #e4d9c8,0 15px 30px #123b4921;transition:transform .22s ease,box-shadow .22s ease}
+.guest-review::after{content:'';position:absolute;inset:7px;border:1px solid #ddcdb64d;border-radius:16px;pointer-events:none}
+.guest-review:nth-child(3n+2){background:linear-gradient(145deg,#fcffff,#eef8f7);box-shadow:inset 2px 3px 5px #fff,inset -3px -4px 8px #0f6c7a15,0 6px 0 #d2e3e2,0 15px 30px #123b4921}
+.guest-review:hover{transform:translateY(-4px);box-shadow:inset 2px 3px 5px #fff,inset -3px -4px 8px #123b491c,0 8px 0 #d6dcd5,0 21px 35px #123b492b}
+.guest-review-mark{font:72px/.8 Georgia,serif;color:#ee9a35;margin:4px 0 10px;height:43px}
+.guest-review:nth-child(3n+2) .guest-review-mark{color:#168595}
+.guest-review blockquote{margin:0 0 26px;color:#2c4e5c;font-size:14px;line-height:1.8;overflow-wrap:anywhere;flex:1}
+.guest-review-author{display:flex;align-items:center;gap:13px;border-top:1px solid #204d5c15;padding-top:18px}
+.guest-review-avatar{display:grid;place-items:center;flex:0 0 43px;width:43px;height:43px;border-radius:50%;background:linear-gradient(145deg,#32a1af,#064b60);color:white;font-size:12px;font-weight:900;border:1px solid #fff9;box-shadow:inset 1px 2px 3px #ffffff73,inset -2px -3px 5px #002a3a66,0 3px 0 #0b485c33,0 5px 9px #163d4b1a}
+.guest-review-author h3{font-family:'Nunito Sans','DM Sans',sans-serif!important;color:#073044;font-size:14px;line-height:1.3;letter-spacing:0;margin:0;font-weight:900}
+.guest-review-author p{font-size:12px;color:#607c85;line-height:1.3;margin:5px 0 0}
+@media(max-width:1000px){.guest-reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+@media(max-width:600px){.guest-reviews{padding-top:45px;padding-bottom:45px}.guest-reviews-grid{grid-template-columns:1fr;gap:25px}.guest-review{padding:27px 25px}.guest-reviews-heading{margin-bottom:28px}}
+@media(prefers-reduced-motion:reduce){.guest-review{transition:none}.guest-review:hover{transform:none}}
+/* Reviews remain on one swipeable row at every screen size. */
+.guest-reviews-grid{display:flex!important;flex-wrap:nowrap!important;align-items:stretch;gap:26px!important;overflow-x:auto;overflow-y:hidden;padding:8px 5px 31px;scroll-snap-type:x mandatory;scroll-padding-inline:5px;scrollbar-width:thin;scrollbar-color:#14768a #e5eeec;-webkit-overflow-scrolling:touch}
+.guest-reviews-grid>.guest-review{flex:0 0 clamp(300px,31%,440px);scroll-snap-align:start}
+.guest-reviews-grid::-webkit-scrollbar{height:8px}
+.guest-reviews-grid::-webkit-scrollbar-track{background:#e5eeec;border-radius:10px}
+.guest-reviews-grid::-webkit-scrollbar-thumb{background:#14768a;border-radius:10px}
+.guest-reviews-grid .guest-review-avatar{display:block;object-fit:cover;object-position:center;width:52px;height:52px;flex-basis:52px;padding:0;border:3px solid #fff;box-shadow:0 3px 0 #0b485c33,0 5px 11px #163d4b29}
+.guest-review-controls{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 5px 14px}
+.guest-review-controls p{font-size:12px;color:#587580;margin:0 8px 0 0}
+.guest-review-controls button{display:grid;place-items:center;width:43px;height:39px;border:1px solid #ffffffb3;border-radius:12px;background:linear-gradient(145deg,#ffc96d,#ff8b1c 50%,#de570b);color:#fff;box-shadow:inset 2px 2px 3px #fff9,inset -2px -3px 4px #a840194d,0 4px 0 #a4482080,0 7px 13px #9c4f2f30;cursor:pointer;transition:transform .18s}
+.guest-review-controls button:hover{transform:translateY(-2px)}
+.guest-review-controls button:active{transform:translateY(2px)}
+.guest-review-controls button:focus-visible,.guest-reviews-grid:focus-visible{outline:3px solid #14768a;outline-offset:5px}
+.guest-review-controls svg{width:21px;height:21px}
+@media(max-width:600px){.guest-reviews-grid>.guest-review{flex-basis:88%;min-width:0}.guest-review-controls{justify-content:space-between}.guest-review-controls p{margin-right:auto}}
+@media(prefers-reduced-motion:reduce){.guest-review-controls button{transition:none}}
