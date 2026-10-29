@@ -1,0 +1,24 @@
+Package: Las Vegas
+Source: https://vacationdestinationsfl.com/las-vegas-nv/
+Retrieved 2026-10-29. Destination names reflect the source page content rather than outdated URL slugs. Images resized and converted to WebP.
+
+images/packages/vegas/photo-01.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/08/218e4d5e_b.jpg?fit=350%2C233&ssl=1
+
+images/packages/vegas/photo-02.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/08/3c7df4c6.jpg?fit=297%2C196&ssl=1
+
+images/packages/vegas/photo-03.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/08/6c7bb5ae_b.jpg?fit=350%2C233&ssl=1
+
+images/packages/vegas/photo-04.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/elite-premier-guest-room.jpg?fit=1000%2C750&ssl=1
+
+images/packages/vegas/photo-05.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/03/Vegas-7.webp?fit=1200%2C800&ssl=1
+
+images/packages/vegas/photo-06.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/03/Vegas-9.avif
+
+images/packages/vegas/photo-07.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/03/Vegas-11.avif

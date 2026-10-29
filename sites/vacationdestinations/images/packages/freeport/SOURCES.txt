@@ -1,0 +1,15 @@
+Package: Hyatt Resort Getaways
+Source: https://vacationdestinationsfl.com/freeport-bahamas/
+Retrieved 2026-10-29. Destination names reflect the source page content rather than outdated URL slugs. Images resized and converted to WebP.
+
+images/packages/freeport/photo-01.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2026/05/Vistay-2.jpg?fit=1024%2C537&ssl=1
+
+images/packages/freeport/photo-02.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2026/05/Vista-Cay-1.jpg?fit=1024%2C575&ssl=1
+
+images/packages/freeport/photo-03.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2026/05/Vistay-3.jpg?fit=1024%2C676&ssl=1
+
+images/packages/freeport/photo-04.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2026/05/Vista-Cay-4.jpg?fit=1024%2C683&ssl=1

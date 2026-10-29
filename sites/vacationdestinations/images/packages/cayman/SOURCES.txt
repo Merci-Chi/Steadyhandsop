@@ -1,0 +1,24 @@
+Package: Westgate Lakes Orlando
+Source: https://vacationdestinationsfl.com/grand-cayman/
+Retrieved 2026-10-29. Destination names reflect the source page content rather than outdated URL slugs. Images resized and converted to WebP.
+
+images/packages/cayman/photo-01.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/06/westgate-food.avif
+
+images/packages/cayman/photo-02.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/12/westgate-waterpark.webp?fit=1200%2C674&ssl=1
+
+images/packages/cayman/photo-03.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/12/westgate-waterpark-2.avif
+
+images/packages/cayman/photo-04.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/12/westgate-kitchen-1.avif
+
+images/packages/cayman/photo-05.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/12/westgate-1-bedroom.avif
+
+images/packages/cayman/photo-06.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/12/westgate-game-room.jpg?fit=1200%2C800&ssl=1
+
+images/packages/cayman/photo-07.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/12/westgate-studio-2.avif

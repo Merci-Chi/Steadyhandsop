@@ -1,0 +1,30 @@
+Package: Holiday Inn Kissimmee
+Source: https://vacationdestinationsfl.com/orlando-fl-holiday-inn-kp/
+Retrieved 2026-10-29. Destination names reflect the source page content rather than outdated URL slugs. Images resized and converted to WebP.
+
+images/packages/holiday/photo-01.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/03/PoolDeck2.jpg?fit=680%2C453&ssl=1
+
+images/packages/holiday/photo-02.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/Kitchen-1-BR-Suite.jpg?fit=1600%2C1067&ssl=1
+
+images/packages/holiday/photo-03.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/Double-Bed-Studio-Room.jpg?fit=1600%2C1042&ssl=1
+
+images/packages/holiday/photo-04.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/03/Wyandham-Orlando-Breakfasr.jpg?fit=600%2C402&ssl=1
+
+images/packages/holiday/photo-05.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/King-Bed-Studio-Room.jpg?fit=1600%2C921&ssl=1
+
+images/packages/holiday/photo-06.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/Living-Room-Area-1-BR-Suite-2.jpg?fit=1600%2C1067&ssl=1
+
+images/packages/holiday/photo-07.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/Living-Room-Area-1-BR-Suite.jpg?fit=1600%2C1067&ssl=1
+
+images/packages/holiday/photo-08.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/04/holiday-inn-club-vacations-kissimmee-6559849123-4x3-1.avif
+
+images/packages/holiday/photo-09.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2024/06/Entrance-View-1-BR-Suite.jpg?fit=1600%2C1067&ssl=1

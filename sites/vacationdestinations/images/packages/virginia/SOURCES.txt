@@ -1,0 +1,34 @@
+Package: Myrtle Beach
+Source: https://vacationdestinationsfl.com/virginia-beach-va/
+Retrieved 2026-10-29. Destination names reflect the source page content rather than outdated URL slugs. Images resized and converted to WebP.
+
+images/packages/virginia/photo-01.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/westgate-resort-pic.webp?fit=1200%2C831&ssl=1
+
+images/packages/virginia/photo-02.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/06/westgate-on-the-beach.avif
+
+images/packages/virginia/photo-03.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/westgate-bar.jpg?fit=1200%2C800&ssl=1
+
+images/packages/virginia/photo-04.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/06/westgate-restautant.avif
+
+images/packages/virginia/photo-05.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/06/westgate-food.avif
+
+images/packages/virginia/photo-06.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/0e8b8884.jpg?fit=1200%2C800&ssl=1
+
+images/packages/virginia/photo-07.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/6f4d0635.jpg?fit=297%2C198&ssl=1
+
+images/packages/virginia/photo-08.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/0e41961d2.jpg?fit=1200%2C800&ssl=1
+
+images/packages/virginia/photo-10.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/535c07e8.jpg?fit=1200%2C859&ssl=1
+
+images/packages/virginia/photo-11.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/06/b84b83fa.jpg?fit=1200%2C780&ssl=1
+One broken source image (HTTP 404) omitted: https://vacationdestinationsfl.com/wp-content/uploads/2025/06/0cb5fb1d.jpg

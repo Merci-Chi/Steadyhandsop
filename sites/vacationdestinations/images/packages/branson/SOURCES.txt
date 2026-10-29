@@ -1,0 +1,27 @@
+Package: Pocono Mountains
+Source: https://vacationdestinationsfl.com/branson-mo/
+Retrieved 2026-10-29. Destination names reflect the source page content rather than outdated URL slugs. Images resized and converted to WebP.
+
+images/packages/branson/photo-01.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/07/Pocono-Resort-outside.avif
+
+images/packages/branson/photo-02.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/07/Pocono-Living-room.avif
+
+images/packages/branson/photo-03.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/07/Pocno-Kitchen.avif
+
+images/packages/branson/photo-04.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/07/Bedroom-PCONO-1.avif
+
+images/packages/branson/photo-05.webp
+https://vacationdestinationsfl.com/wp-content/uploads/2025/07/POCONO-Second-living.avif
+
+images/packages/branson/photo-06.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/07/Water-POCONO.webp?fit=1200%2C800&ssl=1
+
+images/packages/branson/photo-07.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/07/Outdoor-Pool-Pocono.webp?fit=1200%2C900&ssl=1
+
+images/packages/branson/photo-08.webp
+https://i0.wp.com/vacationdestinationsfl.com/wp-content/uploads/2025/07/Pocono-Restraunt.webp?fit=1200%2C800&ssl=1
