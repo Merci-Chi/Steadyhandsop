@@ -1,0 +1,18 @@
+Santa Barbara Upholstery Supplies
+Content and asset notes - October 29, 2026
+
+Phone, address and core categories corroborated by:
+https://www.yellowpages.com/las-vegas-nv/mip/santa-barbara-upholstery-supplies-11068965
+https://www.bbb.org/us/nv/las-vegas/profile/upholsterer/santa-barbara-upholstery-supply-1086-54368
+https://www.cityof.com/nv/las-vegas/santa-barbara-upholstery-supply-4717441
+
+Unconfirmed hours, founding dates, repair services, prices, social accounts and email are omitted. No online-ordering or lead-capture backend is implied. Telephone links open the device calling application; directions links open Google Maps.
+
+All photography is stock inspiration, not company inventory or work. See photo-credits.json for original sources.
+Pexels license: https://www.pexels.com/license/
+Unsplash license: https://unsplash.com/license
+Lucide icons: https://lucide.dev/ - ISC license included.
+
+Open index.html after extracting the entire ZIP. No server, fonts, scripts or image downloads are required. External calls and directions need device support or an internet connection. Touch double-tap zoom is suppressed where supported; accessible pinch zoom remains available. Text selection is restricted on desktop except useful contact text and form inputs.
+
+Update: Yellow/red palette requested by owner. Logos supplied by user; rendered pure black with CSS brightness(0), preserving original transparent files. Google rating screenshot supplied by user shows 4.9 and 217 reviews; displayed as a supplied snapshot, not live data.
