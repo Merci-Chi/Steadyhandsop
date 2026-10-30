@@ -87,3 +87,30 @@ body .reference-grid>.summer-bay-card .tile-location{max-width:calc(100% - 210px
 .summer-lightbox>img{height:55vh;height:55dvh}
 @media(max-width:600px){.summer-lightbox>img{height:48dvh}.summer-lightbox .summer-lightbox-thumbnail{flex-basis:70px;width:70px;height:54px}}
 @media(prefers-reduced-motion:reduce){.summer-lightbox .summer-lightbox-thumbnail,.summer-lightbox-thumbnail img{transition:none}}
+
+/* Photo-first package pages with clear room, price and amenity hierarchy. */
+.detail-page .package-stay-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin:30px 0}
+.detail-page .package-fact{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:24px 28px;border:1px solid #fff;border-radius:18px;background:linear-gradient(145deg,#fffdf7,#f5ead7);box-shadow:inset 2px 2px 4px #fff,inset -2px -3px 6px #bba98724,0 4px 0 #e0d8cb,0 12px 24px #07304412}
+.detail-page .package-fact>span{font:800 11px/1.4 'Nunito Sans',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:#56727a}
+.detail-page .package-fact>strong{font:900 clamp(20px,2.4vw,28px)/1.3 'Nunito Sans',sans-serif;color:#073044}
+.detail-page .package-fact-price{background:linear-gradient(145deg,#fff3db,#ffe0a7)}
+.detail-page .package-fact-price>strong{font-size:clamp(42px,5vw,62px);line-height:1.05;color:#a34b0d;letter-spacing:-.04em}
+.detail-page .package-source-details{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible}
+.package-description-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.detail-page .package-info-card{min-width:0;padding:28px;border:1px solid #e9e1d5;border-radius:19px;background:#fffdfa;box-shadow:inset 1px 2px 3px #fff,0 4px 0 #e7e4dd,0 12px 25px #07304410}
+.detail-page .package-info-card:has(>.package-facts-grid),.detail-page .package-info-card:has(>h2),.detail-page .package-overview{grid-column:1/-1}
+.detail-page .package-source-details h2,.detail-page .detail-panel>h2{font-family:'Bree Serif',Georgia,serif;font-size:clamp(27px,3vw,36px)!important;line-height:1.2;color:#073044;margin:0 0 19px}
+.detail-page .package-source-details .package-info-card>h3{font:500 clamp(22px,2.4vw,27px)/1.25 'Bree Serif',Georgia,serif;color:#073044;margin:0 0 17px}
+.detail-page .package-source-details p,.detail-page .package-source-details li,.detail-page .detail-panel p,.detail-page .detail-panel li{font-size:16px;line-height:1.8;color:#415f69}
+.detail-page .package-source-details strong,.detail-page .detail-panel li strong{font-weight:900;color:#123f50}
+.detail-page .package-info-card>p:first-of-type{margin-top:0}
+.detail-page .package-source-details li,.detail-page .detail-panel li{margin:7px 0;padding-left:3px}
+.detail-page .package-source-details li::marker,.detail-page .detail-panel li::marker{color:#d5761e}
+.package-facts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
+.detail-page .package-important{font-weight:900!important;color:#774311!important;padding:18px 22px;background:#fff0d6;border-left:4px solid #e89832;border-radius:10px}
+.detail-page .detail-hero .detail-price{font-size:clamp(52px,6vw,78px)!important;line-height:1.1!important;font-weight:900!important}
+.detail-page .detail-panels{gap:24px;margin-top:32px}
+.detail-page .detail-panels>.detail-panel{border:1px solid #e9e1d5;border-radius:19px;box-shadow:inset 1px 2px 3px #fff,0 4px 0 #e7e4dd,0 12px 25px #07304410}
+@media(max-width:700px){.package-description-grid{grid-template-columns:1fr}.detail-page .package-info-card{padding:23px}.detail-page .package-stay-summary{grid-template-columns:1fr}.detail-page .package-source-details p,.detail-page .package-source-details li{font-size:15px}}
+
+.detail-page .package-info-card{font-size:16px;line-height:1.8;color:#415f69}
