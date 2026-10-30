@@ -76,3 +76,14 @@ body .reference-grid>.summer-bay-card .tile-location{max-width:calc(100% - 210px
 .category-stack[data-preview-count="3"]:is(:hover,:focus-visible) .category-stack-frame-2{transform:translate(17%,-9%) rotate(10deg)}
 @media(max-width:600px){.summer-gallery-all.category-stacks-enabled{gap:10px;padding-top:12px}.category-stack-frame{padding:3px;border-radius:10px}.category-stack-frame img{border-radius:6px}.category-stack-label{margin-top:17px;gap:5px}.category-stack-label strong{font-size:18px}.category-stack-label>span{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.category-stack-frame{transition:none}}
+
+/* Category thumbnails keep the selected photo visible and gently darkened. */
+.summer-lightbox-thumbnails{display:flex;gap:10px;overflow-x:auto;padding:12px 4px 8px;scrollbar-width:thin;scrollbar-color:#5992a0 #062b3b}
+.summer-lightbox .summer-lightbox-thumbnail{flex:0 0 86px;width:86px;height:65px;padding:0;overflow:hidden;border:2px solid #ffffff60;border-radius:8px;background:#031e2b;cursor:pointer;transition:transform .2s,border-color .2s}
+.summer-lightbox-thumbnail img{display:block;width:100%;height:100%;object-fit:cover;transition:filter .2s}
+.summer-lightbox .summer-lightbox-thumbnail[aria-pressed="true"]{border-color:#ffc662;box-shadow:0 0 0 1px #ffc662}
+.summer-lightbox-thumbnail[aria-pressed="true"] img{filter:brightness(.55)}
+.summer-lightbox .summer-lightbox-thumbnail:hover{transform:translateY(-3px);border-color:#fff}
+.summer-lightbox>img{height:55vh;height:55dvh}
+@media(max-width:600px){.summer-lightbox>img{height:48dvh}.summer-lightbox .summer-lightbox-thumbnail{flex-basis:70px;width:70px;height:54px}}
+@media(prefers-reduced-motion:reduce){.summer-lightbox .summer-lightbox-thumbnail,.summer-lightbox-thumbnail img{transition:none}}

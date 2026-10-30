@@ -4,12 +4,28 @@
  const photos=[...gallery.querySelectorAll('[data-photo-index]')];
  if(!photos.length)return;
  const photo=dialog.querySelector('[data-full-photo]'),caption=dialog.querySelector('[data-photo-caption]'),counter=dialog.querySelector('[data-photo-counter]');
+ const thumbnails=document.createElement('div');thumbnails.className='summer-lightbox-thumbnails';thumbnails.setAttribute('aria-label','Photos in this category');dialog.append(thumbnails);
  let current=0,trigger=null;
+ function updateThumbnails(){
+  const category=photos[current].dataset.photoCategory;
+  thumbnails.replaceChildren();
+  photos.forEach((original,index)=>{
+   if(original.dataset.photoCategory!==category)return;
+   const button=document.createElement('button');button.type='button';button.className='summer-lightbox-thumbnail';
+   button.setAttribute('aria-label',original.querySelector('img').alt);
+   button.setAttribute('aria-pressed',String(index===current));
+   const image=original.querySelector('img').cloneNode(true);image.removeAttribute('width');image.removeAttribute('height');image.loading='lazy';button.append(image);
+   button.addEventListener('click',()=>{show(index);thumbnails.querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});});
+   thumbnails.append(button);
+  });
+  thumbnails.querySelector('[aria-pressed="true"]')?.scrollIntoView({block:'nearest',inline:'nearest'});
+ }
  function show(index){
   current=(index+photos.length)%photos.length;
   const image=photos[current].querySelector('img');
   photo.src=image.src;photo.alt=image.alt;
   caption.textContent=image.alt;
+  updateThumbnails();
   counter.textContent=`${photos[current].dataset.photoCategory} · ${current+1} / ${photos.length}`;
  }
  function open(index,button){trigger=button;show(index);dialog.showModal();}
