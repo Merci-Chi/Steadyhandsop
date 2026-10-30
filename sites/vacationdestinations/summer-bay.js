@@ -1,4 +1,24 @@
 (()=>{
+ document.querySelectorAll('.summer-resort-reviews').forEach((row,rowIndex)=>{
+  row.classList.add('guest-reviews-grid');row.id='resort-review-row-'+rowIndex;row.tabIndex=0;row.setAttribute('role','region');row.setAttribute('aria-label','Resort guest reviews');
+  row.querySelectorAll('.summer-resort-review').forEach(card=>{
+   card.classList.add('guest-review');
+   const mark=document.createElement('div');mark.className='guest-review-mark';mark.textContent='“';mark.setAttribute('aria-hidden','true');card.prepend(mark);
+   const name=card.querySelector(':scope > p');
+   if(name){
+    const author=document.createElement('div');author.className='guest-review-author';
+    const avatar=document.createElement('span');avatar.className='guest-review-avatar resort-review-initials';avatar.setAttribute('aria-hidden','true');avatar.textContent=name.textContent.trim().split(/\s+/).map(word=>word[0]).slice(0,2).join('').toUpperCase();
+    const title=document.createElement('h3');title.textContent=name.textContent;author.append(avatar,title);name.replaceWith(author);
+   }
+  });
+  const controls=document.createElement('div');controls.className='guest-review-controls';
+  const hint=document.createElement('p');hint.textContent='Scroll to explore all reviews';controls.append(hint);
+  [-1,1].forEach(direction=>{
+   const button=document.createElement('button');button.type='button';button.textContent=direction<0?'‹':'›';button.setAttribute('aria-label',direction<0?'Previous reviews':'Next reviews');button.setAttribute('aria-controls',row.id);
+   button.addEventListener('click',()=>{const card=row.querySelector('.guest-review');row.scrollBy({left:direction*(card.getBoundingClientRect().width+parseFloat(getComputedStyle(row).gap||0)),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});controls.append(button);
+  });row.before(controls);
+ });
+
  const gallery=document.querySelector('.summer-gallery-all'),dialog=document.querySelector('.summer-lightbox');
  if(!gallery||!dialog)return;
  const photos=[...gallery.querySelectorAll('[data-photo-index]')];
