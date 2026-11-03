@@ -112,6 +112,7 @@ form.addEventListener('submit',e=>{
   ['Preferred travel dates',details.travel||'Flexible / not specified'],
   ['Special requests',details.notes||'None']
  ];
+ savedRequestId=null;
  const markup=rows.map(([k,v])=>'<div class="reviewrow"><span>'+escapeHtml(k)+'</span><strong>'+escapeHtml(v)+'</strong></div>').join('');
  popupRows.innerHTML=markup;
  document.getElementById('reviewContent').innerHTML=markup;
@@ -121,7 +122,42 @@ form.addEventListener('submit',e=>{
 });
 popupClose.addEventListener('click',()=>{closePopup();go(1)});
 popupEdit.addEventListener('click',()=>{closePopup();go(1);form.querySelector('input[name="first"]').focus()});
-popupConfirm.addEventListener('click',()=>{const terms=document.getElementById('popupTerms');if(!terms.checked){terms.setCustomValidity('Please accept the package terms to continue.');terms.reportValidity();return}terms.setCustomValidity('');closePopup();go(3)});
+const requestEndpoint='https://wfxuxrvygyzonkflpwoq.supabase.co/functions/v1/vd-checkout-submit';
+const saveStatus=document.getElementById('checkoutSaveStatus');
+let savedRequestId=null;
+popupConfirm.addEventListener('click',async()=>{
+ const terms=document.getElementById('popupTerms');
+ if(!terms.checked){terms.setCustomValidity('Please accept the package terms to continue.');terms.reportValidity();return}
+ terms.setCustomValidity('');
+ if(savedRequestId){closePopup();go(3);return}
+ popupConfirm.disabled=true;
+ popupConfirm.textContent='Saving your request…';
+ saveStatus.textContent='';
+ try{
+  const response=await fetch(requestEndpoint,{
+   method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({
+    package_slug:slug,package_name:title,package_image:cover,
+    first_name:details.first,last_name:details.last,email:details.email,
+    phone:details.phone,adults:Number(details.adults),children:Number(details.children),
+    preferred_dates:details.travel||'',notes:details.notes||'',
+    terms_accepted:true,website:document.getElementById('vdWebsite')?.value||''
+   })
+  });
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok||!result.ok||!result.request_id)throw new Error(result.error||'Could not save your request. Please try again.');
+  savedRequestId=result.request_id;
+  const requestId=document.getElementById('savedRequestId');
+  if(requestId)requestId.textContent=result.request_id;
+  closePopup();go(3);
+ }catch(error){
+  saveStatus.textContent=error instanceof Error?error.message:'Unable to save the request.';
+  saveStatus.setAttribute('role','alert');
+ }finally{
+  popupConfirm.disabled=false;
+  popupConfirm.textContent='Confirm details & continue →';
+ }
+});
 document.getElementById('popupTerms').addEventListener('change',e=>e.target.setCustomValidity(''));
 dialog.addEventListener('click',e=>{if(e.target===dialog){closePopup();go(1)}});
 dialog.addEventListener('close',()=>{if(!document.getElementById('guestPanel').hidden)document.querySelectorAll('.step').forEach((el,i)=>el.classList.toggle('active',i===0))});
