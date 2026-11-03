@@ -114,3 +114,5 @@
 .checkout-modal .modal-terms{display:flex;align-items:flex-start;gap:11px;margin-top:17px;padding:15px;border:1px solid #cde5e9;border-radius:10px;background:#f1fafb;color:#315d69;font-size:12px;line-height:1.65;cursor:pointer}
 .checkout-modal .modal-terms input{flex:none;margin-top:3px;accent-color:#ff620e;width:17px;height:17px}
 .checkout-modal .modal-terms a{font-weight:800;color:#dd540d;text-decoration:underline}
+
+.checkout-save-status{color:#b93124;font-weight:700;font-size:12px;line-height:1.5;margin:10px 0 0}.checkout-save-status:empty{display:none}.vd-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}.checkout-modal .checkout-btn:disabled{opacity:.65;cursor:wait;box-shadow:none;transform:none}
