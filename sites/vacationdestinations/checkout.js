@@ -132,5 +132,5 @@ document.getElementById('continuePayment').addEventListener('click',()=>{
  terms.setCustomValidity('');go(3);
 });
 document.getElementById('terms').addEventListener('change',e=>e.target.setCustomValidity(''));
-document.getElementById('backReview').addEventListener('click',()=>go(2));
+document.getElementById('backReview').addEventListener('click',()=>go(1));
 })();
