@@ -85,6 +85,62 @@ function tryPhoto(){
 }
 tryPhoto();
 let details={};const form=document.getElementById('detailsForm');
+
+// Dynamic traveler and date management
+const adultContainer=document.getElementById('adultTravelers');
+const childContainer=document.getElementById('childTravelers');
+let adultSeq=0,childSeq=0;
+function adultCard(){
+ const idx=++adultSeq;
+ const card=document.createElement('fieldset');
+ card.className='traveler-card';
+ card.dataset.kind='adult';
+ card.innerHTML='<legend>Adult traveler <span class="traveler-index"></span></legend>'+
+ '<button class="remove-traveler" type="button" aria-label="Remove traveler">Remove</button>'+
+ '<div class="formgrid"><label><span class="field-label">Full name <span class="required">*</span></span><input data-field="name" autocomplete="off" maxlength="160" required placeholder="First and last name"></label>'+
+ '<label><span class="field-label">Date of birth <span class="required">*</span></span><input data-field="dob" type="date" required></label>'+
+ '<label><span class="field-label">Age</span><input data-field="age" type="number" min="18" max="120" readonly placeholder="Calculated from birth date"></label></div>';
+ card.querySelector('.remove-traveler').addEventListener('click',()=>{card.remove();renumber();syncTravelers()});
+ card.querySelector('[data-field="dob"]').addEventListener('change',()=>{const dob=card.querySelector('[data-field="dob"]').value;const now=new Date();const birth=new Date(dob+'T12:00:00');if(!dob||Number.isNaN(birth.getTime()))return;let age=now.getFullYear()-birth.getFullYear();if(now.getMonth()<birth.getMonth()||(now.getMonth()===birth.getMonth()&&now.getDate()<birth.getDate()))age--;card.querySelector('[data-field="age"]').value=age>=0?age:''});
+ adultContainer.append(card);renumber();syncTravelers();
+}
+function childCard(){
+ const card=document.createElement('fieldset');card.className='traveler-card';card.dataset.kind='child';
+ card.innerHTML='<legend>Child <span class="traveler-index"></span></legend><button class="remove-traveler" type="button">Remove</button>'+
+ '<div class="formgrid"><label><span class="field-label">Age <span class="required">*</span></span><input data-field="age" type="number" min="0" max="17" required placeholder="Age at travel"></label>'+
+ '<label><span class="field-label">Name <span class="optional">(optional)</span></span><input data-field="name" maxlength="160" placeholder="Child’s name"></label></div>';
+ card.querySelector('.remove-traveler').addEventListener('click',()=>{card.remove();renumber();syncTravelers()});
+ childContainer.append(card);renumber();syncTravelers();
+}
+function renumber(){
+ [...adultContainer.children].forEach((el,i)=>{el.querySelector('.traveler-index').textContent='#'+(i+1);el.querySelector('.remove-traveler').hidden=i===0});
+ [...childContainer.children].forEach((el,i)=>el.querySelector('.traveler-index').textContent='#'+(i+1));
+}
+function syncTravelers(){
+ // Keep count in sync with actual repeatable fields.
+}
+document.getElementById('addAdult').addEventListener('click',()=>{if(adultContainer.children.length<6)adultCard()});
+document.getElementById('addChild').addEventListener('click',()=>{if(childContainer.children.length<6)childCard()});
+adultCard();
+const travelFlexible=form.elements.namedItem('dates_flexible');
+const inDate=form.elements.namedItem('check_in'),outDate=form.elements.namedItem('check_out'),nightField=form.elements.namedItem('total_nights');
+function reconcileDates(){
+ const flexible=travelFlexible.checked;
+ for(const f of [inDate,outDate,nightField]){f.disabled=flexible;if(flexible)f.value=''}
+ if(!flexible&&inDate.value&&outDate.value){
+  const start=Date.parse(inDate.value+'T12:00:00'),end=Date.parse(outDate.value+'T12:00:00');
+  const days=Math.round((end-start)/86400000);
+  nightField.value=days>0?String(days):'';
+  outDate.setCustomValidity(days<=0?'Check-out must be after check-in.':'');
+ }else outDate.setCustomValidity('');
+}
+[inDate,outDate,travelFlexible].forEach(f=>f.addEventListener('change',reconcileDates));
+function getTravelerDetails(){
+ const adults=[...adultContainer.children].map(c=>({name:c.querySelector('[data-field="name"]').value.trim(),date_of_birth:c.querySelector('[data-field="dob"]').value,age:Number(c.querySelector('[data-field="age"]').value)}));
+ const children=[...childContainer.children].map(c=>({name:c.querySelector('[data-field="name"]').value.trim(),age:Number(c.querySelector('[data-field="age"]').value)}));
+ return {adults,children};
+}
+
 const dialog=document.getElementById('reviewDialog');
 const popupRows=document.getElementById('reviewPopupRows');
 const popupClose=document.getElementById('popupClose');
@@ -105,13 +161,26 @@ form.addEventListener('submit',e=>{
  e.preventDefault();
  if(!form.reportValidity())return;
  details=Object.fromEntries(new FormData(form).entries());
+ const persons=getTravelerDetails();
+ if(!persons.adults.length||persons.adults.some(p=>!p.name||!p.date_of_birth||!Number.isInteger(p.age)||p.age<18)){form.reportValidity();return}
+ details.travelers=persons;
+ details.adults=String(persons.adults.length);
+ details.children=String(persons.children.length);
+ details.travel=details.dates_flexible?'Undecided':([details.check_in,details.check_out].filter(Boolean).join(' to ')||'Undecided');
+
  const rows=[
-  ['Vacation package',title],['Advertised price',price===null?'To be confirmed':money(price)],
-  ['Primary guest',details.first+' '+details.last],['Email',details.email],['Phone',details.phone],
-  ['Travelers',details.adults+' adult(s), '+details.children+' child(ren)'],
-  ['Preferred travel dates',details.travel||'Flexible / not specified'],
-  ['Special requests',details.notes||'None']
- ];
+ ['Vacation package',title],['Advertised price',price===null?'To be confirmed':money(price)],
+ ['Primary contact',details.first+' '+details.last],['Email',details.email],['Phone',details.phone],
+ ['Mailing address',[details.street,details.apartment,details.city,details.state,details.postal_code,details.country].filter(Boolean).join(', ')],
+ ['Requested check-in',details.check_in||'Undecided'],['Expected check-out',details.check_out||'Undecided'],
+ ['Total nights',details.total_nights||'To be arranged'],['Travel dates undecided',details.dates_flexible?'Yes':'No'],
+ ...persons.adults.map((a,i)=>['Adult traveler '+(i+1),a.name+' · Age '+a.age+' · Born '+a.date_of_birth]),
+ ...persons.children.map((c,i)=>['Child '+(i+1), (c.name?c.name+' · ':'')+'Age '+c.age]),
+ ['Marital status',details.marital_status||'Not provided'],
+ ['Annual household income',details.annual_income||'Not provided'],
+ ['Major credit card',details.major_credit_card==='yes'?'Yes':details.major_credit_card==='no'?'No':'Not provided'],
+ ['Special requests',details.notes||'None']
+];
  savedRequestId=null;
  const markup=rows.map(([k,v])=>'<div class="reviewrow"><span>'+escapeHtml(k)+'</span><strong>'+escapeHtml(v)+'</strong></div>').join('');
  popupRows.innerHTML=markup;
@@ -122,6 +191,7 @@ form.addEventListener('submit',e=>{
 });
 popupClose.addEventListener('click',()=>{closePopup();go(1)});
 popupEdit.addEventListener('click',()=>{closePopup();go(1);form.querySelector('input[name="first"]').focus()});
+const personsCount=kind=>document.querySelectorAll('.traveler-card[data-kind="'+kind+'"]').length;
 const requestEndpoint='https://wfxuxrvygyzonkflpwoq.supabase.co/functions/v1/vd-checkout-submit';
 const saveStatus=document.getElementById('checkoutSaveStatus');
 let savedRequestId=null;
@@ -139,7 +209,10 @@ popupConfirm.addEventListener('click',async()=>{
    body:JSON.stringify({
     package_slug:slug,package_name:title,package_image:cover,
     first_name:details.first,last_name:details.last,email:details.email,
-    phone:details.phone,adults:Number(details.adults),children:Number(details.children),
+    phone:details.phone,adults:personsCount('adult'),children:personsCount('child'),
+    country:details.country,street_address:details.street,apartment:details.apartment,city:details.city,state:details.state,postal_code:details.postal_code,
+    check_in:details.check_in||null,check_out:details.check_out||null,total_nights:details.total_nights?Number(details.total_nights):null,dates_undecided:Boolean(details.dates_flexible),
+    travelers:details.travelers,marital_status:details.marital_status||null,annual_income:details.annual_income||null,major_credit_card:details.major_credit_card||null,
     preferred_dates:details.travel||'',notes:details.notes||'',
     terms_accepted:true,website:document.getElementById('vdWebsite')?.value||''
    })
