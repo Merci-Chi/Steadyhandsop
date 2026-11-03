@@ -115,13 +115,16 @@ form.addEventListener('submit',e=>{
  const markup=rows.map(([k,v])=>'<div class="reviewrow"><span>'+escapeHtml(k)+'</span><strong>'+escapeHtml(v)+'</strong></div>').join('');
  popupRows.innerHTML=markup;
  document.getElementById('reviewContent').innerHTML=markup;
+ document.querySelectorAll('.step').forEach((el,i)=>el.classList.toggle('active',i===1));
  if(typeof dialog.showModal==='function')dialog.showModal();
  else dialog.setAttribute('open','');
 });
-popupClose.addEventListener('click',closePopup);
-popupEdit.addEventListener('click',()=>{closePopup();form.querySelector('input[name="first"]').focus()});
-popupConfirm.addEventListener('click',()=>{closePopup();go(2)});
-dialog.addEventListener('click',e=>{if(e.target===dialog)closePopup()});
+popupClose.addEventListener('click',()=>{closePopup();go(1)});
+popupEdit.addEventListener('click',()=>{closePopup();go(1);form.querySelector('input[name="first"]').focus()});
+popupConfirm.addEventListener('click',()=>{const terms=document.getElementById('popupTerms');if(!terms.checked){terms.setCustomValidity('Please accept the package terms to continue.');terms.reportValidity();return}terms.setCustomValidity('');closePopup();go(3)});
+document.getElementById('popupTerms').addEventListener('change',e=>e.target.setCustomValidity(''));
+dialog.addEventListener('click',e=>{if(e.target===dialog){closePopup();go(1)}});
+dialog.addEventListener('close',()=>{if(!document.getElementById('guestPanel').hidden)document.querySelectorAll('.step').forEach((el,i)=>el.classList.toggle('active',i===0))});
 document.getElementById('editDetails').addEventListener('click',()=>go(1));
 document.getElementById('continuePayment').addEventListener('click',()=>{
  const terms=document.getElementById('terms');
