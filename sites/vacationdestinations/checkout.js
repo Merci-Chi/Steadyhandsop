@@ -15,7 +15,30 @@ const hasPackage=Boolean(slug||cleanName);
 document.getElementById('filled').hidden=!hasPackage;document.getElementById('empty').hidden=hasPackage;document.getElementById('count').textContent=hasPackage?'1':'0';if(!hasPackage)return;
 const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
 document.getElementById('productName').textContent=title;document.getElementById('packageDetail').textContent=stay;document.getElementById('packagePrice').textContent=price===null?'Confirm with reservations':money(price);document.getElementById('totalPrice').textContent=price===null?'To be confirmed':money(price);
-if(known?.[3]){const photo=known[3];document.getElementById('packageImage').style.backgroundImage='linear-gradient(0deg,#1115,#1111),url("'+photo+'")'}
+const imageEl=document.getElementById('packageImage');
+const imageArg=(q.get('image')||'').trim();
+const safeImage=/^images\/[a-zA-Z0-9_/-]+\.(?:webp|png|jpe?g)$/i;
+const mappedPhotos={
+'pkg-las-vegas-nv':'images/packages/vegas/photo-01.webp',
+'pkg-gatlinburg':'images/packages/gatlinburg/photo-01.webp',
+'package-hilton-head':'images/packages/hilton/photo-01.webp',
+'package-orlando-fl-the-club-at-holiday-inn-resort-by-kissimmee-park':'images/packages/holiday/photo-01.webp',
+'intpkg-freeport-bahamas':'images/packages/freeport/photo-01.webp',
+'intpkg-cancun-mx':'images/packages/cancun/photo-02.webp',
+'pkg-branson-mo':'images/packages/branson/photo-01.webp',
+'intpkg-cabo-san-lucas-mx':'images/packages/dominican/photo-01.webp',
+'intpkg-grand-cayman':'images/packages/cayman/photo-01.webp',
+'pkg-virginia-beach':'images/packages/virginia/photo-01.webp',
+'pkg-calyspo-cay-resort-orlando':'images/packages/cayman/photo-03.webp',
+'you-westgate-lake-resort':'images/destination-1.jpg',
+'orlando-florida-summerbay-1bdst':'images/summer-bay/resort-01.webp'
+};
+const preferred=safeImage.test(imageArg)&&!imageArg.includes('..')?imageArg:(mappedPhotos[slug]||known?.[3]||'');
+const fallback=known?.[3]||mappedPhotos[slug]||'images/summer-bay/resort-01.webp';
+const applyImage=src=>{imageEl.style.backgroundImage='linear-gradient(0deg,rgba(7,48,68,.08),rgba(7,48,68,.08)),url("'+src+'")';imageEl.setAttribute('aria-label',title+' vacation package photo')};
+if(preferred){
+const test=new Image();test.onload=()=>applyImage(preferred);test.onerror=()=>{const backup=new Image();backup.onload=()=>applyImage(fallback);backup.src=fallback};test.src=preferred;
+}else applyImage(fallback);
 let details={};const form=document.getElementById('detailsForm');
 const panelIds=['guestPanel','reviewPanel','paymentPanel'];
 function go(step){panelIds.forEach((id,i)=>document.getElementById(id).hidden=i!==step-1);document.querySelectorAll('.step').forEach((el,i)=>{el.classList.toggle('active',i+1===step);el.setAttribute('aria-current',i+1===step?'step':'false')});document.querySelector('.steps').scrollIntoView({behavior:'smooth',block:'start'})}
