@@ -85,3 +85,28 @@
 .checkout-body [hidden]{display:none!important}
 @media(max-width:930px){.checkout-page .columns{grid-template-columns:1fr}.checkout-page .summarycard{position:static}.checkout-page .steps{padding:16px}.checkout-page .steps .line{margin:0 6px}}
 @media(max-width:650px){.checkout-hero-inner{padding:0 18px}.checkout-hero{padding-bottom:60px}.checkout-page{padding:0 14px 70px}.checkout-page .steps{padding:14px 10px;gap:5px}.checkout-page .step{gap:5px}.checkout-page .step .number{width:31px;height:31px;font-size:10px}.checkout-page .step b{font-size:10px}.checkout-page .step small{display:none}.checkout-page .panel{padding:21px 17px}.checkout-page .panelhead{gap:10px}.checkout-page .panelhead .symbol{width:38px;height:38px}.checkout-page .panel h2{font-size:23px}.checkout-page .formgrid{grid-template-columns:1fr;gap:17px}.checkout-page .formgrid label.wide{grid-column:auto}.checkout-page .panel-foot{flex-direction:column;align-items:stretch}.checkout-page .panel-foot p{max-width:none}.checkout-page .checkout-btn{width:100%}.checkout-page .actions{flex-direction:column-reverse}.checkout-page .actions>*{width:100%}}
+
+/* Package photo and booking review modal */
+.checkout-page .packageimg{position:relative;overflow:hidden;background:#d6eff0}
+.checkout-page .packageimg>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.checkout-page .packageimg>img[hidden]{display:none!important}
+.checkout-page .photo-fallback{position:absolute;inset:0;background:linear-gradient(115deg,#0a3f52,#23949e);display:grid;place-items:center;color:white;font:400 25px 'Bree Serif',Georgia,serif}
+.checkout-modal{border:0;border-radius:18px;max-width:590px;width:calc(100% - 28px);padding:0;max-height:min(88vh,840px);background:#fffdfa;color:#073044;box-shadow:0 28px 100px #031e2b88;overflow-y:auto}
+.checkout-modal::backdrop{background:rgba(1,25,36,.7);backdrop-filter:blur(5px)}
+.checkout-modal .modal-head{padding:30px 35px 22px;background:linear-gradient(115deg,#073044,#126f80);position:relative;color:#fff}
+.checkout-modal .modal-eyebrow{color:#ffb179;font-size:10px;letter-spacing:2px;font-weight:900}
+.checkout-modal .modal-head h2{font:400 34px/1.2 'Bree Serif',Georgia,serif!important;letter-spacing:-.02em;margin:11px 0 7px;color:white}
+.checkout-modal .modal-head p{font-size:13px;margin:0;color:#d4ebee}
+.checkout-modal .modal-close{position:absolute;top:17px;right:20px;background:#ffffff21;color:white;border:1px solid #ffffff45;width:37px;height:37px;border-radius:50%;font-size:28px;line-height:1;cursor:pointer}
+.checkout-modal .modal-body{padding:27px 35px 12px}
+.checkout-modal .modal-section-title{font-size:11px;letter-spacing:1.3px;font-weight:900;color:#e75e10;margin-bottom:14px}
+.checkout-modal .reviewbox{border:1px solid #dfebec;border-radius:11px;overflow:hidden;background:white}
+.checkout-modal .reviewrow{display:grid;grid-template-columns:minmax(120px,.85fr) minmax(0,1.15fr);gap:18px;align-items:start;padding:14px 17px;border-bottom:1px solid #eaf0f0;font-size:13px;line-height:1.55}
+.checkout-modal .reviewrow:last-child{border:0}
+.checkout-modal .reviewrow span{color:#68848d}
+.checkout-modal .reviewrow strong{color:#073044;text-align:right;overflow-wrap:anywhere}
+.checkout-modal .modal-note{background:#e9f7f8;border-radius:8px;padding:12px 14px;color:#507680;margin:17px 0 0;font-size:12px}
+.checkout-modal .modal-actions{padding:20px 35px 30px;display:flex;gap:12px;justify-content:space-between}
+.checkout-modal .quietbtn{min-height:48px;padding:12px 20px;border:1px solid #cbdfe1;border-radius:10px;background:#f2f8f9;color:#073044;font-size:13px;font-weight:800;cursor:pointer}
+.checkout-modal .checkout-btn{display:inline-flex;min-height:48px;padding:12px 20px;border:1px solid #ef5b0b;border-radius:10px;background:#ff620e;color:#fff!important;font-size:13px;font-weight:800;align-items:center;justify-content:center;cursor:pointer;box-shadow:inset 2px 3px 5px #ffffff7a,inset -4px -5px 9px #a840195c,0 4px 0 #a4482080}
+@media(max-width:560px){.checkout-modal .modal-head{padding:28px 20px 22px}.checkout-modal .modal-body{padding:22px 18px 6px}.checkout-modal .modal-actions{padding:17px 18px 25px;flex-direction:column-reverse}.checkout-modal .modal-actions button{width:100%}.checkout-modal .reviewrow{grid-template-columns:1fr;gap:3px}.checkout-modal .reviewrow strong{text-align:left}}
