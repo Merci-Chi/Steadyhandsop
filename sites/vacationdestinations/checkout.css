@@ -116,3 +116,24 @@
 .checkout-modal .modal-terms a{font-weight:800;color:#dd540d;text-decoration:underline}
 
 .checkout-save-status{color:#b93124;font-weight:700;font-size:12px;line-height:1.5;margin:10px 0 0}.checkout-save-status:empty{display:none}.vd-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}.checkout-modal .checkout-btn:disabled{opacity:.65;cursor:wait;box-shadow:none;transform:none}
+
+/* Extended reservation details and repeatable travelers */
+.checkout-page .checkout-group-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid #dfeaec;margin:32px 0 19px;padding-bottom:12px;color:#073044;font:400 22px/1.2 'Bree Serif',Georgia,serif}
+.checkout-page .checkout-group-title:first-of-type{margin-top:5px}
+.checkout-page .checkout-group-title>span{color:#70919b;font:500 11px/1.5 'DM Sans',sans-serif;text-align:right}
+.checkout-page .checkbox-field .checkbox-line{display:flex;align-items:center;gap:10px;min-height:49px;padding:12px 13px;border:1px solid #d1dfe2;border-radius:9px;background:#f4fafb;color:#244c5a;font-size:12px;font-weight:600}
+.checkout-page .checkbox-field input[type=checkbox]{width:17px;height:17px;min-height:0;accent-color:#ff620e;box-shadow:none}
+.checkout-page .field-help{color:#6c8790;font-size:11px;line-height:1.6;font-weight:400}
+.checkout-page .traveler-collection{display:grid;gap:15px}
+.checkout-page .traveler-card{position:relative;border:1px solid #dce9eb;border-radius:12px;background:#fcfefe;padding:17px 18px 20px;margin:0;min-width:0}
+.checkout-page .traveler-card legend{padding:0 9px;color:#0c5061;font-weight:900;font-size:13px}
+.checkout-page .traveler-card .traveler-index{font-size:11px;color:#ee631b}
+.checkout-page .traveler-card .remove-traveler{position:absolute;top:8px;right:13px;background:transparent;border:0;color:#b84a27;font-size:12px;font-weight:800;padding:6px;cursor:pointer}
+.checkout-page .traveler-card .remove-traveler[hidden]{display:none!important}
+.checkout-page .traveler-card .formgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.checkout-page .traveler-card input[readonly]{background:#f0f6f7;color:#5d7e88}
+.checkout-page .add-traveler{display:inline-flex;align-items:center;gap:10px;border:1px dashed #1690a1;color:#0d7183;background:#eefbfc;border-radius:9px;padding:11px 15px;margin:14px 0 8px;font-size:13px;font-weight:900;cursor:pointer}
+.checkout-page .add-traveler:hover{background:#dff5f7}
+.checkout-page .add-traveler>span{font-size:19px;line-height:1}
+.checkout-page .formgrid input:disabled{background:#f2f3f2;color:#9aa8a8}
+@media(max-width:650px){.checkout-page .checkout-group-title{display:block;font-size:20px}.checkout-page .checkout-group-title>span{display:block;text-align:left;margin-top:5px}.checkout-page .traveler-card .formgrid{grid-template-columns:1fr}.checkout-page .traveler-card .formgrid label{grid-column:auto}}
