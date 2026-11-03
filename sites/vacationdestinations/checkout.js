@@ -1,9 +1,9 @@
 (()=>{'use strict';
 const q=new URLSearchParams(location.search);
 const slugByOriginal={
-'pkg-orlando-florida-std':['Summer Bay Orlando · 1-Bedroom Condo',149,'5 days · 4 nights','images/packages/orlando/photo-01.webp'],
-'pkg-orlando-fl-ste':['Summer Bay Orlando · 2-Bedroom Condo',199,'5 days · 4 nights','images/packages/orlando/photo-01.webp'],
-'pkg-daytona-beach-fl':['Daytona Beach Getaway',null,'4 days · 3 nights','images/packages/daytona/photo-01.webp']};
+'pkg-orlando-florida-std':['Summer Bay Orlando · 1-Bedroom Condo',149,'5 days · 4 nights','images/summer-bay/resort-01.webp'],
+'pkg-orlando-fl-ste':['Summer Bay Orlando · 2-Bedroom Condo',199,'5 days · 4 nights','images/summer-bay/resort-01.webp'],
+'pkg-daytona-beach-fl':['Daytona Beach Getaway',null,'4 days · 3 nights','images/daytona/resort-01.webp']};
 const allowedPrice=Object.freeze({'pkg-orlando-florida-std':149,'pkg-orlando-fl-ste':199});
 const productParam=q.get('package')||'';
 let slug=productParam.toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,100);
