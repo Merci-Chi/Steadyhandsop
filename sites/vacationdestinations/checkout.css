@@ -110,3 +110,7 @@
 .checkout-modal .quietbtn{min-height:48px;padding:12px 20px;border:1px solid #cbdfe1;border-radius:10px;background:#f2f8f9;color:#073044;font-size:13px;font-weight:800;cursor:pointer}
 .checkout-modal .checkout-btn{display:inline-flex;min-height:48px;padding:12px 20px;border:1px solid #ef5b0b;border-radius:10px;background:#ff620e;color:#fff!important;font-size:13px;font-weight:800;align-items:center;justify-content:center;cursor:pointer;box-shadow:inset 2px 3px 5px #ffffff7a,inset -4px -5px 9px #a840195c,0 4px 0 #a4482080}
 @media(max-width:560px){.checkout-modal .modal-head{padding:28px 20px 22px}.checkout-modal .modal-body{padding:22px 18px 6px}.checkout-modal .modal-actions{padding:17px 18px 25px;flex-direction:column-reverse}.checkout-modal .modal-actions button{width:100%}.checkout-modal .reviewrow{grid-template-columns:1fr;gap:3px}.checkout-modal .reviewrow strong{text-align:left}}
+
+.checkout-modal .modal-terms{display:flex;align-items:flex-start;gap:11px;margin-top:17px;padding:15px;border:1px solid #cde5e9;border-radius:10px;background:#f1fafb;color:#315d69;font-size:12px;line-height:1.65;cursor:pointer}
+.checkout-modal .modal-terms input{flex:none;margin-top:3px;accent-color:#ff620e;width:17px;height:17px}
+.checkout-modal .modal-terms a{font-weight:800;color:#dd540d;text-decoration:underline}
