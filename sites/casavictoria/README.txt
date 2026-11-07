@@ -1,27 +1,27 @@
-Alterations Casa-Victoria website
+ALTERATIONS CASA-VICTORIA — Reference-Matched Homepage
 
-Open index.html in any browser. Upload all files/folders together to web hosting.
+Open index.html in your browser, or upload this folder to your hosting provider.
 
-Site files: index.html, css.css, js.js, images/*.webp.
+FILES
+- index.html — structure and page content
+- css.css — styling, responsive breakpoints, decorative curves
+- js.js — menu, gallery, background parallax
+- images/ — source photos from the existing Casa-Victoria website
 
-Business hours are HTML text (not an image). Monday-Friday 10AM-6PM, Saturday-Sunday closed.
+The design follows the supplied full-page mockup closely, but uses actual studio photos and business information rather than generated mockup details. Decorative burgundy fabric is CSS-based, and flourishes/icons are vector shapes.
 
-Before publishing: Confirm public rights/consent for supplied photos, especially identifiable people; verify address/phone, services, hours and appointment requirements with the business owner. Images of garments do not in themselves prove the studio performed the work. No appointment booking or backend form is claimed.
+Transparent assets that would make it even closer to the concept:
+1. An original gold Casa-Victoria logo/wordmark on transparent background (PNG or SVG).
+2. Burgundy satin drapery cutouts for the left and right bottom corners (transparent PNG/WebP).
+3. A gold spool of thread and rolled measuring tape as transparent PNG/WebP for the contact/footer corner.
+4. Optional hand-drawn gold scissor/flourish ornaments (SVG/transparent PNG) if you want an exact match for the ornate decorations.
 
-UPDATES: sticky header, shadows on card surfaces, accessible scroll reveals and free Lucide open-source SVG icon library (requires internet connection to load icons from pinned unpkg CDN). Reduced-motion preferences supported.
+Normal photos (NOT transparent): framed wedding/bridal photo, suit hero image, service photos and gallery photos.
 
+Note: Facebook/Instagram/Yelp links currently lead to business searches instead of unverified business profile links. All featured garment photos are the existing website assets.
 
-OCTOBER 27 UPDATE
-- Official user-provided logo in images/casa-victoria-official-logo.png
-- Google rating shown as 5.0 from 13 reviews as checked Oct 27, 2026; count may change.
-- 'Read All Reviews' opens Google listing. Reviews have NOT been copied without verification.
-- Yelp / Instagram / Facebook are SEARCH links, not asserted verified official profiles. Replace with official profile URLs upon confirmation.
-- Text rises in when scrolling, with accessible reduced-motion fallback.
-
-
-60/30/10 palette update:
-- 60% warm ivory: #FFF9F0 / #FFFDF9 backgrounds and breathing room
-- 30% neutral support: #EFE7DB sand sections and #292323 dark text/footers
-- 10% brand accents: #A30C20 red for calls-to-action, #EFB72C gold for highlights; minimal #087777 teal
-This is a design allocation principle rather than pixel-exact measurement.
-All previous images, URLs, sticky navigation, card shadows and text/scroll reveal animations remain intact.
+SOCIAL MEDIA ICONS
+The four footer brand icons use free, open-source Bootstrap Icons via the jsDelivr CDN:
+https://icons.getbootstrap.com/
+https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css
+An internet connection is required to render these brand icons when opening index.html locally.
