@@ -220,7 +220,7 @@
         const localISO=`${p.year}-${pad2(p.month)}-${pad2(p.day)}`;
         const nextDay=localISO!==date?`<small>${escapeText(localDay(instant,visitorTZ))}</small>`:'';
         const booked=availabilityState==='ready'&&!availableSlots.includes(instant);
-        return `<button type="button" class="sb-time ${booked?'is-booked':''} ${time===instant&&!booked?'is-picked':''}" data-time="${instant}" aria-pressed="${time===instant&&!booked}" aria-label="${escapeText(localTime(instant,visitorTZ))}${booked?' (Booked)':''}" ${booked?'disabled aria-disabled="true" title="Already booked"':''}>${escapeText(localTime(instant,visitorTZ))}${nextDay}${booked?'<small class="sb-booked-label">Booked</small>':''}</button>`;
+        return `<button type="button" class="sb-time ${booked?'is-booked':''} ${time===instant&&!booked?'is-picked':''}" data-time="${instant}" aria-pressed="${time===instant&&!booked}" aria-label="${escapeText(localTime(instant,visitorTZ))}${booked?' (Unavailable)':''}" ${booked?'disabled aria-disabled="true" title="Unavailable"':''}>${escapeText(localTime(instant,visitorTZ))}${nextDay}${booked?'<small class="sb-booked-label">Unavailable</small>':''}</button>`;
       }).join('')}</div>
       ${availabilityState==='ready'&&!base.some(x=>availableSlots.includes(x))?'<p class="sb-helper">All times are booked on this date. Please choose another day.</p>':''}
       <div class="sb-selected"><span>Selected time</span><strong>${escapeText(displayedTime(time))}</strong></div>
@@ -367,7 +367,7 @@
           customer:{business:data.business.trim(),name:data.name.trim(),email:data.email.trim(),phone:data.phone.trim(),notes:data.notes.trim()}
         })
       });
-      if(response.status===409){step=2;time='';availabilityCache.clear();await fetchAvailability(date);notice.textContent='That time was just booked. Please choose another available time.';return;}
+      if(response.status===409){step=2;time='';availabilityCache.clear();await fetchAvailability(date);notice.textContent='That time is unavailable. Please choose another time.';return;}
       if(!response.ok)throw new Error('Booking submission rejected');
       const result=await response.json();
       if(result?.success!==true || result?.status!=='submitted')throw new Error('Booking submission not acknowledged');
@@ -395,7 +395,7 @@
   $('#sb-next',root).addEventListener('click',()=>{
     if(step===1&&!date){notice.textContent='Please choose a date to continue.';return;}
     if(step===2&&!time){notice.textContent='Please choose an available time to continue.';return;}
-    if(step===2&&availabilityState==='ready'&&!availableSlots.includes(time)){time='';renderTime();notice.textContent='That time has been booked. Please choose another.';return;}
+    if(step===2&&availabilityState==='ready'&&!availableSlots.includes(time)){time='';renderTime();notice.textContent='That time is unavailable. Please choose another.';return;}
     if(step===2&&availabilityState!=='ready'&&String(window.STEADY_AVAILABILITY_ENDPOINT||'').trim()){notice.textContent='Unable to verify availability. Please try again.';return;}
     if(step===2&&availabilityState==='loading'){notice.textContent='Checking availability. Please choose a time when the options load.';return;}
     if(step===3){const form=$('#sb-fields',stage);if(!form.reportValidity())return;}
