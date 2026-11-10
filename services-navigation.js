@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const menus = [...document.querySelectorAll('#services-menu, #mobile-services-menu')];
+  const menus = [...document.querySelectorAll('#services-menu, #mobile-services-menu, #resources-menu, #mobile-resources-menu')];
   if (!menus.length) return;
   for (const menu of menus) {
     const toggles = [...menu.querySelectorAll('.services-group-trigger')];
@@ -19,7 +19,7 @@
       }
     }));
     // Whenever the entire services menu closes, reset nested disclosure state.
-    const rootId = menu.id === 'services-menu' ? 'services-menu' : 'mobile-services-menu';
+    const rootId = menu.id;
     const outer = document.querySelector(`[aria-controls="${rootId}"]`);
     if (outer) {
       new MutationObserver(() => {
