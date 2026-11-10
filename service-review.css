@@ -33,3 +33,18 @@
 .sb-email-icon{width:68px;height:68px;margin:0 auto 17px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#159cff,#0758e8);box-shadow:0 10px 25px #1978e633;font-size:34px}
 .sb-copy-request{margin-top:14px;padding:10px 16px;border-radius:999px;border:1px solid #9bc7fb;background:#fff;color:#0d428c;font-weight:800;cursor:pointer}
 .sb-copy-request:hover{background:#e8f4ff}
+
+
+/* Reserved consultations stay visible but cannot be selected. */
+.sb-time.is-booked,
+.sb-time.is-booked:disabled{
+  opacity:.65;
+  background:#e5eaf1!important;
+  color:#74849a!important;
+  border-color:#c8d2df!important;
+  box-shadow:none!important;
+  cursor:not-allowed!important;
+  pointer-events:none;
+}
+.sb-time.is-booked:hover{transform:none!important;background:#e5eaf1!important}
+.sb-time .sb-booked-label{display:block;margin-top:3px;color:#65758b!important;font-size:10px;font-weight:800}
