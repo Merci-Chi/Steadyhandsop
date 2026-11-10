@@ -45,3 +45,11 @@
 #services-menu .services-group-trigger{padding:11px 12px;font-size:13.5px;}
 #mobile-services-menu{max-height:min(65vh,620px);overflow-y:auto;}
 #mobile-services-menu .services-group-trigger{padding:12px 12px;font-size:14px;}
+
+/* Business Resources reuses the Services accordion layout and interactions. */
+#resources-menu{width:min(385px,calc(100vw - 28px));max-height:min(73vh,670px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:12px;align-content:start}
+#resources-menu .services-group-trigger,#mobile-resources-menu .services-group-trigger{display:flex;align-items:center;gap:9px;justify-content:space-between;width:100%;min-width:0;margin:0;padding:13px 12px;color:#0a2358;background:transparent;border:0;border-radius:11px;text-align:left;font:800 14px/1.4 Manrope,Arial,sans-serif;cursor:pointer}
+#resources-menu .services-group-trigger:hover,#resources-menu .services-group-trigger:focus-visible,#resources-menu .services-group-trigger[aria-expanded="true"],#mobile-resources-menu .services-group-trigger:hover,#mobile-resources-menu .services-group-trigger:focus-visible,#mobile-resources-menu .services-group-trigger[aria-expanded="true"]{color:#0b50dc;background:#e8f3ff;box-shadow:inset 3px 0 #139cf4}
+#resources-menu .service-option-link,#mobile-resources-menu .service-option-link{display:block;width:100%;min-width:0;padding:10px;color:#0d2b5f;text-decoration:none;border-radius:9px;font:700 12px/1.45 Manrope,Arial,sans-serif;white-space:normal;overflow-wrap:break-word}
+#resources-menu .service-option-link:hover,#resources-menu .service-option-link:focus-visible,#mobile-resources-menu .service-option-link:hover,#mobile-resources-menu .service-option-link:focus-visible{color:#0b50dc;background:#e8f3ff}
+#resources-menu .resource-sub-note,#mobile-resources-menu .resource-sub-note{font:600 11px/1.4 Manrope,Arial,sans-serif;color:#6a86a5;padding:5px 10px 10px}
