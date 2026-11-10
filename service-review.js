@@ -95,7 +95,7 @@
     availableSlots=null; availabilityMessage='';
     if(!endpoint){availabilityState='not-configured';return;}
     if(!/^https:\/\//i.test(endpoint)){availabilityState='error';availabilityMessage='Availability service is not configured correctly.';return;}
-    if(availabilityCache.has(day)){availableSlots=availabilityCache.get(day);availabilityState='ready';return;}
+    // Always get a fresh snapshot: another visitor may have booked a slot since the last check.
     const request=++availabilityRequest;
     availabilityState='loading';renderTime();
     try{
@@ -109,9 +109,9 @@
       const baseSlots=new Set(slotsForDay(day));
       const confirmed=new Set(body.available.filter(x=>typeof x==='string' && !Number.isNaN(Date.parse(x))).map(x=>new Date(x).toISOString()));
       const result=[...baseSlots].filter(x=>confirmed.has(x));
-      availabilityCache.set(day,result);
       if(request!==availabilityRequest||date!==day||root.hidden)return;
       availableSlots=result;availabilityState='ready';
+      if(time&&!availableSlots.includes(time))time='';
     }catch(err){
       if(request!==availabilityRequest||date!==day||root.hidden)return;
       availableSlots=[];availabilityState='error';availabilityMessage='Unable to load appointment times. Please try again.';
@@ -204,7 +204,8 @@
   }
   function renderTime(){
     const base=slotsForDay(date);
-    const slots = availabilityState==='ready'?base.filter(x=>availableSlots.includes(x))
+    // Keep all standard slots visible. The API returns only those still free.
+    const slots = availabilityState==='ready'?base
       : (availabilityState==='loading'||availabilityState==='error')?[]:base;
     const choices = TZ_OPTIONS.some(o=>o[0]===visitorTZ)
       ? TZ_OPTIONS : [[visitorTZ,`Your timezone (${getTimezoneLabel(visitorTZ)})`],...TZ_OPTIONS];
@@ -218,14 +219,15 @@
         const p=zoneParts(new Date(instant),visitorTZ);
         const localISO=`${p.year}-${pad2(p.month)}-${pad2(p.day)}`;
         const nextDay=localISO!==date?`<small>${escapeText(localDay(instant,visitorTZ))}</small>`:'';
-        return `<button type="button" class="sb-time ${time===instant?'is-picked':''}" data-time="${instant}" aria-pressed="${time===instant}">${escapeText(localTime(instant,visitorTZ))}${nextDay}</button>`;
+        const booked=availabilityState==='ready'&&!availableSlots.includes(instant);
+        return `<button type="button" class="sb-time ${booked?'is-booked':''} ${time===instant&&!booked?'is-picked':''}" data-time="${instant}" aria-pressed="${time===instant&&!booked}" aria-label="${escapeText(localTime(instant,visitorTZ))}${booked?' (Booked)':''}" ${booked?'disabled aria-disabled="true" title="Already booked"':''}>${escapeText(localTime(instant,visitorTZ))}${nextDay}${booked?'<small class="sb-booked-label">Booked</small>':''}</button>`;
       }).join('')}</div>
-      ${availabilityState==='ready'&&!slots.length?'<p class="sb-helper">No appointment times available on this date. Please choose another day.</p>':''}
+      ${availabilityState==='ready'&&!base.some(x=>availableSlots.includes(x))?'<p class="sb-helper">All times are booked on this date. Please choose another day.</p>':''}
       <div class="sb-selected"><span>Selected time</span><strong>${escapeText(displayedTime(time))}</strong></div>
       <p class="sb-tz-hint">Pacific base: ${escapeText(date ? niceDay(date) : '')}. Your time may fall on a different local date.</p>
     </div>`;
     stage.querySelector('#sb-timezone').addEventListener('change',e=>{visitorTZ=e.target.value;renderTime();});
-    stage.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>{time=b.dataset.time;renderTime();}));
+    stage.querySelectorAll('[data-time]:not([disabled])').forEach(b=>b.addEventListener('click',()=>{if(availabilityState==='ready'&&!availableSlots.includes(b.dataset.time))return;time=b.dataset.time;renderTime();}));
     stage.querySelector('.sb-retry')?.addEventListener('click',()=>fetchAvailability(date));
   }
   function renderInfo(){
@@ -365,6 +367,7 @@
           customer:{business:data.business.trim(),name:data.name.trim(),email:data.email.trim(),phone:data.phone.trim(),notes:data.notes.trim()}
         })
       });
+      if(response.status===409){step=2;time='';availabilityCache.clear();await fetchAvailability(date);notice.textContent='That time was just booked. Please choose another available time.';return;}
       if(!response.ok)throw new Error('Booking submission rejected');
       const result=await response.json();
       if(result?.success!==true || result?.status!=='submitted')throw new Error('Booking submission not acknowledged');
@@ -391,7 +394,9 @@
   $('#sb-back',root).addEventListener('click',()=>{if(step>0){step--;render()}});
   $('#sb-next',root).addEventListener('click',()=>{
     if(step===1&&!date){notice.textContent='Please choose a date to continue.';return;}
-    if(step===2&&!time){notice.textContent='Please choose a time to continue.';return;}
+    if(step===2&&!time){notice.textContent='Please choose an available time to continue.';return;}
+    if(step===2&&availabilityState==='ready'&&!availableSlots.includes(time)){time='';renderTime();notice.textContent='That time has been booked. Please choose another.';return;}
+    if(step===2&&availabilityState!=='ready'&&String(window.STEADY_AVAILABILITY_ENDPOINT||'').trim()){notice.textContent='Unable to verify availability. Please try again.';return;}
     if(step===2&&availabilityState==='loading'){notice.textContent='Checking availability. Please choose a time when the options load.';return;}
     if(step===3){const form=$('#sb-fields',stage);if(!form.reportValidity())return;}
     if(step===4){submitBooking();return;}
