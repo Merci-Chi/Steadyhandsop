@@ -222,7 +222,7 @@
         const booked=availabilityState==='ready'&&!availableSlots.includes(instant);
         return `<button type="button" class="sb-time ${booked?'is-booked':''} ${time===instant&&!booked?'is-picked':''}" data-time="${instant}" aria-pressed="${time===instant&&!booked}" aria-label="${escapeText(localTime(instant,visitorTZ))}${booked?' (Unavailable)':''}" ${booked?'disabled aria-disabled="true" title="Unavailable"':''}>${escapeText(localTime(instant,visitorTZ))}${nextDay}${booked?'<small class="sb-booked-label">Unavailable</small>':''}</button>`;
       }).join('')}</div>
-      ${availabilityState==='ready'&&!base.some(x=>availableSlots.includes(x))?'<p class="sb-helper">All times are booked on this date. Please choose another day.</p>':''}
+      ${availabilityState==='ready'&&!base.some(x=>availableSlots.includes(x))?'<p class="sb-helper">No times are available on this date. Please choose another day.</p>':''}
       <div class="sb-selected"><span>Selected time</span><strong>${escapeText(displayedTime(time))}</strong></div>
       <p class="sb-tz-hint">Pacific base: ${escapeText(date ? niceDay(date) : '')}. Your time may fall on a different local date.</p>
     </div>`;
