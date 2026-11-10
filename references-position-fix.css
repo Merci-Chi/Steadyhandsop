@@ -1,0 +1,37 @@
+/* References-only position correction. Must load AFTER references-layout-compact.css.
+   Keep hero size, heading, customer note, background and other page elements fixed. */
+@media (min-width: 821px) {
+  .references-main .ref-hero .ref-hero-art {
+    bottom: calc(-2.5% + 66px);
+  }
+  .references-main > .ref-showcase {
+    position: relative;
+    z-index: 10;
+    margin-top: -104px;
+  }
+}
+@media (min-width: 821px) and (max-width: 1040px) {
+  .references-main .ref-hero .ref-hero-art {
+    bottom: 66px;
+  }
+}
+@media (min-width: 641px) and (max-width: 820px) {
+  .references-main .ref-hero .ref-hero-art {
+    bottom: 38px;
+  }
+  .references-main > .ref-showcase {
+    position: relative;
+    z-index: 10;
+    margin-top: -65px;
+  }
+}
+@media (max-width: 640px) {
+  .references-main .ref-hero .ref-hero-art {
+    bottom: calc(-2% + 27px);
+  }
+  .references-main > .ref-showcase {
+    position: relative;
+    z-index: 10;
+    margin-top: -38px;
+  }
+}

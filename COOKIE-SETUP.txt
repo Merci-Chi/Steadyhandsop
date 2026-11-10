@@ -1,0 +1,7 @@
+Cookie preferences implementation
+
+The compact banner appears 3 seconds after the first page load until a choice is made. The X dismisses it for the current tab session only. Choices persist in localStorage. Visitors can reopen Cookie Settings at bottom-left after dismissal.
+
+Essential storage (service selections and privacy choice) is kept active. Optional third-party resources (Google Translate and client reference iframes) are gated by opt-in; direct Visit Website links remain available. External booking providers can have their own cookie settings.
+
+Before launch, publish a real Privacy Policy and Terms of Service, audit any external scripts or tracking tags, and update the consent categories if you add analytics or advertising.

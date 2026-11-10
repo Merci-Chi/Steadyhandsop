@@ -1,0 +1,41 @@
+/* Both homepage and Client References now use a single, shared title rule.
+   This is taken from the homepage hero-title styling. */
+.hero .hero-copy h1,
+.ref-hero .ref-hero-copy h1 {
+  display:block;
+  max-width:100%;
+  margin:0;
+  font-family:"Manrope",sans-serif;
+  font-size:clamp(29px,4.3vw,66px);
+  line-height:1.12;
+  letter-spacing:-.066em;
+  font-weight:900;
+  color:#06184c;
+  mix-blend-mode:normal;
+  -webkit-text-stroke:0;
+  text-shadow:0 2px 0 rgba(255,255,255,.88),0 5px 3px rgba(6,24,76,.25);
+  text-align:center;
+  white-space:normal;
+  text-wrap:balance;
+}
+/* Both headline underlines share the same length and appearance. */
+.hero .hero-copy .title-underline,
+.ref-hero .ref-hero-copy .ref-line {
+  height:8px;
+  width:min(380px,75%);
+  max-width:75%;
+  margin:17px auto 0;
+  border-radius:18px;
+  background:linear-gradient(90deg,#1029f4,#0649f6 52%,#03c6fa);
+  box-shadow:0 2px 0 #c9ecff,0 4px 10px #052c7b36;
+}
+@media(max-width:820px){
+  .hero .hero-copy h1,
+  .ref-hero .ref-hero-copy h1 {font-size:clamp(32px,7.4vw,52px);}
+}
+@media(max-width:640px){
+  .hero .hero-copy h1,
+  .ref-hero .ref-hero-copy h1 {font-size:clamp(32px,9vw,43px);}
+  .hero .hero-copy .title-underline,
+  .ref-hero .ref-hero-copy .ref-line {width:84px;height:5px;margin-top:12px;}
+}

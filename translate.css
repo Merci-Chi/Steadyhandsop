@@ -1,0 +1,35 @@
+/* Custom language picker shared by all Steady Hands pages */
+:root{--translate-header-offset:0px}
+html{scroll-padding-top:calc(var(--header-h) + var(--translate-header-offset) + 8px)}
+.site-header,.services-body .site-header{top:var(--translate-header-offset)}
+.mobile-nav{top:calc(var(--header-h) + var(--translate-banner-height, 0px));max-height:calc(100dvh - var(--header-h) - var(--translate-banner-height, 0px))}
+.language-picker{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;font-family:Manrope,Arial,sans-serif;z-index:180}
+.language-toggle{display:grid;place-items:center;width:43px;height:43px;min-width:43px;min-height:43px;padding:0!important;border:1px solid #c8dcf5!important;border-radius:50%!important;background:linear-gradient(150deg,#fff,#e6f3ff)!important;color:#15396c!important;box-shadow:0 4px 12px #0f35651c!important;cursor:pointer;transition:box-shadow .2s,transform .2s,border-color .2s}
+.language-toggle:hover,.language-toggle[aria-expanded="true"]{border-color:#4f9ae7!important;box-shadow:0 5px 16px #0873cc35!important;transform:translateY(-1px)}
+.language-toggle:focus-visible,.language-panel button:focus-visible{outline:3px solid #1586df;outline-offset:2px}
+.language-panel{position:absolute;top:calc(100% + 13px);right:0;width:min(340px,calc(100vw - 20px));max-height:min(75vh,570px);overflow-y:auto;overscroll-behavior:contain;background:#fff;border:1px solid #cbdff6;border-radius:17px;box-shadow:0 18px 55px #071e4860;padding:12px;z-index:250;color:#102b58;text-align:left;white-space:normal}
+.language-panel[hidden],.language-extra[hidden]{display:none!important}
+.language-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:800;padding:5px 6px 11px}
+.language-close{border:0!important;background:transparent!important;color:#23456f!important;font-size:24px!important;line-height:1!important;padding:2px 7px!important;width:auto!important;cursor:pointer}
+.language-options,.language-extra{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.language-option{display:flex!important;justify-content:space-between;align-items:center;gap:3px;width:100%;border:1px solid transparent!important;border-radius:9px!important;background:#f3f8ff!important;color:#163b71!important;font:700 12px/1.35 Manrope,Arial,sans-serif!important;text-align:left!important;padding:12px 9px!important;cursor:pointer;min-height:42px}
+.language-option:hover{background:#e3f1ff!important;border-color:#b8dafc!important}
+.language-option[aria-current="true"]{background:#d9edff!important;color:#0756b1!important;border-color:#85bdf5!important}
+.language-option[aria-current="true"]::after{content:'✓';color:#0873d8;font-weight:900}
+.language-more{display:flex!important;width:100%;align-items:center;justify-content:center;gap:7px;padding:11px 10px!important;margin:10px 0 2px;border:1px solid #c6dcf5!important;border-radius:10px!important;background:#fff!important;color:#105b9e!important;font:800 12px Manrope,Arial,sans-serif!important;cursor:pointer}
+.language-more:hover{background:#edf6ff!important}
+.language-more[aria-expanded="true"] span{transform:rotate(180deg)}
+.language-extra{margin-top:8px}
+.language-credit{font:500 10px/1.4 Manrope,Arial,sans-serif;color:#607992;padding:11px 5px 2px;text-align:center}
+.language-picker-mobile{display:none}
+.translate-native{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;left:-9999px!important;top:0!important}
+/* Google may insert its own translation toolbar. We measure the visible toolbar dynamically, and compensate only for the portion Google did not already push the body down. */
+@media(max-width:800px){
+ .site-header .language-picker-mobile{display:inline-flex;order:2;margin-left:3px}
+ .site-header .language-picker:not(.language-picker-mobile){display:none}
+ .site-header .menu-toggle{order:3;margin-left:4px}
+ .site-header .wordmark{margin-right:auto}
+ .language-panel{right:-55px;top:calc(100% + 15px);max-height:min(75dvh,550px)}
+ .language-toggle{width:40px;height:40px;min-width:40px;min-height:40px}
+}
+@media(max-width:390px){.language-toggle{width:37px;height:37px;min-width:37px;min-height:37px}.language-panel{right:-52px}}

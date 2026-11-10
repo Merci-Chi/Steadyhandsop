@@ -1,0 +1,7 @@
+Steady Hands — enhanced gradient wave footer
+
+The single slim footer on all five pages is styled by slim-footer.css.
+Bright white legal text stays above decorative layers; waves are layered at the lower edge.
+Privacy Policy and Terms of Service are placeholders without links until actual pages exist.
+
+Terms & Conditions opens the existing Website-Specific Services Agreement at https://portal.steadyhandsop.com/terms-and-conditions.html. Privacy Policy remains a placeholder until a policy is provided.

@@ -1,0 +1,22 @@
+
+/* 2026-11: translation-safe header layout. Long translated labels must never overlap. */
+.site-header{--fit-brand-size:clamp(52px,4.3vw,70px);--fit-nav-size:16px;--fit-nav-gap:clamp(8px,1.1vw,18px)}
+.site-header .wordmark{min-width:0;flex:0 1 auto;gap:clamp(4px,.65vw,11px);max-width:100%;}
+.site-header .brand-name{font-size:var(--fit-brand-size);line-height:1.05;display:block;white-space:nowrap;flex:0 1 auto;min-width:0;}
+.site-header .brand-subtitle{flex:0 0 auto;align-self:center;display:block;white-space:normal;max-width:145px;line-height:1.2;text-align:left;transform:translateY(-4px);}
+.site-header .desktop-nav{min-width:0;flex:0 0 auto;gap:var(--fit-nav-gap);}
+.site-header .desktop-nav .nav-link{font-size:var(--fit-nav-size);padding-inline:clamp(5px,.65vw,11px);}
+.site-header .header-actions{flex:0 0 auto;min-width:0;}
+.site-header .header-actions .primary-btn{max-width:290px;padding-inline:clamp(10px,1.3vw,24px);min-width:0;white-space:normal;text-align:center;line-height:1.15;height:auto;min-height:56px;}
+.site-header .header-actions .primary-btn span{min-width:0;overflow-wrap:normal;}
+/* If a translation cannot fit at a readable font size, give the header a real second row. */
+@media(min-width:801px){
+ .site-header.header-stacked{height:auto;min-height:var(--header-h);padding-top:10px;padding-bottom:11px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:16px;row-gap:5px;align-content:center;align-items:center;}
+ .site-header.header-stacked .wordmark{grid-column:1 / -1;grid-row:1;justify-self:start;max-width:100%;}
+ .site-header.header-stacked .desktop-nav{grid-column:1;grid-row:2;justify-self:start;margin-left:0;max-width:100%;}
+ .site-header.header-stacked .header-actions{grid-column:2;grid-row:2;margin-left:0;justify-self:end;}
+}
+@media(max-width:800px){
+ .site-header .brand-name{font-size:inherit;}
+ .site-header .brand-subtitle{transform:translateY(-2px);}
+}

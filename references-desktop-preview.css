@@ -1,0 +1,27 @@
+/* Miniature desktop site previews with native, content-bounded scrolling. */
+.references-main .ref-iframe-clip {
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  height:calc(100% - 35px);
+  background:#f1f6fb;
+}
+.references-main .ref-iframe-clip iframe {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  width:1440px !important;
+  min-width:1440px !important;
+  max-width:none !important;
+  height:var(--desktop-preview-viewport-height, 960px) !important;
+  min-height:0 !important;
+  border:0;
+  margin:0;
+  transform-origin:top left;
+  transform:scale(var(--desktop-preview-scale,.25)) !important;
+  background:#fff;
+  pointer-events:auto;
+}
+.references-main .ref-preview-wheel,
+.references-main .ref-preview-scroll-hint {display:none !important;}

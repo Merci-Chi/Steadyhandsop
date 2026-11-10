@@ -1,0 +1,62 @@
+/* One header design shared by the homepage and all three service pages. */
+.site-header,.site-header button,.site-header a,.mobile-nav,.mobile-nav button,.mobile-nav a{
+  font-family:Arial,Helvetica,sans-serif;
+}
+.site-header .brand-name{font-family:"Aladin",Georgia,serif;}
+.site-header .brand-subtitle{font-family:"Manrope",Arial,sans-serif;}
+.site-header .selection-count,.mobile-nav .mobile-start-btn{font-family:"Manrope",Arial,sans-serif;}
+/* Prevent service-page component styles from changing the shared header. */
+.services-body .site-header .header-cart-link{
+  font-family:Arial,Helvetica,sans-serif;
+}
+@media(max-width:800px){
+  .services-body .mobile-nav{
+    background:linear-gradient(110deg,rgba(13,42,100,.98),rgba(112,174,222,.97));
+    border-bottom:1px solid rgba(255,255,255,.38);
+    box-shadow:0 17px 32px rgba(2,20,65,.25),inset 0 1px rgba(255,255,255,.28);
+  }
+  .services-body .mobile-nav .mobile-nav-link{
+    color:#fff;
+  }
+  .services-body .mobile-nav .mobile-nav-link:is(:hover,:focus-visible),
+  .services-body .mobile-nav .mobile-nav-trigger[aria-expanded="true"]{
+    color:#b9f1ff;
+  }
+  .services-body .mobile-nav .dropdown-icon{filter:brightness(0) invert(1);}
+  .services-body .mobile-nav .mobile-dropdown-panel button{
+    color:#0a2358;
+  }
+  .services-body .mobile-nav .mobile-dropdown-panel button:is(:hover,:focus-visible){
+    color:#0a51de;
+  }
+}
+
+/* Single shared cart-count badge for the homepage and every business-service page.
+   No page-specific stylesheet should override its dimensions or font. */
+.site-header .header-cart-link .selection-count,
+.site-header .header-cart-mobile .selection-count {
+  display:grid;
+  place-items:center;
+  box-sizing:border-box;
+  flex:0 0 27px;
+  width:27px;
+  min-width:27px;
+  height:27px;
+  min-height:27px;
+  padding:0;
+  border-radius:50%;
+  background:#1178f5;
+  color:#fff;
+  font-family:"Manrope",Arial,sans-serif;
+  font-size:13px;
+  font-weight:800;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+
+/* All dropdowns support navigation links as well as existing action buttons. */
+.site-header .dropdown-panel a {display:block;border:0;background:none;padding:13px;text-align:left;font-size:14px;font-weight:800;color:#092458;border-radius:10px;text-decoration:none;line-height:1.35;}
+.site-header .dropdown-panel a:hover,.site-header .dropdown-panel a:focus-visible {background:#e8f3ff;color:#0c4bdc;box-shadow:inset 3px 0 #139cf4;}
+.mobile-nav .mobile-dropdown-panel a {display:block;width:100%;margin:0;padding:12px 13px;border:0;border-radius:9px;background:none;font:700 13px/1.35 Manrope,Arial,sans-serif;text-align:left;color:#0a2358;text-decoration:none;}
+.mobile-nav .mobile-dropdown-panel a:hover,.mobile-nav .mobile-dropdown-panel a:focus-visible {background:#e6f2ff;color:#0a51de;box-shadow:inset 3px 0 #0c8fee;}
+@media(min-width:801px){.site-header .dropdown-panel{min-width:220px;}.site-header #industries-menu{min-width:230px;}}

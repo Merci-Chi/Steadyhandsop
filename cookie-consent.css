@@ -1,0 +1,31 @@
+/* Steady Hands compact privacy notice */
+.sh-consent,.sh-consent *{box-sizing:border-box}
+.sh-consent[hidden],.sh-consent-settings[hidden]{display:none!important}
+.sh-consent{position:fixed;left:22px;bottom:22px;z-index:2147482000;width:min(380px,calc(100vw - 32px));padding:19px 20px 17px;background:linear-gradient(148deg,#f3f9ff 0%,#eff8ff 64%,#e5f5ff 100%);color:#0c2c62;border:1.5px solid #83cfff;border-radius:22px;box-shadow:0 18px 48px rgba(0,20,74,.28),0 0 0 1px rgba(255,255,255,.84) inset;font-family:Manrope,system-ui,-apple-system,sans-serif;animation:sh-consent-in .33s ease-out both;max-height:calc(100dvh - 24px);overflow-y:auto}
+.sh-consent-top{display:flex;align-items:center;gap:10px;padding-right:24px}
+.sh-consent-icon{width:26px;height:26px;flex:none;stroke:#083b8c;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sh-consent h2{margin:0;font-size:20px;line-height:1.25;font-weight:800;letter-spacing:-.035em;color:#0b285d}
+.sh-consent-close{position:absolute;right:15px;top:12px;border:0;background:transparent;color:#5175a1;font-size:28px;line-height:1;cursor:pointer;padding:3px 7px;border-radius:9px}
+.sh-consent-close:hover,.sh-consent-close:focus-visible{background:#dceeff;color:#092b66}
+.sh-consent-description{margin:15px 0 18px;color:#2f517d;font-size:13px;line-height:1.6}
+.sh-consent-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sh-consent-action{min-height:42px;display:flex;align-items:center;justify-content:center;padding:9px 10px;border-radius:999px;font:700 12px/1.3 Manrope,system-ui,sans-serif;cursor:pointer;transition:transform .16s,box-shadow .16s;background:white;color:#0a3b87;border:1.5px solid #85baff}
+.sh-consent-action:hover{transform:translateY(-1px);box-shadow:0 5px 13px rgba(3,67,168,.15)}
+.sh-consent-action--accept{background:linear-gradient(125deg,#149cff,#0752e6 85%);color:white;border-color:#075deb;box-shadow:0 4px 10px rgba(2,83,213,.19)}
+.sh-consent-settings{border-top:1px solid #b9dcfa;padding-top:13px;margin:12px 0 0}
+.sh-consent-settings h3{margin:0 0 8px;font-size:15px;color:#0c2c62}
+.sh-consent-settings p{font-size:12px;color:#42648b;line-height:1.55;margin:6px 0 12px}
+.sh-consent-preference{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-top:1px solid #d0e5f8;font-size:13px;color:#13396d;font-weight:700}
+.sh-consent-preference small{display:block;font-size:11px;font-weight:500;color:#50719c;margin-top:3px;line-height:1.4}
+.sh-consent-preference input{accent-color:#0865e8;width:19px;height:19px;cursor:pointer;flex:none}
+.sh-consent-always{font-size:11px;color:#2e689e;font-weight:800;white-space:nowrap}
+.sh-consent-save{width:100%;margin-top:10px;min-height:40px;border:0;border-radius:999px;color:#fff;background:#085be8;font:700 13px Manrope,system-ui,sans-serif;cursor:pointer}
+.sh-consent button:focus-visible,.sh-wave-footer__legal-button:focus-visible{outline:3px solid #14a9ee;outline-offset:2px}
+@keyframes sh-consent-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:500px){.sh-consent{bottom:12px;left:12px;width:calc(100vw - 24px);padding:16px 16px 14px;border-radius:18px}.sh-consent h2{font-size:18px}.sh-consent-description{font-size:12px}.sh-consent-action{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.sh-consent{animation:none}.sh-consent-action{transition:none}}
+
+/* Client preview placeholder until optional consent */
+.ref-iframe-clip{position:relative}
+.sh-preview-blocked{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:15px 22px;background:linear-gradient(140deg,#e5f4ff,#b8dcfc);color:#0c3973;font-size:13px;font-weight:650;line-height:1.5;z-index:1}
+.sh-preview-blocked[hidden]{display:none!important}
