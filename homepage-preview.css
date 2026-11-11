@@ -1,0 +1,22 @@
+/* Homepage client preview area: scoped to avoid changing the primary service cards. */
+.sh-preview-entry{background:linear-gradient(155deg,#f0f8ff,#dceeff);padding:clamp(44px,6vw,86px) 20px;color:#071a50}
+.sh-preview-entry__inner{max-width:1160px;margin:auto}
+.sh-preview-entry__intro{text-align:center;max-width:730px;margin:0 auto 28px}
+.sh-preview-entry__eyebrow{display:inline-flex;align-items:center;gap:9px;font:800 12px/1.4 Manrope,Arial,sans-serif;letter-spacing:.16em;color:#1459aa}
+.sh-preview-entry h2{font:800 clamp(30px,4vw,48px)/1.12 Manrope,Arial,sans-serif;letter-spacing:-.035em;margin:12px 0}
+.sh-preview-entry__intro p{font:500 16px/1.65 Manrope,Arial,sans-serif;color:#3f5276;margin:0}
+.sh-preview-entry__options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sh-preview-entry__option{background:white;border:1px solid #c9dcf4;border-radius:20px;padding:clamp(21px,3vw,31px);box-shadow:0 14px 38px #061b5120;min-width:0}
+.sh-preview-entry__option h3{display:flex;align-items:center;gap:10px;font:800 19px/1.3 Manrope,Arial,sans-serif;margin:0 0 21px;color:#071a50}
+.sh-preview-entry__option h3 i{color:#0879ce}
+.sh-preview-entry__option label{display:block;font:700 13px/1.4 Manrope,Arial,sans-serif;margin-bottom:9px;color:#24406e}
+.sh-preview-entry__field{display:flex;gap:9px;flex-wrap:wrap}
+.sh-preview-entry__field input,.sh-preview-entry__field select{flex:1 1 190px;min-width:0;max-width:100%;height:48px;border:1px solid #b7cce6;border-radius:10px;background:#fff;color:#071a50;padding:0 13px;font:600 14px Manrope,Arial,sans-serif}
+.sh-preview-entry__field button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:0 0 auto;border:0;border-radius:10px;background:#0c49c2;color:#fff;padding:0 18px;font:800 13px Manrope,Arial,sans-serif;transition:background .2s,transform .2s}
+.sh-preview-entry__field button:hover:not(:disabled){background:#092c86;transform:translateY(-1px)}
+.sh-preview-entry__field button:disabled{opacity:.55;cursor:not-allowed}
+.sh-preview-entry__message{min-height:21px;font:600 12px/1.5 Manrope,Arial,sans-serif;color:#33577f;margin:10px 0 0}
+.sh-preview-entry__help{text-align:center;font:600 14px/1.6 Manrope,Arial,sans-serif;color:#334d72;margin:22px 0 0}
+.sh-preview-entry__help a{color:#0b4ac2;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:850px){.sh-preview-entry__options{grid-template-columns:1fr}}
+@media(max-width:480px){.sh-preview-entry__field{flex-direction:column}.sh-preview-entry__field input,.sh-preview-entry__field select{flex:none;width:100%}.sh-preview-entry__field button{width:100%}}
