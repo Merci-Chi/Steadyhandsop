@@ -14,7 +14,11 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Aladin&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="css.css" rel="stylesheet"/>
+<link href="homepage-preview.css" rel="stylesheet"/>
 <script defer="" src="js.js"></script>
+<script defer src="config.js"></script>
+<script defer src="site-previews.js"></script>
+<script defer src="homepage-preview.js"></script>
 <link href="service-review.css" rel="stylesheet"/><script defer="" src="services-data.js"></script><script defer="" src="booking-config.js"></script><script defer="" src="service-review.js"></script> <link href="site-header.css" rel="stylesheet"/><link href="translate.css" rel="stylesheet"/><link href="header-translation-fix.css" rel="stylesheet"/><script defer="" src="translate.js"></script><script defer="" src="header-translation-fix.js"></script>
 <link href="shared-hero-title.css" rel="stylesheet"><link href="shared-hero-image.css" rel="stylesheet"/><link href="services-navigation.css" rel="stylesheet"/><script defer="" src="services-navigation.js"></script></link><link rel="stylesheet" href="slim-footer.css">
 <link rel="stylesheet" href="cookie-consent.css"><link rel="stylesheet" href="terms-popup.css"></head>
@@ -38,6 +42,7 @@
 <button aria-controls="resources-menu" aria-expanded="false" aria-haspopup="true" class="nav-link nav-trigger" type="button">Resources <span aria-hidden="true" class="dropdown-icon"><img alt="" class="dropdown-chevron dropdown-chevron-down" src="images/dropdown-down.png"/><img alt="" class="dropdown-chevron dropdown-chevron-up" src="images/dropdown-up.png"/></span></button>
 <div class="dropdown-panel" id="resources-menu">
 <div class="service-category resource-category"><button aria-controls="resource-business-list" aria-expanded="false" class="services-group-trigger" type="button"><span>Business Resources</span><span class="service-group-count">2</span><svg aria-hidden="true" class="service-group-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></button><div class="services-group-content" hidden id="resource-business-list"><div class="service-industry-head">Clark County, Nevada</div><a class="service-option-link" href="business-license-steps.html">Business License Steps</a><a class="service-option-link" href="https://ccgismo.maps.arcgis.com/apps/webappviewer/index.html?id=eebfd7bd93e84f53ad391d67f28dcc7a" target="_blank" rel="noopener noreferrer">Jurisdiction Lookup ↗</a><div class="resource-sub-note">Check the business address before applying.</div><a class="service-option-link" href="https://www.clarkcountynv.gov/adobe/assets/urn:aaid:aem:0746bb4a-633d-43f6-85c8-875896f099a7/original/as/application-checklist-08-13-2026.pdf" target="_blank" rel="noopener noreferrer">Official County Checklist ↗</a></div></div>
+<a href="preview.html">Website Previews</a>
 <button data-info="faq" type="button">Frequently Asked Questions</button>
 </div>
 </div>
@@ -71,6 +76,7 @@
 </div>
 </div>
 <div class="mobile-nav-dropdown"><button aria-controls="mobile-about-menu" aria-expanded="false" class="mobile-nav-link mobile-nav-trigger" type="button">About <span aria-hidden="true" class="dropdown-icon"><img alt="" class="dropdown-chevron dropdown-chevron-down" src="images/dropdown-down.png"/><img alt="" class="dropdown-chevron dropdown-chevron-up" src="images/dropdown-up.png"/></span></button><div class="mobile-dropdown-panel" hidden="" id="mobile-about-menu"><button data-info="about" type="button">About Steady Hands</button><a href="references.html">Client References</a></div></div>
+<a class="mobile-nav-link" href="preview.html">Preview Your Website</a>
 <a class="mobile-start-btn" href="https://portal.steadyhandsop.com" aria-label="Open Steady Hands Client Portal">Client Portal <i aria-hidden="true" class="bi bi-arrow-right"></i></a>
 </nav>
 <main>
@@ -112,6 +118,30 @@
 </a>
 </div>
 <p class="sr-only">Business categories: New Businesses, Existing Businesses, and Non Profits.</p>
+</section>
+<section class="sh-preview-entry" id="website-preview" aria-labelledby="sh-preview-heading">
+  <div class="sh-preview-entry__inner">
+    <div class="sh-preview-entry__intro">
+      <span class="sh-preview-entry__eyebrow"><i class="bi bi-window-stack" aria-hidden="true"></i> CLIENT WEBSITE PREVIEWS</span>
+      <h2 id="sh-preview-heading">Preview Your Website</h2>
+      <p>Already working with Steady Hands? Enter your preview code or choose a custom website made especially for you.</p>
+    </div>
+    <div class="sh-preview-entry__options">
+      <form id="home-preview-code-form" class="sh-preview-entry__option">
+        <h3><i class="bi bi-key" aria-hidden="true"></i> Have a preview code?</h3>
+        <label for="home-preview-code">Your preview code</label>
+        <div class="sh-preview-entry__field"><input id="home-preview-code" name="code" autocomplete="off" placeholder="Enter preview code" required><button type="submit">Open Preview <i class="bi bi-arrow-right" aria-hidden="true"></i></button></div>
+        <p id="home-preview-code-message" class="sh-preview-entry__message" role="status"></p>
+      </form>
+      <form id="custom-preview-form" class="sh-preview-entry__option">
+        <h3><i class="bi bi-stars" aria-hidden="true"></i> Especially made for you</h3>
+        <label for="custom-preview-site">Choose your business</label>
+        <div class="sh-preview-entry__field"><select id="custom-preview-site" name="site" required><option value="">Choose your site</option></select><button type="submit" disabled>Open Preview <i class="bi bi-arrow-right" aria-hidden="true"></i></button></div>
+        <p id="custom-preview-message" class="sh-preview-entry__message" role="status"></p>
+      </form>
+    </div>
+    <p class="sh-preview-entry__help">Don't have a code or see your business? <a href="contact.html">Contact us</a> for your preview.</p>
+  </div>
 </section>
 </main>
 <footer class="sh-wave-footer" aria-label="Site footer">
