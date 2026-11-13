@@ -20,6 +20,6 @@
       }
     }
     status.textContent = 'Checking your preview code…';
-    location.assign('preview.html?code=' + encodeURIComponent(code));
+    location.assign('website-preview.html?code=' + encodeURIComponent(code));
   });
 })();
