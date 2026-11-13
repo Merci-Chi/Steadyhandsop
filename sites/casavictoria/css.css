@@ -1221,3 +1221,13 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 @media(max-width:1020px){.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){height:290px}}
 @media(max-width:760px){.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){height:245px}}
 @media(max-width:470px){.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){height:196px}}
+
+/* Gallery category tabs: display only the selected photo collection. */
+.cv-category-section[hidden]{display:none!important}
+.cv-gallery-categories a[aria-selected="true"]{
+  background:#214c39;
+  border-color:#b99a5d;
+  color:#fff8eb;
+  box-shadow:0 3px 9px rgba(0,0,0,.12);
+}
+.cv-gallery-categories a:focus-visible{outline:2px solid #b99a5d;outline-offset:3px}
