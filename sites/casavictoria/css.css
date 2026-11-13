@@ -1205,10 +1205,19 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 .cv-category-section h2,.cv-work-video h2,.cv-existing-gallery-title{text-align:center;margin:12px auto 24px;font-size:clamp(1.4rem,3vw,2rem)}
 .cv-category-section>p{text-align:center;max-width:710px;margin:0 auto 22px}
 .cv-category-grid{margin-top:20px}
-.cv-client-photo{background:#f0f0ee;min-height:220px}
-.cv-client-photo img{object-fit:contain;background:#f0f0ee;width:100%;height:100%}
+.cv-client-photo{background:transparent;min-height:0}
+.cv-client-photo img{object-fit:cover;object-position:center;width:100%;height:100%;background:transparent}
 .cv-client-photo[hidden]{display:none}
 .cv-work-video{text-align:center;padding:34px 0}
 .cv-work-video video{width:min(100%,780px);max-height:540px;object-fit:contain;background:#111;border-radius:12px}
 .cv-existing-gallery-title{margin-top:42px}
 @media(max-width:650px){.brand-tagline{max-width:160px;font-size:8px}.cv-service-links,.cv-gallery-categories{gap:7px}.cv-service-links a,.cv-gallery-categories a{padding:8px 12px;font-size:12px}}
+
+/* Gallery cards: fill each frame without the old white letterbox or tall first tile. */
+.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){grid-row:auto;height:320px;min-height:0;background:transparent}
+.cv-category-grid .portfolio-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:transparent}
+.service-cards a.service-card{display:block;text-decoration:none;color:inherit;cursor:pointer}
+.service-cards a.service-card:focus-visible{outline:3px solid #cfa75d;outline-offset:5px}
+@media(max-width:1020px){.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){height:290px}}
+@media(max-width:760px){.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){height:245px}}
+@media(max-width:470px){.cv-category-grid .portfolio-photo,.cv-category-grid .portfolio-photo:nth-child(9n+1){height:196px}}
