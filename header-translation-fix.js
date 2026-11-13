@@ -18,6 +18,7 @@
   }
   function fit(){
     scheduled = false;
+    // Menus must never cause the site header to switch to a second row.
     header.classList.remove('header-stacked');
     header.style.setProperty('--fit-brand-size','clamp(52px,4.3vw,70px)');
     header.style.setProperty('--fit-nav-size','16px');
@@ -38,14 +39,20 @@
       const divider=header.querySelector('.brand-divider');
       const g=parseFloat(getComputedStyle(wordmark).gap)||6;
       const brandRequired=(logo?.offsetWidth||0)+naturalBrand+(divider?.offsetWidth||0)+(subtitle?.scrollWidth||0)+4*g;
-      const required=brandRequired+nav.scrollWidth+actions.scrollWidth;
+      // Measure only visible top-level nav controls. Absolute-positioned dropdown
+      // panels can extend beyond the nav box and inflate nav.scrollWidth.
+      const navStyle=getComputedStyle(nav);
+      const navGap=parseFloat(navStyle.columnGap)||parseFloat(navStyle.gap)||0;
+      const navItems=Array.from(nav.children);
+      const navRequired=navItems.reduce((total,item)=>total+item.getBoundingClientRect().width,0)+Math.max(0,navItems.length-1)*navGap;
+      const required=brandRequired+navRequired+actions.getBoundingClientRect().width;
       if(required<=available+3){found=true;break;}
     }
     if(!found){
       header.style.setProperty('--fit-brand-size','clamp(32px,3.7vw,55px)');
       header.style.setProperty('--fit-nav-gap','7px');
       header.style.setProperty('--fit-nav-size','15px');
-      header.classList.add('header-stacked');
+      // Do not change the header's rows or height when space is tight.
     }
     setHeaderHeight();
   }
