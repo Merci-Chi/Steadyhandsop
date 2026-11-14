@@ -17,6 +17,49 @@
   const sections=new Map(tabs.map(tab=>[tab.hash.slice(1),document.getElementById(tab.hash.slice(1))]));
   const allSection=sections.get('category-all');
 
+  // Background motion is isolated from the photo lightbox and the other tabs.
+  const backdrop=document.querySelector('.cv-behind-video-layer');
+  const backgroundVideo=document.getElementById('cv-behind-video');
+  const videoFile='/images/Behind%20the%20Scenes/behind-the-scenes-loop.mp4';
+  let fadeOutTimer=null;
+  let videoLoaded=false;
+  function updateBackgroundVideo(active){
+    if(!backdrop || !backgroundVideo)return;
+    window.clearTimeout(fadeOutTimer);
+    const show=active==='category-behind-the-scenes';
+    if(show){
+      backgroundVideo.muted=true;
+      backgroundVideo.loop=true;
+      backgroundVideo.playsInline=true;
+      if(!videoLoaded){
+        backgroundVideo.src=videoFile;
+        videoLoaded=true;
+        backgroundVideo.load();
+      }
+      backdrop.classList.add('is-visible');
+      backgroundVideo.play().catch(()=>{}); // Autoplay can be blocked by the browser.
+    }else{
+      backdrop.classList.remove('is-visible');
+      fadeOutTimer=window.setTimeout(()=>{
+        if(!backdrop.classList.contains('is-visible')){
+          backgroundVideo.pause();
+          backgroundVideo.currentTime=0;
+        }
+      },700);
+    }
+  }
+  if(backgroundVideo){
+    backgroundVideo.addEventListener('error',()=>{
+      // The static site may be hosted from another path. Try the repository's
+      // public raw URL once if the local path is not available.
+      if(backgroundVideo.dataset.fallbackTried)return;
+      backgroundVideo.dataset.fallbackTried='true';
+      backgroundVideo.src='https://raw.githubusercontent.com/Merci-Chi/Steadyhandsop/main/images/Behind%20the%20Scenes/behind-the-scenes-loop.mp4';
+      backgroundVideo.load();
+      if(backdrop?.classList.contains('is-visible'))backgroundVideo.play().catch(()=>{});
+    });
+  }
+
   const tabBar=document.querySelector('.cv-gallery-categories');
   tabBar.setAttribute('role','tablist');
 
@@ -30,6 +73,7 @@
       const section=sections.get(tab.hash.slice(1));
       if(section)section.hidden=!selected;
     });
+    updateBackgroundVideo(active);
     if(updateUrl)history.replaceState(null,'','#'+active);
   }
   tabs.forEach((tab,index)=>{
