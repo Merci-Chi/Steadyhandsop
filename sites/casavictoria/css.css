@@ -1479,3 +1479,23 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .cv-category-grid .cv-photo-skeleton::before,
   .cv-category-grid .portfolio-photo.is-loading::before{animation:none}
 }
+
+/* Holiday discount popup: emerald and gold, with a darker Black Friday treatment. */
+.cv-holiday-backdrop[hidden]{display:none!important}
+.cv-holiday-backdrop{position:fixed;inset:0;z-index:12000;background:rgba(6,15,11,.68);display:grid;place-items:center;padding:18px;opacity:0;transition:opacity .28s ease}
+.cv-holiday-backdrop.is-visible{opacity:1}
+.cv-holiday-popup{position:relative;box-sizing:border-box;width:min(100%,490px);max-height:min(90vh,760px);overflow:auto;text-align:center;border:1px solid #c8a15a;border-radius:22px;padding:44px clamp(20px,5vw,46px) 31px;background:linear-gradient(150deg,#1f4835,#0c2118);color:#fcf7ed;box-shadow:0 22px 70px #0009;font-family:'Cormorant Garamond',Georgia,serif;transform:translateY(14px) scale(.98);transition:transform .28s ease}
+.cv-holiday-backdrop.is-visible .cv-holiday-popup{transform:translateY(0) scale(1)}
+.cv-holiday-popup.is-black-friday{background:linear-gradient(140deg,#171b19,#050a08 70%,#1e3026)}
+.cv-holiday-close{position:absolute;top:11px;right:13px;width:37px;height:37px;border:0;border-radius:50%;background:transparent;color:#e9d3a4;font:29px/1 Arial,sans-serif;cursor:pointer}
+.cv-holiday-close:hover,.cv-holiday-close:focus-visible{background:#ffffff1c;outline:1px solid #d7b978}
+.cv-holiday-eyebrow{font:600 12px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:.15em;color:#e2bd71;margin:0 0 14px}
+.cv-holiday-popup h2{font:500 clamp(35px,5vw,49px)/1.04 'Cormorant Garamond',Georgia,serif;margin:0 0 15px;color:#fff8ec}
+.cv-holiday-percent{font:600 clamp(65px,12vw,92px)/.95 'Cormorant Garamond',Georgia,serif;margin:6px 0 2px;color:#e9be6b;text-shadow:0 3px 8px #0004}
+.cv-holiday-percent span{font-size:.43em;vertical-align:middle}
+.cv-holiday-services{font:500 23px/1.25 'Cormorant Garamond',Georgia,serif;margin:7px 0 20px}
+.cv-holiday-details{display:inline-block;margin:0 0 20px;border-top:1px solid #d8bc805e;border-bottom:1px solid #d8bc805e;padding:11px 10px;color:#f9dfae;font:600 16px/1.4 'DM Sans',Arial,sans-serif}
+.cv-holiday-action{display:block;width:fit-content;margin:2px auto 20px;padding:12px 26px;border-radius:99px;background:#e3bc70;color:#12271d;text-decoration:none;font:700 15px/1.2 'DM Sans',Arial,sans-serif}
+.cv-holiday-action:hover,.cv-holiday-action:focus-visible{background:#ffe0a3;outline:2px solid #fff;outline-offset:2px}
+.cv-holiday-fineprint{font:400 11px/1.6 'DM Sans',Arial,sans-serif;color:#e2dbc9;margin:0}
+@media(prefers-reduced-motion:reduce){.cv-holiday-backdrop,.cv-holiday-popup{transition:none!important}}
