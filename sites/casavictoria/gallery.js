@@ -3,7 +3,7 @@
 // The All tab combines the folders, eliminating duplicate image content.
 (()=>{
   const repository='Merci-Chi/Steadyhandsop';
-  const base='images/';
+  const base='https://raw.githubusercontent.com/Merci-Chi/Steadyhandsop/main/images/';
   const folders=[
     ['wedding','Wedding'],
     ['tuxedos','Tuxedos'],
@@ -92,7 +92,7 @@
     message(panel,photos.length?'':'Photos coming soon.');
   }
   async function listFolder(folder){
-    const endpoint='https://api.github.com/repos/'+repository+'/contents/sites/casavictoria/images/'+encodeURIComponent(folder)+'?ref=main';
+    const endpoint='https://api.github.com/repos/'+repository+'/contents/images/'+encodeURIComponent(folder)+'?ref=main';
     const response=await fetch(endpoint,{headers:{'Accept':'application/vnd.github+json'},cache:'no-store'});
     if(response.status===404)return [];
     if(!response.ok)throw new Error('GitHub returned '+response.status);
