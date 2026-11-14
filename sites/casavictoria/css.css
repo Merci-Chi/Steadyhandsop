@@ -1492,7 +1492,8 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 .cv-holiday-eyebrow{font:600 12px/1.4 'DM Sans',Arial,sans-serif;letter-spacing:.15em;color:#e2bd71;margin:0 0 14px}
 .cv-holiday-popup h2{font:500 clamp(35px,5vw,49px)/1.04 'Cormorant Garamond',Georgia,serif;margin:0 0 15px;color:#fff8ec}
 .cv-holiday-percent{font:600 clamp(65px,12vw,92px)/.95 'Cormorant Garamond',Georgia,serif;margin:6px 0 2px;color:#e9be6b;text-shadow:0 3px 8px #0004}
-.cv-holiday-percent span{font-size:.43em;vertical-align:middle}
+.cv-holiday-percent span:last-child{font-size:.43em;vertical-align:middle}
+.cv-holiday-percent .cv-holiday-discount-value{font-size:1;vertical-align:baseline}
 .cv-holiday-services{font:500 23px/1.25 'Cormorant Garamond',Georgia,serif;margin:7px 0 20px}
 .cv-holiday-details{display:inline-block;margin:0 0 20px;border-top:1px solid #d8bc805e;border-bottom:1px solid #d8bc805e;padding:11px 10px;color:#f9dfae;font:600 16px/1.4 'DM Sans',Arial,sans-serif}
 .cv-holiday-action{display:block;width:fit-content;margin:2px auto 20px;padding:12px 26px;border-radius:99px;background:#e3bc70;color:#12271d;text-decoration:none;font:700 15px/1.2 'DM Sans',Arial,sans-serif}
