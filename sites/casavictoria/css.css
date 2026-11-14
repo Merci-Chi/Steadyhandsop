@@ -2223,3 +2223,14 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
    Photo panels show images directly, with no repeated category title or heading gap. */
 .cv-category-section{padding-top:12px}
 .cv-category-section>.cv-category-grid{margin-top:0}
+
+/* Casa-Victoria gallery: show the supplied ivory silk behind photo tiles.
+   Keep category navigation and photo cards above the fabric; Behind the Scenes
+   video still overlays the background only when its tab is selected. */
+.gallery-page .portfolio-section{
+  background-color:#f7f4ef!important;
+  background-image:url("images/ivory-satin-horizontal.webp")!important;
+  background-repeat:no-repeat!important;
+  background-position:center center!important;
+  background-size:cover!important;
+}
