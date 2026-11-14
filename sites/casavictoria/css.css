@@ -2218,3 +2218,8 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .header .header-inner>.nav a{font-size:clamp(22px,1.9vw,27px)!important}
   .header .header-inner>.nav:not(.open){gap:clamp(12px,1.15vw,19px)}
 }
+
+/* Gallery categories are selected exclusively in the "OUR GALLERY" control.
+   Photo panels show images directly, with no repeated category title or heading gap. */
+.cv-category-section{padding-top:12px}
+.cv-category-section>.cv-category-grid{margin-top:0}
