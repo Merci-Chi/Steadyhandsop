@@ -1,0 +1,53 @@
+name: Update Casa-Victoria gallery photo manifest
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/Wedding/**'
+      - 'images/Tuxedos/**'
+      - 'images/Dresses/**'
+      - 'images/Fabrics & Accessories/**'
+      - 'images/Behind the Scenes/**'
+      - 'images/Other/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Regenerate photo manifest
+        run: |
+          python3 - <<'PY'
+          import json, re, subprocess
+          from pathlib import Path
+          categories=['Wedding','Tuxedos','Dresses','Fabrics & Accessories','Behind the Scenes','Other']
+          allowed=re.compile(r'\.(?:jpe?g|png|webp|gif|avif)$',re.I)
+          output={}
+          for category in categories:
+              folder=Path('images')/category
+              rows=[]
+              if folder.is_dir():
+                  for file in sorted(folder.iterdir(),key=lambda f:f.name.lower()):
+                      if not file.is_file() or file.name.startswith('.') or not allowed.search(file.name):
+                          continue
+                      sha=subprocess.check_output(['git','hash-object',str(file)],text=True).strip()
+                      rows.append({'name':file.name,'sha':sha})
+              output[category]=rows
+          path=Path('sites/casavictoria/gallery-photos.json')
+          path.write_text(json.dumps({'categories':output},indent=2,ensure_ascii=False)+'\n')
+          print('Photo counts: '+str({k:len(v) for k,v in output.items()}))
+          PY
+      - name: Commit refreshed manifest
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add sites/casavictoria/gallery-photos.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh Casa-Victoria photo manifest [skip ci]"
+            git push origin HEAD:main
+          fi
