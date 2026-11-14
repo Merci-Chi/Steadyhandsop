@@ -1295,3 +1295,31 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .cv-gallery-categories,.cv-service-links{gap:9px}
   .cv-gallery-categories a,.cv-service-links a{font-size:16px;padding:11px 16px}
 }
+
+/* Bigger gold tagline, tucked slightly beneath the Casa-Victoria script. */
+.header .brand-lettering .brand-tagline{
+  font-size:clamp(15px,1.25vw,18px);
+  line-height:1.05;
+  letter-spacing:0;
+  margin-top:-4px;
+  max-width:none;
+  width:max-content;
+  white-space:nowrap;
+  text-align:center;
+  align-self:center;
+  position:relative;
+  z-index:1;
+}
+@media(min-width:761px) and (max-width:1150px){
+  .header .brand-lettering .brand-tagline{font-size:14px;margin-top:-3px}
+}
+@media(max-width:760px){
+  .header .brand-lettering .brand-tagline{
+    font-size:clamp(11px,2.8vw,13px);
+    line-height:1.1;
+    margin-top:-2px;
+    width:max-content;
+    max-width:205px;
+    white-space:normal;
+  }
+}
