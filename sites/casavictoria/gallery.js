@@ -63,11 +63,11 @@
     button.className='portfolio-photo cv-client-photo';
     const url=photoUrl(folder,file.name);
     button.dataset.img=url;
-    button.dataset.caption=label+' — '+file.name.replace(/\.[^.]+$/,'');
-    button.setAttribute('aria-label','View '+button.dataset.caption);
+    button.dataset.caption='';
+    button.setAttribute('aria-label','View '+label+' photo');
     const img=document.createElement('img');
     img.src=url;
-    img.alt=button.dataset.caption;
+    img.alt=label+' photo';
     img.loading='lazy';
     img.decoding='async';
     img.addEventListener('error',()=>{
@@ -110,7 +110,7 @@
     for(const [id,folder] of folders){
       const entries=Array.isArray(manifest.categories[folder])?manifest.categories[folder]:[];
       const photos=entries.filter(file=>file && typeof file.name==='string' && webExtensions.test(file.name))
-        .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))
+        .sort((a,b)=>{ const priority=['casa-bridal-front-studio.webp','casa-bridal-back-studio.webp','casa-bridal-sleeve-studio.webp']; if(folder==='Wedding'){const ai=priority.indexOf(a.name),bi=priority.indexOf(b.name);if(ai!==bi)return (ai<0?999:ai)-(bi<0?999:bi);} return a.name.localeCompare(b.name,undefined,{numeric:true});})
         .map(file=>({file,folder}));
       render(sections.get('category-'+id),photos,folder);
       for(const photo of photos){
@@ -152,7 +152,8 @@ nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classL
     const item=photos[current];
     picture.src=item.dataset.img;
     picture.alt=item.querySelector('img')?.alt || item.dataset.caption || 'Casa-Victoria gallery photo';
-    caption.textContent=item.dataset.caption || picture.alt;
+    caption.textContent='';
+    caption.hidden=true;
     counter.textContent=(current+1)+' / '+photos.length;
     const preload=new Image();
     preload.src=photos[(current+1)%photos.length].dataset.img;
