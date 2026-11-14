@@ -2257,3 +2257,22 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   filter:blur(10px);
 }
 
+
+/* In Spanish, the permanent original Spanish quote is the only header motto.
+   Hide the redundant Google-translated English line and center the gold script
+   vertically/horizontally in its existing block. Other languages retain two lines. */
+html[data-language="es"] .header .cv-header-motto .brand-tagline-translation{
+  display:none!important;
+}
+@media(min-width:761px){
+  html[data-language="es"] .header .cv-header-motto{
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+  }
+  html[data-language="es"] .header .cv-header-motto .brand-tagline{
+    text-align:center!important;
+    align-self:center!important;
+    margin:0!important;
+  }
+}
