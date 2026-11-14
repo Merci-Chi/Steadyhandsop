@@ -2231,6 +2231,7 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   background-color:#f7f4ef!important;
   background-image:url("images/ivory-satin-horizontal.webp")!important;
   background-repeat:no-repeat!important;
-  background-position:center center!important;
-  background-size:cover!important;
+  background-position:center top!important;
+  /* Match the entire gallery section exactly: no cover crop or zoom. */
+  background-size:100% 100%!important;
 }
