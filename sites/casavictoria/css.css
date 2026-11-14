@@ -2228,10 +2228,32 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
    Keep category navigation and photo cards above the fabric; Behind the Scenes
    video still overlays the background only when its tab is selected. */
 .portfolio-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   background-color:#f7f4ef!important;
   background-image:url("images/ivory-satin-horizontal.webp")!important;
-  background-repeat:no-repeat!important;
-  background-position:center top!important;
-  /* Match the entire gallery section exactly: no cover crop or zoom. */
-  background-size:100% 100%!important;
+  /* Keep the original landscape orientation and aspect ratio; never rotate,
+     stretch to a square, or crop with cover. */
+  background-repeat:repeat-x!important;
+  background-position:left top!important;
+  background-size:auto 100%!important;
 }
+/* Soft white feathering at each join between horizontally repeated silk tiles.
+   The existing photo grid, navigation and Behind-the-Scenes video remain above it. */
+.portfolio-section .gallery-seam-blur{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:42px;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(to right,
+    rgba(255,255,255,0),
+    rgba(255,255,255,.46) 25%,
+    rgba(255,255,255,.88) 50%,
+    rgba(255,255,255,.46) 75%,
+    rgba(255,255,255,0));
+  filter:blur(10px);
+}
+
