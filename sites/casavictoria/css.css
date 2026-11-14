@@ -1576,3 +1576,142 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
     font-size:clamp(9px,2.2vw,11px);
   }
 }
+
+/* Option 1: a thin, full-width identity / bilingual motto / navigation header.
+   Override the old absolutely-centered navigation so the groups cannot overlap. */
+@media(min-width:761px){
+  .header{height:88px}
+  .header .header-inner{
+    max-width:1720px;
+    padding:0 clamp(18px,2.5vw,44px);
+    gap:clamp(12px,1.5vw,24px);
+    justify-content:space-between;
+  }
+  .header .cv-header-identity{
+    order:0;
+    display:flex;
+    flex:0 1 auto;
+    min-width:0;
+    align-items:center;
+    gap:clamp(13px,1.5vw,23px);
+  }
+  .header .cv-header-identity > .brand{
+    width:clamp(200px,17vw,257px);
+    min-width:0;
+    height:auto;
+    flex:0 0 auto;
+    gap:4px;
+    z-index:2;
+  }
+  .header .brand-emblem{width:63px;height:72px;flex-basis:63px}
+  .header .brand-monogram-v{font-size:76px}
+  .header .brand-name{font-size:clamp(30px,3vw,37px)}
+  .header .brand-small{font-size:10px;letter-spacing:.25em}
+  .header .cv-header-motto{
+    border-left:1px solid #b99959;
+    min-height:50px;
+    padding-left:clamp(12px,1.3vw,20px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:4px;
+    text-align:left;
+    min-width:0;
+    flex:0 1 285px;
+  }
+  .header .cv-header-motto .brand-tagline,
+  .header .cv-header-motto .brand-tagline-translation{
+    position:static;
+    display:block;
+    width:auto;
+    max-width:none;
+    margin:0;
+    align-self:auto;
+    text-align:left;
+    white-space:normal;
+    letter-spacing:0;
+    line-height:1.23;
+  }
+  .header .cv-header-motto .brand-tagline{font-size:clamp(12px,1vw,15px);color:#e4ba65}
+  .header .cv-header-motto .brand-tagline-translation{font-size:clamp(10px,.84vw,12px);color:#fff}
+  .header .header-inner > .nav{
+    position:static!important;
+    transform:none!important;
+    top:auto!important;
+    left:auto!important;
+    width:auto!important;
+    height:auto!important;
+    margin:0 auto!important;
+    order:1;
+    z-index:2;
+    display:flex;
+    flex:0 0 auto;
+    gap:clamp(12px,1.4vw,23px);
+  }
+  .header .header-inner > .nav a{font-size:clamp(16px,1.4vw,20px)}
+  .header .header-inner > .language-control{order:2!important;margin-left:0!important}
+  .header .header-inner > .header-contact-trigger{order:3!important;margin-left:0!important}
+  .header .header-inner .language-trigger.button.header-call{width:39px;min-width:39px;height:39px;min-height:39px}
+  .header .header-inner > .header-contact-trigger{min-height:39px;font-size:clamp(14px,1.2vw,17px);padding:5px 14px;gap:8px}
+}
+@media(min-width:761px) and (max-width:1240px){
+  .header .header-inner{gap:11px;padding:0 18px}
+  .header .cv-header-identity{gap:8px}
+  .header .cv-header-identity > .brand{width:185px}
+  .header .brand-emblem{width:51px;height:60px;flex-basis:51px}
+  .header .brand-monogram-v{font-size:65px}
+  .header .brand-name{font-size:29px}
+  .header .brand-small{font-size:9px}
+  .header .cv-header-motto{flex-basis:210px;padding-left:9px}
+  .header .cv-header-motto .brand-tagline{font-size:12px}
+  .header .cv-header-motto .brand-tagline-translation{font-size:10px}
+  .header .header-inner > .nav{gap:clamp(8px,.9vw,13px)}
+  .header .header-inner > .nav a{font-size:clamp(14px,1.35vw,17px)}
+  .header .header-inner > .header-contact-trigger{padding:5px 10px;font-size:14px}
+}
+@media(min-width:761px) and (max-width:990px){
+  /* Put the motto under the compact logo at narrower desktop widths. */
+  .header .cv-header-identity{flex-direction:column;align-items:flex-start;gap:0;flex:0 0 190px}
+  .header .cv-header-identity > .brand{height:46px;width:180px}
+  .header .brand-emblem{width:42px;height:48px;flex-basis:42px}
+  .header .brand-monogram-v{font-size:52px}
+  .header .brand-name{font-size:28px}
+  .header .cv-header-motto{min-height:0;border:0;padding:0 0 0 11px;gap:1px;flex-basis:auto}
+  .header .cv-header-motto .brand-tagline{font-size:10px}
+  .header .cv-header-motto .brand-tagline-translation{font-size:9px}
+  .header .header-inner > .nav{gap:9px}
+  .header .header-inner > .nav a{font-size:15px}
+  .header .header-inner > .header-contact-trigger{padding:5px 8px;font-size:13px;gap:4px}
+}
+@media(max-width:760px){
+  /* Preserve the working hamburger menu; stack the two slogans under the logo. */
+  .header{height:85px}
+  .header .header-inner{gap:7px;padding:0 3%}
+  .header .cv-header-identity{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0;flex:0 1 185px;align-self:stretch;gap:0}
+  .header .cv-header-identity > .brand{width:100%;min-width:0;height:49px;flex:0 0 auto;gap:0}
+  .header .brand-emblem{width:45px;height:49px;flex:0 0 45px}
+  .header .brand-monogram-v{font-size:56px}
+  .header .brand-name{font-size:clamp(24px,5vw,29px)}
+  .header .brand-small{font-size:8px}
+  .header .cv-header-motto{width:100%;padding-left:5px;display:flex;flex-direction:column;gap:1px;align-items:center}
+  .header .cv-header-motto .brand-tagline,
+  .header .cv-header-motto .brand-tagline-translation{
+    display:block;position:static;width:100%;max-width:none;white-space:normal;
+    text-align:center;align-self:center;margin:0;line-height:1.1;
+    letter-spacing:0;font-size:9px;
+  }
+  .header .cv-header-motto .brand-tagline{color:#e4ba65}
+  .header .cv-header-motto .brand-tagline-translation{color:#fff;font-size:8px}
+  .header .header-inner>.nav{top:85px}
+  .header .header-inner>.language-control{margin-left:auto!important}
+}
+@media(max-width:470px){
+  .header .cv-header-identity{flex-basis:160px}
+  .header .cv-header-identity>.brand{height:46px}
+  .header .brand-emblem{width:41px;height:45px;flex-basis:41px}
+  .header .brand-name{font-size:24px}
+  .header .cv-header-motto .brand-tagline{font-size:8px}
+  .header .cv-header-motto .brand-tagline-translation{font-size:7px}
+  .header .header-inner>.header-contact-trigger{font-size:0!important;min-width:36px;width:36px;padding:6px!important}
+  .header .header-inner>.header-contact-trigger svg{display:block;width:17px;height:17px}
+}
