@@ -1359,3 +1359,31 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 @media(prefers-reduced-motion:reduce){
   .portfolio-section .cv-behind-video-layer{transition:none}
 }
+
+/* Shared white navigation card for every Casa-Victoria gallery category. */
+.cv-gallery-navigation-card{
+  position:relative;
+  z-index:3;
+  width:fit-content;
+  max-width:100%;
+  margin:0 auto 32px;
+  padding:24px clamp(16px,3vw,42px) 20px;
+  border:1px solid rgba(179,149,95,.28);
+  border-radius:22px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 12px 35px rgba(20,30,22,.18),0 3px 9px rgba(20,30,22,.08);
+}
+.cv-gallery-navigation-card .portfolio-section-heading{margin:0 0 17px}
+.cv-gallery-navigation-card .cv-gallery-categories{
+  margin:0 auto;
+  max-width:100%;
+}
+@media(max-width:760px){
+  .cv-gallery-navigation-card{
+    width:100%;
+    box-sizing:border-box;
+    padding:19px 12px 18px;
+    border-radius:17px;
+    margin-bottom:24px;
+  }
+}
