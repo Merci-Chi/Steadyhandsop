@@ -1231,3 +1231,7 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   box-shadow:0 3px 9px rgba(0,0,0,.12);
 }
 .cv-gallery-categories a:focus-visible{outline:2px solid #b99a5d;outline-offset:3px}
+
+/* Compact services navigation after removing the four photo and description cards. */
+.services{min-height:0;padding-bottom:20px}
+.services .cv-service-links{margin-bottom:16px}
