@@ -2235,20 +2235,20 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   background-image:url("images/ivory-satin-horizontal.webp")!important;
   /* Keep the original landscape orientation and aspect ratio; never rotate,
      stretch to a square, or crop with cover. */
-  background-repeat:repeat-x!important;
+  background-repeat:repeat-y!important;
   background-position:left top!important;
-  background-size:auto 100%!important;
+  background-size:100% auto!important;
 }
-/* Soft white feathering at each join between horizontally repeated silk tiles.
+/* Soft white feathering at each join between vertically repeated silk tiles.
    The existing photo grid, navigation and Behind-the-Scenes video remain above it. */
 .portfolio-section .gallery-seam-blur{
   position:absolute;
-  top:0;
-  bottom:0;
-  width:42px;
+  left:0;
+  right:0;
+  height:42px;
   z-index:0;
   pointer-events:none;
-  background:linear-gradient(to right,
+  background:linear-gradient(to bottom,
     rgba(255,255,255,0),
     rgba(255,255,255,.46) 25%,
     rgba(255,255,255,.88) 50%,
