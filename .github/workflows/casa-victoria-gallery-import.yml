@@ -1,0 +1,69 @@
+name: Import Casa-Victoria gallery photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - sites/casavictoria/gallery-import.zip
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow
+      - name: Import photos into matching gallery tabs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          from io import BytesIO
+          import html, re, zipfile, hashlib
+          root=Path('sites/casavictoria')
+          incoming=root/'gallery-import.zip'
+          if not incoming.exists():
+              print('No import ZIP present')
+              raise SystemExit(0)
+          gallery=root/'gallery.html'
+          content=gallery.read_text()
+          categories={'Wedding':'wedding','Tuxedos':'tuxedos','Dresses':'dresses','Fabrics & Accessories':'fabrics-accessories','Behind the Scenes':'behind-the-scenes','Other':'other'}
+          added=0
+          with zipfile.ZipFile(incoming) as z:
+              for source in z.infolist():
+                  if source.is_dir() or source.filename.startswith('__MACOSX/') or '/' not in source.filename:
+                      continue
+                  category=source.filename.split('/')[0]
+                  if category not in categories:continue
+                  original=Path(source.filename).name
+                  if original.startswith('.') or Path(original).suffix.lower() not in {'.png','.webp','.jpg','.jpeg','.tif','.tiff'}:continue
+                  image=Image.open(BytesIO(z.read(source)))
+                  image=ImageOps.exif_transpose(image).convert('RGB')
+                  filename=Path(original).stem
+                  safe=re.sub(r'[^a-z0-9-]+','-',filename.lower()).strip('-')
+                  short=hashlib.sha256(z.read(source)).hexdigest()[:8]
+                  newname=f'{safe}-{short}.webp'
+                  relative=f'images/gallery-uploads/{categories[category]}/{newname}'
+                  out=root/relative
+                  out.parent.mkdir(parents=True,exist_ok=True)
+                  image.save(out,'WEBP',quality=86,method=5)
+                  if f'data-img="{relative}"' in content:continue
+                  label=html.escape(category+' photo',quote=True)
+                  card=f'<button type="button" class="portfolio-photo cv-client-photo" data-img="{relative}" data-caption="{label}" aria-label="View {label}"><img src="{relative}" alt="{label}" loading="lazy" decoding="async" onerror="this.closest(\'button\').hidden=true"><span class="portfolio-photo-overlay" aria-hidden="true">View</span></button>'
+                  pattern=r'(<section class="cv-category-section" id="category-'+categories[category]+r'">[\s\S]*?<div class="portfolio-grid cv-category-grid">)'
+                  content,count=re.subn(pattern,lambda m:m.group(1)+card,content,count=1)
+                  if count!=1:raise RuntimeError(f'Missing gallery section {category}')
+                  added+=1
+          gallery.write_text(content)
+          incoming.unlink()
+          print(f'Imported {added} new gallery photos')
+          PY
+      - name: Commit gallery photos and updated references
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A sites/casavictoria
+          git diff --cached --quiet || (git commit -m "Import remaining Casa-Victoria gallery photos [skip ci]" && git push)
