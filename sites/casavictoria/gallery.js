@@ -104,27 +104,42 @@
   function card(file,folder,label){
     const button=document.createElement('button');
     button.type='button';
-    button.className='portfolio-photo cv-client-photo';
+    button.className='portfolio-photo cv-client-photo is-loading';
+    button.setAttribute('aria-busy','true');
     const url=photoUrl(folder,file.name);
     button.dataset.img=url;
     button.dataset.caption='';
     button.setAttribute('aria-label','View '+label+' photo');
     const img=document.createElement('img');
-    img.src=url;
     img.alt=label+' photo';
     img.loading='lazy';
     img.decoding='async';
+    img.addEventListener('load',()=>{
+      button.classList.remove('is-loading','is-error');
+      button.removeAttribute('aria-busy');
+    });
     img.addEventListener('error',()=>{
-      // Use the public repository as a fallback when the website's asset root differs.
+      // Keep the white card rather than exposing the video/background
+      // while trying the alternate image host.
       if(!img.dataset.fallbackTried){
         img.dataset.fallbackTried='true';
         const fallback='https://raw.githubusercontent.com/Merci-Chi/Steadyhandsop/main/images/'+encodeURIComponent(folder)+'/'+encodeURIComponent(file.name);
         img.src=fallback;
         button.dataset.img=fallback;
       }else{
-        button.hidden=true;
+        button.classList.remove('is-loading');
+        button.classList.add('is-error');
+        button.removeAttribute('aria-busy');
+        button.disabled=true;
+        button.setAttribute('aria-label','Photo unavailable');
+        button.querySelector('.cv-photo-error')?.remove();
+        const notice=document.createElement('span');
+        notice.className='cv-photo-error';
+        notice.textContent='Photo unavailable';
+        button.append(notice);
       }
     });
+    img.src=url;
     const overlay=document.createElement('span');
     overlay.className='portfolio-photo-overlay';
     overlay.setAttribute('aria-hidden','true');
@@ -181,7 +196,27 @@
       grid.replaceChildren(...photos.map(({file,folder})=>card(file,folder,label)));
     }
     message(panel,photos.length?'':'Photos coming soon.');
+    panel?.removeAttribute('aria-busy');
   }
+  // Render visible placeholders immediately, including before the manifest arrives.
+  // The background stays hidden behind opaque white skeleton cards.
+  function showLoadingCards(){
+    for(const panel of sections.values()){
+      const grid=panel?.querySelector('.cv-category-grid');
+      if(!grid)continue;
+      const tiles=Array.from({length:8},()=>{
+        const tile=document.createElement('div');
+        tile.className='cv-photo-skeleton';
+        tile.setAttribute('aria-hidden','true');
+        return tile;
+      });
+      grid.replaceChildren(...tiles);
+      message(panel,'');
+      panel.setAttribute('aria-busy','true');
+    }
+  }
+  showLoadingCards();
+
   async function load(){
     // Static manifest is deployed with the page; no client-side GitHub API,
     // authorization, rate limits, or cross-origin fetches are needed.
@@ -208,7 +243,11 @@
   }
   load().catch(error=>{
     console.error('Casa-Victoria gallery:',error);
-    sections.forEach(panel=>message(panel,'Unable to load photos right now. Refresh to try again.'));
+    sections.forEach(panel=>{
+      panel?.querySelector('.cv-category-grid')?.replaceChildren();
+      panel?.removeAttribute('aria-busy');
+      message(panel,'Unable to load photos right now. Refresh to try again.');
+    });
   });
 })();
 
@@ -229,7 +268,7 @@ nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classL
   const prevBtn=lightbox.querySelector('.lightbox-prev');
   const nextBtn=lightbox.querySelector('.lightbox-next');
   let photos=[],current=0,lastActive=null,previousOverflow='',touchX=null;
-  const visiblePhotos=()=>Array.from(document.querySelectorAll('.cv-category-section:not([hidden]) .portfolio-photo:not([hidden])'));
+  const visiblePhotos=()=>Array.from(document.querySelectorAll('.cv-category-section:not([hidden]) .portfolio-photo:not([hidden]):not(.is-error)'));
   function update(index){
     if(!photos.length)return;
     current=(index+photos.length)%photos.length;
