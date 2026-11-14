@@ -1836,3 +1836,30 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   }
   .header .cv-header-motto .brand-tagline-translation{color:#fff!important;font-size:clamp(7px,1.9vw,9px)}
 }
+
+/* Header spacing refinement: prevent the Casa-Victoria script from touching
+   the separator, and give the bilingual motto its own breathing room. */
+@media(min-width:1241px){
+  .header .header-inner{gap:clamp(14px,1.2vw,24px)}
+  .header .cv-header-identity{gap:clamp(22px,1.6vw,32px)}
+  .header .cv-header-identity > .brand{
+    width:clamp(285px,18vw,335px);
+  }
+  .header .cv-header-motto{
+    padding-left:clamp(18px,1.4vw,28px);
+    flex-basis:clamp(245px,18vw,320px);
+  }
+  .header .brand-name{font-size:clamp(30px,2.1vw,37px)}
+}
+@media(min-width:991px) and (max-width:1240px){
+  .header .cv-header-identity{gap:15px}
+  .header .cv-header-identity > .brand{width:215px}
+  .header .brand-name{font-size:28px}
+  .header .cv-header-motto{padding-left:13px}
+}
+@media(min-width:761px) and (max-width:990px){
+  .header .cv-header-identity{gap:10px}
+  .header .cv-header-identity > .brand{width:156px}
+  .header .brand-name{font-size:23px}
+  .header .cv-header-motto{padding-left:10px}
+}
