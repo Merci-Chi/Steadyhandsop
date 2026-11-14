@@ -3,7 +3,7 @@
 // The All tab combines the folders, eliminating duplicate image content.
 (()=>{
   const repository='Merci-Chi/Steadyhandsop';
-  const base='https://raw.githubusercontent.com/Merci-Chi/Steadyhandsop/main/images/';
+  const base='/images/';
   const folders=[
     ['wedding','Wedding'],
     ['tuxedos','Tuxedos'],
@@ -71,8 +71,15 @@
     img.loading='lazy';
     img.decoding='async';
     img.addEventListener('error',()=>{
-      button.hidden=true;
-      // Do not show broken or unsupported images.
+      // Use the public repository as a fallback when the website's asset root differs.
+      if(!img.dataset.fallbackTried){
+        img.dataset.fallbackTried='true';
+        const fallback='https://raw.githubusercontent.com/Merci-Chi/Steadyhandsop/main/images/'+encodeURIComponent(folder)+'/'+encodeURIComponent(file.name);
+        img.src=fallback;
+        button.dataset.img=fallback;
+      }else{
+        button.hidden=true;
+      }
     });
     const overlay=document.createElement('span');
     overlay.className='portfolio-photo-overlay';
@@ -91,47 +98,32 @@
     grid.replaceChildren(...photos.map(({file,folder})=>card(file,folder,label)));
     message(panel,photos.length?'':'Photos coming soon.');
   }
-  async function listFolder(folder){
-    const endpoint='https://api.github.com/repos/'+repository+'/contents/images/'+encodeURIComponent(folder)+'?ref=main';
-    const response=await fetch(endpoint,{headers:{'Accept':'application/vnd.github+json'},cache:'no-store'});
-    if(response.status===404)return [];
-    if(!response.ok)throw new Error('GitHub returned '+response.status);
-    const entries=await response.json();
-    if(!Array.isArray(entries))throw new Error('Invalid folder response');
-    return entries.filter(file=>file.type==='file' && imageFileName(file.name) && webExtensions.test(file.name))
-      .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))
-      .map(file=>({file,folder}));
-  }
   async function load(){
-    for(const [,label] of folders){} // Categories remain visible while loading.
-    const results=await Promise.allSettled(folders.map(async ([id,folder])=>({
-      id,folder,photos:await listFolder(folder)
-    })));
+    // Static manifest is deployed with the page; no client-side GitHub API,
+    // authorization, rate limits, or cross-origin fetches are needed.
+    const response=await fetch('gallery-photos.json',{cache:'no-store'});
+    if(!response.ok)throw new Error('Unable to load gallery manifest: '+response.status);
+    const manifest=await response.json();
+    if(!manifest.categories || typeof manifest.categories!=='object')throw new Error('Invalid gallery manifest');
     const all=[];
     const seen=new Set();
-    let failed=0;
-    results.forEach((result,index)=>{
-      const [id,folder]=folders[index];
-      const panel=sections.get('category-'+id);
-      if(result.status==='rejected'){
-        failed++;
-        message(panel,'Unable to load photos right now. Refresh to try again.');
-        return;
-      }
-      render(panel,result.value.photos,folder);
-      for(const photo of result.value.photos){
+    for(const [id,folder] of folders){
+      const entries=Array.isArray(manifest.categories[folder])?manifest.categories[folder]:[];
+      const photos=entries.filter(file=>file && typeof file.name==='string' && webExtensions.test(file.name))
+        .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))
+        .map(file=>({file,folder}));
+      render(sections.get('category-'+id),photos,folder);
+      for(const photo of photos){
         const identity=photo.file.sha || photo.folder+'/'+photo.file.name;
         if(seen.has(identity))continue;
         seen.add(identity);
         all.push(photo);
       }
-    });
+    }
     render(allSection,all,'All Work');
-    if(failed)message(allSection,failed===folders.length?
-      'Unable to load photos right now. Refresh to try again.':
-      'Some categories could not load. Refresh to try again.');
   }
-  load().catch(()=>{
+  load().catch(error=>{
+    console.error('Casa-Victoria gallery:',error);
     sections.forEach(panel=>message(panel,'Unable to load photos right now. Refresh to try again.'));
   });
 })();
