@@ -92,10 +92,50 @@
     const p=panel?.querySelector('.cv-gallery-empty');
     if(p)p.textContent=value;
   }
+  // The highlighted construction photos are grouped in fixed before/after pairs.
+  // Each photo remains a normal lightbox button; no files are renamed or moved.
+  const behindPairs=[
+    ['1daa4eb4-edda-4a08-92c6-db171449e03c 2.JPG','casa-work-15.webp'],
+    ['983d3c75-06ea-464b-9621-cb9e49e8b549 2.JPG','4806bd9d-a2bc-4bd7-a423-6dd21e837dc5 2.JPG']
+  ];
+  function makePair(entries,label){
+    const wrapper=document.createElement('div');
+    wrapper.className='cv-before-after-pair';
+    entries.forEach(({file,folder},index)=>{
+      const button=card(file,folder,label);
+      const tag=document.createElement('span');
+      tag.className='cv-comparison-tag';
+      tag.textContent=index===0?'Before':'After';
+      tag.setAttribute('aria-hidden','true');
+      button.append(tag);
+      if(file.name==='4806bd9d-a2bc-4bd7-a423-6dd21e837dc5 2.JPG'){
+        button.classList.add('cv-bra-after-rotated');
+        button.dataset.orientation='bra-after';
+      }
+      wrapper.append(button);
+    });
+    return wrapper;
+  }
   function render(panel,photos,label){
     const grid=panel?.querySelector('.cv-category-grid');
     if(!grid)return;
-    grid.replaceChildren(...photos.map(({file,folder})=>card(file,folder,label)));
+    if(label==='Behind the Scenes'){
+      const lookup=new Map(photos.map(photo=>[photo.file.name,photo]));
+      const grouped=new Set();
+      const elements=[];
+      for(const pair of behindPairs){
+        const items=pair.map(name=>lookup.get(name)).filter(Boolean);
+        if(items.length===2){
+          elements.push(makePair(items,label));
+          pair.forEach(name=>grouped.add(name));
+        }
+      }
+      photos.filter(photo=>!grouped.has(photo.file.name))
+        .forEach(photo=>elements.push(card(photo.file,photo.folder,label)));
+      grid.replaceChildren(...elements);
+    }else{
+      grid.replaceChildren(...photos.map(({file,folder})=>card(file,folder,label)));
+    }
     message(panel,photos.length?'':'Photos coming soon.');
   }
   async function load(){
@@ -151,6 +191,7 @@ nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classL
     current=(index+photos.length)%photos.length;
     const item=photos[current];
     picture.src=item.dataset.img;
+    picture.classList.toggle('cv-bra-after-rotated-image',item.dataset.orientation==='bra-after');
     picture.alt=item.querySelector('img')?.alt || item.dataset.caption || 'Casa-Victoria gallery photo';
     caption.textContent='';
     caption.hidden=true;
@@ -174,6 +215,7 @@ nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classL
     lightbox.hidden=true;
     document.body.style.overflow=previousOverflow;
     picture.removeAttribute('src');
+    picture.classList.remove('cv-bra-after-rotated-image');
     if(lastActive?.isConnected)lastActive.focus();
   }
   document.addEventListener('click',event=>{
