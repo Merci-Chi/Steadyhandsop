@@ -1238,3 +1238,42 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 
 /* Keep gallery photo filenames and captions out of the lightbox footer. */
 .portfolio-lightbox .lightbox-caption{display:none!important}
+
+/* Behind the Scenes construction transformations displayed as paired before / after views. */
+.cv-category-grid .cv-before-after-pair{
+  grid-column:span 2;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:inherit;
+  min-width:0;
+}
+.cv-category-grid .cv-before-after-pair .portfolio-photo{
+  min-width:0;
+  grid-row:auto;
+  min-height:0;
+}
+.cv-comparison-tag{
+  position:absolute;
+  left:12px;
+  top:12px;
+  z-index:2;
+  padding:5px 12px;
+  border-radius:99px;
+  font:600 13px/1.2 Arial,sans-serif;
+  background:#173e30;
+  color:#fff;
+  box-shadow:0 2px 10px #0006;
+  pointer-events:none;
+}
+.cv-category-grid .cv-bra-after-rotated img{
+  transform:rotate(180deg) scaleX(-1);
+}
+.cv-category-grid .cv-bra-after-rotated:hover img{
+  transform:rotate(180deg) scaleX(-1) scale(1.045);
+}
+.portfolio-lightbox .cv-bra-after-rotated-image{
+  transform:rotate(180deg) scaleX(-1);
+}
+@media(max-width:470px){
+  .cv-comparison-tag{top:8px;left:8px;padding:4px 9px;font-size:11px}
+}
