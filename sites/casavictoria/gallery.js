@@ -4,6 +4,13 @@
   const tabs=Array.from(document.querySelectorAll('.cv-gallery-categories a[href^="#category-"]'));
   if(!tabs.length)return;
   const sections=tabs.map(tab=>document.getElementById(tab.getAttribute('href').slice(1)));
+  // Assemble the All tab from the existing category images, including alteration details.
+  // Clone rather than move the cards so individual category tabs remain unchanged.
+  const allGrid=document.querySelector('#category-all .cv-category-grid');
+  if(allGrid){
+    document.querySelectorAll('.cv-category-section:not(#category-all) .cv-category-grid > .portfolio-photo')
+      .forEach(photo=>allGrid.appendChild(photo.cloneNode(true)));
+  }
   const selectTab=(id,updateUrl=false)=>{
     const activeIndex=Math.max(0,tabs.findIndex(tab=>tab.getAttribute('href')==='#'+id));
     tabs.forEach((tab,index)=>{
