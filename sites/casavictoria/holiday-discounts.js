@@ -45,7 +45,7 @@
     fineprint:'For first-time fitting customers only. Cannot be combined with other discounts. Confirm eligibility when booking.'
   };
 
-  const storageKey='cv-holiday-promo-seen-'+offer.id;
+  const storageKey='cv-holiday-promo-dismissed-v2-'+offer.id;
   try{if(sessionStorage.getItem(storageKey))return;}catch(_){/* Browsers may block storage. */}
 
   const dialog=document.createElement('div');
@@ -72,6 +72,7 @@
   let previousFocus=null;
   let previousOverflow='';
   function close(){
+    try{sessionStorage.setItem(storageKey,'1');}catch(_){}
     dialog.classList.remove('is-visible');
     document.body.style.overflow=previousOverflow;
     window.setTimeout(()=>dialog.remove(),280);
@@ -96,6 +97,5 @@
     document.body.style.overflow='hidden';
     window.requestAnimationFrame(()=>dialog.classList.add('is-visible'));
     dialog.querySelector('.cv-holiday-close').focus({preventScroll:true});
-    try{sessionStorage.setItem(storageKey,'1');}catch(_){}
-  },3500);
+  },1500);
 })();
