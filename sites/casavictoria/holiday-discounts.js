@@ -1,11 +1,10 @@
-/* Casa-Victoria seasonal discounts. Las Vegas dates; closed weekends and holidays are excluded. */
+/* Casa-Victoria holiday offers and an everyday first-fitting welcome offer. */
 (()=>{
   const timeZone='America/Los_Angeles';
   const dateParts=new Intl.DateTimeFormat('en-US',{timeZone,year:'numeric',month:'2-digit',day:'2-digit',weekday:'short'});
   const parts=Object.fromEntries(dateParts.formatToParts(new Date()).map(p=>[p.type,p.value]));
   const today=`${parts.year}-${parts.month}-${parts.day}`;
   const isBusinessDay=!['Sat','Sun'].includes(parts.weekday);
-  if(!isBusinessDay)return;
 
   const offers=[
     {
@@ -34,8 +33,17 @@
       theme:'holiday'
     }
   ];
-  const offer=offers.find(o=>today>=o.start&&today<=o.end&&!o.excluded?.includes(today));
-  if(!offer)return;
+  const holidayOffer=isBusinessDay ? offers.find(o=>today>=o.start&&today<=o.end&&!o.excluded?.includes(today)) : null;
+  const offer=holidayOffer || {
+    id:'first-fitting-10',
+    title:'A Little Welcome Gift',
+    eyebrow:'FIRST FITTING SPECIAL',
+    dates:'Available year-round for your first fitting',
+    theme:'holiday',
+    percent:10,
+    services:'Your First Fitting',
+    fineprint:'For first-time fitting customers only. Cannot be combined with other discounts. Confirm eligibility when booking.'
+  };
 
   const storageKey='cv-holiday-promo-seen-'+offer.id;
   try{if(sessionStorage.getItem(storageKey))return;}catch(_){/* Browsers may block storage. */}
@@ -48,13 +56,16 @@
       <button type="button" class="cv-holiday-close" aria-label="Close holiday offer">×</button>
       <p class="cv-holiday-eyebrow"></p>
       <h2 id="cv-holiday-heading"></h2>
-      <p class="cv-holiday-percent">20% <span>OFF</span></p>
-      <p class="cv-holiday-services">Eligible Alteration Services</p>
+      <p class="cv-holiday-percent"><span class="cv-holiday-discount-value"></span> <span>OFF</span></p>
+      <p class="cv-holiday-services"></p>
       <p class="cv-holiday-details" id="cv-holiday-details"></p>
       <a class="cv-holiday-action" href="index.html#contact">Contact Us to Claim</a>
       <p class="cv-holiday-fineprint">Valid on the listed dates only, during regular business hours. Eligible services only; cannot be combined with other discounts. Confirm details when booking.</p>
     </section>`;
   dialog.querySelector('.cv-holiday-eyebrow').textContent=offer.eyebrow;
+  dialog.querySelector('.cv-holiday-discount-value').textContent=(offer.percent || 20)+'%';
+  dialog.querySelector('.cv-holiday-services').textContent=offer.services || 'Eligible Alteration Services';
+  if(offer.fineprint)dialog.querySelector('.cv-holiday-fineprint').textContent=offer.fineprint;
   dialog.querySelector('#cv-holiday-heading').textContent=offer.title;
   dialog.querySelector('.cv-holiday-details').textContent=offer.dates;
   document.body.append(dialog);
