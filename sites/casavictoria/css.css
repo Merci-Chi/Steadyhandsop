@@ -1715,3 +1715,124 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .header .header-inner>.header-contact-trigger{font-size:0!important;min-width:36px;width:36px;padding:6px!important}
   .header .header-inner>.header-contact-trigger svg{display:block;width:17px;height:17px}
 }
+
+/* Option 1 correction: keep every desktop header group on ONE horizontal row.
+   Spanish motto stays visibly gold, handwritten and never translated. */
+@media(min-width:761px){
+  .header .header-inner{
+    display:flex;
+    flex-flow:row nowrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:clamp(9px,1vw,17px);
+  }
+  .header .cv-header-identity{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:flex-start;
+    flex:0 1 auto;
+    min-width:0;
+    gap:clamp(10px,1vw,16px);
+  }
+  .header .cv-header-identity > .brand{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    width:clamp(185px,17vw,253px);
+    flex:0 0 auto;
+    height:auto;
+    gap:4px;
+  }
+  .header .cv-header-motto{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    flex:0 1 330px;
+    width:auto;
+    min-width:170px;
+    min-height:50px;
+    border-left:1px solid #c7a364;
+    padding:0 0 0 clamp(10px,1vw,16px);
+    gap:2px;
+  }
+  .header .cv-header-motto .brand-tagline{
+    display:block;
+    position:static;
+    font-family:'Allura','Brush Script MT',cursive !important;
+    font-style:normal;
+    font-weight:400;
+    color:#f0c777 !important;
+    font-size:clamp(20px,1.65vw,27px);
+    line-height:1.05;
+    letter-spacing:0;
+    white-space:normal;
+    text-align:left;
+    align-self:auto;
+    margin:0;
+    width:100%;
+    text-shadow:0 1px 2px rgba(0,0,0,.65);
+  }
+  .header .cv-header-motto .brand-tagline-translation{
+    display:block;
+    font-family:'DM Sans',Arial,sans-serif;
+    font-size:clamp(10px,.86vw,12px);
+    color:#fff !important;
+    font-weight:500;
+    text-align:left;
+    white-space:normal;
+    width:100%;
+    margin:0;
+    line-height:1.25;
+    align-self:auto;
+  }
+  .header .header-inner > .nav{
+    display:flex;
+    position:static!important;
+    transform:none!important;
+    flex:0 0 auto;
+    align-items:center;
+    justify-content:center;
+    width:auto!important;
+    height:auto!important;
+    top:auto!important;
+    left:auto!important;
+    margin:0 auto!important;
+    white-space:nowrap;
+  }
+  .header .header-inner > .language-control,
+  .header .header-inner > .header-contact-trigger{flex-shrink:0}
+}
+@media(min-width:761px) and (max-width:1240px){
+  .header .cv-header-identity{flex-direction:row;gap:8px;flex:0 1 auto}
+  .header .cv-header-identity > .brand{width:175px;height:auto}
+  .header .cv-header-motto{flex:0 1 220px;min-width:125px;min-height:42px;border-left:1px solid #c7a364;padding-left:8px}
+  .header .cv-header-motto .brand-tagline{font-size:clamp(17px,1.75vw,22px)}
+  .header .cv-header-motto .brand-tagline-translation{font-size:9px}
+  .header .header-inner > .nav{gap:clamp(7px,.8vw,11px)}
+  .header .header-inner > .nav a{font-size:clamp(13px,1.25vw,16px)}
+}
+@media(min-width:761px) and (max-width:990px){
+  .header .cv-header-identity{flex-direction:row;align-items:center;gap:6px;flex:0 1 auto}
+  .header .cv-header-identity > .brand{height:auto;width:146px}
+  .header .brand-emblem{width:38px;height:45px;flex-basis:38px}
+  .header .brand-name{font-size:24px}
+  .header .cv-header-motto{min-height:42px;flex:0 1 155px;border-left:1px solid #c7a364;padding-left:6px}
+  .header .cv-header-motto .brand-tagline{font-size:17px}
+  .header .cv-header-motto .brand-tagline-translation{font-size:8px}
+  .header .header-inner > .nav{gap:6px}
+  .header .header-inner > .nav a{font-size:13px}
+}
+@media(max-width:760px){
+  /* Mobile keeps the compact menu, but Spanish is gold and cursive as well. */
+  .header .cv-header-motto .brand-tagline{
+    font-family:'Allura','Brush Script MT',cursive !important;
+    color:#f0c777 !important;
+    font-size:clamp(13px,2.9vw,17px);
+    font-weight:400;
+    line-height:1;
+    text-shadow:0 1px 2px rgba(0,0,0,.6);
+  }
+  .header .cv-header-motto .brand-tagline-translation{color:#fff!important;font-size:clamp(7px,1.9vw,9px)}
+}
