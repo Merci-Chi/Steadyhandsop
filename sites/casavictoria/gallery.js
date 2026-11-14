@@ -96,7 +96,7 @@
   // Each photo remains a normal lightbox button; no files are renamed or moved.
   const behindPairs=[
     ['1daa4eb4-edda-4a08-92c6-db171449e03c 2.JPG','casa-work-15.webp'],
-    ['983d3c75-06ea-464b-9621-cb9e49e8b549 2.JPG','4806bd9d-a2bc-4bd7-a423-6dd21e837dc5 2.JPG']
+    ['4806bd9d-a2bc-4bd7-a423-6dd21e837dc5 2.JPG','983d3c75-06ea-464b-9621-cb9e49e8b549 2.JPG']
   ];
   function makePair(entries,label){
     const wrapper=document.createElement('div');
