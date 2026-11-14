@@ -1551,3 +1551,28 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .cv-holiday-welcome{padding:12px 9px;gap:9px}
   .cv-holiday-welcome .cv-holiday-welcome-percent{font-size:14px}
 }
+
+/* Casa-Victoria bilingual tagline: the original Spanish is never translated;
+   the white second line is translated by the site's existing Google control. */
+.header .brand-lettering .brand-tagline-translation{
+  display:block;
+  width:max-content;
+  max-width:280px;
+  margin:4px auto 0;
+  color:#fff;
+  font-family:'DM Sans',Arial,sans-serif;
+  font-size:clamp(10px,.93vw,12px);
+  font-weight:500;
+  letter-spacing:0;
+  line-height:1.22;
+  text-align:center;
+  white-space:normal;
+  text-shadow:0 1px 3px rgba(0,0,0,.55);
+}
+@media(max-width:760px){
+  .header .brand-lettering .brand-tagline-translation{
+    max-width:205px;
+    margin-top:3px;
+    font-size:clamp(9px,2.2vw,11px);
+  }
+}
