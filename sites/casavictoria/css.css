@@ -1500,3 +1500,32 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 .cv-holiday-action:hover,.cv-holiday-action:focus-visible{background:#ffe0a3;outline:2px solid #fff;outline-offset:2px}
 .cv-holiday-fineprint{font:400 11px/1.6 'DM Sans',Arial,sans-serif;color:#e2dbc9;margin:0}
 @media(prefers-reduced-motion:reduce){.cv-holiday-backdrop,.cv-holiday-popup{transition:none!important}}
+
+/* Minimized offer: a discreet, fixed coupon button on the right side. */
+.cv-holiday-coupon[hidden]{display:none!important}
+.cv-holiday-coupon{
+  position:fixed;
+  z-index:11990;
+  right:0;
+  top:52%;
+  transform:translate(16px,-50%) scale(.9);
+  width:64px;
+  height:64px;
+  display:grid;
+  place-items:center;
+  border:2px solid #e6c47a;
+  border-right:0;
+  border-radius:50% 0 0 50%;
+  color:#f9d88d;
+  background:linear-gradient(150deg,#25523c,#0e2c20);
+  box-shadow:0 7px 22px rgba(0,0,0,.24);
+  opacity:0;
+  cursor:pointer;
+  transition:transform .3s ease,opacity .3s ease,box-shadow .2s ease;
+}
+.cv-holiday-coupon.is-visible{transform:translate(0,-50%) scale(1);opacity:1}
+.cv-holiday-coupon svg{width:29px;height:29px}
+.cv-holiday-coupon:hover{box-shadow:0 8px 28px rgba(0,0,0,.34);background:#285b43}
+.cv-holiday-coupon:focus-visible{outline:3px solid #d5a754;outline-offset:4px}
+@media(max-width:650px){.cv-holiday-coupon{width:54px;height:54px;top:65%}.cv-holiday-coupon svg{width:25px;height:25px}}
+@media(prefers-reduced-motion:reduce){.cv-holiday-coupon{transition:none}}
