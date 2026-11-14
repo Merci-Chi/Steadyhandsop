@@ -1529,3 +1529,25 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 .cv-holiday-coupon:focus-visible{outline:3px solid #d5a754;outline-offset:4px}
 @media(max-width:650px){.cv-holiday-coupon{width:54px;height:54px;top:65%}.cv-holiday-coupon svg{width:25px;height:25px}}
 @media(prefers-reduced-motion:reduce){.cv-holiday-coupon{transition:none}}
+
+/* Upcoming Coupons featured offer and always-available welcome discount. */
+.cv-holiday-popup{width:min(100%,520px)}
+.cv-holiday-popup #cv-holiday-heading{margin-bottom:19px}
+.cv-holiday-feature{padding:20px 16px 16px;border:1px solid rgba(207,167,95,.5);border-radius:15px;background:rgba(255,255,255,.055)}
+.cv-holiday-status{display:inline-block;padding:6px 12px;border:1px solid rgba(234,203,146,.65);border-radius:30px;color:#f5d99e;background:rgba(18,46,32,.7);font:700 11px/1.2 'DM Sans',Arial,sans-serif;letter-spacing:.11em}
+.cv-holiday-feature-title{font:500 clamp(27px,5vw,35px)/1.12 'Cormorant Garamond',Georgia,serif;color:#fff5df;margin:13px 0 6px}
+.cv-holiday-feature .cv-holiday-percent{font-size:clamp(58px,10vw,76px);margin:9px 0 3px}
+.cv-holiday-feature .cv-holiday-services{font-size:20px;margin:5px 0 8px}
+.cv-holiday-feature .cv-holiday-details{font-size:14px;padding:10px 6px;margin-bottom:0;max-width:100%}
+.cv-holiday-welcome{margin:14px 0 20px;padding:13px 14px;border:1px solid rgba(225,201,143,.2);border-radius:12px;background:rgba(31,83,59,.55);display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;font:500 14px/1.35 'DM Sans',Arial,sans-serif}
+.cv-holiday-welcome[hidden]{display:none!important}
+.cv-holiday-welcome strong{display:block;color:#f6ead4;font-weight:650}
+.cv-holiday-welcome small{display:block;font-size:11px;color:#dcd8c7;margin-top:4px}
+.cv-holiday-welcome .cv-holiday-welcome-percent{white-space:nowrap;color:#f4cd7b;font-size:16px}
+.cv-holiday-popup .cv-holiday-action{margin-top:18px}
+@media(max-width:480px){
+  .cv-holiday-popup{padding:38px 17px 24px}
+  .cv-holiday-feature{padding:15px 10px}
+  .cv-holiday-welcome{padding:12px 9px;gap:9px}
+  .cv-holiday-welcome .cv-holiday-welcome-percent{font-size:14px}
+}
