@@ -2227,7 +2227,7 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 /* Casa-Victoria gallery: show the supplied ivory silk behind photo tiles.
    Keep category navigation and photo cards above the fabric; Behind the Scenes
    video still overlays the background only when its tab is selected. */
-.gallery-page .portfolio-section{
+.portfolio-section{
   background-color:#f7f4ef!important;
   background-image:url("images/ivory-satin-horizontal.webp")!important;
   background-repeat:no-repeat!important;
