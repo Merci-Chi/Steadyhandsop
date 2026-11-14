@@ -46,7 +46,18 @@
   };
 
   const storageKey='cv-holiday-promo-dismissed-v2-'+offer.id;
-  try{if(sessionStorage.getItem(storageKey))return;}catch(_){/* Browsers may block storage. */}
+  let alreadyDismissed=false;
+  try{alreadyDismissed=sessionStorage.getItem(storageKey)==='1';}catch(_){/* Browsers may block storage. */}
+
+  // The coupon stays available after the modal has been dismissed.
+  const coupon=document.createElement('button');
+  coupon.type='button';
+  coupon.className='cv-holiday-coupon';
+  coupon.setAttribute('aria-label','Open '+(offer.percent || 20)+'% discount offer');
+  coupon.setAttribute('title','View your discount');
+  coupon.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3.5a2.5 2.5 0 0 0 0 5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5.5a2.5 2.5 0 0 0 0-5Z"/><path d="M12 4v2m0 3v2m0 3v2m0 3v1"/></svg>';
+  coupon.hidden=true;
+  document.body.append(coupon);
 
   const dialog=document.createElement('div');
   dialog.className='cv-holiday-backdrop';
@@ -71,13 +82,34 @@
   document.body.append(dialog);
   let previousFocus=null;
   let previousOverflow='';
+  let isOpen=false;
+  function showCoupon(){
+    coupon.hidden=false;
+    window.requestAnimationFrame(()=>coupon.classList.add('is-visible'));
+  }
+  function open(){
+    if(isOpen)return;
+    isOpen=true;
+    coupon.classList.remove('is-visible');
+    coupon.hidden=true;
+    previousFocus=document.activeElement;
+    previousOverflow=document.body.style.overflow;
+    dialog.hidden=false;
+    document.body.style.overflow='hidden';
+    window.requestAnimationFrame(()=>dialog.classList.add('is-visible'));
+    dialog.querySelector('.cv-holiday-close').focus({preventScroll:true});
+  }
   function close(){
+    if(!isOpen)return;
+    isOpen=false;
     try{sessionStorage.setItem(storageKey,'1');}catch(_){}
     dialog.classList.remove('is-visible');
     document.body.style.overflow=previousOverflow;
-    window.setTimeout(()=>dialog.remove(),280);
-    if(previousFocus?.isConnected)previousFocus.focus();
+    window.setTimeout(()=>{if(!isOpen)dialog.hidden=true;},280);
+    showCoupon();
+    coupon.focus({preventScroll:true});
   }
+  coupon.addEventListener('click',open);
   dialog.querySelector('.cv-holiday-close').addEventListener('click',close);
   dialog.addEventListener('click',e=>{if(e.target===dialog)close();});
   dialog.addEventListener('keydown',e=>{
@@ -89,13 +121,9 @@
       else if(!e.shiftKey&&index===controls.length-1){e.preventDefault();controls[0].focus();}
     }
   });
-  window.setTimeout(()=>{
-    if(!dialog.isConnected)return;
-    previousFocus=document.activeElement;
-    previousOverflow=document.body.style.overflow;
-    dialog.hidden=false;
-    document.body.style.overflow='hidden';
-    window.requestAnimationFrame(()=>dialog.classList.add('is-visible'));
-    dialog.querySelector('.cv-holiday-close').focus({preventScroll:true});
-  },1500);
+  if(alreadyDismissed){
+    showCoupon();
+  }else{
+    window.setTimeout(()=>{if(dialog.isConnected)open();},1500);
+  }
 })();
