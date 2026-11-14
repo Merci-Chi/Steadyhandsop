@@ -8,7 +8,7 @@
     ['wedding','Wedding'],
     ['tuxedos','Tuxedos'],
     ['dresses','Dresses'],
-    ['fabrics-accessories','Fabrics & Accessories'],
+    ['fabrics-accessories','Fabrics'],
     ['behind-the-scenes','Behind the Scenes'],
     ['other','Other']
   ];
