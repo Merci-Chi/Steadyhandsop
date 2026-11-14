@@ -1,5 +1,5 @@
 /* Seam feathering for the unrotated horizontal ivory-satin gallery background.
-   Matches CSS background-size:auto 100% and background-repeat:repeat-x. */
+   Matches CSS background-size:100% auto and background-repeat:repeat-y. */
 (()=>{
   'use strict';
   const section=document.querySelector('.portfolio-section');
@@ -19,16 +19,16 @@
     // CSS sizes every background tile to the gallery section's full height.
     const width=section.clientWidth;
     const height=section.clientHeight;
-    const tileWidth=silk.naturalWidth*(height/silk.naturalHeight);
-    if(!Number.isFinite(tileWidth)||tileWidth<=0||tileWidth>=width)return;
+    const tileHeight=silk.naturalHeight*(width/silk.naturalWidth);
+    if(!Number.isFinite(tileHeight)||tileHeight<=0||tileHeight>=height)return;
 
-    // Add subtle vertical white feathering centered at each repeat boundary.
+    // Add subtle horizontal white feathering centered at each repeat boundary.
     const fragment=document.createDocumentFragment();
-    for(let x=tileWidth;x<width&&fragment.childNodes.length<60;x+=tileWidth){
+    for(let y=tileHeight;y<height&&fragment.childNodes.length<60;y+=tileHeight){
       const seam=document.createElement('span');
       seam.className='gallery-seam-blur';
       seam.setAttribute('aria-hidden','true');
-      seam.style.left=(x-seamWidth/2)+'px';
+      seam.style.top=(y-seamWidth/2)+'px';
       fragment.appendChild(seam);
     }
     // Keep seam layers behind the gallery video and photo/grid content.
