@@ -1968,3 +1968,198 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .header .cv-header-motto .brand-tagline-translation{font-size:8px}
   .header .header-inner>.nav a{font-size:13px}
 }
+
+/* Mobile reference: one floating emerald pill, with logo / brand / translate / call / menu.
+   Preserve the complete bilingual motto on desktop; don't crowd the mobile navigation. */
+@media(max-width:760px){
+  .header{
+    height:79px!important;
+    padding:9px 10px 7px;
+    background:transparent!important;
+    border:0;
+    box-shadow:none;
+  }
+  .header .header-inner{
+    display:flex;
+    flex-flow:row nowrap;
+    align-items:center;
+    width:100%;
+    max-width:none;
+    height:62px;
+    padding:0 clamp(9px,2.8vw,15px)!important;
+    gap:clamp(5px,1.5vw,10px)!important;
+    border:1px solid #d6b56d;
+    border-radius:999px;
+    background:linear-gradient(125deg,#194632,#0b271c 72%,#173f2e);
+    box-shadow:0 7px 16px rgba(0,0,0,.35);
+  }
+  .header .cv-header-identity{
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    max-width:none;
+    align-self:center;
+    flex-direction:row;
+    align-items:center;
+    gap:0;
+  }
+  .header .cv-header-identity>.brand{
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    width:auto;
+    height:55px;
+    gap:clamp(3px,.9vw,7px);
+    justify-content:flex-start;
+    align-items:center;
+    overflow:hidden;
+    color:#e6bd69;
+  }
+  .header .brand-emblem{
+    width:clamp(38px,10vw,49px);
+    height:53px;
+    flex:0 0 clamp(38px,10vw,49px);
+  }
+  .header .brand-monogram-v{font-size:58px}
+  .header .brand-lettering{
+    display:flex;
+    min-width:0;
+    flex:1 1 auto;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transform:none;
+  }
+  .header .brand-small{font-size:clamp(7px,1.65vw,9px);letter-spacing:.18em;line-height:1}
+  .header .brand-name{top:0;font-size:clamp(22px,5.6vw,31px);line-height:1.05;white-space:nowrap}
+  .header .cv-header-motto{display:none!important}
+  .header .header-inner>.language-control{
+    order:2!important;
+    margin:0!important;
+    flex:0 0 auto;
+    align-self:center;
+  }
+  .header .header-inner .language-trigger.button.header-call{
+    display:grid!important;
+    place-items:center;
+    width:clamp(34px,9vw,41px);
+    min-width:clamp(34px,9vw,41px);
+    height:clamp(34px,9vw,41px);
+    min-height:clamp(34px,9vw,41px);
+    border:1px solid #d9b56d;
+    border-radius:50%;
+    padding:0!important;
+  }
+  .header .header-inner .language-trigger.button.header-call>svg:first-child{width:21px;height:21px}
+  .header .header-inner>.header-contact-trigger{
+    order:3!important;
+    display:grid;
+    place-items:center;
+    margin:0!important;
+    padding:0!important;
+    width:clamp(34px,9vw,41px);
+    min-width:clamp(34px,9vw,41px);
+    height:clamp(34px,9vw,41px);
+    min-height:clamp(34px,9vw,41px);
+    border-radius:50%;
+    font-size:0!important;
+    gap:0;
+    line-height:0;
+  }
+  .header .header-inner>.header-contact-trigger svg{display:block!important;width:20px;height:20px}
+  .header .header-inner>.menu{
+    order:4!important;
+    display:flex;
+    flex:0 0 clamp(30px,8vw,38px);
+    width:clamp(30px,8vw,38px);
+    min-width:0;
+    height:39px;
+    padding:4px;
+    gap:5px;
+    align-items:center;
+    justify-content:center;
+    border:0;
+    border-radius:8px;
+    background:transparent;
+  }
+  .header .header-inner>.menu span{width:23px;height:2px;background:#fff}
+  .header .header-inner>.menu:focus-visible{outline:2px solid #e9c77d;outline-offset:2px}
+  .header .header-inner>.nav{
+    top:calc(100% + 8px)!important;
+    left:0;
+    right:0;
+    width:100%;
+    border:1px solid #c9a461;
+    border-radius:19px;
+    background:#10291e;
+    box-shadow:0 12px 28px rgba(0,0,0,.4);
+    padding:18px 15px;
+    z-index:54;
+  }
+  .header .language-menu{right:-95px;top:calc(100% + 12px)}
+  body.google-banner-active .nav.open{max-height:calc(100dvh - 165px);overflow-y:auto}
+}
+@media(max-width:390px){
+  .header{padding-left:7px;padding-right:7px}
+  .header .header-inner{padding:0 8px!important;gap:4px!important}
+  .header .brand-emblem{width:37px;flex-basis:37px}
+  .header .brand-name{font-size:clamp(20px,5.7vw,24px)}
+  .header .header-inner>.menu{flex-basis:29px;width:29px}
+  .header .language-menu{right:-89px}
+}
+
+/* Coupon panel sized for mobile Safari, with its own scroll area when needed. */
+@media(max-width:760px){
+  .cv-holiday-backdrop{
+    padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom));
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+  .cv-holiday-popup{
+    display:block;
+    width:min(100%,420px);
+    max-width:100%;
+    max-height:calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height:0;
+    margin:auto;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    border-radius:19px;
+    padding:40px 19px 22px;
+  }
+  .cv-holiday-popup #cv-holiday-heading{font-size:clamp(29px,7.4vw,38px);margin:0 0 13px}
+  .cv-holiday-popup .cv-holiday-eyebrow{font-size:10px;margin-bottom:9px}
+  .cv-holiday-feature{padding:13px 10px 12px}
+  .cv-holiday-feature-title{font-size:clamp(25px,6.4vw,32px);margin:9px 0 3px}
+  .cv-holiday-feature .cv-holiday-percent{font-size:clamp(49px,13vw,68px);margin:6px 0}
+  .cv-holiday-feature .cv-holiday-services{font-size:19px;margin:3px 0 7px}
+  .cv-holiday-feature .cv-holiday-details{font-size:12px;line-height:1.45;padding:8px 4px;overflow-wrap:anywhere}
+  .cv-holiday-welcome{margin:12px 0 14px;padding:11px 10px;gap:10px}
+  .cv-holiday-welcome strong{font-size:13px}
+  .cv-holiday-welcome small{font-size:10px}
+  .cv-holiday-welcome .cv-holiday-welcome-percent{font-size:13px}
+  .cv-holiday-popup .cv-holiday-action{
+    display:block;
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+    white-space:normal;
+    margin:13px auto 14px;
+    padding:12px 15px;
+    font-size:13px;
+    line-height:1.35;
+    text-align:center;
+    overflow-wrap:break-word;
+  }
+  .cv-holiday-fineprint{font-size:10px;line-height:1.45}
+  .cv-holiday-close{top:5px;right:7px;width:36px;height:36px}
+  .cv-holiday-coupon{width:49px;height:49px;top:58%}
+  .cv-holiday-coupon svg{width:24px;height:24px}
+}
+@media(max-width:380px) and (max-height:720px){
+  .cv-holiday-popup{padding:36px 14px 16px}
+  .cv-holiday-feature{padding:9px 9px}
+  .cv-holiday-feature .cv-holiday-percent{font-size:48px}
+  .cv-holiday-welcome{padding:9px}
+}
