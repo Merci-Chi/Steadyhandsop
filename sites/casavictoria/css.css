@@ -1863,3 +1863,76 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .header .brand-name{font-size:23px}
   .header .cv-header-motto{padding-left:10px}
 }
+
+/* Reference-matched slim header: compact divider spacing, SINGLE-LINE slogans. */
+@media(min-width:761px){
+  .header .header-inner{
+    max-width:none;
+    gap:clamp(8px,.85vw,16px);
+    padding-left:clamp(12px,1.6vw,27px);
+    padding-right:clamp(12px,1.6vw,27px);
+  }
+  .header .cv-header-identity{gap:12px;flex:0 0 auto}
+  .header .cv-header-identity>.brand{width:clamp(205px,16vw,280px);flex:0 0 auto;gap:3px}
+  .header .brand-emblem{width:clamp(46px,4vw,63px);height:68px;flex-basis:clamp(46px,4vw,63px)}
+  .header .brand-name{font-size:clamp(27px,2.2vw,34px)}
+  .header .cv-header-motto{
+    display:flex;
+    flex:0 0 auto;
+    width:auto;
+    min-width:0;
+    gap:2px;
+    min-height:44px;
+    padding:0 0 0 14px;
+    border-left:1px solid #c7a364;
+  }
+  .header .cv-header-motto .brand-tagline{
+    width:max-content;
+    max-width:none;
+    white-space:nowrap;
+    font-family:'Allura','Brush Script MT',cursive!important;
+    font-size:clamp(18px,1.45vw,23px);
+    line-height:1.1;
+    color:#f0c777!important;
+    margin:0;
+  }
+  .header .cv-header-motto .brand-tagline-translation{
+    width:max-content;
+    max-width:none;
+    white-space:nowrap;
+    font-size:clamp(9px,.74vw,11px);
+    line-height:1.25;
+    color:#fff!important;
+    margin:0;
+  }
+  .header .header-inner>.nav{gap:clamp(9px,1vw,17px);margin:0 auto!important}
+  .header .header-inner>.nav a{font-size:clamp(15px,1.15vw,19px)}
+  .header .header-inner>.header-contact-trigger{padding:5px 12px;font-size:clamp(13px,1.1vw,16px)}
+}
+@media(min-width:761px) and (max-width:1280px){
+  .header .header-inner{gap:8px;padding:0 12px}
+  .header .cv-header-identity{gap:8px}
+  .header .cv-header-identity>.brand{width:clamp(145px,15vw,200px)}
+  .header .brand-emblem{width:43px;height:50px;flex-basis:43px}
+  .header .brand-monogram-v{font-size:54px}
+  .header .brand-name{font-size:clamp(21px,2vw,27px)}
+  .header .brand-small{font-size:8px}
+  .header .cv-header-motto{min-height:38px;padding-left:9px}
+  .header .cv-header-motto .brand-tagline{font-size:clamp(14px,1.5vw,19px)}
+  .header .cv-header-motto .brand-tagline-translation{font-size:clamp(7px,.79vw,10px)}
+  .header .header-inner>.nav{gap:clamp(5px,.7vw,9px)}
+  .header .header-inner>.nav a{font-size:clamp(12px,1.15vw,15px)}
+  .header .header-inner>.header-contact-trigger{padding:5px 8px;font-size:13px;gap:5px}
+  .header .header-inner .language-trigger.button.header-call{width:36px;min-width:36px;height:36px;min-height:36px}
+}
+@media(min-width:761px) and (max-width:990px){
+  .header .cv-header-identity{flex-direction:row;align-items:center;gap:6px}
+  .header .cv-header-identity>.brand{width:140px;height:auto}
+  .header .brand-name{font-size:22px}
+  .header .cv-header-motto{border-left:1px solid #c7a364;padding-left:7px;flex:0 0 auto}
+  .header .cv-header-motto .brand-tagline{font-size:14px}
+  .header .cv-header-motto .brand-tagline-translation{font-size:7px}
+  .header .header-inner>.nav{gap:5px}
+  .header .header-inner>.nav a{font-size:12px}
+  .header .header-inner>.header-contact-trigger{font-size:12px;padding:5px 6px;gap:3px}
+}
