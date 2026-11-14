@@ -1235,3 +1235,6 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 /* Compact services navigation after removing the four photo and description cards. */
 .services{min-height:0;padding-bottom:20px}
 .services .cv-service-links{margin-bottom:16px}
+
+/* Keep gallery photo filenames and captions out of the lightbox footer. */
+.portfolio-lightbox .lightbox-caption{display:none!important}
