@@ -1277,3 +1277,21 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
 @media(max-width:470px){
   .cv-comparison-tag{top:8px;left:8px;padding:4px 9px;font-size:11px}
 }
+
+/* Larger, easier-to-read category tabs across the Casa-Victoria site. */
+.cv-gallery-categories{max-width:1200px;gap:12px}
+.cv-gallery-categories a{
+  font-size:clamp(17px,1.5vw,21px);
+  padding:13px 23px;
+  line-height:1.25;
+}
+.cv-service-links{max-width:1200px;gap:12px}
+.cv-service-links a{
+  font-size:clamp(16px,1.4vw,20px);
+  padding:12px 20px;
+  line-height:1.25;
+}
+@media(max-width:650px){
+  .cv-gallery-categories,.cv-service-links{gap:9px}
+  .cv-gallery-categories a,.cv-service-links a{font-size:16px;padding:11px 16px}
+}
