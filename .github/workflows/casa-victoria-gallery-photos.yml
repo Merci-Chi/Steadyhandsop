@@ -1,0 +1,38 @@
+name: Package Casa-Victoria gallery photos
+on:
+  push:
+    paths:
+      - .github/workflows/casa-victoria-gallery-photos.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  package-photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Build gallery-only photo ZIP
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, zipfile
+          site = Path('sites/casavictoria')
+          html = (site / 'gallery.html').read_text(encoding='utf-8')
+          names = sorted(set(re.findall(r'data-img="images/([^"]+)"', html)))
+          dest = site / 'Casa-Victoria-Gallery-Photos.zip'
+          missing = [name for name in names if not (site / 'images' / name).is_file()]
+          if missing:
+              raise SystemExit(f'Gallery images missing: {missing}')
+          with zipfile.ZipFile(dest, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+              for name in names:
+                  z.write(site / 'images' / name, 'Casa-Victoria-Gallery-Photos/' + name)
+          print(f'Packaged {len(names)} gallery photos: {dest}')
+          PY
+      - name: Save ZIP to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sites/casavictoria/Casa-Victoria-Gallery-Photos.zip
+          git diff --cached --quiet || (git commit -m "Package Casa-Victoria gallery photos [skip ci]" && git push)
