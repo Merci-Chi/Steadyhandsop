@@ -63,7 +63,7 @@
   coupon.className='cv-holiday-coupon';
   coupon.setAttribute('aria-label','Open upcoming coupons and discounts');
   coupon.setAttribute('title','Upcoming Coupons');
-  coupon.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3.5a2.5 2.5 0 0 0 0 5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5.5a2.5 2.5 0 0 0 0-5Z"/><path d="M12 4v2m0 3v2m0 3v2m0 3v1"/></svg>';
+  coupon.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M9 9h.01"/><path d="m15 9-6 6"/><path d="M15 15h.01"/></svg>';
   coupon.hidden=true;
   document.body.append(coupon);
 
