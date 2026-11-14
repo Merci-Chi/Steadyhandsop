@@ -86,7 +86,7 @@
         <div><strong>First Fitting Discount</strong><small>Available now for new customers</small></div>
         <strong class="cv-holiday-welcome-percent">10% OFF</strong>
       </div>
-      <a class="cv-holiday-action" href="index.html#contact">Contact Us to Claim</a>
+      <a class="cv-holiday-action" href="index.html#contact">Contact Us or come in store to claim.</a>
       <p class="cv-holiday-fineprint"></p>
     </section>`;
   dialog.querySelector('.cv-holiday-feature-title').textContent=offer.title;
