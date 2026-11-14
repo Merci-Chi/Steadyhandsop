@@ -45,7 +45,10 @@
   };
   const eligibleToday=holiday && today>=holiday.starts && today<=holiday.ends && isBusinessDay &&
     (holiday.id!=='black-friday-2026'||today==='2026-11-27'||today==='2026-11-30');
-  const status=holiday ? (eligibleToday?'AVAILABLE NOW':'COMING SOON') : 'AVAILABLE NOW';
+  const withinHolidayDates=holiday && today>=holiday.starts && today<=holiday.ends;
+  const status=holiday
+    ? (eligibleToday?'AVAILABLE NOW':withinHolidayDates?'VALID ON OPEN DAYS':'COMING SOON')
+    : 'AVAILABLE NOW';
   const offerFineprint=holiday
     ? 'Offer valid only on the listed business days during regular hours. Eligible alteration services only; cannot be combined with other discounts. Confirm details when booking.'
     : 'For first-time fitting customers only. Cannot be combined with other discounts. Confirm eligibility when booking.';
