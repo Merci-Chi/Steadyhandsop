@@ -8,7 +8,7 @@
     ['wedding','Wedding'],
     ['tuxedos','Tuxedos'],
     ['dresses','Dresses'],
-    ['fabrics-accessories','Fabrics'],
+    ['fabrics-accessories','Fabrics & Accessories','Fabrics'],
     ['behind-the-scenes','Behind the Scenes'],
     ['other','Other']
   ];
@@ -147,12 +147,12 @@
     if(!manifest.categories || typeof manifest.categories!=='object')throw new Error('Invalid gallery manifest');
     const all=[];
     const seen=new Set();
-    for(const [id,folder] of folders){
+    for(const [id,folder,displayName] of folders){
       const entries=Array.isArray(manifest.categories[folder])?manifest.categories[folder]:[];
       const photos=entries.filter(file=>file && typeof file.name==='string' && webExtensions.test(file.name))
         .sort((a,b)=>{ const priority=['casa-bridal-front-studio.webp','casa-bridal-back-studio.webp','casa-bridal-sleeve-studio.webp']; if(folder==='Wedding'){const ai=priority.indexOf(a.name),bi=priority.indexOf(b.name);if(ai!==bi)return (ai<0?999:ai)-(bi<0?999:bi);} return a.name.localeCompare(b.name,undefined,{numeric:true});})
         .map(file=>({file,folder}));
-      render(sections.get('category-'+id),photos,folder);
+      render(sections.get('category-'+id),photos,displayName || folder);
       for(const photo of photos){
         const identity=photo.file.sha || photo.folder+'/'+photo.file.name;
         if(seen.has(identity))continue;
