@@ -1936,3 +1936,35 @@ body.google-banner-active .nav.open { max-height: calc(100vh - var(--google-bann
   .header .header-inner>.nav a{font-size:12px}
   .header .header-inner>.header-contact-trigger{font-size:12px;padding:5px 6px;gap:3px}
 }
+
+/* Fill the slim Option 1 header more confidently without adding another row. */
+@media(min-width:1281px){
+  .header{height:96px}
+  .header .header-inner{gap:clamp(12px,1vw,20px)}
+  .header .cv-header-identity{gap:clamp(12px,.95vw,20px)}
+  .header .cv-header-identity>.brand{width:clamp(265px,17vw,340px)}
+  .header .brand-emblem{width:clamp(65px,4.4vw,82px);height:82px;flex-basis:clamp(65px,4.4vw,82px)}
+  .header .brand-monogram-v{font-size:clamp(78px,5vw,100px)}
+  .header .brand-name{font-size:clamp(35px,2.35vw,44px)}
+  .header .brand-small{font-size:clamp(10px,.75vw,13px)}
+  .header .cv-header-motto{padding-left:clamp(12px,1vw,19px);gap:4px}
+  .header .cv-header-motto .brand-tagline{font-size:clamp(23px,1.65vw,31px)}
+  .header .cv-header-motto .brand-tagline-translation{font-size:clamp(11px,.85vw,15px)}
+  .header .header-inner>.nav{gap:clamp(15px,1.15vw,25px);margin:0 auto!important}
+  .header .header-inner>.nav a{font-size:clamp(19px,1.35vw,25px)}
+  .header .header-inner .language-trigger.button.header-call{width:45px;min-width:45px;height:44px;min-height:44px}
+  .header .header-inner>.header-contact-trigger{min-height:44px;font-size:clamp(16px,1.2vw,20px);padding:6px 17px}
+}
+@media(min-width:761px) and (max-width:1280px){
+  .header{height:90px}
+  .header .brand-name{font-size:clamp(24px,2.15vw,30px)}
+  .header .cv-header-motto .brand-tagline{font-size:clamp(16px,1.55vw,20px)}
+  .header .cv-header-motto .brand-tagline-translation{font-size:clamp(8px,.85vw,11px)}
+  .header .header-inner>.nav a{font-size:clamp(13px,1.25vw,17px)}
+}
+@media(min-width:761px) and (max-width:990px){
+  .header .brand-name{font-size:23px}
+  .header .cv-header-motto .brand-tagline{font-size:15px}
+  .header .cv-header-motto .brand-tagline-translation{font-size:8px}
+  .header .header-inner>.nav a{font-size:13px}
+}
